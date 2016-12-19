@@ -1,0 +1,57 @@
+[{
+    "id": "humanrights",
+    "icon": "fa-globe",
+    "catTag": "Human Rights"
+}, {
+    "id": "productsservices",
+    "icon": "fa-shopping-basket",
+    "catTag": "Products and services "
+}, {
+    "id": "environment",
+    "icon": "fa-pagelines",
+    "catTag": "Environment "
+}, {
+    "id": "artculture",
+    "icon": "fa-paint-brush",
+    "catTag": "Art and Culture"
+}, {
+    "id": "gender",
+    "icon": "fa-transgender-alt",
+    "catTag": "Gender & Sexuality"
+}, {
+    "id": "health",
+    "icon": "fa-medkit",
+    "catTag": "Health"
+}, {
+    "id": "education",
+    "icon": "fa-book",
+    "catTag": "Education"
+}, {
+    "id": "food",
+    "icon": "fa-cutlery",
+    "catTag": "Nutrition "
+}, {
+    "id": "housing",
+    "icon": "fa-home",
+    "catTag": "Housing "
+}, {
+    "id": "clothing",
+    "icon": "fa-scissors",
+    "catTag": "Clothing"
+}, {
+    "id": "communication",
+    "icon": "fa-bullhorn",
+    "catTag": "Communication"
+}, {
+    "id": "technology",
+    "icon": "fa-cogs",
+    "catTag": "Technology "
+}, {
+    "id": "transport",
+    "icon": "fa-bicycle",
+    "catTag": "Transport"
+}, {
+    "id": "networks",
+    "icon": "fa-cubes",
+    "catTag": "Network"
+}]
