@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view1">
+<dom-module id="vientos-projects">
   <template>
     <style include="shared-styles">
       :host {
@@ -50,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
    let ReduxBehavior = PolymerRedux(window.store)
    Polymer({
-      is: 'my-view1',
+      is: 'vientos-projects',
       behaviors: [ ReduxBehavior ],
       actions: {
         toggleCategory: function(categoryId) {
