@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="vientos-projects">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      paper-toggle-button[active] {
+        background-color: green;
+      }
+    </style>
+
+   <iron-list items="[[filter]]" as="item">
+      <template>
+         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
+            [[item.categoryId]]
+         </paper-toggle-button>
+      </template>
+   </iron-list>
+   <paper-button on-tap="_clearFilter">
+     clear <!-- FIXME i18n -->
+   </paper-button>
+   <iron-list items="[[visibleProjects]]" as="item">
+      <template>
+         <paper-item>
+            [[item.name]]
+         </paper-item>
+      </template>
+   </iron-list>
+  </template>
+
+  <script>
+   let ReduxBehavior = PolymerRedux(window.store)
+   Polymer({
+      is: 'vientos-projects',
+      behaviors: [ ReduxBehavior ],
+      actions: {
+        toggleCategory: function(categoryId) {
+          return {
+            type: 'TOGGLE_CATEGORY',
+            categoryId: categoryId
+          }
+        },
+        clearFilter: function(categoryId) {
+          return {
+            type: 'CLEAR_FILTER',
+            categoryId: categoryId
+          }
+        }
+      },
+
+      properties: {
+         projects: {
+           type: Array,
+           statePath: 'projects',
+           observer: '_projectsChanged'
+         },
+         categories: {
+           type: Array,
+           statePath: 'categories'
+         },
+         filter: {
+           type: Array,
+           statePath: 'filter',
+           observer: '_filterChanged'
+         },
+         visibleProjects: {
+           type: Array,
+           value: []
+
+         }
+      },
+
+      _projectsChanged: function () {
+        this.set('visibleProjects', this.projects.slice())
+      },
+
+      _filterChanged: function () {
+        let filter = this.filter
+        if(filter.every(f => !f.selected)) {
+          this.set('visibleProjects', this.projects.slice())
+        } else {
+          this.set('visibleProjects', this.projects.filter(function(p) {
+            return p.categories.some( function(c) {
+              return filter.some( function(f) {
+                return f.selected && f.categoryId === c.catId
+              })
+            })
+          }))
+        }
+      },
+
+      _toggleCategory: function(e) {
+        this.dispatch('toggleCategory', e.model.item.categoryId)
+      },
+
+      _clearFilter: function(e) {
+        this.dispatch('clearFilter')
+      },
+
+      ready: function(){
+        window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
+        window.store.dispatch({type:'FETCH_CATEGORIES_REQUESTED'})
+      }
+
+   })
+  </script>
+</dom-module>

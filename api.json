@@ -1,0 +1,4 @@
+{
+  "projects": "http://localhost:8080/test/data/projects.json",
+  "categories": "http://localhost:8080/test/data/categories.json"
+}
