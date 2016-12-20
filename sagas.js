@@ -1,7 +1,7 @@
-import { takeLatest, takeEvery } from 'redux-saga'
+import { takeLatest } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
 import * as ActionTypes from './actionTypes'
-import { fetchProjects, fetchCategories } from './vientos'
+import { fetchProjects, fetchCategories, fetchLabels } from './vientos'
 
 function * getProjects (action) {
   try {
@@ -33,6 +33,20 @@ function * getCategories (action) {
   }
 }
 
+function * getLabels (action) {
+  try {
+    const labels = yield call(fetchLabels)
+    yield put({
+      type: ActionTypes.FETCH_LABELS_SUCCEEDED,
+      labels
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.FETCH_LABELS_FAILED,
+      message: e.message
+    })
+  }
+}
 function * projectsSaga () {
   yield * takeLatest(ActionTypes.FETCH_PROJECTS_REQUESTED, getProjects)
 }
@@ -41,10 +55,15 @@ function * categoriesSaga () {
   yield * takeLatest(ActionTypes.FETCH_CATEGORIES_REQUESTED, getCategories)
 }
 
+function * labelsSaga () {
+  yield * takeLatest(ActionTypes.FETCH_LABELS_REQUESTED, getLabels)
+}
+
 function * root () {
   yield [
     call(projectsSaga),
-    call(categoriesSaga)
+    call(categoriesSaga),
+    call(labelsSaga)
   ]
 }
 

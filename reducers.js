@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import * as ActionTypes from './actionTypes'
+const config = require('./config.json')
 
 function projects (state = [], action) {
   switch (action.type) {
@@ -39,8 +40,28 @@ function filter (state = [], action) {
   }
 }
 
+function language (state = config.language, action) {
+  switch (action.type) {
+    case ActionTypes.SET_LANGUAGE:
+      return action.language
+    default:
+      return state
+  }
+}
+
+function labels (state = {}, action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_LABELS_SUCCEEDED:
+      return action.labels
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   projects,
   categories,
-  filter
+  filter,
+  language,
+  labels
 })

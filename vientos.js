@@ -10,3 +10,8 @@ export function fetchCategories (){
    return fetch(api.categories, {credentials:'include'})
       .then(response => response.json())
 }
+
+export function fetchLabels (){
+   return fetch(api.labels, {credentials:'include'})
+      .then(response => response.json())
+}

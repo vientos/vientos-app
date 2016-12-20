@@ -1,0 +1,36 @@
+{
+    "en": {
+        "humanrights": "Human Rights",
+        "productsservices": "Products and services",
+        "environment": "Environment",
+        "artculture": "Art and Culture",
+        "gender": "Gender & Sexuality",
+        "health": "Health",
+        "education": "Education",
+        "food": "Nutrition",
+        "housing": "Housing",
+        "clothing": "Clothing",
+        "communication": "Communication",
+        "technology": "Technology",
+        "transport": "Transport",
+        "networks": "Network",
+        "button:clear": "Clear"
+    },
+    "es": {
+        "humanrights": "Derechos Humanos",
+        "productsservices": "Consumo Ético",
+        "environment": "Medio Ambiente",
+        "artculture": "Arte y Cultura",
+        "gender": "Género",
+        "health": "Salud",
+        "education": "Educación",
+        "food": "Alimentación",
+        "housing": "Vivienda",
+        "clothing": "Vestido",
+        "communication": "Comunicación",
+        "technology": "Tecnología",
+        "transport": "Transporte",
+        "networks": "Red",
+        "button:clear": "Claro"
+    }
+}
