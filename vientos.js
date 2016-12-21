@@ -11,6 +11,11 @@ export function fetchCategories (){
       .then(response => response.json())
 }
 
+export function fetchCollaborationTypes (){
+   return fetch(api.collaborationTypes, {credentials:'include'})
+      .then(response => response.json())
+}
+
 export function fetchLabels (){
    return fetch(api.labels, {credentials:'include'})
       .then(response => response.json())
