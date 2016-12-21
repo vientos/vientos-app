@@ -1,57 +1,43 @@
 [{
     "id": "humanrights",
-    "icon": "fa-globe",
-    "catTag": "Human Rights"
+    "icon": "fa-globe"
 }, {
     "id": "productsservices",
-    "icon": "fa-shopping-basket",
-    "catTag": "Products and services "
+    "icon": "fa-shopping-basket"
 }, {
     "id": "environment",
-    "icon": "fa-pagelines",
-    "catTag": "Environment "
+    "icon": "fa-pagelines"
 }, {
     "id": "artculture",
-    "icon": "fa-paint-brush",
-    "catTag": "Art and Culture"
+    "icon": "fa-paint-brush"
 }, {
     "id": "gender",
-    "icon": "fa-transgender-alt",
-    "catTag": "Gender & Sexuality"
+    "icon": "fa-transgender-alt"
 }, {
     "id": "health",
-    "icon": "fa-medkit",
-    "catTag": "Health"
+    "icon": "fa-medkit"
 }, {
     "id": "education",
-    "icon": "fa-book",
-    "catTag": "Education"
+    "icon": "fa-book"
 }, {
     "id": "food",
-    "icon": "fa-cutlery",
-    "catTag": "Nutrition "
+    "icon": "fa-cutlery"
 }, {
     "id": "housing",
-    "icon": "fa-home",
-    "catTag": "Housing "
+    "icon": "fa-home"
 }, {
     "id": "clothing",
-    "icon": "fa-scissors",
-    "catTag": "Clothing"
+    "icon": "fa-scissors"
 }, {
     "id": "communication",
-    "icon": "fa-bullhorn",
-    "catTag": "Communication"
+    "icon": "fa-bullhorn"
 }, {
     "id": "technology",
-    "icon": "fa-cogs",
-    "catTag": "Technology "
+    "icon": "fa-cogs"
 }, {
     "id": "transport",
-    "icon": "fa-bicycle",
-    "catTag": "Transport"
+    "icon": "fa-bicycle"
 }, {
     "id": "networks",
-    "icon": "fa-cubes",
-    "catTag": "Network"
+    "icon": "fa-cubes"
 }]

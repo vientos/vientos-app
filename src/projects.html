@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
@@ -31,12 +32,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <iron-list items="[[filter]]" as="item">
       <template>
          <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
-            [[item.categoryId]]
+            [[localize(item.categoryId)]]
          </paper-toggle-button>
       </template>
    </iron-list>
    <paper-button on-tap="_clearFilter">
-     clear <!-- FIXME i18n -->
+     [[localize('button:clear')]]
    </paper-button>
    <iron-list items="[[visibleProjects]]" as="item">
       <template>
@@ -51,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    let ReduxBehavior = PolymerRedux(window.store)
    Polymer({
       is: 'vientos-projects',
-      behaviors: [ ReduxBehavior ],
+      behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
       actions: {
         toggleCategory: function(categoryId) {
           return {
@@ -85,7 +86,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          visibleProjects: {
            type: Array,
            value: []
-
+         },
+         language: {
+           type: String,
+           statePath: 'language'
+         },
+         resources: {
+           type: Object,
+           statePath: 'labels'
          }
       },
 
@@ -117,8 +125,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       ready: function(){
-        window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
+        window.store.dispatch({type:'FETCH_LABELS_REQUESTED'})
         window.store.dispatch({type:'FETCH_CATEGORIES_REQUESTED'})
+        window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
       }
 
    })

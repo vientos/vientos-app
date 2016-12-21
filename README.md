@@ -7,5 +7,7 @@ frontend mutante para vientos
 ```shell
 npm install
 bower install
+cp config.example.json config.json
+npm run bundle
 polymer serve
 ```
