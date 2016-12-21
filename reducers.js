@@ -20,7 +20,16 @@ function categories (state = [], action) {
   }
 }
 
-function filter (state = [], action) {
+function collaborationTypes (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
+      return action.collaborationTypes
+    default:
+      return state
+  }
+}
+
+function categoriesFilter (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
       return action.categories.map(c => ({ categoryId: c.id, selected: false }))
@@ -33,8 +42,28 @@ function filter (state = [], action) {
         updated,
         ...state.slice(index + 1)
       ]
-    case ActionTypes.CLEAR_FILTER:
+    case ActionTypes.CLEAR_CATEGORIES_FILTER:
       return state.map(e => ({ categoryId: e.categoryId, selected: false }))
+    default:
+      return state
+  }
+}
+
+function collaborationTypesFilter (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
+      return action.collaborationTypes.map(ct => ({ collaborationTypeId: ct.id, selected: false }))
+    case ActionTypes.TOGGLE_COLLABORATION_TYPE:
+      let index = state.findIndex(e => e.collaborationTypeId === action.collaborationTypeId)
+      let updated = Object.create(state[index])
+      updated.selected = !updated.selected
+      return [
+        ...state.slice(0, index),
+        updated,
+        ...state.slice(index + 1)
+      ]
+    case ActionTypes.CLEAR_COLLABORATION_TYPES_FILTER:
+      return state.map(e => ({ collaborationTypeId: e.collaborationTypeId, selected: false }))
     default:
       return state
   }
@@ -61,7 +90,9 @@ function labels (state = {}, action) {
 export default combineReducers({
   projects,
   categories,
-  filter,
+  collaborationTypes,
+  categoriesFilter,
+  collaborationTypesFilter,
   language,
   labels
 })

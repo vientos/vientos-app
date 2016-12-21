@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="vientos-projects">
+<dom-module id="vientos-activities">
   <template>
     <style include="shared-styles">
       :host {
@@ -28,20 +28,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-   <iron-list items="[[categoriesFilter]]" as="item">
+   <iron-list items="[[collaborationTypesFilter]]" as="item">
       <template>
-         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
-            [[localize(item.categoryId)]]
+         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
+            [[localize(item.collaborationTypeId)]]
          </paper-toggle-button>
       </template>
    </iron-list>
    <paper-button on-tap="_clearFilter">
      [[localize('button:clear')]]
    </paper-button>
-   <iron-list items="[[visibleProjects]]" as="item">
+   <iron-list items="[[visibleActivities]]" as="item">
       <template>
          <paper-item>
-            [[item.name]]
+            [[item.title]]
          </paper-item>
       </template>
    </iron-list>
@@ -49,19 +49,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
    Polymer({
-      is: 'vientos-projects',
+      is: 'vientos-activities',
       behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
       actions: {
-        toggleCategory: function(categoryId) {
+        toggleCollaborationType: function(collaborationTypeId) {
           return {
-            type: 'TOGGLE_CATEGORY',
-            categoryId: categoryId
+            type: 'TOGGLE_COLLABORATION_TYPE',
+            collaborationTypeId: collaborationTypeId
           }
         },
-        clearFilter: function(categoryId) {
+        clearFilter: function(collaborationTypeId) {
           return {
-            type: 'CLEAR_CATEGORIES_FILTER',
-            categoryId: categoryId
+            type: 'CLEAR_FILTER',
+            collaborationTypeId: collaborationTypeId
           }
         }
       },
@@ -72,16 +72,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            statePath: 'projects',
            observer: '_projectsChanged'
          },
-         categories: {
+         activities: {
            type: Array,
-           statePath: 'categories'
+           computed: '_extractActivities(projects)'
          },
-         categoriesFilter: {
+         collaborationTypes: {
            type: Array,
-           statePath: 'categoriesFilter',
-           observer: '_categoriesFilterChanged'
+           statePath: 'collaborationTypes'
          },
-         visibleProjects: {
+         collaborationTypesFilter: {
+           type: Array,
+           statePath: 'collaborationTypesFilter',
+           observer: '_collaborationTypesFilterChanged'
+         },
+         visibleActivities: {
            type: Array,
            value: []
          },
@@ -96,26 +100,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _projectsChanged: function () {
-        this.set('visibleProjects', this.projects.slice())
+        this.set('visibleActivities', this.activities)
       },
 
-      _categoriesFilterChanged: function () {
-        let categoriesFilter = this.categoriesFilter
-        if(categoriesFilter.every(f => !f.selected)) {
-          this.set('visibleProjects', this.projects.slice())
+      _extractActivities: function (projects){
+        return projects.reduce((acc,project) => {
+          if(!project.needs) project.needs = []
+          if(!project.offers) project.offers = []
+          return acc.concat( [
+            ...project.needs.map(need => ({title: need.title, type: need.type, direction: 'need', project: project})),
+            ...project.offers.map(offer => ({title: offer.title, type: offer.type, direction: 'offer', project: project}))
+          ])
+        }, [])
+      },
+
+      _collaborationTypesFilterChanged: function () {
+        let collaborationTypesFilter = this.collaborationTypesFilter
+        if(collaborationTypesFilter.every(f => !f.selected)) {
+          this.set('visibleActivities', this.activities)
         } else {
-          this.set('visibleProjects', this.projects.filter(function(p) {
-            return p.categories.some( function(c) {
-              return categoriesFilter.some( function(f) {
-                return f.selected && f.categoryId === c.catId
-              })
+          this.set('visibleActivities', this.activities.filter(a => {
+           return collaborationTypesFilter.some( function(f) {
+              return f.selected && f.collaborationTypeId === a.type
             })
           }))
         }
       },
 
-      _toggleCategory: function(e) {
-        this.dispatch('toggleCategory', e.model.item.categoryId)
+      _toggleCollaborationType: function(e) {
+        this.dispatch('toggleCollaborationType', e.model.item.collaborationTypeId)
       },
 
       _clearFilter: function(e) {
@@ -125,6 +138,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function(){
         window.store.dispatch({type:'FETCH_LABELS_REQUESTED'})
         window.store.dispatch({type:'FETCH_CATEGORIES_REQUESTED'})
+        window.store.dispatch({type:'FETCH_COLLABORATION_TYPES_REQUESTED'})
         window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
       }
 

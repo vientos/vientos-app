@@ -1,0 +1,14 @@
+[
+  { "id": "material"},
+  { "id": "knowledge" },
+  { "id": "event"},
+  { "id": "volunteer" },
+  { "id": "spread" },
+  { "id": "product"},
+  { "id": "service"},
+  { "id": "job"},
+  { "id": "space"},
+  { "id": "link"},
+  { "id": "art"},
+  { "id": "funding"}
+]

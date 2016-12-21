@@ -14,6 +14,18 @@
         "technology": "Technology",
         "transport": "Transport",
         "networks": "Network",
+        "material": "Tools and Materials",
+        "knowledge": "Knowledge and Skills",
+        "event": "ctivities and Events",
+        "volunteer": "Volunteering",
+        "spread":"Spread the word",
+        "product":"Products",
+        "service":"Services",
+        "job": "Jobs",
+        "space": "Spaces",
+        "link": "Connect and Recommend",
+        "art": "Share your Art",
+        "funding":"Crowdfunding",
         "button:clear": "Clear"
     },
     "es": {
@@ -31,6 +43,18 @@
         "technology": "Tecnología",
         "transport": "Transporte",
         "networks": "Red",
+        "material": "Materiales y Herramientas",
+        "knowledge": "Conocimientos y Habilidades",
+        "event": "Eventos y Talleres",
+        "volunteer": "Trabajo Comunitario",
+        "spread":"Difusión de proyectos",
+        "product":"Productos",
+        "service":"Servicios",
+        "job": "Chambas",
+        "space": "Espacios",
+        "link": "Recomienda y vincula",
+        "art": "Comparte tu arte",
+        "funding":"Fondeo Colectivo",
         "button:clear": "Claro"
     }
 }
