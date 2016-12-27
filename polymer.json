@@ -1,15 +1,15 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "app/my-app.html",
   "fragments": [
-    "src/projects.html",
-    "src/activities.html",
-    "src/my-view3.html",
-    "src/fake-data-view.html",
-    "src/my-view404.html"
+    "app/projects.html",
+    "app/activities.html",
+    "app/my-view3.html",
+    "app/fake-data-view.html",
+    "app/my-view404.html"
   ],
   "sourceGlobs": [
-   "src/**/*",
+   "app/**/*",
    "images/**/*",
    "bower.json"
   ],

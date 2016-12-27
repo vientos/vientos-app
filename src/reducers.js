@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import * as ActionTypes from './actionTypes'
-const config = require('./config.json')
+const config = require('../config.json')
 
 function projects (state = [], action) {
   switch (action.type) {
