@@ -23,9 +23,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 10px;
       }
-      paper-toggle-button[active] {
-        background-color: green;
-      }
     </style>
 
    <iron-list items="[[collaborationTypesFilter]]" as="item">
@@ -133,15 +130,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _clearFilter: function(e) {
         this.dispatch('clearFilter')
-      },
-
-      ready: function(){
-        window.store.dispatch({type:'FETCH_LABELS_REQUESTED'})
-        window.store.dispatch({type:'FETCH_CATEGORIES_REQUESTED'})
-        window.store.dispatch({type:'FETCH_COLLABORATION_TYPES_REQUESTED'})
-        window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
       }
-
+      
    })
   </script>
 </dom-module>

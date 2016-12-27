@@ -191,8 +191,14 @@ Polymer({
 
    _showPage404: function() {
       this.page = 'view404';
-   }
+   },
 
+   ready: function(){
+     window.store.dispatch({type:'FETCH_LABELS_REQUESTED'})
+     window.store.dispatch({type:'FETCH_CATEGORIES_REQUESTED'})
+     window.store.dispatch({type:'FETCH_COLLABORATION_TYPES_REQUESTED'})
+     window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
+   }
 
 });
 </script>
