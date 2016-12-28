@@ -4,8 +4,6 @@
   "fragments": [
     "app/projects.html",
     "app/activities.html",
-    "app/my-view3.html",
-    "app/fake-data-view.html",
     "app/my-view404.html"
   ],
   "sourceGlobs": [
