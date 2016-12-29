@@ -40,12 +40,8 @@ Polymer({
         viewUrl = 'activities'
         break
 
-      case 'view3':
-        viewUrl = 'my-view3'
-        break
-
-      case 'fakedataview':
-        viewUrl = 'fake-data-view'
+      case 'map':
+        viewUrl = 'map'
         break
 
     }

@@ -1,9 +1,10 @@
 {
   "entrypoint": "index.html",
-  "shell": "app/my-app.html",
+  "shell": "app/shell.html",
   "fragments": [
     "app/projects.html",
     "app/activities.html",
+    "app/map.html",
     "app/my-view404.html"
   ],
   "sourceGlobs": [

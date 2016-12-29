@@ -17,9 +17,11 @@
     "description": "Huertos urbanos personalizados para interior y exterior. Libres de agentes químicos y transgénicos. 100% natural y delicioso. ¡Sembremos conciencia!",
     "email": null,
     "facebook": null,
-    "latitude": "19.44822138457668",
+    "locations": [{
+        "latitude": "19.44822138457668",
+        "longitude": "-99.21873807896189"
+    }],
     "logo": "Del patio al plato.png",
-    "longitude": "-99.21873807896189",
     "name": "Del patio al plato ",
     "needs": [{
         "title": "Productores de semillas ",
@@ -76,9 +78,7 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": null,
     "logo": "Feria multitrueke.png",
-    "longitude": null,
     "name": "Feria Multitrueke",
     "needs": [{
         "title": "Espacio para eventos",
@@ -140,13 +140,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.44252154793585",
     "locations": [{
-        "lat": "19.44252154793585",
-        "lon": "-99.1564214229038"
+        "latitude": "19.44252154793585",
+        "longitude": "-99.1564214229038"
     }],
     "logo": "Estanquillo.jpg",
-    "longitude": "-99.1564214229038",
     "name": "Estanquillo el 32",
     "needs": [{
         "title": "Diseñador web",
@@ -196,9 +194,11 @@
     "description": "Mermeladas artesanales",
     "email": null,
     "facebook": null,
-    "latitude": "19.43431642717337",
+    "locations": [{
+        "latitude": "19.43431642717337",
+        "longitude": "-99.14463043125579"
+    }],
     "logo": "Mermeladas.jpg",
-    "longitude": "-99.14463043125579",
     "name": "Mermeladas y salsas Dulce Tierra",
     "needs": [{
         "title": "Servicio de transporte",
@@ -251,13 +251,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.269392767753228",
     "locations": [{
-        "lat": "19.269392767753228",
-        "lon": "-99.17070182898897"
+        "latitude": "19.269392767753228",
+        "longitude": "-99.17070182898897"
     }],
     "logo": "",
-    "longitude": "-99.17070182898897",
     "name": null,
     "needs": [],
     "offers": [{
@@ -302,13 +300,11 @@
     "description": "A través del estudio y acción en torno a imaginario colectivo, autoformación, producción editorial crítica y circulación comunitaria de publicaciones buscamos construir redes de cooperación afectivas que cultiven el bienestar común. La editorial-imprenta es nuestro proyecto autogestivo más significativo; ofrecemos servicios de diseño e imprenta (risográfica y serigrafía); participamos en proceso editoriales colaborativos. Somos una cooperativa de colectivxs multidisciplinarixs; nos organizamos de manera asamblearia, por grupos de afinidad y según los procesos que impulsamos en un​ territorio urbano en la Ciudad de México.",
     "email": "craterinvertido@gmail.com",
     "facebook": "www.facebook.com/cooperativacraterinvertido",
-    "latitude": "19.44087",
     "locations": [{
-        "lat": "19.44087",
-        "lon": "-99.161186"
+        "latitude": "19.44087",
+        "longitude": "-99.161186"
     }],
     "logo": "Cráter invertido.jpg",
-    "longitude": "-99.161186",
     "name": "Cráter Invertido",
     "needs": [{
         "title": "Diseñador web",
@@ -377,13 +373,11 @@
     "description": "Restaurante cultural de encuentros feministas para comer, aprender, debatir, beber y gozar.",
     "email": "puntogozadera@gmail.com",
     "facebook": "https://www.facebook.com/Punto-Gozadera-1471050349857079",
-    "latitude": "19.429781679132606",
     "locations": [{
-        "lat": "19.429781679132606",
-        "lon": "-99.14390712965542"
+        "latitude": "19.429781679132606",
+        "longitude": "-99.14390712965542"
     }],
     "logo": "Captura de pantalla 2015-11-10 a la(s) 14.43.37.png",
-    "longitude": "-99.14390712965542",
     "name": "Punto Gozadera",
     "needs": [{
         "title": "Imprenta aliada",
@@ -439,13 +433,11 @@
     "description": "Revolución mexicana de la pizza: primera y única pizza de maíz azul con ingredientes 100% mexicanos que alimenta y emplea a jóvenes en situación de calle.",
     "email": "comunicacion@pixza.mx",
     "facebook": "https://www.facebook.com/pixzamx",
-    "latitude": 19.423634,
     "locations": [{
-        "lat": 19.423634,
-        "lon": -99.165207
+        "latitude": 19.423634,
+        "longitude": -99.165207
     }],
     "logo": "pixza.png",
-    "longitude": -99.165207,
     "mobile": "55 5207 0287",
     "name": "Pixza",
     "needs": [{
@@ -518,9 +510,7 @@
     "description": "Contribuir al empoderamiento femenino y social a través de la resignificación de la menstruación como un acto de autoconocimiento, elaborar productos de calidad que contribuyan al cuidado del medio ambiente y de la salud femenina, crear empresas socialmente responsables y que refiera a una economía más justa y solidaria.\nProductos: \ncopas menstruales, toallas ecológicas, libros de auto conocimiento femenino.",
     "email": null,
     "facebook": null,
-    "latitude": null,
     "logo": "2 Almas.jpg",
-    "longitude": null,
     "name": "2 Almas",
     "needs": [{
         "title": "Espacio para eventos",
@@ -568,9 +558,7 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": null,
     "logo": "Alterius.jpg",
-    "longitude": null,
     "name": "Alterius",
     "needs": [{
         "title": "Arte",
@@ -627,13 +615,11 @@
     "description": "Vientos es una plataforma de colaboración y fortalecimiento de proyectos sociales y de la economía solidaria. Somos un proyecto independiente y sin fines de lucro.",
     "email": "comunidad.vientos@gmail.com",
     "facebook": null,
-    "latitude": "19.43101402541813",
     "locations": [{
-        "lat": "19.43101402541813",
-        "lon": "-99.16729688644408"
+        "latitude": "19.43101402541813",
+        "longitude": "-99.16729688644408"
     }],
     "logo": "logo final.jpe",
-    "longitude": "-99.16729688644408",
     "name": "Vientos",
     "needs": [{
         "title": "contacto con imprenta",
@@ -689,13 +675,11 @@
     "description": "Compartimos esta colección de lecturas \nde pensamiento crítico para la teoría y la práctica \nde la autonomía de las personas y las comunidades \nde nuestro planeta Madre Tierra.\nEsta bibliografía en constante crecimiento busca \ndespertar la curiosidad de investigar y propiciar \nel diálogo, la reflexión y la autoformación personal, \ncomunitaria, afectiva, lúdica e intuitiva. \nQueremos impulsar la construcción colectiva \nde mapas y puentes entre nuestras culturas, \nen un esfuerzo constante de diálogo, traducción, \ninvestigación, reflexión y creación libre, \nen las áreas de historias y pensamiento crítico, \nartes y lenguas, ecologías, cosmos y matemáticas.\nPor medio de la autopublicación podemos \nresguardar, compartir y poner en común las ideas, \nla memoria y la historia. Podemos tener diálogos con otras personas de otros tiempos, de otros \nlugares, de otras costumbres, de otras lenguas; \nes decir, diálogo y reflexión para organizarnos.\nConvocamos a la lectura libre —silenciosa \ny compartida— como una estrategia para \nconstruir y hacer florecer las autonomías. \nConvocamos a lecturas colectivas para hacer \nsentido en común —comunidades de sentido, \nafecto y cooperación—, para extender los tejidos \nde esos saberes que vamos formando y cultivando \ndesde la infancia, para compartir nuevas formas \nde ver las cosas y para propiciar intercambios e \ninvestigaciones colaborativas que generen efectos \nconcretos en la vida cotidiana.\nProponemos tejer acuerdos de reciprocidad, \nintercambio, cooperación, distribución y \ncolaboración entre diversos esfuerzos de \nconstrucción de autonomía para generalizar \nla autogestión, la solidaridad y el apoyo mutuo",
     "email": "planetaria@riseup.net",
     "facebook": "Planetaria",
-    "latitude": "18.990469787625575",
     "locations": [{
-        "lat": "18.990469787625575",
-        "lon": "-99.11700725642731"
+        "latitude": "18.990469787625575",
+        "longitude": "-99.11700725642731"
     }],
     "logo": "Planetaria.jpg",
-    "longitude": "-99.11700725642731",
     "name": "Planetaria",
     "needs": [{
         "title": "Diseñador web",
@@ -749,9 +733,7 @@
     "description": "Somos una colectiva de poetas mujeres, en (re)construcción de la voz que la historia nos ha negado, trabajando desde la horizontalidad, haciendo sororidad",
     "email": null,
     "facebook": null,
-    "latitude": null,
     "logo": "Hilanderas.jpg",
-    "longitude": null,
     "name": "Hilanderas",
     "needs": [{
         "title": "Voluntari@ para organizar eventos ",
@@ -806,13 +788,11 @@
     "description": "Somos un equipo de Health Coaches apoyando a personas como tú a encontrar su mejor estado de salud para vivir con armonía y felicidad.",
     "email": "contacto@bienahora.com",
     "facebook": "https://www.facebook.com/bienahora",
-    "latitude": 19.361756,
     "locations": [{
-        "lat": 19.361756,
-        "lon": -99.201098
+        "latitude": 19.361756,
+        "longitude": -99.201098
     }],
     "logo": "bienahora.jpg",
-    "longitude": -99.201098,
     "mobile": "01 55 5680 5805",
     "name": "BienAhora",
     "needs": [{
@@ -861,13 +841,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.391153294849676",
     "locations": [{
-        "lat": "19.391153294849676",
-        "lon": "-99.18348312367016"
+        "latitude": "19.391153294849676",
+        "longitude": "-99.18348312367016"
     }],
     "logo": "White.jpg",
-    "longitude": "-99.18348312367016",
     "name": "Instituto Mexicano de Derechos Humanos y Democracia",
     "pilot": true,
     "projectCodes": ["2rndbo0fxzb0529"],
@@ -903,13 +881,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.420766444979435",
     "locations": [{
-        "lat": "19.420766444979435",
-        "lon": "-99.17055129983055"
+        "latitude": "19.420766444979435",
+        "longitude": "-99.17055129983055"
     }],
     "logo": "Café Local.jpg",
-    "longitude": "-99.17055129983055",
     "name": "Café Local",
     "needs": [{
         "title": "Servicio de transporte",
@@ -969,13 +945,11 @@
     "description": "Entre Aguas es una empresa de agricultura urbana, dedicada a satisfacer la demanda por productos locales, con menor huella de carbono y de alta calidad.",
     "email": null,
     "facebook": "https://www.facebook.com/entreaguasmx/",
-    "latitude": null,
     "locations": [{
-        "lat": "19.36030390820232",
-        "lon": "-99.20459032058716"
+        "latitude": "19.36030390820232",
+        "longitude": "-99.20459032058716"
     }],
     "logo": "entre aguas.png",
-    "longitude": null,
     "name": "Entre Aguas",
     "needs": [{
         "title": "azotea > 400m2",
@@ -1037,13 +1011,11 @@
     "description": "asdkajsdkajsd\nasdhaskdjhsad\nasdhaksjdhasd\nasdasd\nasd",
     "email": "asdasd",
     "facebook": "asdasd",
-    "latitude": "19.424506158260414",
     "locations": [{
-        "lat": "19.424506158260414",
-        "lon": "-99.14543151855469"
+        "latitude": "19.424506158260414",
+        "longitude": "-99.14543151855469"
     }],
     "logo": "cacha.jpg",
-    "longitude": "-99.14543151855469",
     "name": "Prueba",
     "needs": [{
         "title": "Productos veganos",
@@ -1108,13 +1080,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.415261948172613",
     "locations": [{
-        "lat": "19.415261948172613",
-        "lon": "-99.18102264382468"
+        "latitude": "19.415261948172613",
+        "longitude": "-99.18102264382468"
     }],
     "logo": "Trece Monx.jpg",
-    "longitude": "-99.18102264382468",
     "name": "Trece Monxs Cooperativa",
     "needs": [{
         "title": "Varios",
@@ -1171,13 +1141,11 @@
     "description": "Aeromoto es una biblioteca pública especializada en libros de arte. Puedes acudir a mirar y leer libros y también puedes llevártelos en préstamo a casa.",
     "email": null,
     "facebook": null,
-    "latitude": "19.424983734649796",
     "locations": [{
-        "lat": "19.424983734649796",
-        "lon": "-99.16097402561718"
+        "latitude": "19.424983734649796",
+        "longitude": "-99.16097402561718"
     }],
     "logo": "aeromoto.jpg",
-    "longitude": "-99.16097402561718",
     "name": "Aeromoto",
     "needs": [{
         "title": "Libros de arte",
@@ -1227,9 +1195,7 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": null,
     "logo": "12717914_449162831956338_5558998673305458142_n.jpg",
-    "longitude": null,
     "name": "Semillas al Pan",
     "needs": [{
         "title": "Arte para el espacio",
@@ -1306,9 +1272,7 @@
     "description": "La Lechuza Buza vincula personas, voluntades, proyectos y conocimientos que tengan en común, transitar a un modo de vida sustentable con perspectiva ecofeminista crítica, no esencialista. Buscamos tejernos de forma intergeneracional e integral, a través del tekio, trueke, charlas, talleres e intercambio de saberes. Promovemos el uso de la copa menstrual, las toallas femeninas de tela y otros productos ecológicos por el derecho a la salud de las mujeres y visibilizamos problemas ambientales como defensoras de la tierra.",
     "email": "eco.red.feminista.mx@gmail.com",
     "facebook": "Ecored Feminista La Lechuza Buza",
-    "latitude": null,
     "logo": "La Lechuza.jpg",
-    "longitude": null,
     "name": "Ecored Feminista La Lechuza Buza",
     "needs": [{
         "title": "Voluntari@ para organizar eventos",
@@ -1386,13 +1350,11 @@
     "description": null,
     "email": "contactme@cerrucha.com",
     "facebook": "https://www.facebook.com/CERRUCHA/",
-    "latitude": "19.377794041368464",
     "locations": [{
-        "lat": "19.377794041368464",
-        "lon": "-99.16985034942627"
+        "latitude": "19.377794041368464",
+        "longitude": "-99.16985034942627"
     }],
     "logo": "Cerrucha.jpg",
-    "longitude": "-99.16985034942627",
     "name": "Cerrucha",
     "needs": [{
         "title": "pintura ",
@@ -1451,13 +1413,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.417318062178946",
     "locations": [{
-        "lat": "19.417318062178946",
-        "lon": "-99.158535002789"
+        "latitude": "19.417318062178946",
+        "longitude": "-99.158535002789"
     }],
     "logo": "Aire Libre.png",
-    "longitude": "-99.158535002789",
     "name": "Aire Libre",
     "needs": [{
         "title": "Productores de documentales",
@@ -1513,13 +1473,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.391311170444634",
     "locations": [{
-        "lat": "19.391311170444634",
-        "lon": "-99.14248466486242"
+        "latitude": "19.391311170444634",
+        "longitude": "-99.14248466486242"
     }],
     "logo": "Serpentina Cultural.jpg",
-    "longitude": "-99.14248466486242",
     "name": "Serpentina Cultural A.C.",
     "needs": [{
         "title": "Materiales de arte ",
@@ -1584,13 +1542,11 @@
     "description": "Talleres comunitarios dedicados a reciclar y armar bicis personalizadas, dar clases de mecánica y asesorar al ciclista urbano.",
     "email": "contactoenchulamelabici@gmail.com",
     "facebook": "https://www.facebook.com/EnchulameLaBici",
-    "latitude": 19.45243,
     "locations": [{
-        "lat": 19.45243,
-        "lon": -99.154839
+        "latitude": 19.45243,
+        "longitude": -99.154839
     }],
     "logo": "enchulalme.jpg",
-    "longitude": -99.154839,
     "name": "Enchúlame la Bici",
     "needs": [{
         "title": "Herramientas",
@@ -1653,13 +1609,11 @@
     "description": "Medios Comunes inicia en febrero del año 2010 como un esfuerzo para Otorgar a las organizaciónes sociales, ONG´s y cooperativas las herramientas de comunicación gráfica efectivas en la tarea de construir una participación a favor de los intereses de la sociedad de manera comprometida y responsable.\n\nLogrando nuestros objetivos mediante una metodología, cuyos principios básicos son facilitar todos los procesos que deriven en diseño o áreas afínes de la comunicación; permitiendo con esto que las organizaciones optimicen recursos y logren una proyección más atractiva y funcional.",
     "email": "medioscomuneros@gmail.com",
     "facebook": "https://www.facebook.com/medios.comunes?fref=ts",
-    "latitude": "19.384797665474963",
     "locations": [{
-        "lat": "19.384797665474963",
-        "lon": "-99.15523767471313"
+        "latitude": "19.384797665474963",
+        "longitude": "-99.15523767471313"
     }],
     "logo": "medios.jpg",
-    "longitude": "-99.15523767471313",
     "name": "Medios Comunes",
     "needs": [{
         "title": "Vínculos con ONGs y cooperativas ",
@@ -1710,13 +1664,11 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": "19.431169839260892",
     "locations": [{
-        "lat": "19.431169839260892",
-        "lon": "-99.13494229311254"
+        "latitude": "19.431169839260892",
+        "longitude": "-99.13494229311254"
     }],
     "logo": "Quinto Piso.png",
-    "longitude": "-99.13494229311254",
     "name": "El Quinto Piso",
     "needs": [{
         "title": "Buscamos arte ",
@@ -1769,9 +1721,7 @@
     "description": null,
     "email": null,
     "facebook": null,
-    "latitude": null,
     "logo": "Cacto producciones.jpg",
-    "longitude": null,
     "name": "CACTO Producciones",
     "needs": [{
         "title": "Ideas para documentales o películas ",
@@ -1821,13 +1771,11 @@
     "description": "Llevamos a cabo talleres, charlas, cursos, proyecciones, conversatorios dirigidos a mujeres. ",
     "email": null,
     "facebook": "MUJERES QUE CELEBRAN LA VIDA",
-    "latitude": "19.43324800991602",
     "locations": [{
-        "lat": "19.43324800991602",
-        "lon": "-99.13963794708252"
+        "latitude": "19.43324800991602",
+        "longitude": "-99.13963794708252"
     }],
     "logo": "Mujeres.jpg",
-    "longitude": "-99.13963794708252",
     "name": "Mujeres que celebran la vida",
     "needs": [{
         "title": "Material de oficina",
