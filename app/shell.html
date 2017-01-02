@@ -79,6 +79,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    data="{{routeData}}"
    tail="{{subroute}}"></app-route>
 
+   <app-route
+   route="{{subroute}}"
+   pattern="/:uuid"
+   data="{{subrouteData}}"></app-route>
+
    <app-drawer-layout fullbleed>
       <!-- Drawer content TODO: localize -->
       <app-drawer>
@@ -113,7 +118,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          role="main">
          <vientos-projects name="projects"></vientos-projects>
          <vientos-activities name="activities"></vientos-activities>
-         <vientos-map name="map"></vientos-map>
+         <vientos-map name="map" on-selected="_projectSelected"></vientos-map>
+         <vientos-project-profile name="project-profile" uuid="[[subrouteData.uuid]]"></vientos-project-profile>
          <my-view404 name="view404"></my-view404>
       </iron-pages>
    </app-header-layout>

@@ -63,6 +63,10 @@ Polymer({
       })
       return acc
     }, [])
+  },
+
+  _markerClick (event) {
+    this.fire('selected', event.model.item.project._id)
   }
 
 })

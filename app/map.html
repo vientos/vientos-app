@@ -27,7 +27,7 @@
       </leaflet-tilelayer>
 
       <template is="dom-repeat" items="[[visibleLocations]]">
-        <leaflet-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'></leaflet-marker>
+        <leaflet-marker on-click="_markerClick" latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'></leaflet-marker>
       </template>
 
       <leaflet-geolocation enable-high-accuracy

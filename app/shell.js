@@ -44,6 +44,10 @@ Polymer({
         viewUrl = 'map'
         break
 
+      case 'project-profile':
+        viewUrl = 'project-profile'
+        break
+
     }
 
     viewUrl += '.html'
@@ -53,7 +57,6 @@ Polymer({
   },
 
   _toggleLanguage (e) {
-    console.log(e.target)
     if (e.target.checked) {
       this.dispatch('setLanguage', 'es')
     } else {
@@ -63,6 +66,10 @@ Polymer({
 
   _showPage404 () {
     this.page = 'view404'
+  },
+
+  _projectSelected (e, detail) {
+    this.set('route.path', '/project-profile/' + detail)
   },
 
   ready () {

@@ -5,6 +5,7 @@
     "app/projects.html",
     "app/activities.html",
     "app/map.html",
+    "app/project-profile.html",
     "app/my-view404.html"
   ],
   "sourceGlobs": [
