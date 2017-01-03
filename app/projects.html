@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="iconset.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="vientos-projects">
@@ -28,6 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <iron-list items="[[categoriesFilter]]" as="item">
       <template>
          <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
+            <iron-icon icon="[[item.icon]]"></iron-icon>
             [[localize(item.categoryId)]]
          </paper-toggle-button>
       </template>

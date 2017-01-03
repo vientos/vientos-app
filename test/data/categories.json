@@ -1,43 +1,43 @@
 [{
     "id": "humanrights",
-    "icon": "fa-globe"
+    "icon": "vientos:globe"
 }, {
     "id": "productsservices",
-    "icon": "fa-shopping-basket"
+    "icon": "vientos:shopping-basket"
 }, {
     "id": "environment",
-    "icon": "fa-pagelines"
+    "icon": "vientos:pagelines"
 }, {
     "id": "artculture",
-    "icon": "fa-paint-brush"
+    "icon": "vientos:paint-brush"
 }, {
     "id": "gender",
-    "icon": "fa-transgender-alt"
+    "icon": "vientos:intersex"
 }, {
     "id": "health",
-    "icon": "fa-medkit"
+    "icon": "vientos:medkit"
 }, {
     "id": "education",
-    "icon": "fa-book"
+    "icon": "vientos:book"
 }, {
     "id": "food",
-    "icon": "fa-cutlery"
+    "icon": "vientos:cutlery"
 }, {
     "id": "housing",
-    "icon": "fa-home"
+    "icon": "vientos:home"
 }, {
     "id": "clothing",
-    "icon": "fa-scissors"
+    "icon": "vientos:cut"
 }, {
     "id": "communication",
-    "icon": "fa-bullhorn"
+    "icon": "vientos:bullhorn"
 }, {
     "id": "technology",
-    "icon": "fa-cogs"
+    "icon": "vientos:cogs"
 }, {
     "id": "transport",
-    "icon": "fa-bicycle"
+    "icon": "vientos:bicycle"
 }, {
     "id": "networks",
-    "icon": "fa-cubes"
+    "icon": "vientos:puzzle-piece"
 }]

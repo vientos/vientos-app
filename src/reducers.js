@@ -32,7 +32,7 @@ function collaborationTypes (state = [], action) {
 function categoriesFilter (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
-      return action.categories.map(c => ({ categoryId: c.id, selected: false }))
+      return action.categories.map(c => ({ categoryId: c.id, selected: false, icon: c.icon }))
     case ActionTypes.TOGGLE_CATEGORY:
       let index = state.findIndex(e => e.categoryId === action.categoryId)
       let updated = Object.create(state[index])
@@ -43,7 +43,7 @@ function categoriesFilter (state = [], action) {
         ...state.slice(index + 1)
       ]
     case ActionTypes.CLEAR_CATEGORIES_FILTER:
-      return state.map(e => ({ categoryId: e.categoryId, selected: false }))
+      return state.map(e => ({ categoryId: e.categoryId, selected: false, icon: e.icon }))
     default:
       return state
   }
