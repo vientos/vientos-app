@@ -8,8 +8,8 @@
     "app-layout": "PolymerElements/app-layout#^0.10.0",
     "app-route": "PolymerElements/app-route#^0.9.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
-    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
-    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.12",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.1.0",
     "iron-localstorage": "PolymerElements/iron-localstorage#^1.0.0",
     "iron-media-query": "PolymerElements/iron-media-query#^1.0.0",
     "iron-pages": "PolymerElements/iron-pages#^1.0.0",
@@ -21,7 +21,8 @@
     "paper-item": "PolymerElements/paper-item#^1.2.1",
     "paper-button": "PolymerElements/paper-button#^1.0.14",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.2.1",
-    "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.10.1"
+    "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.10.1",
+    "leaflet-map": "^1.2.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

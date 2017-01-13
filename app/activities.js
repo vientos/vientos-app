@@ -55,7 +55,7 @@ Polymer({
 
   _extractActivities (projects) {
     return projects.reduce((acc, project) => {
-      // TODO: move to reducer
+      // TODO: move normalization to reducer
       if (!project.needs) project.needs = []
       if (!project.offers) project.offers = []
       return acc.concat([

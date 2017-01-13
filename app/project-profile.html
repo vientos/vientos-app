@@ -1,0 +1,18 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="vientos-project-profile">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+    </style>
+    <a href="#" on-tap="_goBack">&lt;-</a>  
+    <h2>[[project.name]]</h2>
+
+  </template>
+  <script src="project-profile.js"></script>
+</dom-module>

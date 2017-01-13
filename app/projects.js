@@ -69,6 +69,11 @@ Polymer({
 
   _clearFilter () {
     this.dispatch('clearFilter')
+  },
+
+  _linkTo (project) {
+    // TODO: unify with _projectSelected() in shell.js
+    return 'project-profile/' + project._id
   }
 
 })

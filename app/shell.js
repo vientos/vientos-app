@@ -40,12 +40,12 @@ Polymer({
         viewUrl = 'activities'
         break
 
-      case 'view3':
-        viewUrl = 'my-view3'
+      case 'map':
+        viewUrl = 'map'
         break
 
-      case 'fakedataview':
-        viewUrl = 'fake-data-view'
+      case 'project-profile':
+        viewUrl = 'project-profile'
         break
 
     }
@@ -57,7 +57,6 @@ Polymer({
   },
 
   _toggleLanguage (e) {
-    console.log(e.target)
     if (e.target.checked) {
       this.dispatch('setLanguage', 'es')
     } else {
@@ -67,6 +66,10 @@ Polymer({
 
   _showPage404 () {
     this.page = 'view404'
+  },
+
+  _projectSelected (e, detail) {
+    this.set('route.path', '/project-profile/' + detail)
   },
 
   ready () {
