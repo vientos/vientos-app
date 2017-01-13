@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
 
-<dom-module id="my-app">
+<dom-module id="vientos-shell">
    <template>
    <style>
    :host {
@@ -86,8 +86,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
             <a name="projects" href="/projects">Projects</a>
             <a name="activities" href="/activities">Activities</a>
-            <a name="view3" href="/view3">View Three</a>
-            <a name="fakedataview" href="/fakedataview">Fake Data</a>
          </iron-selector>
       </app-drawer>
 
@@ -114,86 +112,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          role="main">
          <vientos-projects name="projects"></vientos-projects>
          <vientos-activities name="activities"></vientos-activities>
-         <my-view3 name="view3"></my-view3>
-         <fake-data-view name="fakedataview"></fake-data-view>
          <my-view404 name="view404"></my-view404>
       </iron-pages>
    </app-header-layout>
 </app-drawer-layout>
 </template>
-
-<script>
-let ReduxBehavior = PolymerRedux(window.store)
-Polymer({
-   is: 'my-app',
-   behaviors: [ ReduxBehavior ],
-   actions:{
-     setLanguage: function(language) {
-       return {
-         type: 'SET_LANGUAGE',
-         language: language
-       }
-     }
-   },
-
-   properties: {
-      page: {
-         type: String,
-         reflectToAttribute: true,
-         observer: '_pageChanged'
-      }
-   },
-
-   observers: [
-      '_routePageChanged(routeData.page)'
-   ],
-
-   _routePageChanged: function(page) {
-      this.page = page || 'projects';
-   },
-
-   _pageChanged: function(page) {
-      // Load page import on demand. Show 404 page if fails
-      var viewUrl;
-      switch( page ) {
-
-         case "projects":
-         viewUrl = "projects";
-         break;
-
-         case "activities":
-         viewUrl = "activities";
-         break;
-
-         case "view3":
-         viewUrl = "my-view3";
-         break;
-
-         case "fakedataview":
-         viewUrl = "fake-data-view";
-         break;
-
-      }
-
-      viewUrl += ".html";
-
-      var resolvedPageUrl = this.resolveUrl( viewUrl );
-      this.importHref(resolvedPageUrl, null, this._showPage404, true);
-   },
-
-   _toggleLanguage: function(e){
-     console.log(e.target)
-      if(e.target.checked)
-        this.dispatch('setLanguage', 'es')
-      else
-        this.dispatch('setLanguage', 'en')
-   },
-
-   _showPage404: function() {
-      this.page = 'view404';
-   }
-
-
-});
-</script>
+<script src="shell.js"></script>
 </dom-module>

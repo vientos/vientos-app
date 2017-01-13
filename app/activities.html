@@ -9,54 +9,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="fake-data-view">
+<dom-module id="vientos-activities">
   <template>
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
       }
     </style>
 
-   <iron-list items="[[fakedata]]" as="item">
+   <iron-list items="[[collaborationTypesFilter]]" as="item">
+      <template>
+         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
+            [[localize(item.collaborationTypeId)]]
+         </paper-toggle-button>
+      </template>
+   </iron-list>
+   <paper-button on-tap="_clearFilter">
+     [[localize('button:clear')]]
+   </paper-button>
+   <iron-list items="[[visibleActivities]]" as="item">
       <template>
          <paper-item>
-            [[item.fakeProperty]]
+            [[item.title]]
          </paper-item>
       </template>
    </iron-list>
   </template>
 
-  <script>
-   //let ReduxBehavior = PolymerRedux(window.store)
-   Polymer({
-      is: 'fake-data-view',
-      //behaviors: [ ReduxBehavior],
-
-      properties: {
-         // fakedata:{
-         //   type: Array,
-         //   statePath: 'fakedata'
-         // }
-         fakedata:{
-            type: Array,
-            value: [
-               { fakeProperty: "fakedata 1" },
-               { fakeProperty: "fakedata 2" },
-               { fakeProperty: "fakedata 3" },
-            ]
-         }
-      },
-      ready: function(){
-         window.store.dispatch({type:'FETCH_PROJECTS_REQUESTED'})
-      }
-
-   })
-  </script>
+  <script src="activities.js"></script>
 </dom-module>
