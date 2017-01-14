@@ -44,6 +44,10 @@ Polymer({
         viewUrl = 'map'
         break
 
+      case 'filter':
+        viewUrl = 'filter'
+        break
+
       case 'project-profile':
         viewUrl = 'project-profile'
         break

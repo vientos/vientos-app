@@ -12,8 +12,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="vientos-activities">
@@ -25,16 +23,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-   <iron-list items="[[collaborationTypesFilter]]" as="item">
-      <template>
-         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
-            [[localize(item.collaborationTypeId)]]
-         </paper-toggle-button>
-      </template>
-   </iron-list>
-   <paper-button on-tap="_clearFilter">
-     [[localize('button:clear')]]
-   </paper-button>
    <iron-list items="[[visibleActivities]]" as="item">
       <template>
          <paper-item>

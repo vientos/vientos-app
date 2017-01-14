@@ -21,7 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="my-icons.html">
 
 <dom-module id="vientos-shell">
    <template>
@@ -92,6 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <a name="projects" href="/projects">Projects</a>
             <a name="activities" href="/activities">Activities</a>
             <a name="map" href="/map">Map</a>
+            <a name="filter" href="/filter">Filter</a>
          </iron-selector>
       </app-drawer>
 
@@ -120,6 +120,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <vientos-activities name="activities"></vientos-activities>
          <vientos-map name="map" on-selected="_projectSelected"></vientos-map>
          <vientos-project-profile name="project-profile" uuid="[[subrouteData.uuid]]"></vientos-project-profile>
+         <vientos-filter name="filter"></vientos-filter>
          <my-view404 name="view404"></my-view404>
       </iron-pages>
    </app-header-layout>

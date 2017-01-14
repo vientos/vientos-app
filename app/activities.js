@@ -1,20 +1,6 @@
 Polymer({
   is: 'vientos-activities',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
-  actions: {
-    toggleCollaborationType (collaborationTypeId) {
-      return {
-        type: 'TOGGLE_COLLABORATION_TYPE',
-        collaborationTypeId: collaborationTypeId
-      }
-    },
-    clearFilter (collaborationTypeId) {
-      return {
-        type: 'CLEAR_COLLABORATION_TYPES_FILTER',
-        collaborationTypeId: collaborationTypeId
-      }
-    }
-  },
+  behaviors: [ ReduxBehavior ],
 
   properties: {
     projects: {
@@ -26,10 +12,6 @@ Polymer({
       type: Array,
       computed: '_extractActivities(projects)'
     },
-    collaborationTypes: {
-      type: Array,
-      statePath: 'collaborationTypes'
-    },
     collaborationTypesFilter: {
       type: Array,
       statePath: 'collaborationTypesFilter',
@@ -38,14 +20,7 @@ Polymer({
     visibleActivities: {
       type: Array,
       value: []
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+      // TODO make computed property (activities, collaborationTypesFilter)
     }
   },
 
@@ -74,14 +49,6 @@ Polymer({
         return collaborationTypesFilter.some(filter => filter.selected && filter.collaborationTypeId === activity.type)
       }))
     }
-  },
-
-  _toggleCollaborationType (event) {
-    this.dispatch('toggleCollaborationType', event.model.item.collaborationTypeId)
-  },
-
-  _clearFilter () {
-    this.dispatch('clearFilter')
   }
 
 })
