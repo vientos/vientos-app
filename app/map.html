@@ -18,7 +18,10 @@
         height: 800px;
       }
     </style>
-    <leaflet-map id="map" latitude="{{mapLatitude}}" longitude="{{mapLongitude}}" zoom="{{mapZoom}}">
+    <leaflet-map id="map"
+      latitude="{{latitude}}"
+      longitude="{{longitude}}"
+      zoom="{{zoom}}">
       <leaflet-tilelayer
         url="https://api.tiles.mapbox.com/v4/ralexrdz.nnh64i75/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmFsZXhyZHoiLCJhIjoiY2lxNDU4NzM4MDFuM2Zubm5oNWNhY21yMCJ9.8nWz6Mkz7-xHvKOY3GqwDQ"
         min-zoom="1"
@@ -26,15 +29,26 @@
         noWrap>
       </leaflet-tilelayer>
 
-      <template is="dom-repeat" items="[[visibleLocations]]">
-        <leaflet-marker on-click="_markerClick" latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'></leaflet-marker>
+      <template is="dom-repeat" items="[[locations]]">
+        <leaflet-marker
+        latitude="[[item.latitude]]"
+        longitude="[[item.longitude]]"
+        icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'
+        on-click="_markerClick" >
+        </leaflet-marker>
       </template>
 
       <leaflet-geolocation enable-high-accuracy
-        latitude="{{myLatitude}}" longitude="{{myLongitude}}" accuracy="{{myAccuracy}}">
+        latitude="{{myLatitude}}"
+        longitude="{{myLongitude}}"
+        accuracy="{{myAccuracy}}">
       </leaflet-geolocation>
       <template is="dom-if" if="[[myLatitude]]">
-        <leaflet-marker latitude="[[myLatitude]]" longitude="[[myLongitude]]" icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'></leaflet-marker>
+        <leaflet-marker
+          latitude="[[myLatitude]]"
+          longitude="[[myLongitude]]"
+          icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'>
+        </leaflet-marker>
       </template>
     </leaflet-map>
 

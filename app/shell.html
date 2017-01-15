@@ -112,15 +112,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          </app-header>
 
          <iron-pages
-         selected="[[page]]"
-         attr-for-selected="name"
-         fallback-selection="view404"
-         role="main">
-         <vientos-projects name="projects"></vientos-projects>
-         <vientos-activities name="activities"></vientos-activities>
-         <vientos-map name="map" on-selected="_projectSelected"></vientos-map>
-         <vientos-project-profile name="project-profile" uuid="[[subrouteData.uuid]]"></vientos-project-profile>
+           selected="[[page]]"
+           attr-for-selected="name"
+           fallback-selection="view404"
+           role="main">
          <vientos-filter name="filter"></vientos-filter>
+         <vientos-activities name="activities"></vientos-activities>
+         <vientos-projects
+           name="projects"
+           projects="[[visibleProjects]]"></vientos-projects>
+         <vientos-map
+           name="map"
+           locations="[[visibleLocations]]"
+           latitude="[[config.map.latitude]]"
+           longitude="[[config.map.longitude]]"
+           zoom="[[config.map.zoom]]"
+           on-selected="_projectSelected"
+           on-bbox="_updateBoundingBox"></vientos-map>
+         <vientos-project-profile
+           name="project-profile"
+           uuid="[[subrouteData.uuid]]"></vientos-project-profile>
          <my-view404 name="view404"></my-view404>
       </iron-pages>
    </app-header-layout>

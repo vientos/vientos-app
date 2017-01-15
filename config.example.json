@@ -5,5 +5,14 @@
     "categories": "http://localhost:8080/test/data/categories.json",
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
     "labels": "http://localhost:8080/test/data/labels.json"
+  },
+  "map": {
+    "latitude": 19.43,
+    "longitude": -99.13,
+    "zoom": 11,
+    "boundingBox": {
+      "sw": { "lat": 0, "lng": -180 },
+      "ne": { "lat": 90, "lng": 0 }
+    }
   }
 }

@@ -6,6 +6,7 @@ import createLogger from 'redux-logger'
 import * as ActionTypes from './actionTypes'
 import reducer from './reducers'
 import sagas from './sagas'
+import * as util from './util'
 
 const sagaMiddleware = createSagaMiddleware()
 const logger = createLogger()
@@ -16,4 +17,9 @@ const store = createStore(
 
 sagaMiddleware.run(sagas)
 
-window.store = store
+window.vientos = {
+  store,
+  ActionTypes,
+  util,
+  config: require('../config.json')
+}

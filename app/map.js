@@ -1,31 +1,25 @@
 Polymer({
   is: 'vientos-map',
-  behaviors: [ ReduxBehavior ],
-
   properties: {
+    locations: {
+      type: Array
+    },
     map: {
       type: Object
     },
-    mapLatitude: {
-      type: Number,
-      value: 19.43
+    latitude: {
+      type: Number
     },
-    mapLongitude: {
-      type: Number,
-      value: -99.13
+    longitude: {
+      type: Number
     },
-    mapZoom: {
-      type: Number,
-      value: 11
+    zoom: {
+      type: Number
     },
-    projects: {
-      type: Array,
-      statePath: 'projects'
-    },
-    visibleLocations: {
-      type: Array,
-      value: [],
-      computed: '_extractLocations(projects, mapLatitude, mapLongitude, mapZoom)'
+    boundingBox: {
+      type: Object,
+      computed: '_getBoundingBox(latitude, longitude, zoom)',
+      observer: '_updatedBoundingBox'
     },
     myLatitude: {
       type: Number
@@ -34,35 +28,22 @@ Polymer({
       type: Number
     },
     myAccuracy: {
-      type: Number()
+      type: Number
     }
   },
 
-  // FIXME: calculations work only for NW coordinates
-  _extractLocations () {
+  _getBoundingBox () {
     let map = this.$.map.map
-    let sw, ne
     if (map) {
+      let sw, ne
       ({ _southWest: sw, _northEast: ne } = map.getBounds())
-    } else {
-      sw = { lat: 0, lng: -180 }
-      ne = { lat: 90, lng: 0 }
+      return { sw, ne }
     }
-    return this.projects.reduce((acc, project) => {
-      // TODO: move normalization to reducer
-      if (!project.locations) project.locations = []
-      project.locations.forEach(location => {
-        if (Number(location.latitude) <= ne.lat && Number(location.latitude) >= sw.lat &&
-            Number(location.longitude) <= ne.lng && Number(location.longitude) >= sw.lng) {
-          acc.push({
-            latitude: location.latitude,
-            longitude: location.longitude,
-            project: project
-          })
-        }
-      })
-      return acc
-    }, [])
+  },
+  _updatedBoundingBox () {
+    if (this.boundingBox) {
+      this.fire('bbox', this.boundingBox)
+    }
   },
 
   _markerClick (event) {

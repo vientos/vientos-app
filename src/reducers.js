@@ -87,6 +87,14 @@ function labels (state = {}, action) {
   }
 }
 
+function boundingBox (state = config.map.boundingBox, action) {
+  switch (action.type) {
+    case ActionTypes.SET_BOUNDING_BOX:
+      return action.boundingBox
+    default:
+      return state
+  }
+}
 export default combineReducers({
   projects,
   categories,
@@ -94,5 +102,6 @@ export default combineReducers({
   categoriesFilter,
   collaborationTypesFilter,
   language,
-  labels
+  labels,
+  boundingBox
 })

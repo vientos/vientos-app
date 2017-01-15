@@ -5,7 +5,7 @@ Polymer({
     toggleCategory (categoryId) {
       return {
         type: 'TOGGLE_CATEGORY',
-        categoryId: categoryId
+        categoryId
       }
     },
     clearCategoriesFilter () {
@@ -16,7 +16,7 @@ Polymer({
     toggleCollaborationType (collaborationTypeId) {
       return {
         type: 'TOGGLE_COLLABORATION_TYPE',
-        collaborationTypeId: collaborationTypeId
+        collaborationTypeId
       }
     },
     clearCollaborationTypesFilter () {
