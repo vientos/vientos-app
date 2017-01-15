@@ -1,43 +1,29 @@
 [{
-    "id": "humanrights",
-    "icon": "vientos:globe"
+    "id": "humanrights"
 }, {
-    "id": "productsservices",
-    "icon": "vientos:shopping-basket"
+    "id": "productsservices"
 }, {
-    "id": "environment",
-    "icon": "vientos:pagelines"
+    "id": "environment"
 }, {
-    "id": "artculture",
-    "icon": "vientos:paint-brush"
+    "id": "artculture"
 }, {
-    "id": "gender",
-    "icon": "vientos:intersex"
+    "id": "gender"
 }, {
-    "id": "health",
-    "icon": "vientos:medkit"
+    "id": "health"
 }, {
-    "id": "education",
-    "icon": "vientos:book"
+    "id": "education"
 }, {
-    "id": "food",
-    "icon": "vientos:cutlery"
+    "id": "food"
 }, {
-    "id": "housing",
-    "icon": "vientos:home"
+    "id": "housing"
 }, {
-    "id": "clothing",
-    "icon": "vientos:cut"
+    "id": "clothing"
 }, {
-    "id": "communication",
-    "icon": "vientos:bullhorn"
+    "id": "communication"
 }, {
-    "id": "technology",
-    "icon": "vientos:cogs"
+    "id": "technology"
 }, {
-    "id": "transport",
-    "icon": "vientos:bicycle"
+    "id": "transport"
 }, {
-    "id": "networks",
-    "icon": "vientos:puzzle-piece"
+    "id": "networks"
 }]

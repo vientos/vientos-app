@@ -23,7 +23,7 @@
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.2.1",
     "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.10.1",
     "leaflet-map": "^1.2.0",
-    "vientos-iconset": "^0.0.1"
+    "vientos-iconset": "^0.0.3"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
