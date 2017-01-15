@@ -62,10 +62,6 @@ Polymer({
 
   _iconFor (item) {
     return 'vientos:' + item.id
-  },
-
-  _goBack () {
-    window.history.back()
   }
 
 })

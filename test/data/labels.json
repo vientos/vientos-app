@@ -26,10 +26,7 @@
         "link": "Connect and Recommend",
         "art": "Share your Art",
         "funding":"Crowdfunding",
-        "button:clear": "Clear",
-        "nav:list": "List",
-        "nav:map": "Map",
-        "nav:filter": "Filter"
+        "button:clear": "Clear"
     },
     "es": {
         "humanrights": "Derechos Humanos",
@@ -58,9 +55,6 @@
         "link": "Recomienda y vincula",
         "art": "Comparte tu arte",
         "funding":"Fondeo Colectivo",
-        "button:clear": "Claro",
-        "nav:list": "Lista",
-        "nav:map": "Mapa",
-        "nav:filter": "Filtro"
+        "button:clear": "Claro"
     }
 }
