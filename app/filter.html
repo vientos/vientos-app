@@ -1,6 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
@@ -16,25 +15,21 @@
     </style>
     <a href="#" on-tap="_goBack">&lt;-</a>
 
-    <iron-list items="[[categories]]" as="item">
-      <template>
-        <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
-          <iron-icon icon="[[item.icon]]"></iron-icon>
-          [[localize(item.id)]]
-        </paper-toggle-button>
-      </template>
-    </iron-list>
+    <template is="dom-repeat" items="[[categories]]">
+      <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
+        <iron-icon icon="[[item.icon]]"></iron-icon>
+        [[localize(item.id)]]
+      </paper-toggle-button>
+    </template>
     <paper-button on-tap="_clearCategoriesFilter">
       [[localize('button:clear')]]
     </paper-button>
 
-   <iron-list items="[[collaborationTypes]]" as="item">
-      <template>
-         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
-            [[localize(item.id)]]
-         </paper-toggle-button>
-      </template>
-   </iron-list>
+    <template is="dom-repeat" items="[[collaborationTypes]]">
+       <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
+          [[localize(item.id)]]
+       </paper-toggle-button>
+    </template>
    <paper-button on-tap="_clearCollaborationTypesFilter">
      [[localize('button:clear')]]
    </paper-button>
