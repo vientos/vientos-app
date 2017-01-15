@@ -5,7 +5,22 @@ const config = require('../config.json')
 function projects (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_PROJECTS_SUCCEEDED:
-      return action.projects
+      // normalize
+      return action.projects.map(project => {
+        if (!project.needs) project.needs = []
+        if (!project.offers) project.offers = []
+        if (!project.locations) {
+          project.locations = []
+        } else {
+          project.locations = project.locations.map(location => {
+            return {
+              latitude: Number(location.latitude),
+              longitude: Number(location.longitude)
+            }
+          })
+        }
+        return project
+      })
     default:
       return state
   }

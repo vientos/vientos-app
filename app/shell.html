@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
@@ -21,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <dom-module id="vientos-shell">
    <template>
@@ -62,12 +64,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-weight: bold;
    }
 
-   #languageToggleBtnContainer{
+   #languageToggleBtnContainer {
      float: right;
    }
 
-   #languageToggleBtn{
+   #languageToggleBtn {
      /* FIXME:  */
+   }
+
+   #counter {
+     font-size: 2em;
+     text-align: center;
    }
    </style>
 
@@ -84,15 +91,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    data="{{subrouteData}}"></app-route>
 
    <app-drawer-layout fullbleed>
-      <!-- Drawer content TODO: localize -->
       <app-drawer>
-         <app-toolbar>Menu</app-toolbar>
          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="projects" href="/projects">Projects</a>
-            <a name="activities" href="/activities">Activities</a>
-            <a name="map" href="/map">Map</a>
-            <a name="filter" href="/filter">Filter</a>
+            <a name="projects" href="/projects">[[localize('nav:list')]]</a>
+            <a name="map" href="/map">[[localize('nav:map')]]</a>
+            <a name="filter" href="/filter">[[localize('nav:filter')]]</a>
          </iron-selector>
+         <p id="counter">[[visibleProjects.length]]</p>
       </app-drawer>
 
       <!-- Main content -->
@@ -101,7 +106,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <app-header condenses reveals effects="waterfall">
             <app-toolbar>
                <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-               <div main-title>vientos-nahual</div>
                <div id="languageToggleBtnContainer">
                  <span>ES</span>
                  <paper-toggle-button id="languageToggleBtn" toggles on-tap="_toggleLanguage">
@@ -117,7 +121,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            fallback-selection="view404"
            role="main">
          <vientos-filter name="filter"></vientos-filter>
-         <vientos-activities name="activities"></vientos-activities>
          <vientos-projects
            name="projects"
            projects="[[visibleProjects]]"></vientos-projects>

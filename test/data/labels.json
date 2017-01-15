@@ -16,7 +16,7 @@
         "networks": "Network",
         "material": "Tools and Materials",
         "knowledge": "Knowledge and Skills",
-        "event": "ctivities and Events",
+        "event": "Activities and Events",
         "volunteer": "Volunteering",
         "spread":"Spread the word",
         "product":"Products",
@@ -26,7 +26,10 @@
         "link": "Connect and Recommend",
         "art": "Share your Art",
         "funding":"Crowdfunding",
-        "button:clear": "Clear"
+        "button:clear": "Clear",
+        "nav:list": "List",
+        "nav:map": "Map",
+        "nav:filter": "Filter"
     },
     "es": {
         "humanrights": "Derechos Humanos",
@@ -55,6 +58,9 @@
         "link": "Recomienda y vincula",
         "art": "Comparte tu arte",
         "funding":"Fondeo Colectivo",
-        "button:clear": "Claro"
+        "button:clear": "Claro",
+        "nav:list": "Lista",
+        "nav:map": "Mapa",
+        "nav:filter": "Filtro"
     }
 }

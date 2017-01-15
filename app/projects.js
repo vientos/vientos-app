@@ -5,7 +5,16 @@ Polymer({
   properties: {
     projects: {
       type: Array
+    },
+    expanded: {
+      type: Boolean,
+      value: false
     }
+  },
+
+  _toggleExpanded () {
+    this.expanded = !this.expanded
+    this.$.list.fire('iron-resize')
   },
 
   _linkTo (project) {

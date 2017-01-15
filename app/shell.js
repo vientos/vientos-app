@@ -4,7 +4,7 @@ const ReduxBehavior = PolymerRedux(store)
 const locationsInBoundingBox = window.vientos.util.locationsInBoundingBox
 Polymer({
   is: 'vientos-shell',
-  behaviors: [ ReduxBehavior ],
+  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
   actions: {
     setLanguage (language) {
       return {
@@ -38,6 +38,10 @@ Polymer({
       type: Array,
       statePath: 'categoriesFilter'
     },
+    collaborationTypesFilter: {
+      type: Array,
+      statePath: 'collaborationTypesFilter'
+    },
     boundingBox: {
       type: Object,
       statePath: 'boundingBox'
@@ -45,12 +49,20 @@ Polymer({
     visibleProjects: {
       type: Array,
       value: [],
-      computed: '_filterProjects(projects, categoriesFilter, boundingBox)'
+      computed: '_filterProjects(projects, categoriesFilter, collaborationTypesFilter, boundingBox)'
     },
     visibleLocations: {
       type: Array,
       value: [],
       computed: '_extractLocations(visibleProjects, boundingBox)'
+    },
+    language: {
+      type: String,
+      statePath: 'language'
+    },
+    resources: {
+      type: Object,
+      statePath: 'labels'
     }
   },
 
@@ -69,10 +81,6 @@ Polymer({
 
       case 'projects':
         viewUrl = 'projects'
-        break
-
-      case 'activities':
-        viewUrl = 'activities'
         break
 
       case 'map':
@@ -96,7 +104,7 @@ Polymer({
   },
 
   _toggleLanguage (e) {
-    if (e.target.checked) {
+    if (this.language === 'en') {
       this.dispatch('setLanguage', 'es')
     } else {
       this.dispatch('setLanguage', 'en')
@@ -107,12 +115,13 @@ Polymer({
     this.page = 'view404'
   },
 
-  _filterProjects (projects, categoriesFilter, boundingBox) {
-    let filteredOnCategories
+  _filterProjects (projects, categoriesFilter, collaborationTypesFilter, boundingBox) {
+    let filtered
+    // filter on categories
     if (categoriesFilter.every(f => !f.selected)) {
-      filteredOnCategories = projects.slice()
+      filtered = projects.slice()
     } else {
-      filteredOnCategories = projects.filter(project => {
+      filtered = projects.filter(project => {
         return project.categories.some(category => {
           return categoriesFilter.some(filter => {
             return filter.selected && filter.categoryId === category.catId
@@ -120,8 +129,18 @@ Polymer({
         })
       })
     }
+    // filter on collaboration types
+    if (!collaborationTypesFilter.every(filter => !filter.selected)) {
+      filtered = filtered.filter(project => {
+        return project.needs.concat(project.offers).some(intent => {
+          return collaborationTypesFilter.some(filter => {
+            return filter.selected && filter.collaborationTypeId === intent.type
+          })
+        })
+      })
+    }
     // filter by bounding box
-    return filteredOnCategories.filter(project => {
+    return filtered.filter(project => {
       return locationsInBoundingBox(project, boundingBox).length > 0
     })
   },
