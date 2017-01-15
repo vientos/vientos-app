@@ -16,11 +16,11 @@
     </style>
     <a href="#" on-tap="_goBack">&lt;-</a>
 
-    <iron-list items="[[categoriesFilter]]" as="item">
+    <iron-list items="[[categories]]" as="item">
       <template>
         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
           <iron-icon icon="[[item.icon]]"></iron-icon>
-          [[localize(item.categoryId)]]
+          [[localize(item.id)]]
         </paper-toggle-button>
       </template>
     </iron-list>
@@ -28,10 +28,10 @@
       [[localize('button:clear')]]
     </paper-button>
 
-   <iron-list items="[[collaborationTypesFilter]]" as="item">
+   <iron-list items="[[collaborationTypes]]" as="item">
       <template>
          <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
-            [[localize(item.collaborationTypeId)]]
+            [[localize(item.id)]]
          </paper-toggle-button>
       </template>
    </iron-list>

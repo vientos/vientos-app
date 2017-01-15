@@ -2,10 +2,10 @@ Polymer({
   is: 'vientos-filter',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
   actions: {
-    toggleCategory (categoryId) {
+    toggleCategory (id) {
       return {
         type: 'TOGGLE_CATEGORY',
-        categoryId
+        id
       }
     },
     clearCategoriesFilter () {
@@ -13,10 +13,10 @@ Polymer({
         type: 'CLEAR_CATEGORIES_FILTER'
       }
     },
-    toggleCollaborationType (collaborationTypeId) {
+    toggleCollaborationType (id) {
       return {
         type: 'TOGGLE_COLLABORATION_TYPE',
-        collaborationTypeId
+        id
       }
     },
     clearCollaborationTypesFilter () {
@@ -26,13 +26,13 @@ Polymer({
     }
   },
   properties: {
-    categoriesFilter: {
+    categories: {
       type: Array,
-      statePath: 'categoriesFilter'
+      statePath: 'categories'
     },
-    collaborationTypesFilter: {
+    collaborationTypes: {
       type: Array,
-      statePath: 'collaborationTypesFilter'
+      statePath: 'collaborationTypes'
     },
     language: {
       type: String,
@@ -45,7 +45,7 @@ Polymer({
   },
 
   _toggleCategory (event) {
-    this.dispatch('toggleCategory', event.model.item.categoryId)
+    this.dispatch('toggleCategory', event.model.item.id)
   },
 
   _clearCategoriesFilter () {
@@ -53,7 +53,7 @@ Polymer({
   },
 
   _toggleCollaborationType (event) {
-    this.dispatch('toggleCollaborationType', event.model.item.collaborationTypeId)
+    this.dispatch('toggleCollaborationType', event.model.item.id)
   },
 
   _clearCollaborationTypesFilter () {

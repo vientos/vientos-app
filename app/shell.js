@@ -34,13 +34,13 @@ Polymer({
       type: Array,
       statePath: 'projects'
     },
-    categoriesFilter: {
+    categories: {
       type: Array,
-      statePath: 'categoriesFilter'
+      statePath: 'categories'
     },
-    collaborationTypesFilter: {
+    collaborationTypes: {
       type: Array,
-      statePath: 'collaborationTypesFilter'
+      statePath: 'collaborationTypes'
     },
     boundingBox: {
       type: Object,
@@ -49,7 +49,7 @@ Polymer({
     visibleProjects: {
       type: Array,
       value: [],
-      computed: '_filterProjects(projects, categoriesFilter, collaborationTypesFilter, boundingBox)'
+      computed: '_filterProjects(projects, categories, collaborationTypes, boundingBox)'
     },
     visibleLocations: {
       type: Array,
@@ -115,26 +115,26 @@ Polymer({
     this.page = 'view404'
   },
 
-  _filterProjects (projects, categoriesFilter, collaborationTypesFilter, boundingBox) {
+  _filterProjects (projects, categories, collaborationTypes, boundingBox) {
     let filtered
     // filter on categories
-    if (categoriesFilter.every(f => !f.selected)) {
+    if (categories.every(f => !f.selected)) {
       filtered = projects.slice()
     } else {
       filtered = projects.filter(project => {
         return project.categories.some(category => {
-          return categoriesFilter.some(filter => {
-            return filter.selected && filter.categoryId === category.catId
+          return categories.some(filter => {
+            return filter.selected && filter.id === category.catId
           })
         })
       })
     }
     // filter on collaboration types
-    if (!collaborationTypesFilter.every(filter => !filter.selected)) {
+    if (!collaborationTypes.every(filter => !filter.selected)) {
       filtered = filtered.filter(project => {
         return project.needs.concat(project.offers).some(intent => {
-          return collaborationTypesFilter.some(filter => {
-            return filter.selected && filter.collaborationTypeId === intent.type
+          return collaborationTypes.some(filter => {
+            return filter.selected && filter.id === intent.type
           })
         })
       })

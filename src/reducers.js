@@ -29,27 +29,9 @@ function projects (state = [], action) {
 function categories (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
-      return action.categories
-    default:
-      return state
-  }
-}
-
-function collaborationTypes (state = [], action) {
-  switch (action.type) {
-    case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
-      return action.collaborationTypes
-    default:
-      return state
-  }
-}
-
-function categoriesFilter (state = [], action) {
-  switch (action.type) {
-    case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
-      return action.categories.map(c => ({ categoryId: c.id, selected: false, icon: c.icon }))
+      return action.categories.map(category => Object.assign(category, { selected: false }))
     case ActionTypes.TOGGLE_CATEGORY:
-      let index = state.findIndex(e => e.categoryId === action.categoryId)
+      let index = state.findIndex(e => e.id === action.id)
       let updated = Object.create(state[index])
       updated.selected = !updated.selected
       return [
@@ -58,18 +40,18 @@ function categoriesFilter (state = [], action) {
         ...state.slice(index + 1)
       ]
     case ActionTypes.CLEAR_CATEGORIES_FILTER:
-      return state.map(e => ({ categoryId: e.categoryId, selected: false, icon: e.icon }))
+      return state.map(category => Object.assign(category, { selected: false }))
     default:
       return state
   }
 }
 
-function collaborationTypesFilter (state = [], action) {
+function collaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
-      return action.collaborationTypes.map(ct => ({ collaborationTypeId: ct.id, selected: false }))
+      return action.collaborationTypes.map(collaborationType => Object.assign(collaborationType, { selected: false }))
     case ActionTypes.TOGGLE_COLLABORATION_TYPE:
-      let index = state.findIndex(e => e.collaborationTypeId === action.collaborationTypeId)
+      let index = state.findIndex(e => e.id === action.id)
       let updated = Object.create(state[index])
       updated.selected = !updated.selected
       return [
@@ -78,7 +60,7 @@ function collaborationTypesFilter (state = [], action) {
         ...state.slice(index + 1)
       ]
     case ActionTypes.CLEAR_COLLABORATION_TYPES_FILTER:
-      return state.map(e => ({ collaborationTypeId: e.collaborationTypeId, selected: false }))
+      return state.collaborationTypes.map(collaborationType => Object.assign(collaborationType, { selected: false }))
     default:
       return state
   }
@@ -114,9 +96,7 @@ export default combineReducers({
   projects,
   categories,
   collaborationTypes,
-  categoriesFilter,
-  collaborationTypesFilter,
+  boundingBox,
   language,
-  labels,
-  boundingBox
+  labels
 })
