@@ -4,7 +4,8 @@
     "projects": "http://localhost:8080/test/data/projects.json",
     "categories": "http://localhost:8080/test/data/categories.json",
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
-    "labels": "http://localhost:8080/test/data/labels.json"
+    "labels": "http://localhost:8080/test/data/labels.json",
+    "login": "http://localhost:3200/api/user/login"
   },
   "map": {
     "latitude": 19.43,

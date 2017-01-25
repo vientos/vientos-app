@@ -1,0 +1,22 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="vientos-login">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+    </style>
+    <paper-icon-button icon="vientos:arrow-left" on-tap="_goBack"></paper-icon-button>
+    <input id="username" />
+    <input id="password" />
+    <paper-icon-button icon="vientos:settings" on-tap="_submit"></paper-icon-button>
+
+  </template>
+  <script src="login.js"></script>
+</dom-module>

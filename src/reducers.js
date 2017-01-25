@@ -66,6 +66,15 @@ function collaborationTypes (state = [], action) {
   }
 }
 
+function account (state = null, action) {
+  switch (action.type) {
+    case ActionTypes.LOGIN_SUCCEEDED:
+      return action.account
+    default:
+      return state
+  }
+}
+
 function language (state = config.language, action) {
   switch (action.type) {
     case ActionTypes.SET_LANGUAGE:
@@ -96,6 +105,7 @@ export default combineReducers({
   projects,
   categories,
   collaborationTypes,
+  account,
   boundingBox,
   language,
   labels

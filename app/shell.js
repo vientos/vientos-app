@@ -25,6 +25,11 @@ Polymer({
       type: Object,
       value: window.vientos.config
     },
+    account: {
+      type: Object,
+      statePath: 'account',
+      observer: '_accountChanged'
+    },
     page: {
       type: String,
       reflectToAttribute: true,
@@ -92,6 +97,10 @@ Polymer({
         viewUrl = 'filter'
         break
 
+      case 'login':
+        viewUrl = 'login'
+        break
+
       case 'project-profile':
         viewUrl = 'project-profile'
         break
@@ -102,6 +111,10 @@ Polymer({
 
     var resolvedPageUrl = this.resolveUrl(viewUrl)
     this.importHref(resolvedPageUrl, null, this._showPage404, true)
+  },
+
+  _accountChanged () {
+    this.set('routeData.page', 'projects')
   },
 
   _toggleLanguage (e) {
