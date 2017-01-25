@@ -5,7 +5,8 @@
     "categories": "http://localhost:8080/test/data/categories.json",
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
     "labels": "http://localhost:8080/test/data/labels.json",
-    "login": "http://localhost:3200/api/user/login"
+    "login": "http://localhost:3000/api/user/login",
+    "register": "http://localhost:3000/api/user/register"
   },
   "map": {
     "latitude": 19.43,

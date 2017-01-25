@@ -70,6 +70,8 @@ function account (state = null, action) {
   switch (action.type) {
     case ActionTypes.LOGIN_SUCCEEDED:
       return action.account
+    case ActionTypes.REGISTER_SUCCEEDED:
+      return action.account
     default:
       return state
   }

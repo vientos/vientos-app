@@ -2,10 +2,17 @@ Polymer({
   is: 'vientos-login',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
   actions: {
-    login (username, password) {
+    login (email, password) {
       return {
         type: window.vientos.ActionTypes.LOGIN_REQUESTED,
-        username,
+        email,
+        password
+      }
+    },
+    register (email, password) {
+      return {
+        type: window.vientos.ActionTypes.REGISTER_REQUESTED,
+        email,
         password
       }
     }
@@ -22,8 +29,13 @@ Polymer({
     }
   },
 
-  _submit () {
-    this.dispatch('login', this.$.username.value, this.$.password.value)
+  _login () {
+    this.dispatch('login', this.$.email.value, this.$.password.value)
+  },
+
+  _register () {
+    //TODO: validate pass === confirm
+    this.dispatch('register', this.$.email.value, this.$.password.value)
   },
 
   _goBack () {

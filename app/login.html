@@ -13,9 +13,14 @@
       }
     </style>
     <paper-icon-button icon="vientos:arrow-left" on-tap="_goBack"></paper-icon-button>
-    <input id="username" />
-    <input id="password" />
-    <paper-icon-button icon="vientos:settings" on-tap="_submit"></paper-icon-button>
+    <div>
+      <input id="email" placeholder="email"/>
+      <input id="password" type="password" placeholder="pass"/>
+      <input id="confirmation" type="password"/ placeholder="conf pass">
+      <paper-icon-button icon="vientos:settings" on-tap="_register"></paper-icon-button>
+      <paper-icon-button icon="vientos:eye" on-tap="_login"></paper-icon-button>
+    </div>
+
 
   </template>
   <script src="login.js"></script>

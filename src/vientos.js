@@ -21,12 +21,20 @@ export function fetchLabels (){
       .then(response => response.json())
 }
 
-// TODO: change from username to email
-export function login (username, password) {
+export function login (email, password) {
   return fetch(api.login, {
     method: 'POST',
     credentials: 'include',
-    body: `username=${username}&password=${password}`,
+    body: `email=${email}&password=${password}`,
+    headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+      .then(response => response.json())
+}
+
+export function register (email, password) {
+  return fetch(api.register, {
+    method: 'POST',
+    credentials: 'include',
+    body: `email=${email}&password=${password}`,
     headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
       .then(response => response.json())
 }

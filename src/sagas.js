@@ -67,7 +67,7 @@ function * getLabels (action) {
 
 function * login (action) {
   try {
-    const account = yield call(Vientos.login, action.username, action.password)
+    const account = yield call(Vientos.login, action.email, action.password)
     yield put({
       type: ActionTypes.LOGIN_SUCCEEDED,
       account
@@ -75,6 +75,21 @@ function * login (action) {
   } catch (e) {
     yield put({
       type: ActionTypes.LOGIN_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * register (action) {
+  try {
+    const account = yield call(Vientos.register, action.email, action.password)
+    yield put({
+      type: ActionTypes.REGISTER_SUCCEEDED,
+      account
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.REGISTER_FAILED,
       message: e.message
     })
   }
@@ -100,13 +115,18 @@ function * loginSaga () {
   yield * takeLatest(ActionTypes.LOGIN_REQUESTED, login)
 }
 
+function * registerSaga () {
+  yield * takeLatest(ActionTypes.REGISTER_REQUESTED, register)
+}
+
 function * root () {
   yield [
     call(projectsSaga),
     call(categoriesSaga),
     call(collaborationTypesSaga),
     call(labelsSaga),
-    call(loginSaga)
+    call(loginSaga),
+    call(registerSaga)
   ]
 }
 
