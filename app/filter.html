@@ -1,0 +1,38 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="vientos-filter">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+    </style>
+    <a href="#" on-tap="_goBack">&lt;-</a>
+
+    <template is="dom-repeat" items="[[categories]]">
+      <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
+        <iron-icon icon="[[item.icon]]"></iron-icon>
+        [[localize(item.id)]]
+      </paper-toggle-button>
+    </template>
+    <paper-button on-tap="_clearCategoriesFilter">
+      [[localize('button:clear')]]
+    </paper-button>
+
+    <template is="dom-repeat" items="[[collaborationTypes]]">
+       <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
+          [[localize(item.id)]]
+       </paper-toggle-button>
+    </template>
+   <paper-button on-tap="_clearCollaborationTypesFilter">
+     [[localize('button:clear')]]
+   </paper-button>
+  </template>
+  <script src="filter.js"></script>
+</dom-module>

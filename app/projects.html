@@ -12,9 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="vientos-projects">
@@ -25,25 +23,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
-
-   <iron-list items="[[categoriesFilter]]" as="item">
+    <paper-button on-tap="_toggleExpanded">-/+</paper-button>
+    <iron-list id="list" items="[[projects]]" as="item">
       <template>
-         <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
-            <iron-icon icon="[[item.icon]]"></iron-icon>
-            [[localize(item.categoryId)]]
-         </paper-toggle-button>
+        <paper-item>
+          <paper-item-body two-line>
+            <div><a href="[[_linkTo(item)]]">[[item.name]]</a></div>
+            <template is="dom-if" if="[[expanded]]">
+              <div secondary>
+                <template is="dom-repeat" items="[[item.offers]]">
+                  <div>-&gt; : [[item.title]]</div>
+                </template>
+                <template is="dom-repeat" items="[[item.needs]]">
+                  <div>&lt;- : [[item.title]]</div>
+                </template>
+              </div>
+            </template>
+          </paper-item-body>
+        </paper-item>
       </template>
-   </iron-list>
-   <paper-button on-tap="_clearFilter">
-     [[localize('button:clear')]]
-   </paper-button>
-   <iron-list items="[[visibleProjects]]" as="item">
-      <template>
-         <paper-item>
-            <a href="[[_linkTo(item)]]">[[item.name]]</a>
-         </paper-item>
-      </template>
-   </iron-list>
+    </iron-list>
   </template>
   <script src="projects.js"></script>
 </dom-module>
