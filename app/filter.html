@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="shared-styles.html">
 
@@ -13,11 +14,10 @@
         padding: 10px;
       }
     </style>
-    <a href="#" on-tap="_goBack">&lt;-</a>
 
     <template is="dom-repeat" items="[[categories]]">
-      <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCategory">
-        <iron-icon icon="[[item.icon]]"></iron-icon>
+      <paper-toggle-button toggles active="[[item.selected]]" on-tap="_toggleCategory">
+        <iron-icon icon="[[_iconFor(item)]]"></iron-icon>
         [[localize(item.id)]]
       </paper-toggle-button>
     </template>
@@ -26,7 +26,7 @@
     </paper-button>
 
     <template is="dom-repeat" items="[[collaborationTypes]]">
-       <paper-toggle-button toggles active=[[item.selected]] on-tap="_toggleCollaborationType">
+       <paper-toggle-button toggles active="[[item.selected]]" on-tap="_toggleCollaborationType">
           [[localize(item.id)]]
        </paper-toggle-button>
     </template>

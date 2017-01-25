@@ -60,8 +60,8 @@ Polymer({
     this.dispatch('clearCollaborationTypesFilter')
   },
 
-  _goBack () {
-    window.history.back()
+  _iconFor (item) {
+    return 'vientos:' + item.id
   }
 
 })
