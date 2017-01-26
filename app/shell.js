@@ -113,8 +113,8 @@ Polymer({
     this.importHref(resolvedPageUrl, null, this._showPage404, true)
   },
 
-  _accountChanged () {
-    this.set('routeData.page', 'projects')
+  _accountChanged (newValue, oldValue) {
+    if (oldValue === null) this.set('routeData.page', 'projects')
   },
 
   _toggleLanguage (e) {

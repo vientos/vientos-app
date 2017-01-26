@@ -38,3 +38,17 @@ export function register (email, password) {
     headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
       .then(response => response.json())
 }
+
+export function follow (projectId) {
+  return fetch(api.follow, {
+    method: 'POST',
+    credentials: 'include',
+    body: `id=${projectId}`,
+    headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+}
+
+export function unfollow (projectId) {
+  return fetch(api.unfollow.replace('{id}', projectId), {
+    method: 'DELETE',
+    credentials: 'include' })
+}

@@ -6,7 +6,9 @@
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
     "labels": "http://localhost:8080/test/data/labels.json",
     "login": "http://localhost:3000/api/user/login",
-    "register": "http://localhost:3000/api/user/register"
+    "register": "http://localhost:3000/api/user/register",
+    "follow": "http://localhost:3000/api/user/follows",
+    "unfollow": "http://localhost:3000/api/user/follows/{id}"
   },
   "map": {
     "latitude": 19.43,

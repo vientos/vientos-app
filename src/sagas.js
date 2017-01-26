@@ -95,6 +95,35 @@ function * register (action) {
   }
 }
 
+function * follow (action) {
+  try {
+    yield call(Vientos.follow, action.projectId)
+    yield put({
+      type: ActionTypes.FOLLOW_SUCCEEDED,
+      projectId: action.projectId
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.FOLLOW_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * unfollow (action) {
+  try {
+    yield call(Vientos.unfollow, action.projectId)
+    yield put({
+      type: ActionTypes.UNFOLLOW_SUCCEEDED,
+      projectId: action.projectId
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.UNFOLLOW_FAILED,
+      message: e.message
+    })
+  }
+}
 function * projectsSaga () {
   yield * takeLatest(ActionTypes.FETCH_PROJECTS_REQUESTED, getProjects)
 }
@@ -119,6 +148,14 @@ function * registerSaga () {
   yield * takeLatest(ActionTypes.REGISTER_REQUESTED, register)
 }
 
+function * followSaga () {
+  yield * takeLatest(ActionTypes.FOLLOW_REQUESTED, follow)
+}
+
+function * unfollowSaga () {
+  yield * takeLatest(ActionTypes.UNFOLLOW_REQUESTED, unfollow)
+}
+
 function * root () {
   yield [
     call(projectsSaga),
@@ -126,7 +163,9 @@ function * root () {
     call(collaborationTypesSaga),
     call(labelsSaga),
     call(loginSaga),
-    call(registerSaga)
+    call(registerSaga),
+    call(followSaga),
+    call(unfollowSaga)
   ]
 }
 

@@ -69,9 +69,20 @@ function collaborationTypes (state = [], action) {
 function account (state = null, action) {
   switch (action.type) {
     case ActionTypes.LOGIN_SUCCEEDED:
+      if (!action.account.follows) action.account.follows = []
       return action.account
     case ActionTypes.REGISTER_SUCCEEDED:
       return action.account
+    case ActionTypes.FOLLOW_SUCCEEDED:
+      let updated = state.follows.slice()
+      updated.push(action.projectId)
+      return Object.assign({}, state, { follows: updated })
+    case ActionTypes.UNFOLLOW_SUCCEEDED:
+      let index = state.follows.indexOf(action.projectId)
+      return Object.assign({}, state, { follows: [
+        ...state.follows.slice(0, index),
+        ...state.follows.slice(index + 1)
+      ]})
     default:
       return state
   }
