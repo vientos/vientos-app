@@ -6,6 +6,7 @@
     "app/map.html",
     "app/project-profile.html",
     "app/filter.html",
+    "app/login.html",
     "app/my-view404.html"
   ],
   "sourceGlobs": [

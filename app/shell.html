@@ -78,6 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-badge label="[[visibleProjects.length]]" for="filter-button"></paper-badge>
                 <paper-icon-button name="projects" icon="vientos:list"></paper-icon-button>
                 <paper-icon-button name="map" icon="vientos:map"></paper-icon-button>
+                <paper-icon-button name="login" icon="vientos:user"></paper-icon-button>
               </iron-selector>
               <paper-icon-button icon="vientos:menu" drawer-toggle></paper-icon-button>
             </app-toolbar>
@@ -103,6 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <vientos-project-profile
            name="project-profile"
            uuid="[[subrouteData.uuid]]"></vientos-project-profile>
+         <vientos-login name="login"></vientos-login>
          <my-view404 name="view404"></my-view404>
       </iron-pages>
    </app-header-layout>

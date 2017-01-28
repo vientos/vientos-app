@@ -1,11 +1,13 @@
+// see https://redux-saga.github.io/redux-saga/ (at least Basic Concepts)
+
 import { takeLatest } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
 import * as ActionTypes from './actionTypes'
-import { fetchProjects, fetchCategories, fetchCollaborationTypes ,fetchLabels } from './vientos'
+import * as Vientos from './vientos'
 
 function * getProjects (action) {
   try {
-    const projects = yield call(fetchProjects)
+    const projects = yield call(Vientos.fetchProjects)
     yield put({
       type: ActionTypes.FETCH_PROJECTS_SUCCEEDED,
       projects
@@ -20,7 +22,7 @@ function * getProjects (action) {
 
 function * getCategories (action) {
   try {
-    const categories = yield call(fetchCategories)
+    const categories = yield call(Vientos.fetchCategories)
     yield put({
       type: ActionTypes.FETCH_CATEGORIES_SUCCEEDED,
       categories
@@ -35,7 +37,7 @@ function * getCategories (action) {
 
 function * getCollaborationTypes (action) {
   try {
-    const collaborationTypes = yield call(fetchCollaborationTypes)
+    const collaborationTypes = yield call(Vientos.fetchCollaborationTypes)
     yield put({
       type: ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED,
       collaborationTypes
@@ -50,7 +52,7 @@ function * getCollaborationTypes (action) {
 
 function * getLabels (action) {
   try {
-    const labels = yield call(fetchLabels)
+    const labels = yield call(Vientos.fetchLabels)
     yield put({
       type: ActionTypes.FETCH_LABELS_SUCCEEDED,
       labels
@@ -58,6 +60,66 @@ function * getLabels (action) {
   } catch (e) {
     yield put({
       type: ActionTypes.FETCH_LABELS_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * login (action) {
+  try {
+    const account = yield call(Vientos.login, action.email, action.password)
+    yield put({
+      type: ActionTypes.LOGIN_SUCCEEDED,
+      account
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.LOGIN_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * register (action) {
+  try {
+    const account = yield call(Vientos.register, action.email, action.password)
+    yield put({
+      type: ActionTypes.REGISTER_SUCCEEDED,
+      account
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.REGISTER_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * follow (action) {
+  try {
+    yield call(Vientos.follow, action.projectId)
+    yield put({
+      type: ActionTypes.FOLLOW_SUCCEEDED,
+      projectId: action.projectId
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.FOLLOW_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * unfollow (action) {
+  try {
+    yield call(Vientos.unfollow, action.projectId)
+    yield put({
+      type: ActionTypes.UNFOLLOW_SUCCEEDED,
+      projectId: action.projectId
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.UNFOLLOW_FAILED,
       message: e.message
     })
   }
@@ -78,12 +140,32 @@ function * labelsSaga () {
   yield * takeLatest(ActionTypes.FETCH_LABELS_REQUESTED, getLabels)
 }
 
+function * loginSaga () {
+  yield * takeLatest(ActionTypes.LOGIN_REQUESTED, login)
+}
+
+function * registerSaga () {
+  yield * takeLatest(ActionTypes.REGISTER_REQUESTED, register)
+}
+
+function * followSaga () {
+  yield * takeLatest(ActionTypes.FOLLOW_REQUESTED, follow)
+}
+
+function * unfollowSaga () {
+  yield * takeLatest(ActionTypes.UNFOLLOW_REQUESTED, unfollow)
+}
+
 function * root () {
   yield [
     call(projectsSaga),
     call(categoriesSaga),
     call(collaborationTypesSaga),
-    call(labelsSaga)
+    call(labelsSaga),
+    call(loginSaga),
+    call(registerSaga),
+    call(followSaga),
+    call(unfollowSaga)
   ]
 }
 

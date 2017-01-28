@@ -29,6 +29,10 @@ Polymer({
     },
     myAccuracy: {
       type: Number
+    },
+    tilelayer: {
+      type: String,
+      value: () => { return window.vientos.config.map.tilelayer }
     }
   },
 

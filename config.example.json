@@ -4,7 +4,11 @@
     "projects": "http://localhost:8080/test/data/projects.json",
     "categories": "http://localhost:8080/test/data/categories.json",
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
-    "labels": "http://localhost:8080/test/data/labels.json"
+    "labels": "http://localhost:8080/test/data/labels.json",
+    "login": "http://localhost:3000/api/user/login",
+    "register": "http://localhost:3000/api/user/register",
+    "follow": "http://localhost:3000/api/user/follows",
+    "unfollow": "http://localhost:3000/api/user/follows/{id}"
   },
   "map": {
     "latitude": 19.43,
@@ -13,6 +17,7 @@
     "boundingBox": {
       "sw": { "lat": 0, "lng": -180 },
       "ne": { "lat": 90, "lng": 0 }
-    }
+    },
+    "tilelayer": "https://api.mapbox.com/styles/v1/vientos/cixqjuql4002y2rrsrjy004fg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmllbnRvcyIsImEiOiJjaXdwZG5iN3kwMDRxMnRsaHJkNzQxZGVmIn0.TvQBDcF8tKU2wmqsEHVzNA"
   }
 }
