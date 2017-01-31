@@ -4,7 +4,7 @@
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="vientos-login">
+<dom-module id="vientos-me">
   <template>
     <style include="shared-styles">
       :host {
@@ -12,16 +12,17 @@
         padding: 10px;
       }
     </style>
-    <paper-icon-button icon="vientos:arrow-left" on-tap="_goBack"></paper-icon-button>
-    <div>
-      <input id="email" placeholder="@"/>
-      <input id="password" type="password" placeholder="********"/>
-      <input id="confirmation" type="password"/ placeholder="********">
-      <paper-icon-button icon="vientos:register" on-tap="_register"></paper-icon-button>
-      <paper-icon-button icon="vientos:login" on-tap="_login"></paper-icon-button>
-    </div>
+    <template is="dom-if" if="[[person]]">
+      <paper-icon-button icon="vientos:login" on-tap="_bye"></paper-icon-button>
+    </template>
+    <template is="dom-if" if="[[!person]]">
+      <ul>
+        <li><a href="[[login.google]]">google</a></li>
+        <li><a href="[[login.facebook]]">facebook</a></li>
+      </ul>
+    </template>
 
 
   </template>
-  <script src="login.js"></script>
+  <script src="me.js"></script>
 </dom-module>

@@ -14,7 +14,7 @@
     </style>
     <paper-icon-button icon="vientos:arrow-left" on-tap="_goBack"></paper-icon-button>
     <h2>[[project.name]]</h2>
-    <template is="dom-if" if="[[account]]">
+    <template is="dom-if" if="[[person]]">
       <template is="dom-if" if="[[!followed]]">
         <paper-icon-button icon="vientos:follow" on-tap="_follow"></paper-icon-button>
       </template>

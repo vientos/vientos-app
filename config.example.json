@@ -5,10 +5,14 @@
     "categories": "http://localhost:8080/test/data/categories.json",
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
     "labels": "http://localhost:8080/test/data/labels.json",
-    "login": "http://localhost:3000/api/user/login",
-    "register": "http://localhost:3000/api/user/register",
-    "follow": "http://localhost:3000/api/user/follows",
-    "unfollow": "http://localhost:3000/api/user/follows/{id}"
+    "hello": "http://localhost:3000/auth/hello",
+    "bye": "http://localhost:3000/auth/bye",
+    "login": {
+      "google": "http://localhost:3000/auth/google",
+      "facebook": "http://localhost:3000/auth/facebook"
+    },
+    "follow": "http://localhost:3000/person/{personId}/follows/{projectId}",
+    "unfollow": "http://localhost:3000/person/{personId}/follows/{projectId}"
   },
   "map": {
     "latitude": 19.43,

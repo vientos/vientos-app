@@ -65,31 +65,31 @@ function * getLabels (action) {
   }
 }
 
-function * login (action) {
+function * hello (action) {
   try {
-    const account = yield call(Vientos.login, action.email, action.password)
+    let person = yield call(Vientos.hello)
+    if (person.error) person = null
     yield put({
-      type: ActionTypes.LOGIN_SUCCEEDED,
-      account
+      type: ActionTypes.HELLO_SUCCEEDED,
+      person
     })
   } catch (e) {
     yield put({
-      type: ActionTypes.LOGIN_FAILED,
+      type: ActionTypes.HELLO_FAILED,
       message: e.message
     })
   }
 }
 
-function * register (action) {
+function * bye (action) {
   try {
-    const account = yield call(Vientos.register, action.email, action.password)
+    yield call(Vientos.bye)
     yield put({
-      type: ActionTypes.REGISTER_SUCCEEDED,
-      account
+      type: ActionTypes.BYE_SUCCEEDED
     })
   } catch (e) {
     yield put({
-      type: ActionTypes.REGISTER_FAILED,
+      type: ActionTypes.BYE_FAILED,
       message: e.message
     })
   }
@@ -97,9 +97,10 @@ function * register (action) {
 
 function * follow (action) {
   try {
-    yield call(Vientos.follow, action.projectId)
+    yield call(Vientos.follow, action.personId, action.projectId)
     yield put({
       type: ActionTypes.FOLLOW_SUCCEEDED,
+      personId: action.personId,
       projectId: action.projectId
     })
   } catch (e) {
@@ -112,9 +113,10 @@ function * follow (action) {
 
 function * unfollow (action) {
   try {
-    yield call(Vientos.unfollow, action.projectId)
+    yield call(Vientos.unfollow, action.personId, action.projectId)
     yield put({
       type: ActionTypes.UNFOLLOW_SUCCEEDED,
+      personId: action.personId,
       projectId: action.projectId
     })
   } catch (e) {
@@ -140,12 +142,12 @@ function * labelsSaga () {
   yield * takeLatest(ActionTypes.FETCH_LABELS_REQUESTED, getLabels)
 }
 
-function * loginSaga () {
-  yield * takeLatest(ActionTypes.LOGIN_REQUESTED, login)
+function * helloSaga () {
+  yield * takeLatest(ActionTypes.HELLO_REQUESTED, hello)
 }
 
-function * registerSaga () {
-  yield * takeLatest(ActionTypes.REGISTER_REQUESTED, register)
+function * byeSaga () {
+  yield * takeLatest(ActionTypes.BYE_REQUESTED, bye)
 }
 
 function * followSaga () {
@@ -162,8 +164,8 @@ function * root () {
     call(categoriesSaga),
     call(collaborationTypesSaga),
     call(labelsSaga),
-    call(loginSaga),
-    call(registerSaga),
+    call(helloSaga),
+    call(byeSaga),
     call(followSaga),
     call(unfollowSaga)
   ]

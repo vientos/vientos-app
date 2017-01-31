@@ -2,26 +2,28 @@ Polymer({
   is: 'vientos-project-profile',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
   actions: {
-    follow (projectId) {
+    follow (personId, projectId) {
       return {
         type: window.vientos.ActionTypes.FOLLOW_REQUESTED,
+        personId,
         projectId
       }
     },
-    unfollow (projectId) {
+    unfollow (personId, projectId) {
       return {
         type: window.vientos.ActionTypes.UNFOLLOW_REQUESTED,
+        personId,
         projectId
       }
     }
   },
 
   properties: {
-    account: {
+    person: {
       type: Object,
-      statePath: 'account'
+      statePath: 'person'
     },
-    uuid: {
+    projectId: {
       type: String
     },
     projects: {
@@ -30,11 +32,11 @@ Polymer({
     },
     project: {
       type: Object,
-      computed: '_findProject(uuid, projects)'
+      computed: '_findProject(projectId, projects)'
     },
     followed: {
       type: Boolean,
-      computed: '_followedByAccount(uuid, account)'
+      computed: '_followedByPerson(projectId, person)'
     },
     language: {
       type: String,
@@ -46,12 +48,12 @@ Polymer({
     }
   },
 
-  _findProject (uuid, projects) {
-    return projects.find(p => p._id === this.uuid)
+  _findProject (projectId, projects) {
+    return projects.find(p => p._id === this.projectId)
   },
 
-  _followedByAccount (uuid, account) {
-    return account && account.follows && account.follows.includes(uuid)
+  _followedByPerson (projectId, person) {
+    return person && person.follows && person.follows.includes(projectId)
   },
 
   _goBack () {
@@ -59,11 +61,11 @@ Polymer({
   },
 
   _follow () {
-    this.dispatch('follow', this.uuid)
+    this.dispatch('follow', this.person._id, this.projectId)
   },
 
   _unfollow () {
-    this.dispatch('unfollow', this.uuid)
+    this.dispatch('unfollow', this.person._id, this.projectId)
   }
 
 })

@@ -66,13 +66,13 @@ function collaborationTypes (state = [], action) {
   }
 }
 
-function account (state = null, action) {
+function person (state = null, action) {
   switch (action.type) {
-    case ActionTypes.LOGIN_SUCCEEDED:
-      if (!action.account.follows) action.account.follows = []
-      return action.account
-    case ActionTypes.REGISTER_SUCCEEDED:
-      return action.account
+    case ActionTypes.HELLO_SUCCEEDED:
+      if (action.person && !action.person.follows) action.person.follows = []
+      return action.person
+    case ActionTypes.BYE_SUCCEEDED:
+      return null
     case ActionTypes.FOLLOW_SUCCEEDED:
       let updated = state.follows.slice()
       updated.push(action.projectId)
@@ -118,7 +118,7 @@ export default combineReducers({
   projects,
   categories,
   collaborationTypes,
-  account,
+  person,
   boundingBox,
   language,
   labels

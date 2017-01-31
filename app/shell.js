@@ -25,11 +25,6 @@ Polymer({
       type: Object,
       value: window.vientos.config
     },
-    account: {
-      type: Object,
-      statePath: 'account',
-      observer: '_accountChanged'
-    },
     page: {
       type: String,
       reflectToAttribute: true,
@@ -97,8 +92,8 @@ Polymer({
         viewUrl = 'filter'
         break
 
-      case 'login':
-        viewUrl = 'login'
+      case 'me':
+        viewUrl = 'me'
         break
 
       case 'project-profile':
@@ -111,10 +106,6 @@ Polymer({
 
     var resolvedPageUrl = this.resolveUrl(viewUrl)
     this.importHref(resolvedPageUrl, null, this._showPage404, true)
-  },
-
-  _accountChanged (newValue, oldValue) {
-    if (oldValue === null) this.set('routeData.page', 'projects')
   },
 
   _toggleLanguage (e) {
@@ -175,6 +166,7 @@ Polymer({
 
   ready () {
     // TODO define actions and use this.store instead
+    store.dispatch({type: ActionTypes.HELLO_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_LABELS_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_CATEGORIES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED})
