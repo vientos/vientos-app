@@ -25,25 +25,116 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+
+
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="shared-styles.html">
+
+<!-- <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html"> -->
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="vientos-styles/vientos-styles.html">
+
 
 <dom-module id="vientos-shell">
    <template>
-   <style include="shared-styles">
-   :host {
+   <style is="custom-style" include="vientos-styles vientos-layout iron-flex iron-flex-alignment iron-positioning">
+   /* Will be prevented from affecting local DOM of Polymer elements */
+   * {
+      box-sizing: border-box;
+   }
+
+   /* Use the :root selector to define custom properties and mixins */
+   /* at the document level  */
+   :root {
+      --my-toolbar-title-color: green;
       --app-primary-color: #4285f4;
       --app-secondary-color: black;
+   }
+
+   :host {
 
       display: block;
+
+
    }
 
    app-header {
+      @apply --toolbar-layout;
+      background-color: var(--app-header-background-color);
       color: #fff;
-      background-color: var(--app-primary-color);
    }
    app-header paper-icon-button {
       --paper-icon-button-ink-color: white;
+   }
+
+   app-header-layout {
+      position: relative;
+
+   }
+
+   app-header-layout,
+   app-header-layout app-header,
+   app-header-layout footer {
+      @apply --layout-horizontal;
+
+   }
+
+
+
+   app-header-layout > main {
+      height: calc(100vh-128px);
+      overflow-y: auto;
+   }
+
+
+
+   #vientos-header {
+      background-color: var(--app-header-background-color);
+   }
+
+   #vientos-footer {
+      @apply --fixed-bottom;
+      @apply --w-100;
+      background-color: var(--app-footer-background-color);
+   }
+   #vientos-footer #filter-button{
+      position: absolute;
+      right: 0;
+      width: auto !important;
+      margin: 1em;
+      padding: 1em;
+      @apply --fixed-bottom;
+      bottom: 3em !important;
+      @apply --w-100;
+      background-color: var(--app-footer-background-color);
+   }
+   #vientos-footer,
+   #vientos-footer app-toolbar,
+   app-header-layout app-toolbar iron-selector {
+      @apply --w-100;
+      @apply --layout-horizontal;
+   }
+
+   app-header-layout app-toolbar paper-button {
+      @apply --layout-flex;
+      @apply --layout-vertical;
+      @apply --layout-center-justified;
+   }
+
+   app-header-layout app-toolbar paper-button {
+      @apply --layout-flex;
+      @apply --layout-vertical;
+      @apply --layout-center-justified;
+   }
+
+   app-header-layout app-toolbar paper-button iron-icon {
+      width: 24px;
+      height: 24px;
+      padding: 0 !important;
+      margin: 0 !important;
+   }
+
+   app-header-layout app-toolbar paper-button h6 {
+      margin: 0 !important;
    }
 
    </style>
@@ -60,29 +151,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    pattern="/:projectId"
    data="{{subrouteData}}"></app-route>
 
-   <app-drawer-layout fullbleed>
+   <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
+
+   <app-drawer-layout fullbleed force-narrow>
       <app-drawer>
          <div>
-           <span>ES</span>
-           <paper-toggle-button on-tap="_toggleLanguage">EN</paper-toggle-button>
+            <span>ES</span>
+            <paper-toggle-button on-tap="_toggleLanguage">EN</paper-toggle-button>
          </div>
       </app-drawer>
 
       <!-- Main content -->
-      <app-header-layout has-scrolling-region>
+      <app-header-layout>
 
-         <app-header fixed effects="waterfall">
+         <app-header id="vientos-header" fixed effects="waterfall">
             <app-toolbar>
-              <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
-                <paper-icon-button id="filter-button" name="filter" icon="vientos:filter"></paper-icon-button>
-                <paper-badge label="[[visibleProjects.length]]" for="filter-button"></paper-badge>
-                <paper-icon-button name="projects" icon="vientos:list"></paper-icon-button>
-                <paper-icon-button name="map" icon="vientos:map"></paper-icon-button>
-                <paper-icon-button name="me" icon="vientos:user"></paper-icon-button>
-              </iron-selector>
-              <paper-icon-button icon="vientos:menu" drawer-toggle></paper-icon-button>
+               <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+
+
+                  <paper-button name="/">
+                     <iron-icon icon="vientos:unfollow"></iron-icon>
+                  </paper-button>
+
+                  <paper-button name="me">
+                     <iron-icon icon="vientos:user"></iron-icon>
+                     <h6>Profile</h6>
+                  </paper-button>
+
+               </iron-selector>
+               <paper-icon-button icon="vientos:menu" drawer-toggle></paper-icon-button>
             </app-toolbar>
          </app-header>
+
 
          <iron-pages
            selected="[[page]]"
@@ -96,7 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <vientos-map
            name="map"
            view="[[mapView]]"
-           locations="[[visibleLocations]]"           
+           locations="[[visibleLocations]]"
            on-selected="_projectSelected"
            on-bbox="_updateBoundingBox"></vientos-map>
          <vientos-project-profile
@@ -105,8 +205,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <vientos-me name="me"></vientos-me>
          <my-view404 name="view404"></my-view404>
       </iron-pages>
+
+
+      <footer id="vientos-footer">
+         <app-toolbar>
+            <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+
+               <paper-button id="filter-button" name="filter">
+                  <iron-icon icon="vientos:filter"></iron-icon>
+                  <paper-badge label="[[visibleProjects.length]]" for="filter-button"></paper-badge>
+                  <h6>Filtros</h6>
+               </paper-button>
+
+               <paper-button name="collaborations">
+                  <iron-icon icon="vientos:collaboration"></iron-icon>
+                  <h6>Colaboraciones</h6>
+               </paper-button>
+               <paper-button name="projects">
+                  <iron-icon icon="vientos:list"></iron-icon>
+                  <h6>Proyectos</h6>
+               </paper-button>
+               <paper-button name="map">
+                  <iron-icon icon="vientos:map"></iron-icon>
+                  <h6>Mapa</h6>
+               </paper-button>
+            </iron-selector>
+
+         </app-toolbar>
+      </footer>
+
    </app-header-layout>
 </app-drawer-layout>
+
 </template>
 <script src="shell.js"></script>
 </dom-module>

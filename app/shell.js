@@ -98,6 +98,10 @@ Polymer({
     var viewUrl
     switch (page) {
 
+      case 'collaborations':
+        viewUrl = 'collaborations'
+        break
+
       case 'projects':
         viewUrl = 'projects'
         break

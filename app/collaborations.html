@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="vientos-styles/vientos-styles.html">
+
+<dom-module id="vientos-collaborations">
+  <template>
+    <style include="vientos-styles">
+      :host {
+         display: block;
+         padding: 10px;
+      }
+    </style>
+
+<section>
+
+       <template is="dom-repeat" items="[[collaborations]]">
+         <paper-item>
+            [[item.name]]
+         </paper-item>
+       </template>
+
+
+</section>
+
+  </template>
+  <script src="collaborations.js"></script>
+</dom-module>
