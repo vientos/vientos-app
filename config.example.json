@@ -5,6 +5,7 @@
     "categories": "http://localhost:8080/test/data/categories.json",
     "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
     "labels": "http://localhost:8080/test/data/labels.json",
+    "intents": "http://localhost:3000/intents",
     "hello": "http://localhost:3000/auth/hello",
     "bye": "http://localhost:3000/auth/bye",
     "login": {

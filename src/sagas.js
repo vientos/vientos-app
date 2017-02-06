@@ -1,6 +1,6 @@
 // see https://redux-saga.github.io/redux-saga/ (at least Basic Concepts)
 
-import { takeLatest } from 'redux-saga'
+import { takeLatest, takeEvery } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
 import * as ActionTypes from './actionTypes'
 import * as Vientos from './vientos'
@@ -126,6 +126,22 @@ function * unfollow (action) {
     })
   }
 }
+
+function * createIntent (action) {
+  try {
+    const intent = yield call(Vientos.createIntent, action.projectId, action.title)
+    yield put({
+      type: ActionTypes.CREATE_INTENT_SUCCEEDED,
+      intent
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.CREATE_INTENT_FAILED,
+      message: e.message
+    })
+  }
+}
+
 function * projectsSaga () {
   yield * takeLatest(ActionTypes.FETCH_PROJECTS_REQUESTED, getProjects)
 }
@@ -151,11 +167,15 @@ function * byeSaga () {
 }
 
 function * followSaga () {
-  yield * takeLatest(ActionTypes.FOLLOW_REQUESTED, follow)
+  yield * takeEvery(ActionTypes.FOLLOW_REQUESTED, follow)
 }
 
 function * unfollowSaga () {
-  yield * takeLatest(ActionTypes.UNFOLLOW_REQUESTED, unfollow)
+  yield * takeEvery(ActionTypes.UNFOLLOW_REQUESTED, unfollow)
+}
+
+function * createIntentSaga () {
+  yield * takeEvery(ActionTypes.CREATE_INTENT_REQUESTED, createIntent)
 }
 
 function * root () {
@@ -167,7 +187,8 @@ function * root () {
     call(helloSaga),
     call(byeSaga),
     call(followSaga),
-    call(unfollowSaga)
+    call(unfollowSaga),
+    call(createIntentSaga)
   ]
 }
 

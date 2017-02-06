@@ -22,6 +22,14 @@
         <paper-icon-button icon="vientos:unfollow" on-tap="_unfollow"></paper-icon-button>
       </template>
     </template>
+    <template is="dom-repeat" items="[[projectIntents]]">
+      <div>[[item.title]]</div>
+    </template>
+    <template is="dom-if" if="[[admin]]">
+      <input id="intentTitle" placeholder="Intent name"/>
+      <paper-icon-button icon="vientos:ok" on-tap="_createIntent"></paper-icon-button>
+    </template>
+
 
   </template>
   <script src="project-profile.js"></script>
