@@ -39,3 +39,16 @@ export function unfollow (personId, projectId) {
   let url = api.unfollow.replace('{personId}', personId).replace('{projectId}', projectId)
   return fetch(url, { method: 'DELETE', credentials: 'include' })
 }
+
+export function createIntent (projectId, title) {
+  let intent = {title, projects: [projectId]}
+  return fetch(api.intents, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(intent)
+  }).then(response => {
+    intent._id = response.headers.get('location').split('/')[2]
+    return intent
+  })
+}

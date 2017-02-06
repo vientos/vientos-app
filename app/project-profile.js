@@ -15,6 +15,13 @@ Polymer({
         personId,
         projectId
       }
+    },
+    createIntent (projectId, title) {
+      return {
+        type: window.vientos.ActionTypes.CREATE_INTENT_REQUESTED,
+        projectId,
+        title
+      }
     }
   },
 
@@ -22,6 +29,11 @@ Polymer({
     person: {
       type: Object,
       statePath: 'person'
+    },
+    admin: {
+      type: Boolean,
+      value: false,
+      computed: '_checkIfAdmin(person, project)'
     },
     projectId: {
       type: String
@@ -33,6 +45,15 @@ Polymer({
     project: {
       type: Object,
       computed: '_findProject(projectId, projects)'
+    },
+    intents: {
+      type: Array,
+      statePath: 'intents'
+    },
+    projectIntents: {
+      type: Array,
+      value: [],
+      computed: '_filterIntents(intents)'
     },
     followed: {
       type: Boolean,
@@ -54,6 +75,19 @@ Polymer({
 
   _followedByPerson (projectId, person) {
     return person && person.follows && person.follows.includes(projectId)
+  },
+
+  _checkIfAdmin (person, project) {
+    return person && project && project.admins && project.admins.includes(person._id)
+  },
+
+  _createIntent () {
+    this.dispatch('createIntent', this.projectId, this.$$('#intentTitle').value)
+  },
+
+  _filterIntents (intents) {
+    console.log(intents)
+    return intents.filter(intent => intent.projects.includes(this.projectId))
   },
 
   _goBack () {

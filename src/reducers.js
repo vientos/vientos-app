@@ -26,6 +26,18 @@ function projects (state = [], action) {
   }
 }
 
+function intents (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.CREATE_INTENT_SUCCEEDED:
+      return [
+        ...state,
+        action.intent
+      ]
+    default:
+      return state
+  }
+}
+
 function categories (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
@@ -121,5 +133,6 @@ export default combineReducers({
   person,
   boundingBox,
   language,
-  labels
+  labels,
+  intents
 })
