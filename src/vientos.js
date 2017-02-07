@@ -40,8 +40,7 @@ export function unfollow (personId, projectId) {
   return fetch(url, { method: 'DELETE', credentials: 'include' })
 }
 
-export function createIntent (projectId, title) {
-  let intent = {title, projects: [projectId]}
+export function createIntent (intent) {
   return fetch(api.intents, {
     method: 'POST',
     credentials: 'include',

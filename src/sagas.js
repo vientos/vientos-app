@@ -129,7 +129,7 @@ function * unfollow (action) {
 
 function * createIntent (action) {
   try {
-    const intent = yield call(Vientos.createIntent, action.projectId, action.title)
+    const intent = yield call(Vientos.createIntent, action.intent)
     yield put({
       type: ActionTypes.CREATE_INTENT_SUCCEEDED,
       intent

@@ -15,13 +15,6 @@ Polymer({
         personId,
         projectId
       }
-    },
-    createIntent (projectId, title) {
-      return {
-        type: window.vientos.ActionTypes.CREATE_INTENT_REQUESTED,
-        projectId,
-        title
-      }
     }
   },
 
@@ -81,12 +74,7 @@ Polymer({
     return person && project && project.admins && project.admins.includes(person._id)
   },
 
-  _createIntent () {
-    this.dispatch('createIntent', this.projectId, this.$$('#intentTitle').value)
-  },
-
   _filterIntents (intents) {
-    console.log(intents)
     return intents.filter(intent => intent.projects.includes(this.projectId))
   },
 

@@ -642,7 +642,7 @@
         "type": "service"
     }],
     "owners": ["57d70e53d8a47e7d507f7fdd", "57d70f89d8a47e7d507f7fdf", "57d7133b4190d91444e6ae7f"],
-    "admins": ["5890e8231c14e6128fa98ea3"],
+    "admins": ["5890e8231c14e6128fa98ea3", "589776eaf07f7813962ed842"],
     "pilot": true,
     "projectCodes": [],
     "projectType": {

@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="intent-editor.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="vientos-project-profile">
@@ -25,10 +26,11 @@
     <template is="dom-repeat" items="[[projectIntents]]">
       <div>[[item.title]]</div>
     </template>
-    <template is="dom-if" if="[[admin]]">
-      <input id="intentTitle" placeholder="Intent name"/>
-      <paper-icon-button icon="vientos:ok" on-tap="_createIntent"></paper-icon-button>
-    </template>
+    <div>
+      <template is="dom-if" if="[[admin]]">
+        <vientos-intent-editor project-id="[[projectId]]"></vientos-intent-editor>
+      </template>
+    </div>
 
 
   </template>
