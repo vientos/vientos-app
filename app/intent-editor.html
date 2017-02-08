@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="vientos-intent-editor">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+    </style>
+    <paper-toggle-button on-tap="_toggleDirection"></paper-toggle-button>
+    <input id="intentTitle" placeholder="Intent name"/>
+    <paper-dropdown-menu>
+      <paper-listbox
+        class="dropdown-content"
+        attr-for-selected="name"
+        on-iron-select="_setCollaborationType">
+        <template is="dom-repeat" items="[[collaborationTypes]]">
+          <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+    <paper-icon-button icon="vientos:ok" on-tap="_createIntent"></paper-icon-button>
+  </template>
+  <script src="intent-editor.js"></script>
+</dom-module>
