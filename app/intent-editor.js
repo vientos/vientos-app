@@ -46,11 +46,9 @@ Polymer({
 
   _toggleDirection () {
     this.direction = this.direction === 'offer' ? 'request' : 'offer'
-    console.log(this.direction)
   },
 
   _setCollaborationType (e, detail) {
     this.collaborationType = detail.item.name
-    console.log(this.collaborationType)
   }
 })

@@ -20,6 +20,21 @@ function * getProjects (action) {
   }
 }
 
+function * getIntents (action) {
+  try {
+    const intents = yield call(Vientos.fetchIntents)
+    yield put({
+      type: ActionTypes.FETCH_INTENTS_SUCCEEDED,
+      intents
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.FETCH_INTENTS_FAILED,
+      message: e.message
+    })
+  }
+}
+
 function * getCategories (action) {
   try {
     const categories = yield call(Vientos.fetchCategories)
@@ -146,6 +161,10 @@ function * projectsSaga () {
   yield * takeLatest(ActionTypes.FETCH_PROJECTS_REQUESTED, getProjects)
 }
 
+function * intentsSaga () {
+  yield * takeLatest(ActionTypes.FETCH_INTENTS_REQUESTED, getIntents)
+}
+
 function * categoriesSaga () {
   yield * takeLatest(ActionTypes.FETCH_CATEGORIES_REQUESTED, getCategories)
 }
@@ -181,6 +200,7 @@ function * createIntentSaga () {
 function * root () {
   yield [
     call(projectsSaga),
+    call(intentsSaga),
     call(categoriesSaga),
     call(collaborationTypesSaga),
     call(labelsSaga),

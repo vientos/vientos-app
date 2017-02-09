@@ -171,6 +171,7 @@ Polymer({
     store.dispatch({type: ActionTypes.FETCH_CATEGORIES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_PROJECTS_REQUESTED})
+    store.dispatch({type: ActionTypes.FETCH_INTENTS_REQUESTED})
   }
 
 })

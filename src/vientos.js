@@ -6,6 +6,11 @@ export function fetchProjects () {
       .then(response => response.json())
 }
 
+export function fetchIntents () {
+  return fetch(api.intents, { credentials: 'include' })
+      .then(response => response.json())
+}
+
 export function fetchCategories () {
   return fetch(api.categories, { credentials: 'include' })
       .then(response => response.json())

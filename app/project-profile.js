@@ -43,10 +43,15 @@ Polymer({
       type: Array,
       statePath: 'intents'
     },
-    projectIntents: {
+    offers: {
       type: Array,
       value: [],
-      computed: '_filterIntents(intents)'
+      computed: '_filterOffers(intents)'
+    },
+    requests: {
+      type: Array,
+      value: [],
+      computed: '_filterRequests(intents)'
     },
     followed: {
       type: Boolean,
@@ -74,8 +79,12 @@ Polymer({
     return person && project && project.admins && project.admins.includes(person._id)
   },
 
-  _filterIntents (intents) {
-    return intents.filter(intent => intent.projects.includes(this.projectId))
+  _filterOffers (intents) {
+    return intents.filter(intent => intent.projects.includes(this.projectId) && intent.direction === 'offer')
+  },
+
+  _filterRequests (intents) {
+    return intents.filter(intent => intent.projects.includes(this.projectId) && intent.direction === 'request')
   },
 
   _goBack () {

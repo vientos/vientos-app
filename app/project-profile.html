@@ -15,6 +15,7 @@
     </style>
     <paper-icon-button icon="vientos:arrow-left" on-tap="_goBack"></paper-icon-button>
     <h2>[[project.name]]</h2>
+    <div>[[project.description]]</div>
     <template is="dom-if" if="[[person]]">
       <template is="dom-if" if="[[!followed]]">
         <paper-icon-button icon="vientos:follow" on-tap="_follow"></paper-icon-button>
@@ -23,8 +24,11 @@
         <paper-icon-button icon="vientos:unfollow" on-tap="_unfollow"></paper-icon-button>
       </template>
     </template>
-    <template is="dom-repeat" items="[[projectIntents]]">
-      <div>[[item.title]]</div>
+    <template is="dom-repeat" items="[[offers]]">
+      <div>-&gt; [[item.title]]</div>
+    </template>
+    <template is="dom-repeat" items="[[requests]]">
+      <div>&lt;- [[item.title]]</div>
     </template>
     <div>
       <template is="dom-if" if="[[admin]]">
