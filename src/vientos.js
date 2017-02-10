@@ -58,7 +58,7 @@ export function createIntent (intent) {
 }
 
 export function updateIntent (intent) {
-  return fetch(api.intents+'/'+intent._id, {
+  return fetch(api.intents + '/' + intent._id, {
     method: 'PUT',
     credentials: 'include',
     headers: {'Content-Type': 'application/json'},
@@ -67,10 +67,8 @@ export function updateIntent (intent) {
 }
 
 export function deleteIntent (intentId) {
-  return fetch(api.intents+'/'+intentId, {
+  return fetch(api.intents + '/' + intentId, {
     method: 'DELETE',
     credentials: 'include'
-  }).then(response => {
-    return intentId
   })
 }

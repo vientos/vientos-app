@@ -4,7 +4,14 @@ Polymer({
 
   properties: {
     projects: {
-      type: Array
+      type: Array,
+      // filtered list passed as property
+      observer: '_addIntentsToProjects'
+    },
+    intents: {
+      type: Array,
+      statePath: 'intents',
+      observer: '_addIntentsToProjects'
     },
     expanded: {
       type: Boolean,
@@ -15,6 +22,15 @@ Polymer({
   _toggleExpanded () {
     this.expanded = !this.expanded
     this.$.list.fire('iron-resize')
+  },
+
+  _addIntentsToProjects () {
+    if (this.projects && this.intents) {
+      this.projects.forEach((project, index) => {
+        this.set(['projects', index, 'offers'], this.intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'offer'))
+        this.set(['projects', index, 'requests'], this.intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'request'))
+      })
+    }
   },
 
   _linkTo (project) {

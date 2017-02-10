@@ -30,7 +30,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-item>
           <paper-item-body two-line>
             <div><a href="[[_linkTo(item)]]">[[item.name]]</a></div>
-            <!-- FIXME: offers & requests will not update on CREATE_INTENT_SUCCEDDED -->
             <template is="dom-if" if="[[expanded]]">
               <div secondary>
                 <template is="dom-repeat" items="[[item.offers]]">

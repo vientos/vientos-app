@@ -21,20 +21,6 @@ function projects (state = [], action) {
         }
         return project
       })
-    case ActionTypes.FETCH_INTENTS_SUCCEEDED:
-      return state.map(project => {
-        let intents = action.intents.filter(intent => intent.projects.includes(project._id))
-        project.offers = intents.filter(intent => intent.direction === 'offer')
-        project.requests = intents.filter(intent => intent.direction === 'request')
-        return project
-      })
-    case ActionTypes.CREATE_INTENT_SUCCEEDED:
-      return state.map(project => {
-        if (action.intent.projects.includes(project._id)) {
-          project[action.intent.direction + 's'].push(action.intent)
-        }
-        return project
-      })
     default:
       return state
   }
