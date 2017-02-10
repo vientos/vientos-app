@@ -35,6 +35,37 @@ function * getIntents (action) {
   }
 }
 
+function * updateIntent (action) {
+  try {
+    yield call(Vientos.updateIntent, action.intent)
+    yield put({
+      type: ActionTypes.UPDATE_INTENT_SUCCEEDED,
+      intent: action.intent
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.UPDATE_INTENT_FAILED,
+      message: e.message
+    })
+  }
+}
+
+function * deleteIntent (action) {
+  try {
+    yield call(Vientos.deleteIntent, action.intentId)
+    yield put({
+      type: ActionTypes.DELETE_INTENT_SUCCEEDED,
+      intentId: action.intentId
+    })
+  } catch (e) {
+    yield put({
+      type: ActionTypes.DELETE_INTENT_FAILED,
+      message: e.message
+    })
+  }
+}
+
+
 function * getCategories (action) {
   try {
     const categories = yield call(Vientos.fetchCategories)
@@ -165,6 +196,14 @@ function * intentsSaga () {
   yield * takeLatest(ActionTypes.FETCH_INTENTS_REQUESTED, getIntents)
 }
 
+function * updateIntentSaga () {
+  yield * takeLatest(ActionTypes.UPDATE_INTENT_REQUESTED, updateIntent)
+}
+
+function * deleteIntentSaga () {
+  yield * takeLatest(ActionTypes.DELETE_INTENT_REQUESTED, deleteIntent)
+}
+
 function * categoriesSaga () {
   yield * takeLatest(ActionTypes.FETCH_CATEGORIES_REQUESTED, getCategories)
 }
@@ -201,6 +240,8 @@ function * root () {
   yield [
     call(projectsSaga),
     call(intentsSaga),
+    call(updateIntentSaga),
+    call(deleteIntentSaga),
     call(categoriesSaga),
     call(collaborationTypesSaga),
     call(labelsSaga),

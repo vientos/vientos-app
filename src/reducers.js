@@ -41,6 +41,7 @@ function projects (state = [], action) {
 }
 
 function intents (state = [], action) {
+  let index
   switch (action.type) {
     case ActionTypes.FETCH_INTENTS_SUCCEEDED:
       return action.intents
@@ -48,6 +49,19 @@ function intents (state = [], action) {
       return [
         ...state,
         action.intent
+      ]
+    case ActionTypes.UPDATE_INTENT_SUCCEEDED:
+      index = state.findIndex(e => e._id === action.intent._id)
+      return [
+        ...state.slice(0, index),
+        Object.create(action.intent),
+        ...state.slice(index + 1)
+      ]
+    case ActionTypes.DELETE_INTENT_SUCCEEDED:
+      index = state.findIndex(e => e._id === action.intentId)
+      return [
+        ...state.slice(0, index),
+        ...state.slice(index + 1)
       ]
     default:
       return state

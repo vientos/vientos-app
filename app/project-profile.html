@@ -25,14 +25,18 @@
       </template>
     </template>
     <template is="dom-repeat" items="[[offers]]">
-      <div>-&gt; [[item.title]]</div>
+      <paper-item on-tap="_editIntent">
+        -&gt; [[item.title]]
+      </paper-item>
     </template>
     <template is="dom-repeat" items="[[requests]]">
-      <div>&lt;- [[item.title]]</div>
+      <paper-item on-tap="_editIntent">
+        &lt;- [[item.title]]
+      </paper-item>
     </template>
     <div>
       <template is="dom-if" if="[[admin]]">
-        <vientos-intent-editor project-id="[[projectId]]"></vientos-intent-editor>
+        <vientos-intent-editor project-id="[[projectId]]" intent=[[intent]] on-reset="_resetIntent"></vientos-intent-editor>
       </template>
     </div>
 
