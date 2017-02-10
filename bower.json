@@ -22,11 +22,11 @@
     "paper-button": "PolymerElements/paper-button#^1.0.14",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.2.1",
     "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.10.1",
-    "leaflet-map": "^1.2.0",
     "vientos-iconset": "^0.0.4",
     "paper-badge": "PolymerElements/paper-badge#^1.1.4",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.5.0",
-    "paper-listbox": "PolymerElements/paper-listbox#^1.1.2"
+    "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
+    "leaflet": "^1.0.3"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

@@ -18,7 +18,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bundle": "browserify src/main.js -t [ babelify --presets [ es2015 ] --plugins [ transform-object-rest-spread ] ] -o bundle.js -d"   },
+    "bundle": "browserify src/main.js -t [ babelify --presets [ es2015 ] --plugins [ transform-object-rest-spread ] ] -o bundle.js -d"
+  },
   "author": "",
   "license": "Unlicense",
   "eslintConfig": {
