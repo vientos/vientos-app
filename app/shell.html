@@ -26,17 +26,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
 
-<!-- <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html"> -->
+
 <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+
+<link rel="import" href="components/vientos-header/vientos-header.html">
+
 <link rel="import" href="vientos-styles/vientos-styles.html">
 
 
 <dom-module id="vientos-shell">
    <template>
-   <style is="custom-style" include="vientos-styles vientos-layout iron-flex iron-flex-alignment iron-positioning">
+   <style is="custom-style" include="vientos-styles vientos-layout vientos-typography iron-flex iron-flex-alignment iron-positioning">
    /* Will be prevented from affecting local DOM of Polymer elements */
    * {
       box-sizing: border-box;
@@ -85,17 +91,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       overflow-y: auto;
    }
 
-
-
-   #vientos-header {
-      background-color: var(--app-header-background-color);
-   }
-
    #vientos-footer {
       @apply --fixed-bottom;
       @apply --w-100;
       background-color: var(--app-footer-background-color);
    }
+
    #vientos-footer #filter-button{
       position: absolute;
       right: 0;
@@ -107,6 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply --w-100;
       background-color: var(--app-footer-background-color);
    }
+
    #vientos-footer,
    #vientos-footer app-toolbar,
    app-header-layout app-toolbar iron-selector {
@@ -114,6 +116,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply --layout-horizontal;
    }
 
+
+
+
+   #vientos-header {
+      background-color: var(--app-header-background-color);
+   }
+
+   app-header > #contentContainer,
+   app-toolbar {
+      /*@apply --toolbar-layout;*/
+      /*@apply --font-xs;*/
+      font-size: 22px !important;
+      height: 2.5em !important;
+   }
+   app-header,
+   app-header-layout app-toolbar iron-selector {
+      /*height: 100%;*/
+      /*height: 2em !important;*/
+      background-color: #000;
+   }
+
    app-header-layout app-toolbar paper-button {
       @apply --layout-flex;
       @apply --layout-vertical;
@@ -122,19 +145,56 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
    app-header-layout app-toolbar paper-button {
       @apply --layout-flex;
-      @apply --layout-vertical;
-      @apply --layout-center-justified;
+      /*@apply --layout-vertical;
+      @apply --layout-center-justified;*/
    }
 
    app-header-layout app-toolbar paper-button iron-icon {
-      width: 24px;
-      height: 24px;
-      padding: 0 !important;
+
+      @apply --small-icon;
+      width: 20px !important;
+      height: 20px !important;
+
+      width: auto !important;
+      text-align: center !important;
+
+      display: inline-block;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+
+      margin: 0 auto;
+      padding: 0 auto;
+
+   }
+
+   app-header-layout app-toolbar paper-button span {
       margin: 0 !important;
    }
 
-   app-header-layout app-toolbar paper-button h6 {
+   app-header-layout > div {
+      /*@apply --layout-fit;*/
+      width: 100% !important;
+   }
+
+   app-header-layout > div:after {
+      height: 0;
       margin: 0 !important;
+      padding: 0 !important;
+   }
+
+
+   app-header-layout app-toolbar paper-button span,
+   #vientos-footer span {
+      @apply --layout-horizontal;
+      @apply --layout-center-justified;
+      @apply --font-xs;
+      margin-top: 3px;
+   }
+
+   app-header-layout app-toolbar {
+      /*@apply --font-xs;*/
+      height: 4em !important;
+      margin-top: 3px;
    }
 
    </style>
@@ -154,6 +214,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
 
    <app-drawer-layout fullbleed force-narrow>
+
       <app-drawer>
          <div>
             <span>ES</span>
@@ -164,25 +225,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- Main content -->
       <app-header-layout>
 
-         <app-header id="vientos-header" fixed effects="waterfall">
+
+         <app-header id="header" fixed>
             <app-toolbar>
-               <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
-
-
-                  <paper-button name="/">
-                     <iron-icon icon="vientos:unfollow"></iron-icon>
-                  </paper-button>
-
-                  <paper-button name="me">
-                     <iron-icon icon="vientos:user"></iron-icon>
-                     <h6>Profile</h6>
-                  </paper-button>
-
-               </iron-selector>
-               <paper-icon-button icon="vientos:menu" drawer-toggle></paper-icon-button>
+               <vientos-header></vientos-header>
             </app-toolbar>
          </app-header>
-
 
          <iron-pages
            selected="[[page]]"
@@ -214,20 +262,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                <paper-button id="filter-button" name="filter">
                   <iron-icon icon="vientos:filter"></iron-icon>
                   <paper-badge label="[[visibleProjects.length]]" for="filter-button"></paper-badge>
-                  <h6>Filtros</h6>
+                  <span>Filtros</span>
                </paper-button>
 
                <paper-button name="collaborations">
                   <iron-icon icon="vientos:collaboration"></iron-icon>
-                  <h6>Colaboraciones</h6>
+                  <span>Colaboraciones</span>
                </paper-button>
                <paper-button name="projects">
                   <iron-icon icon="vientos:list"></iron-icon>
-                  <h6>Proyectos</h6>
+                  <span>Proyectos</span>
                </paper-button>
                <paper-button name="map">
                   <iron-icon icon="vientos:map"></iron-icon>
-                  <h6>Mapa</h6>
+                  <span>Mapa</span>
                </paper-button>
             </iron-selector>
 

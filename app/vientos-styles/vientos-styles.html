@@ -38,22 +38,94 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       --app-header-background-color: #3A4F62;
       --app-footer-background-color: #EAEFFF;
+
+
+      /* icons */
+
+      --icon-layout: {
+         @apply --layout-horizontal;
+         @apply --layout-center-justified;
+      };
+
+      --small-icon: {
+
+         @apply --icon-layout;
+
+         --iron-icon-height: 10px;
+         --iron-icon-width: 10px;
+
+         padding: 0 !important;
+         margin: 0 !important;
+
+      };
+
+
    }
 
    body {
       @apply --body-styles;
    }
    h1 {
-      margin: 16px 0;
+      /*margin: 16px 0;*/
       color: #212121;
       font-size: 22px;
    }
-   iron-icon {
+
+   h1,h2,h3,h4,h4,h5,h6 {
+      margin: 0;
+   }
+
+   /*iron-icon {
       --iron-icon-width: 28px;
       --iron-icon-height: 28px;
+   }*/
+
+   /*#contentContainer,*/
+   iron-pages {
+      /*@apply --layout-horizontal;*/
+      width: 100vw;
+   }
+
+   app-toolbar {
+      padding: 0;
+      @apply --layout-horizontal;
+   }
+
+   app-toolbar iron-selector {
+      /*margin: 0 !important;
+      padding: 0 !important;*/
+      @apply --layout-fit;
    }
 
 
+   app-header .button-holder {
+      @apply --layout-horizontal;
+   }
+
+   app-header #menu-button-holder-left {
+      @apply --layout-fixed-left;
+      @apply --layout-start-justified;
+   }
+
+   app-header #menu-button-holder-right {
+      @apply --layout-fixed-right;
+      @apply --layout-end-justified;
+   }
+
+   app-header .button-holder paper-button {
+      @apply --layout-vertical;
+      @apply --layout-center-justified;
+      width: auto !important;
+      margin: 0 16px;
+   }
+
+   app-header .button-holder paper-button div,
+   app-header .button-holder paper-button iron-icon {
+      @apply --layout-horizontal;
+      @apply --layout-center-justified;
+      width: auto !important;
+      text-align: center !important;
+   }
 
    </style>
 </template>
@@ -72,6 +144,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       /*padding: 1.5em;*/
       height: 4em;
       @apply --paper-font-menu;
+   };
+
+   --no-spacing: {
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+   };
+
+}
+
+</style>
+</template>
+</dom-module>
+
+<dom-module id="vientos-typography">
+<style>
+
+:root {
+
+   --font-xs: {
+      font-size: 11px !important;
+   };
+
+   --font-s: {
+      font-size: 13px !important;
+   };
+
+   --font-m: {
+      font-size: 16px !important;
+   };
+
+   --font-l: {
+      font-size: 20px !important;
+   };
+
+   --font-xl: {
+      font-size: 28px !important;
    };
 
 }
