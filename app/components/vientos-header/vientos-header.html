@@ -28,24 +28,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
-<link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
 
 <dom-module id="vientos-header">
    <template>
-   <style include="vientos-styles vientos-layout vientos-typography iron-flex iron-flex-alignment iron-positioning">
+   <style include="vientos-colors">
+
    :host {
+      @apply --layout-vertical;
+      @apply --vientos-toolbar;
+      @apply --h-100;
+      background-color: var(--vientos-color-header);
 
    }
 
    :host,
    iron-selector {
-      @apply --layout-relative;
+      /*@apply --layout-relative;
       @apply --layout-horizontal;
       width: 100vw !important;
-      @apply --no-spacing;
+      @apply --no-spacing;*/
    }
 
-   
+
 
    iron-selector {
       @apply --layout-horizontal;
@@ -55,10 +61,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    #menu-button-holder-left,
    #menu-button-holder-right {
       @apply --layout-horizontal;
+      @apply --h-100;
    }
 
    #menu-button-holder-left {
       @apply --layout-fixed-left;
+      @apply --layout-start-justified;
    }
    #menu-button-holder-right {
       @apply --layout-fixed-right;
@@ -66,11 +74,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
    }
 
-   .button-holder paper-button {
-      @apply --layout-vertical;
-      @apply --layout-center-justified;
-      @apply --font-xs;
 
+   vientos-icon-button {
+     width: 5em !important;
    }
 
    </style>
@@ -79,34 +85,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="button-holder" id="menu-button-holder-left">
 
-         <paper-button id="button-home" name="/">
-            <iron-icon icon="vientos:unfollow"></iron-icon>
-         </paper-button>
+        <vientos-icon-button
+           id="button-home"
+           name="/"
+           text=""
+           icon="vientos:follow"
+           large
+        ></vientos-icon-button>
+
 
       </div>
 
       <div class="button-holder" id="menu-button-holder-right">
 
-         <paper-button id="button-account" name="me">
+        <vientos-icon-button
+           id="button-account"
+           name="me"
+           text="Profile"
+           icon="vientos:user"
+           small
+        ></vientos-icon-button>
 
-            <div>
-               <iron-icon icon="vientos:user"></iron-icon>
-            </div>
-
-            <span>
-               Profile
-            </span>
-
-         </paper-button>
-
-         <paper-button id="button-account" name="me">
-            <div>
-               <iron-icon icon="vientos:menu" drawer-toggle></iron-icon>
-            </div>
-            <span>
-               Menú
-            </span>
-         </paper-button>
+        <vientos-icon-button
+           id="button-account"
+           name="me"
+           text="Menu"
+           icon="vientos:menu"
+           small
+        ></vientos-icon-button>
 
       </div>
 

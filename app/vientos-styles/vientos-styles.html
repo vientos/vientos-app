@@ -10,124 +10,160 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<!-- shared styles for all views -->
-<dom-module id="vientos-styles">
 
-   <template>
-   <style>
+<dom-module id="vientos-colors">
 
-   :root {
-
-      --body-styles: {
-         margin: 0;
-         font-family: 'Roboto', 'Noto', sans-serif;
-         line-height: 1.5;
-         min-height: 100vh;
-         background-color: #fa0;
-      };
-
-      --fixed: {
-         position: fixed;
-      };
-
-      --fixed-bottom: {
-         @apply (--fixed);
-         bottom: 0;
-      };
-
+  <template>
+  <style>
+    :host {
 
       --app-header-background-color: #3A4F62;
       --app-footer-background-color: #EAEFFF;
 
+      --vientos-color-header: #34ce2a;
+      --vientos-color-footer: #74ce2a;
 
-      /* icons */
+      --vientos-color-button: #fff;
+    }
 
-      --icon-layout: {
-         @apply --layout-horizontal;
-         @apply --layout-center-justified;
-      };
+    </style>
+  </template>
+</dom-module>
 
-      --small-icon: {
+<dom-module id="vientos-styles">
 
-         @apply --icon-layout;
+  <template>
+  <style>
 
-         --iron-icon-height: 10px;
-         --iron-icon-width: 10px;
+  :root {
 
-         padding: 0 !important;
-         margin: 0 !important;
-
-      };
-
-
-   }
-
-   body {
-      @apply --body-styles;
-   }
-   h1 {
-      /*margin: 16px 0;*/
-      color: #212121;
-      font-size: 22px;
-   }
-
-   h1,h2,h3,h4,h4,h5,h6 {
+    --body-styles: {
       margin: 0;
-   }
+      font-family: 'Roboto', 'Noto', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      background-color: #fa0;
+    };
 
-   /*iron-icon {
-      --iron-icon-width: 28px;
-      --iron-icon-height: 28px;
-   }*/
+    --fixed: {
+      position: fixed;
+    };
 
-   /*#contentContainer,*/
-   iron-pages {
-      /*@apply --layout-horizontal;*/
-      width: 100vw;
-   }
-
-   app-toolbar {
-      padding: 0;
-      @apply --layout-horizontal;
-   }
-
-   app-toolbar iron-selector {
-      /*margin: 0 !important;
-      padding: 0 !important;*/
-      @apply --layout-fit;
-   }
+    --fixed-bottom: {
+      @apply (--fixed);
+      bottom: 0;
+    };
 
 
-   app-header .button-holder {
-      @apply --layout-horizontal;
-   }
 
-   app-header #menu-button-holder-left {
-      @apply --layout-fixed-left;
-      @apply --layout-start-justified;
-   }
+    /* icons */
 
-   app-header #menu-button-holder-right {
-      @apply --layout-fixed-right;
-      @apply --layout-end-justified;
-   }
-
-   app-header .button-holder paper-button {
-      @apply --layout-vertical;
-      @apply --layout-center-justified;
-      width: auto !important;
-      margin: 0 16px;
-   }
-
-   app-header .button-holder paper-button div,
-   app-header .button-holder paper-button iron-icon {
+    --icon-layout: {
       @apply --layout-horizontal;
       @apply --layout-center-justified;
-      width: auto !important;
-      text-align: center !important;
-   }
+    };
 
-   </style>
+    --vientos-toolbar: {
+      /*padding: 1.5em;*/
+      height: 4em;
+      @apply --vientos-typography-menu;
+      color: var(--vientos-color-icon);
+    };
+    --vientos-button: {
+      color: var(--vientos-color-button);
+    };
+
+    --small-icon: {
+
+      @apply --icon-layout;
+
+      --iron-icon-height: 10px;
+      --iron-icon-width: 10px;
+
+      padding: 0 !important;
+      margin: 0 !important;
+
+    };
+
+
+  }
+
+  paper-button {
+
+  }
+
+  body {
+    @apply --body-styles;
+  }
+  h1 {
+    /*margin: 16px 0;*/
+    color: #212121;
+    font-size: 22px;
+  }
+
+  h1,h2,h3,h4,h4,h5,h6 {
+    margin: 0;
+  }
+
+  /*iron-icon {
+  --iron-icon-width: 28px;
+  --iron-icon-height: 28px;
+  }*/
+
+  /*#contentContainer,*/
+  iron-pages {
+    /*@apply --layout-horizontal;*/
+    width: 100vw;
+  }
+
+  app-toolbar {
+    padding: 0 !important;
+    @apply --layout-horizontal;
+  }
+
+  app-toolbar iron-selector {
+    /*margin: 0 !important;
+    padding: 0 !important;*/
+    @apply --layout-fit;
+  }
+
+
+  app-header .button-holder {
+    @apply --layout-horizontal;
+  }
+
+  app-header #menu-button-holder-left {
+    @apply --layout-fixed-left;
+    @apply --layout-start-justified;
+  }
+
+  app-header #menu-button-holder-right {
+    @apply --layout-fixed-right;
+    @apply --layout-end-justified;
+  }
+
+
+  app-header .button-holder paper-button div,
+  app-header .button-holder paper-button iron-icon {
+    @apply --layout-horizontal;
+    @apply --layout-center-justified;
+    width: auto !important;
+    text-align: center !important;
+  }
+
+
+
+
+  paper-button {
+    @apply --vientos-button;
+  }
+  paper-button span {
+
+    @apply --padding-2;
+    margin: 8px;
+  }
+
+  </style>
 </template>
 </dom-module>
 
@@ -135,22 +171,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <style>
 
 :root {
-   --w-100: {
-      width: 100%;
-      background-color: #0af;
-   };
-   --toolbar-layout: {
-      font-size: 16px;
-      /*padding: 1.5em;*/
-      height: 4em;
-      @apply --paper-font-menu;
-   };
+  --w-a: {
+    width: auto;
+  };
+  --w-100: {
+    width: 100%;
+  };
+  --h-100: {
+    height: 100%;
+  };
 
-   --no-spacing: {
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box;
-   };
+
+  --no-spacing: {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  };
+
+
+  --center-x: {
+    @apply --layout-horizontal;
+    @apply --layout-center-justified;
+  };
+
+  --center-y: {
+    @apply --layout-vertical;
+    @apply --layout-center-justified;
+  };
+
+  --spaced-x: {
+    @apply --layout-horizontal;
+    @apply --layout-around-justified;
+  };
+
+  --spaced-y: {
+    @apply --layout-vertical;
+    @apply --layout-around-justified;
+  };
+
+  --force-center: {
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+  };
+
+  --padding-0: {
+    padding: 0;
+  };
+  --padding-1: {
+    padding: 4px;
+  };
+  --padding-2: {
+    padding: 8px;
+  };
+  --padding-3: {
+    padding: 12px;
+  };
+  --padding-4: {
+    padding: 16px;
+  };
+
+
 
 }
 
@@ -163,25 +244,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :root {
 
-   --font-xs: {
-      font-size: 11px !important;
-   };
 
-   --font-s: {
-      font-size: 13px !important;
-   };
+  --font-xs: {
+    font-size: 11px !important;
+  };
 
-   --font-m: {
-      font-size: 16px !important;
-   };
+  --font-s: {
+    font-size: 13px !important;
+  };
 
-   --font-l: {
-      font-size: 20px !important;
-   };
+  --font-m: {
+    font-size: 16px !important;
+  };
 
-   --font-xl: {
-      font-size: 28px !important;
-   };
+  --font-l: {
+    font-size: 20px !important;
+  };
+
+  --font-xl: {
+    font-size: 28px !important;
+  };
+
+  --vientos-typography-menu: {
+    @apply --font-xs;
+  };
+
+
+  --vientos-typography-button: {
+    @apply --font-xs;
+  };
 
 }
 

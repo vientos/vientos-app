@@ -1,0 +1,79 @@
+
+
+<dom-module id="vientos-icon-button">
+  <template>
+    <style>
+    :host{
+      @apply --vientos-button;
+      @apply --layout-vertical;
+      @apply --layout-center-justified;
+      /*@apply --p-2;*/
+    }
+
+    :host[mini] {
+      width: auto;
+      @apply --p-0;
+    }
+
+    :host[standard] {
+      width: auto;
+      @apply --p-2;
+    }
+
+    :host[large] {
+      width: auto;
+      @apply --p-4;
+    }
+
+    paper-button {
+      min-width: 0;
+      padding: 0 !important;
+      margin: 0 !important;
+      @apply --w-100;
+      @apply --p-0;
+      @apply --center-y;
+      /*text-align: center !important;*/
+    }
+
+
+
+    iron-icon,
+    span {
+      /*@apply --center-x;
+
+      @apply --p-0;
+      @apply --force-center;*/
+
+
+    }
+
+    iron-icon,
+    :host[standard] iron-icon {
+      @apply --font-m;
+    }
+
+    :host[small] iron-icon {
+      @apply --font-s;
+    }
+    :host[large] iron-icon {
+      @apply --font-l;
+    }
+
+    iron-icon {
+      width: 1em;
+      height: 1em;
+      margin-bottom: 0.25em;
+    }
+    span {
+      @apply --vientos-typography-button;
+    }
+    </style>
+
+    <paper-button name="collaborations" toggles>
+       <iron-icon icon="[[icon]]"></iron-icon>
+       <span>[[text]]</span>
+    </paper-button>
+
+  </template>
+  <script src="vientos-icon-button.js"></script>
+</dom-module>

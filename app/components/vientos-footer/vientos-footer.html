@@ -1,0 +1,89 @@
+<dom-module id="vientos-footer">
+  <template>
+    <style>
+      :host {
+          @apply --fixed-bottom;
+          @apply --vientos-toolbar;
+          @apply --w-100;
+          @apply --spaced-x;
+          background-color: var(--vientos-color-footer);
+
+       }
+
+       app-toolbar {
+
+         @apply --p-0;
+         @apply --w-100;
+         @apply --h-100;
+       }
+
+       /*app-toolbar, */
+       iron-selector {
+         /*@apply --fixed-bottom;*/
+         @apply --w-100;
+         @apply --h-100;
+
+         @apply --spaced-x;
+
+       }
+
+       #filter-button{
+          position: absolute;
+          right: 0;
+          width: auto !important;
+          margin: 1em;
+          padding: 1em;
+          @apply --fixed-bottom;
+          bottom: 3em !important;
+          @apply --w-100;
+          background-color: var(--app-footer-background-color);
+       }
+
+       vientos-icon-button {
+         @apply --layout-flex;
+         @apply --center-x;
+         @apply --vientos-typography-menu;
+
+       }
+
+    </style>
+     <app-toolbar>
+        <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+
+           <paper-button
+           id="filter-button"
+           name="filter"
+           >
+              <iron-icon icon="vientos:filter"></iron-icon>
+              <paper-badge label="[[visibleProjects.length]]" for="filter-button"></paper-badge>
+              <span>
+                Filtros
+              </span>
+           </paper-button>
+
+           <vientos-icon-button
+           name="collaborations"
+           text="Collaborations"
+           icon="vientos:collaboration">
+           </vientos-icon-button>
+
+           <vientos-icon-button
+           name="projects"
+           text="Projects"
+           icon="vientos:list">
+           </vientos-icon-button>
+
+           <vientos-icon-button
+           name="map"
+           text="Map"
+           icon="vientos:map">
+           </vientos-icon-button>
+
+
+        </iron-selector>
+
+     </app-toolbar>
+
+  </template>
+  <script src="vientos-footer.js"></script>
+</dom-module>
