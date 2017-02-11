@@ -6,6 +6,11 @@ export function fetchProjects () {
       .then(response => response.json())
 }
 
+export function fetchIntents () {
+  return fetch(api.intents, { credentials: 'include' })
+      .then(response => response.json())
+}
+
 export function fetchCategories () {
   return fetch(api.categories, { credentials: 'include' })
       .then(response => response.json())
@@ -49,5 +54,21 @@ export function createIntent (intent) {
   }).then(response => {
     intent._id = response.headers.get('location').split('/')[2]
     return intent
+  })
+}
+
+export function updateIntent (intent) {
+  return fetch(api.intents + '/' + intent._id, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(intent)
+  })
+}
+
+export function deleteIntent (intentId) {
+  return fetch(api.intents + '/' + intentId, {
+    method: 'DELETE',
+    credentials: 'include'
   })
 }

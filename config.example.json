@@ -1,10 +1,10 @@
 {
   "language": "es",
   "api": {
-    "projects": "http://localhost:8080/test/data/projects.json",
-    "categories": "http://localhost:8080/test/data/categories.json",
-    "collaborationTypes": "http://localhost:8080/test/data/collaborationTypes.json",
-    "labels": "http://localhost:8080/test/data/labels.json",
+    "projects": "http://localhost:8080/node_modules/vientos-fixtures/projects.json",
+    "categories": "http://localhost:8080/node_modules/vientos-data/categories.json",
+    "collaborationTypes": "http://localhost:8080/node_modules/vientos-data/collaborationTypes.json",
+    "labels": "http://localhost:8080/node_modules/vientos-data/labels.json",
     "intents": "http://localhost:3000/intents",
     "hello": "http://localhost:3000/auth/hello",
     "bye": "http://localhost:3000/auth/bye",

@@ -43,10 +43,19 @@ Polymer({
       type: Array,
       statePath: 'intents'
     },
-    projectIntents: {
+    intent: {
+      type: Object,
+      value: {}
+    },
+    offers: {
       type: Array,
       value: [],
-      computed: '_filterIntents(intents)'
+      computed: '_filterOffers(projectId, intents)'
+    },
+    requests: {
+      type: Array,
+      value: [],
+      computed: '_filterRequests(projectId, intents)'
     },
     followed: {
       type: Boolean,
@@ -74,8 +83,12 @@ Polymer({
     return person && project && project.admins && project.admins.includes(person._id)
   },
 
-  _filterIntents (intents) {
-    return intents.filter(intent => intent.projects.includes(this.projectId))
+  _filterOffers (projectId, intents) {
+    return intents.filter(intent => intent.projects.includes(projectId) && intent.direction === 'offer')
+  },
+
+  _filterRequests (projectId, intents) {
+    return intents.filter(intent => intent.projects.includes(projectId) && intent.direction === 'request')
   },
 
   _goBack () {
@@ -88,6 +101,15 @@ Polymer({
 
   _unfollow () {
     this.dispatch('unfollow', this.person._id, this.projectId)
+  },
+
+  _editIntent (e) {
+    this.set('intent', e.model.item)
+  },
+
+  _resetIntent () {
+    console.log('_resetIntent')
+    this.set('intent', {})
   }
 
 })

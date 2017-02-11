@@ -16,19 +16,24 @@
         padding: 10px;
       }
     </style>
-    <paper-toggle-button on-tap="_toggleDirection"></paper-toggle-button>
-    <input id="intentTitle" placeholder="Intent name"/>
+    <span>-&gt;</span>
+    <paper-toggle-button on-tap="_toggleDirection" checked="[[intentDirection]]">&lt;-</paper-toggle-button>
+    <input id="intentTitle" placeholder="Intent name" value="[[intent.title]]"/>
     <paper-dropdown-menu>
       <paper-listbox
         class="dropdown-content"
         attr-for-selected="name"
-        on-iron-select="_setCollaborationType">
+        on-iron-select="_setCollaborationType"
+        selected="[[intent.collaborationType]]">
         <template is="dom-repeat" items="[[collaborationTypes]]">
           <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
         </template>
       </paper-listbox>
     </paper-dropdown-menu>
-    <paper-icon-button icon="vientos:ok" on-tap="_createIntent"></paper-icon-button>
+    <paper-icon-button icon="vientos:ok" on-tap="_createOrUpdateIntent"></paper-icon-button>
+    <template is="dom-if" if="[[intent._id]]">
+      <paper-icon-button icon="vientos:cancel" on-tap="_deleteIntent"></paper-icon-button>
+    </template>
   </template>
   <script src="intent-editor.js"></script>
 </dom-module>

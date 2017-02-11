@@ -33,10 +33,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <template is="dom-if" if="[[expanded]]">
               <div secondary>
                 <template is="dom-repeat" items="[[item.offers]]">
-                  <div>-&gt; : [[item.title]]</div>
+                  <div>-&gt; [[item.title]]</div>
                 </template>
-                <template is="dom-repeat" items="[[item.needs]]">
-                  <div>&lt;- : [[item.title]]</div>
+                <template is="dom-repeat" items="[[item.requests]]">
+                  <div>&lt;- [[item.title]]</div>
                 </template>
               </div>
             </template>
