@@ -6,7 +6,7 @@ function projects (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_PROJECTS_SUCCEEDED:
       // normalize
-      return action.projects.map(project => {
+      return action.json.map(project => {
         if (!project.offers) project.offers = []
         if (!project.requests) project.requests = []
         if (!project.locations) {
@@ -30,7 +30,7 @@ function intents (state = [], action) {
   let index
   switch (action.type) {
     case ActionTypes.FETCH_INTENTS_SUCCEEDED:
-      return action.intents
+      return action.json
     case ActionTypes.CREATE_INTENT_SUCCEEDED:
       return [
         ...state,
@@ -57,7 +57,7 @@ function intents (state = [], action) {
 function categories (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
-      return action.categories.map(category => Object.assign(category, { selected: false }))
+      return action.json.map(category => Object.assign(category, { selected: false }))
     case ActionTypes.TOGGLE_CATEGORY:
       let index = state.findIndex(e => e.id === action.id)
       let updated = Object.create(state[index])
@@ -77,7 +77,7 @@ function categories (state = [], action) {
 function collaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
-      return action.collaborationTypes.map(collaborationType => Object.assign(collaborationType, { selected: false }))
+      return action.json.map(collaborationType => Object.assign(collaborationType, { selected: false }))
     case ActionTypes.TOGGLE_COLLABORATION_TYPE:
       let index = state.findIndex(e => e.id === action.id)
       let updated = Object.create(state[index])
@@ -97,8 +97,8 @@ function collaborationTypes (state = [], action) {
 function person (state = null, action) {
   switch (action.type) {
     case ActionTypes.HELLO_SUCCEEDED:
-      if (action.person && !action.person.follows) action.person.follows = []
-      return action.person
+      if (action.json && !action.json.follows) action.json.follows = []
+      return action.json
     case ActionTypes.BYE_SUCCEEDED:
       return null
     case ActionTypes.FOLLOW_SUCCEEDED:
@@ -128,7 +128,7 @@ function language (state = config.language, action) {
 function labels (state = {}, action) {
   switch (action.type) {
     case ActionTypes.FETCH_LABELS_SUCCEEDED:
-      return action.labels
+      return action.json
     default:
       return state
   }
