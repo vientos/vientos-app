@@ -1,5 +1,6 @@
 const Polymer = window.Polymer
 const L = window.L
+
 Polymer({
   is: 'vientos-map',
   map: undefined,
@@ -87,8 +88,22 @@ Polymer({
     }
   },
   _updatedBoundingBox () {
+    // FIXME gets called 3 times for lat, lon and zoom
     if (this.boundingBox) {
       this.fire('bbox', this.boundingBox)
     }
+  },
+  _showMyLocation () {
+    this.set('view', {
+      latitude: this.myLatitude,
+      longitude: this.myLongitude,
+      zoom: 15
+    })
+  },
+
+  _viewChanged (view) {
+    console.log('_viewChanged')
+    let map = this.$.map.map
+    if (map) map.setView([view.latitude, view.longitude], view.zoom)
   }
 })
