@@ -7,7 +7,7 @@
       @apply --vientos-button;
       @apply --layout-vertical;
       @apply --layout-center-justified;
-      /*@apply --p-2;*/
+      padding: 0.25em;
     }
 
     :host[mini] {
@@ -49,7 +49,8 @@
 
     iron-icon,
     :host[standard] iron-icon {
-      @apply --font-m;
+      @apply
+       --font-m;
     }
 
     :host[small] iron-icon {
@@ -64,9 +65,11 @@
       height: 1em;
       margin-bottom: 0.25em;
     }
+
     span {
       @apply --vientos-typography-button;
     }
+
     </style>
 
     <paper-button name="collaborations" toggles>

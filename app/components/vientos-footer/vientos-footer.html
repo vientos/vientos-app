@@ -4,6 +4,8 @@
       :host {
           @apply --fixed-bottom;
           @apply --vientos-toolbar;
+          @apply --layout-horizontal;
+          @apply --layout-flex;
           @apply --w-100;
           @apply --spaced-x;
           background-color: var(--vientos-color-footer);
@@ -24,27 +26,56 @@
          @apply --h-100;
 
          @apply --spaced-x;
+         @apply --vientos-typography-button-x;
 
        }
 
        #filter-button{
+
+          /*@apply --center-y;*/
+          @apply --layout-vertical;
+          @apply --layout-center-justified;
           position: absolute;
+
           right: 0;
-          width: auto !important;
+          bottom: 0;
+          width: 6em !important;
+          height: 6em !important;
           margin: 1em;
-          padding: 1em;
-          @apply --fixed-bottom;
-          bottom: 3em !important;
+          /*padding: 1em;*/
+          bottom: 4em !important;
+          /*display: inline-block;*/
           @apply --w-100;
-          background-color: var(--app-footer-background-color);
+          border-radius: 50%;
+          text-align: center;
+          /*background-color: var(--app-footer-background-color);*/
+
+          @apply --vientos-button;
+          @apply --vientos-typography-button;
+          background-color: var(--vientos-color-button-bg);
        }
 
-       vientos-icon-button {
-         @apply --layout-flex;
-         @apply --center-x;
-         @apply --vientos-typography-menu;
+      #filter-button iron-icon,
+      #filter-button span {
+        @apply --force-center;
+      }
 
-       }
+      #filter-button iron-icon {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 4px !important;
+      }
+
+      #filter-button span {
+        height: auto !important;
+        display: block !important;
+      }
+
+      vientos-icon-button {
+        @apply --layout-flex;
+      }
+
+
 
     </style>
      <app-toolbar>
