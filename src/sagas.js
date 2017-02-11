@@ -5,31 +5,16 @@ import { call, put } from 'redux-saga/effects'
 import * as ActionTypes from './actionTypes'
 import * as Vientos from './vientos'
 
-function * getProjects (action) {
+function * get (action) {
   try {
-    const projects = yield call(Vientos.fetchProjects)
+    const json = yield call(Vientos.get, action)
     yield put({
-      type: ActionTypes.FETCH_PROJECTS_SUCCEEDED,
-      projects
+      type: ActionTypes[action.type.replace('REQUESTED', 'SUCCEEDED')],
+      json
     })
   } catch (e) {
     yield put({
-      type: ActionTypes.FETCH_PROJECTS_FAILED,
-      message: e.message
-    })
-  }
-}
-
-function * getIntents (action) {
-  try {
-    const intents = yield call(Vientos.fetchIntents)
-    yield put({
-      type: ActionTypes.FETCH_INTENTS_SUCCEEDED,
-      intents
-    })
-  } catch (e) {
-    yield put({
-      type: ActionTypes.FETCH_INTENTS_FAILED,
+      type: ActionTypes[action.type.replace('REQUESTED', 'FAILED')],
       message: e.message
     })
   }
@@ -60,68 +45,6 @@ function * deleteIntent (action) {
   } catch (e) {
     yield put({
       type: ActionTypes.DELETE_INTENT_FAILED,
-      message: e.message
-    })
-  }
-}
-
-
-function * getCategories (action) {
-  try {
-    const categories = yield call(Vientos.fetchCategories)
-    yield put({
-      type: ActionTypes.FETCH_CATEGORIES_SUCCEEDED,
-      categories
-    })
-  } catch (e) {
-    yield put({
-      type: ActionTypes.FETCH_CATEGORIES_FAILED,
-      message: e.message
-    })
-  }
-}
-
-function * getCollaborationTypes (action) {
-  try {
-    const collaborationTypes = yield call(Vientos.fetchCollaborationTypes)
-    yield put({
-      type: ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED,
-      collaborationTypes
-    })
-  } catch (e) {
-    yield put({
-      type: ActionTypes.FETCH_COLLABORATION_TYPES_FAILED,
-      message: e.message
-    })
-  }
-}
-
-function * getLabels (action) {
-  try {
-    const labels = yield call(Vientos.fetchLabels)
-    yield put({
-      type: ActionTypes.FETCH_LABELS_SUCCEEDED,
-      labels
-    })
-  } catch (e) {
-    yield put({
-      type: ActionTypes.FETCH_LABELS_FAILED,
-      message: e.message
-    })
-  }
-}
-
-function * hello (action) {
-  try {
-    let person = yield call(Vientos.hello)
-    if (person.error) person = null
-    yield put({
-      type: ActionTypes.HELLO_SUCCEEDED,
-      person
-    })
-  } catch (e) {
-    yield put({
-      type: ActionTypes.HELLO_FAILED,
       message: e.message
     })
   }
@@ -189,11 +112,23 @@ function * createIntent (action) {
 }
 
 function * projectsSaga () {
-  yield * takeLatest(ActionTypes.FETCH_PROJECTS_REQUESTED, getProjects)
+  yield * takeLatest(ActionTypes.FETCH_PROJECTS_REQUESTED, get)
+}
+
+function * categoriesSaga () {
+  yield * takeLatest(ActionTypes.FETCH_CATEGORIES_REQUESTED, get)
+}
+
+function * collaborationTypesSaga () {
+  yield * takeLatest(ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED, get)
+}
+
+function * labelsSaga () {
+  yield * takeLatest(ActionTypes.FETCH_LABELS_REQUESTED, get)
 }
 
 function * intentsSaga () {
-  yield * takeLatest(ActionTypes.FETCH_INTENTS_REQUESTED, getIntents)
+  yield * takeLatest(ActionTypes.FETCH_INTENTS_REQUESTED, get)
 }
 
 function * updateIntentSaga () {
@@ -204,20 +139,8 @@ function * deleteIntentSaga () {
   yield * takeLatest(ActionTypes.DELETE_INTENT_REQUESTED, deleteIntent)
 }
 
-function * categoriesSaga () {
-  yield * takeLatest(ActionTypes.FETCH_CATEGORIES_REQUESTED, getCategories)
-}
-
-function * collaborationTypesSaga () {
-  yield * takeLatest(ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED, getCollaborationTypes)
-}
-
-function * labelsSaga () {
-  yield * takeLatest(ActionTypes.FETCH_LABELS_REQUESTED, getLabels)
-}
-
 function * helloSaga () {
-  yield * takeLatest(ActionTypes.HELLO_REQUESTED, hello)
+  yield * takeLatest(ActionTypes.HELLO_REQUESTED, get)
 }
 
 function * byeSaga () {
