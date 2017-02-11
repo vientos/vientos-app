@@ -3,7 +3,7 @@
   "api": {
     "projects": "http://localhost:8080/node_modules/vientos-fixtures/projects.json",
     "categories": "http://localhost:8080/node_modules/vientos-data/categories.json",
-    "collaborationTypes": "http://localhost:8080/node_modules/vientos-data/collaborationTypes.json",
+    "collaboration-types": "http://localhost:8080/node_modules/vientos-data/collaborationTypes.json",
     "labels": "http://localhost:8080/node_modules/vientos-data/labels.json",
     "intents": "http://localhost:3000/intents",
     "hello": "http://localhost:3000/auth/hello",
