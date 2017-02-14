@@ -1,58 +1,24 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/leaflet-map/leaflet-map.html">
-<link rel="import" href="../bower_components/leaflet-map/leaflet-geolocation.html">
-<link rel="import" href="../bower_components/leaflet-map/leaflet-layer.html">
-<link rel="import" href="../bower_components/leaflet-map/leaflet-marker.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="vientos-map">
+  <!-- for shady dom -->
+	<link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+  <!-- for shadow dom -->
+	<link rel="import" type="css" href="../bower_components/leaflet/dist/leaflet.css" />
   <template>
-
     <style include="shared-styles">
       :host {
-        display: block;
-        padding: 10px;
+				display: block;
+				width: 100vh;
       }
-      leaflet-map {
-        width: 600px;
-        height: 800px;
+      #map {
+				height: 600px;
+				width: 800px;
       }
     </style>
-    <leaflet-map id="map"
-      latitude="{{latitude}}"
-      longitude="{{longitude}}"
-      zoom="{{zoom}}">
-      <leaflet-tilelayer
-        url="[[tilelayer]]"
-        min-zoom="1"
-        max-zoom="18"
-        noWrap>
-      </leaflet-tilelayer>
-
-      <template is="dom-repeat" items="[[locations]]">
-        <leaflet-marker
-        latitude="[[item.latitude]]"
-        longitude="[[item.longitude]]"
-        icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'
-        on-click="_markerClick" >
-        </leaflet-marker>
-      </template>
-
-      <leaflet-geolocation enable-high-accuracy
-        latitude="{{myLatitude}}"
-        longitude="{{myLongitude}}"
-        accuracy="{{myAccuracy}}">
-      </leaflet-geolocation>
-      <template is="dom-if" if="[[myLatitude]]">
-        <leaflet-marker
-          latitude="[[myLatitude]]"
-          longitude="[[myLongitude]]"
-          icon='{"iconUrl": "https://stendhalgame.org/images/mapmarker/me.png"}'>
-        </leaflet-marker>
-      </template>
-    </leaflet-map>
-
+    <div id="map"></div>
   </template>
-
+  <script src="../bower_components/leaflet/dist/leaflet.js"></script>
   <script src="map.js"></script>
 </dom-module>
