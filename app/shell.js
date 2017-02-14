@@ -118,7 +118,7 @@ Polymer({
         viewUrl = 'me'
         break
 
-      case 'project-profile':
+      case 'project':
         viewUrl = 'project-profile'
         break
 

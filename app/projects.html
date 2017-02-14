@@ -16,6 +16,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="vientos-styles/vientos-styles.html">
 
+<link rel="import" href="components/vientos-card/vientos-card.html">
+
+<link rel="import" href="components/vientos-project-preview/vientos-project-preview.html">
+
 <dom-module id="vientos-projects">
   <template>
     <style include="vientos-styles">
@@ -27,21 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-icon-button icon="vientos:subtree" on-tap="_toggleExpanded"></paper-icon-button>
     <iron-list id="list" items="[[projects]]" as="item">
       <template>
-        <paper-item>
-          <paper-item-body two-line>
-            <div><a href="[[_linkTo(item)]]">[[item.name]]</a></div>
-            <template is="dom-if" if="[[expanded]]">
-              <div secondary>
-                <template is="dom-repeat" items="[[item.offers]]">
-                  <div>-&gt; [[item.title]]</div>
-                </template>
-                <template is="dom-repeat" items="[[item.requests]]">
-                  <div>&lt;- [[item.title]]</div>
-                </template>
-              </div>
-            </template>
-          </paper-item-body>
-        </paper-item>
+        <vientos-project-preview project="[[item]]"></vientos-project-preview>
       </template>
     </iron-list>
   </template>

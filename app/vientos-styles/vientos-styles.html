@@ -50,8 +50,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply --vientos-typography-menu;
       color: var(--vientos-color-icon);
     };
+
     --vientos-button: {
       color: var(--vientos-color-button);
+    };
+
+    --vientos-card: {
+      @apply --layout-vertical;
+      background-color: var(--vientos-color-card-bg);
+      margin: var(--spacing-2) !important;
+      padding: var(--spacing-2) !important;
+      box-sizing: border-box;
+      -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+      box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
     };
 
     --small-icon: {
@@ -150,6 +161,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
 
+
+
   </style>
 </template>
 </dom-module>
@@ -158,6 +171,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <style>
 
 :root {
+
+
   --w-a: {
     width: auto;
   };
@@ -167,6 +182,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   --h-100: {
     height: 100%;
   };
+
 
 
   --no-spacing: {
@@ -219,7 +235,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
 
-
 }
 
 </style>
@@ -230,6 +245,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <style>
 
 :root {
+
+  --spacing-1: 16px;
+  --spacing-2: 32px;
+  --spacing-3: 48px;
 
 
   --font-xs: {
@@ -263,6 +282,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
+  --vientos-color-button-bg: #eaeee8;
+
 }
 
 paper-button,
@@ -281,6 +302,8 @@ vientos-icon-button {
   <style>
     :host {
 
+      --vientos-color-app-background: #EAEFFF;
+
       --app-header-background-color: #3A4F62;
       --app-footer-background-color: #EAEFFF;
 
@@ -289,7 +312,35 @@ vientos-icon-button {
 
       --vientos-color-button: #45ba48;
 
-      --vientos-color-button-bg: #eaeee8  ;
+      --vientos-color-button-bg: #eaeee8;
+
+      --vientos-color-card-bg: #fff;
+
+    }
+
+    </style>
+  </template>
+</dom-module>
+
+
+
+<dom-module id="vientos-spacing">
+
+  <template>
+  <style>
+    :host {
+
+      --spacing-0: 0px;
+      --spacing-1: 8px;
+      --spacing-2: 16px;
+      --spacing-3: 24px;
+      --spacing-4: 32px;
+      --spacing-5: 40px;
+      --spacing-6: 48px;
+      --spacing-7: 56px;
+      --spacing-8: 64px;
+
+
     }
 
     </style>

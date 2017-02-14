@@ -35,7 +35,7 @@ Polymer({
 
   _linkTo (project) {
     // TODO: unify with _projectSelected() in shell.js
-    return 'project-profile/' + project._id
+    return 'project/' + project._id
   }
 
 })
