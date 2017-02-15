@@ -29,7 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <paper-icon-button icon="vientos:subtree" on-tap="_toggleExpanded"></paper-icon-button>
-    <iron-list id="list" items="[[projects]]" as="item">
+    <iron-list id="list" items="[[projects]]" as="item" grid>
       <template>
         <vientos-project-preview project="[[item]]"></vientos-project-preview>
       </template>

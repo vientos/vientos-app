@@ -16,6 +16,8 @@
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+
 
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -33,19 +35,60 @@
 
 
 <dom-module id="vientos-project-preview">
-  <template>
+  <template expanded=[[expanded]]>
     <style include="vientos-styles">
 
       :host {
 
-        font-size: 14px;
 
         width: 292px !important;
 
         height: auto;
 
-        @apply --vientos-card;
 
+      }
+
+      vientos-card {
+        padding-top: var(--spacing-1);
+      }
+
+      :host, :host * {
+        font-size: 14px;
+      }
+
+      iron-image {
+        /*width: 4em;*/
+        height: 6em;
+      }
+
+      header {
+        height: 5em;
+        @apply --layout-vertical;
+        @apply --layout-center-justified;
+      }
+
+
+
+
+      main > div {
+        @apply --layout-horizontal;
+      }
+      main iron-image {
+        @apply --center-x;
+
+        width: 60%;
+        margin-left: 20%;
+      }
+      main ul {
+        width: 20%;
+      }
+      main ul li {
+        padding-bottom: var(--spacing-1);
+      }
+      main ul li iron-icon {
+        width: var(--spacing-1);
+        height: var(--spacing-1);
+        color: var(--vientos-color-button-light)
       }
 
     </style>
@@ -61,17 +104,29 @@
         </header>
         <main>
 
-          <paper-item>
+          <div>
+            <iron-image
+               src="http://vientos.coop/img/[[project.logo]]"
+               sizing="contain"
+            ></iron-image>
+
+            <ul id="project-preview-categories">
+            <template is="dom-repeat" items="[[project.categories]]">
+              <li>
+                <iron-icon icon="vientos:[[item.catId]]"></iron-icon>
+              </li>
+            </template>
+            </ul>
+          </div>
+
             <paper-item>
-            [[project.logo]]
+            <paper-item>
+            [[item.territory]]
             </paper-item>
             <paper-item>
-            categorias
+            país
             </paper-item>
-            <paper-item>
-            territorio
             </paper-item>
-          </paper-item>
 
         </main>
       </a>

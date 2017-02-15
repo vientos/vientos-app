@@ -10,11 +10,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
+<link rel="import" href="vientos-layout.html">
+<link rel="import" href="vientos-typography.html">
+<link rel="import" href="vientos-colors.html">
+<link rel="import" href="vientos-spacing.html">
+<link rel="import" href="vientos-reset.html">
 
 <dom-module id="vientos-styles">
 
   <template>
-  <style>
+  <style include="vientos-layout vientos-typography vientos-colors vientos-spacing vientos-reset">
+
+
+
 
   :root {
 
@@ -58,8 +66,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --vientos-card: {
       @apply --layout-vertical;
       background-color: var(--vientos-color-card-bg);
-      margin: var(--spacing-2) !important;
-      padding: var(--spacing-2) !important;
+      margin: var(--spacing-1) !important;
+      padding: var(--spacing-1) !important;
       box-sizing: border-box;
       -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
       box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
@@ -239,110 +247,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </style>
 </template>
-</dom-module>
-
-<dom-module id="vientos-typography">
-<style>
-
-:root {
-
-  --spacing-1: 16px;
-  --spacing-2: 32px;
-  --spacing-3: 48px;
-
-
-  --font-xs: {
-    font-size: 11px !important;
-  };
-
-  --font-s: {
-    font-size: 13px !important;
-  };
-
-  --font-m: {
-    font-size: 16px !important;
-  };
-
-  --font-l: {
-    font-size: 20px !important;
-  };
-
-  --font-xl: {
-    font-size: 28px !important;
-  };
-
-  --vientos-typography-menu: {
-    @apply --font-xs;
-  };
-
-
-  --vientos-typography-button: {
-    @apply --font-xs;
-  };
-
-
-
-  --vientos-color-button-bg: #eaeee8;
-
-}
-
-paper-button,
-vientos-icon-button {
-  @apply --vientos-typography-button;
-}
-
-</style>
-</template>
-</dom-module>
-
-
-<dom-module id="vientos-colors">
-
-  <template>
-  <style>
-    :host {
-
-      --vientos-color-app-background: #EAEFFF;
-
-      --app-header-background-color: #3A4F62;
-      --app-footer-background-color: #EAEFFF;
-
-      --vientos-color-header: #eaeee8;
-      --vientos-color-footer: #e5e3e5;
-
-      --vientos-color-button: #45ba48;
-
-      --vientos-color-button-bg: #eaeee8;
-
-      --vientos-color-card-bg: #fff;
-
-    }
-
-    </style>
-  </template>
-</dom-module>
-
-
-
-<dom-module id="vientos-spacing">
-
-  <template>
-  <style>
-    :host {
-
-      --spacing-0: 0px;
-      --spacing-1: 8px;
-      --spacing-2: 16px;
-      --spacing-3: 24px;
-      --spacing-4: 32px;
-      --spacing-5: 40px;
-      --spacing-6: 48px;
-      --spacing-7: 56px;
-      --spacing-8: 64px;
-
-
-    }
-
-    </style>
-  </template>
 </dom-module>
