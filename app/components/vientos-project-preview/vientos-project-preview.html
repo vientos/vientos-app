@@ -17,12 +17,14 @@
 <link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/paper-fab/paper-fab.html">
 
 
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
 
@@ -44,27 +46,41 @@
         width: 292px !important;
 
         height: auto;
+        /*overflow-y: auto;*/
+
+        /*height: auto;*/
 
 
       }
 
+      :host:focus,
+      :host:hover {
+        @apply --
+      }
+
       vientos-card {
-        padding-top: var(--spacing-1);
+        /*padding-top: var(--spacing-1);*/
+        padding-top: 0 !important;
       }
 
       :host, :host * {
         font-size: 14px;
       }
 
-      iron-image {
-        /*width: 4em;*/
-        height: 6em;
+
+      h4 {
+        font-size: 20px;
       }
 
-      header {
+      h6 {
+        font-size: 16px;
+      }
+
+      header#project-title {
         height: 5em;
         @apply --layout-vertical;
         @apply --layout-center-justified;
+        text-align: center;
       }
 
 
@@ -77,10 +93,15 @@
         @apply --center-x;
 
         width: 60%;
+        height: 10em;
         margin-left: 20%;
       }
       main ul {
         width: 20%;
+        @apply --layout-vertical;
+        @apply --layout-start-justified;
+        text-align: right;
+
       }
       main ul li {
         padding-bottom: var(--spacing-1);
@@ -91,13 +112,47 @@
         color: var(--vientos-color-button-light)
       }
 
+      footer  {
+        position: relative;
+      }
+
+      footer app-toolbar {
+        height: auto !important;
+      }
+
+      footer a {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
+
+      #project-collaborations-view-header {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+        padding-top: var(--spacing-1);
+      }
+
+
+      #project-collaborations-view-header iron-image {
+        width: 3em;
+        height: 3em;
+        margin-right: 1em;
+      }
+
+
+    #project-collaborations-list {
+      height: 222px;
+      overflow-y: auto;
+    }
+
     </style>
 
 
     <vientos-card>
-
-      <a href="/project/[[project._id]]">
-        <header>
+      <template is="dom-if" if="[[!expanded]]">
+      <a href="[[_linkTo(project)]]">
+        <header id="project-title" on-tap="">
           <h4>
             [[project.name]]
           </h4>
@@ -118,44 +173,74 @@
             </template>
             </ul>
           </div>
+          <div>
+            <paper-item>
+              [[item.territory]]
+            </paper-item>
+          </div>
 
-            <paper-item>
-            <paper-item>
-            [[item.territory]]
-            </paper-item>
-            <paper-item>
-            país
-            </paper-item>
-            </paper-item>
 
         </main>
       </a>
       <footer>
         <app-toolbar>
           <paper-button on-tap="_expandCollaborations">
-            Collaborations
+            <span>
+              Collaborations
+            </span>
+
+            <template is="dom-if" if=[[expanded]]>
+              <iron-icon icon="expand-less"></iron-icon>
+            </template>
+            <template is="dom-if" if=[[!expanded]]>
+              <iron-icon icon="expand-more"></iron-icon>
+            </template>
+
           </paper-button>
+          <!--
           <paper-button>
-            <a href="[[_linkTo(project)]]">
-              -&gt;
-            </a>
+          -&gt;
           </paper-button>
+          -->
+          <a href="[[_linkTo(project)]]">
+            <paper-fab mini neutral icon="arrow-forward"></paper-fab>
+          </a>
+
         </app-toolbar>
       </footer>
+    </template> <!-- expanded -->
 
       <template is="dom-if" if="[[expanded]]">
 
         <section id="project-collaborations">
 
-          <section>
+          <section id="project-collaborations-view" >
+            <header id="project-collaborations-view-header" on-tap="">
+              <iron-image
+                 src="http://vientos.coop/img/[[project.logo]]"
+                 sizing="contain"
+              ></iron-image>
+              <h6>
+                [[project.name]]
+              </h6>
+              <iron-icon icon="expand-less" on-tap="_collapseCollaborations"></iron-icon>
+            </header>
+
             <h6>Collaborations</h6>
 
-            <ul>
+            <ul id="project-collaborations-list">
               <template is="dom-repeat" items="[[project.intents]]">
                 <li>-&gt; : [[item.title]]</li>
               </template>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat rerum corporis, hic sunt ratione fugiat libero doloribus, labore excepturi cum cumque. Distinctio nostrum pariatur deleniti alias non nobis nesciunt aspernatur sint consequuntur facilis cumque ad, vitae, quas, itaque error optio omnis incidunt nihil vero harum doloremque in. Explicabo, pariatur cupiditate adipisci quos repellendus. Qui nulla consequuntur modi ex dolorum, hic, eum optio, error enim quod molestiae accusamus laudantium voluptas unde in mollitia! Inventore nihil quo magnam porro sequi, est sunt officia enim. Accusantium, esse, quaerat est ea earum saepe omnis rem aperiam laboriosam, temporibus nostrum enim nisi dolores eveniet adipisci nihil, iure a magnam. Aliquam sequi, ipsum atque numquam aperiam veritatis voluptatibus eveniet harum, laboriosam, ea, quas odio. Et perferendis, facilis, ipsam pariatur quam fugit! Ratione molestiae numquam nulla veniam molestias, blanditiis perspiciatis dicta, in non debitis laudantium repudiandae. Non totam illo nemo! Illum deleniti atque, vero veniam. Nemo dolor, libero suscipit rem beatae tenetur nisi voluptate? In ad sint qui magni quas iste illum facilis possimus aliquid assumenda eos neque provident sed error, veritatis deserunt? Illo odit doloribus quibusdam delectus blanditiis labore quas molestias, alias accusamus, eum cupiditate totam consequatur, nulla molestiae aliquam! Impedit, quis aperiam magni modi reprehenderit!
             </ul>
 
+            <footer>
+              <a href="[[_linkTo(project)]]">
+                <paper-fab mini neutral icon="arrow-forward"></paper-fab>
+              </a>
+
+            </footer>
           </section>
 
       </template>

@@ -25,6 +25,7 @@ Polymer({
   },
 
   _addIntentsToProjects () {
+    console.log("PROJECT", this.projects )
     if (this.projects && this.intents) {
       this.projects.forEach((project, index) => {
         this.set(['projects', index, 'offers'], this.intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'offer'))
