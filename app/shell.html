@@ -47,248 +47,142 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <dom-module id="vientos-shell">
-   <template>
-   <style is="custom-style" include="vientos-styles vientos-layout vientos-typography iron-flex iron-flex-alignment iron-positioning">
-   /* Will be prevented from affecting local DOM of Polymer elements */
-   * {
-      box-sizing: border-box;
-   }
+  <template>
+  <style is="custom-style" include="vientos-styles vientos-layout vientos-typography vientos-colors iron-flex iron-flex-alignment iron-positioning">
+  /* Will be prevented from affecting local DOM of Polymer elements */
+  * {
+    box-sizing: border-box;
+    background-color: var(--vientos-color-app-background);
+  }
 
-   /* Use the :root selector to define custom properties and mixins */
-   /* at the document level  */
-   :root {
-      --my-toolbar-title-color: green;
-      --app-primary-color: #4285f4;
-      --app-secondary-color: black;
-   }
+  /* Use the :root selector to define custom properties and mixins */
+  /* at the document level  */
+  :root {
 
-   :host {
+  }
 
-      display: block;
+  :host {
 
+  }
 
-   }
+  app-header {
+    @apply --vientos-toolbar;
+  }
 
-   app-header {
-      @apply --toolbar-layout;
-      background-color: var(--app-header-background-color);
-      color: #fff;
-   }
-   app-header paper-icon-button {
-      --paper-icon-button-ink-color: white;
-   }
+  app-header-layout {
+    position: relative;
+  }
 
-   app-header-layout {
-      position: relative;
-
-   }
-
-   app-header-layout,
-   app-header-layout app-header,
-   app-header-layout footer {
-      @apply --layout-horizontal;
-
-   }
+  app-header-layout,
+  app-header-layout app-header,
+  app-header-layout footer {
+    @apply --layout-horizontal;
+  }
 
 
+  app-header-layout > main {
+    height: calc(100vh-128px);
+    overflow-y: auto;
+  }
 
-   app-header-layout > main {
-      height: calc(100vh-128px);
-      overflow-y: auto;
-   }
-
-   #vientos-footer {
-      @apply --fixed-bottom;
-      @apply --w-100;
-      background-color: var(--app-footer-background-color);
-   }
-
-   #vientos-footer #filter-button{
-      position: absolute;
-      right: 0;
-      width: auto !important;
-      margin: 1em;
-      padding: 1em;
-      @apply --fixed-bottom;
-      bottom: 3em !important;
-      @apply --w-100;
-      background-color: var(--app-footer-background-color);
-   }
-
-   #vientos-footer,
-   #vientos-footer app-toolbar,
-   app-header-layout app-toolbar iron-selector {
-      @apply --w-100;
-      @apply --layout-horizontal;
-   }
+  #vientos-footer,
+  #vientos-footer app-toolbar,
+  app-header-layout app-toolbar iron-selector {
+    @apply --w-100;
+    @apply --layout-horizontal;
+  }
 
 
 
 
-   #vientos-header {
-      background-color: var(--app-header-background-color);
-   }
-
-   app-header > #contentContainer,
-   app-toolbar {
-      /*@apply --toolbar-layout;*/
-      /*@apply --font-xs;*/
-      font-size: 22px !important;
-      height: 2.5em !important;
-   }
-   app-header,
-   app-header-layout app-toolbar iron-selector {
-      /*height: 100%;*/
-      /*height: 2em !important;*/
-      background-color: #000;
-   }
-
-   app-header-layout app-toolbar paper-button {
-      @apply --layout-flex;
-      @apply --layout-vertical;
-      @apply --layout-center-justified;
-   }
-
-   app-header-layout app-toolbar paper-button {
-      @apply --layout-flex;
-      /*@apply --layout-vertical;
-      @apply --layout-center-justified;*/
-   }
-
-   app-header-layout app-toolbar paper-button iron-icon {
-
-      @apply --small-icon;
-      width: 20px !important;
-      height: 20px !important;
-
-      width: auto !important;
-      text-align: center !important;
-
-      display: inline-block;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-
-      margin: 0 auto;
-      padding: 0 auto;
-
-   }
-
-   app-header-layout app-toolbar paper-button span {
-      margin: 0 !important;
-   }
-
-   app-header-layout > div {
-      /*@apply --layout-fit;*/
-      width: 100% !important;
-   }
-
-   app-header-layout > div:after {
-      height: 0;
-      margin: 0 !important;
-      padding: 0 !important;
-   }
+  #vientos-header {
+    background-color: var(--app-header-background-color);
+  }
+  app-toolbar {
+    @apply --h-100;
+  }
+  /*app-header > #contentContainer,
+  app-toolbar {
+  font-size: 22px !important;
+  height: 2.5em !important;
+  }*/
 
 
-   app-header-layout app-toolbar paper-button span,
-   #vientos-footer span {
-      @apply --layout-horizontal;
-      @apply --layout-center-justified;
-      @apply --font-xs;
-      margin-top: 3px;
-   }
+  </style>
 
-   app-header-layout app-toolbar {
-      /*@apply --font-xs;*/
-      height: 4em !important;
-      margin-top: 3px;
-   }
+  <app-location route="{{route}}"></app-location>
+  <app-route
+  route="{{route}}"
+  pattern="/:page"
+  data="{{routeData}}"
+  tail="{{subroute}}"></app-route>
 
-   </style>
+  <app-route
+  route="{{subroute}}"
+  pattern="/:projectId"
+  data="{{subrouteData}}"></app-route>
 
-   <app-location route="{{route}}" query-params="{{query}}"></app-location>
-   <app-route
-   route="{{route}}"
-   pattern="/:page"
-   data="{{routeData}}"
-   tail="{{subroute}}"></app-route>
+  <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
 
-   <app-route
-   route="{{subroute}}"
-   pattern="/:projectId"
-   data="{{subrouteData}}"></app-route>
+  <app-drawer-layout fullbleed force-narrow>
 
-   <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
+    <app-drawer>
+      <div>
+        <span>ES</span>
+        <paper-toggle-button on-tap="_toggleLanguage">EN</paper-toggle-button>
+      </div>
+    </app-drawer>
 
-   <app-drawer-layout fullbleed force-narrow>
-
-      <app-drawer>
-         <div>
-            <span>ES</span>
-            <paper-toggle-button on-tap="_toggleLanguage">EN</paper-toggle-button>
-         </div>
-      </app-drawer>
-
-      <!-- Main content -->
-      <app-header-layout>
+    <!-- Main content -->
+    <app-header-layout>
 
 
-         <app-header id="header" fixed>
-            <app-toolbar>
-               <vientos-header></vientos-header>
-            </app-toolbar>
-         </app-header>
+      <app-header id="header" fixed>
+        <app-toolbar>
+          <vientos-header page="{{page}}" on-toggle="_toggleDrawer"></vientos-header>
+        </app-toolbar>
+      </app-header>
 
-         <iron-pages
-           selected="[[page]]"
-           attr-for-selected="name"
-           fallback-selection="view404"
-           role="main">
-         <vientos-filter name="filter"></vientos-filter>
-         <vientos-projects
-           name="projects"
-           projects="[[visibleProjects]]"></vientos-projects>
-         <vientos-map
-           name="map"
-           view="[[mapView]]"
-           locations="[[visibleLocations]]"
-           on-selected="_projectSelected"
-           on-bbox="_updateBoundingBox"></vientos-map>
-         <vientos-project-profile
-           name="project-profile"
-           project-id="[[subrouteData.projectId]]"></vientos-project-profile>
-         <vientos-me name="me"></vientos-me>
-         <my-view404 name="view404"></my-view404>
-      </iron-pages>
+      <iron-pages
+      selected="{{page}}"
+      attr-for-selected="name"
+      fallback-selection="view404"
+      role="main">
+      <!-- <main> -->
+
+      <vientos-filter name="filter"></vientos-filter>
+
+      <vientos-projects
+      name="projects"
+      projects="[[visibleProjects]]"></vientos-projects>
+
+      <vientos-collaborations name="collaborations">
+      </vientos-collaborations>
+
+      <vientos-map
+      name="map"
+      locations="[[visibleLocations]]"
+      latitude="[[config.map.latitude]]"
+      longitude="[[config.map.longitude]]"
+      zoom="[[config.map.zoom]]"
+      on-selected="_projectSelected"
+      on-bbox="_updateBoundingBox"></vientos-map>
+
+      <vientos-project-profile
+      name="project"
+      project-id="[[subrouteData.projectId]]"></vientos-project-profile>
+
+      <vientos-me name="me"></vientos-me>
+
+      <my-view404 name="view404"></my-view404>
+
+      <!-- </main> -->
+    </iron-pages>
 
 
-      <footer id="vientos-footer">
-         <app-toolbar>
-            <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+    <vientos-footer page="{{page}}" visible-count="[[visibleProjects.length]]"></vientos-footer>
 
-               <paper-button id="filter-button" name="filter">
-                  <iron-icon icon="vientos:filter"></iron-icon>
-                  <paper-badge label="[[visibleProjects.length]]" for="filter-button"></paper-badge>
-                  <span>Filtros</span>
-               </paper-button>
-
-               <paper-button name="collaborations">
-                  <iron-icon icon="vientos:collaboration"></iron-icon>
-                  <span>Colaboraciones</span>
-               </paper-button>
-               <paper-button name="projects">
-                  <iron-icon icon="vientos:list"></iron-icon>
-                  <span>Proyectos</span>
-               </paper-button>
-               <paper-button name="map">
-                  <iron-icon icon="vientos:map"></iron-icon>
-                  <span>Mapa</span>
-               </paper-button>
-            </iron-selector>
-
-         </app-toolbar>
-      </footer>
-
-   </app-header-layout>
+  </app-header-layout>
 </app-drawer-layout>
 
 

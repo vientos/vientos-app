@@ -28,7 +28,8 @@ Polymer({
     page: {
       type: String,
       reflectToAttribute: true,
-      observer: '_pageChanged'
+      observer: '_pageChanged',
+      value: 'projects'
     },
     projects: {
       type: Array,
@@ -75,9 +76,7 @@ Polymer({
   ],
 
   _routePageChanged (page) {
-    // console.log(page)
     this.page = page || 'projects'
-    // console.log(this.query)
     if (page !== 'map') history.pushState({}, '', `/${page}`)
 
   },
@@ -179,11 +178,16 @@ Polymer({
   },
 
   _projectSelected (e, detail) {
-    this.set('route.path', '/project-profile/' + detail)
+    window.history.pushState({}, '', '/project/' + detail )
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _updateBoundingBox (e, detail) {
     this.dispatch('setBoundingBox', detail)
+  },
+
+  _toggleDrawer (){
+    this.$$('app-drawer').toggle()
   },
 
   ready () {

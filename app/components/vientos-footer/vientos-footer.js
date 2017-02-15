@@ -5,8 +5,11 @@ Polymer({
   },
 
   properties: {
+    page: {
+      type: String,
+      notify: true
+    }
   },
-
   ready () {
   }
 

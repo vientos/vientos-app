@@ -81,13 +81,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
    </style>
 
-   <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+   <!-- <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation"> -->
 
       <div class="button-holder" id="menu-button-holder-left">
 
         <vientos-icon-button
            id="button-home"
-           name="/"
            text=""
            icon="vientos:follow"
            large
@@ -100,23 +99,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <vientos-icon-button
            id="button-account"
-           name="me"
            text="Profile"
            icon="vientos:user"
            small
-        ></vientos-icon-button>
+           on-tap="_changePage"
 
+        ></vientos-icon-button>
+        <!-- FIXME put me  -->
         <vientos-icon-button
-           id="button-account"
-           name="me"
+           id="button-menu"
+           name="[[page]]"
            text="Menu"
            icon="vientos:menu"
            small
-        ></vientos-icon-button>
+           on-tap="_fireToggleDrawer"
 
+        ></vientos-icon-button>
       </div>
 
-   </iron-selector>
+   <!-- </iron-selector> -->
 
 </template>
 <script src="vientos-header.js"></script>
