@@ -9,14 +9,23 @@
   <template>
     <style include="shared-styles">
       :host {
-				display: block;
-				width: 100vh;
+        display: block;
+        width: 100vh;
       }
       #map {
 				height: 600px;
 				width: 800px;
       }
+
+      #my-location {
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        z-index: 10000;
+      }
+
     </style>
+		<paper-icon-button id="my-location" on-tap="_showMyLocation" icon="vientos:crosshairs"></paper-icon-button>
     <div id="map"></div>
   </template>
   <script src="../bower_components/leaflet/dist/leaflet.js"></script>

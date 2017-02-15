@@ -46,6 +46,9 @@ Polymer({
       type: Object,
       statePath: 'boundingBox'
     },
+    mapView: {
+      type: Object
+    },
     visibleProjects: {
       type: Array,
       value: [],
@@ -67,11 +70,26 @@ Polymer({
   },
 
   observers: [
-    '_routePageChanged(routeData.page)'
+    '_routePageChanged(routeData.page)',
+    '_queryChanged(query)'
   ],
 
   _routePageChanged (page) {
+    // console.log(page)
     this.page = page || 'projects'
+    // console.log(this.query)
+    if (page !== 'map') history.pushState({}, '', `/${page}`)
+
+  },
+
+  _queryChanged (query) {
+    if(query.zoom) {
+      this.set('mapView', {
+        latitude: Number(query.latitude),
+        longitude: Number(query.longitude),
+        zoom: Number(query.zoom),
+      })
+    }
   },
 
   _pageChanged (page) {

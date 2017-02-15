@@ -48,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
    </style>
 
-   <app-location route="{{route}}"></app-location>
+   <app-location route="{{route}}" query-params="{{query}}"></app-location>
    <app-route
    route="{{route}}"
    pattern="/:page"
@@ -95,10 +95,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            projects="[[visibleProjects]]"></vientos-projects>
          <vientos-map
            name="map"
-           locations="[[visibleLocations]]"
-           latitude="[[config.map.latitude]]"
-           longitude="[[config.map.longitude]]"
-           zoom="[[config.map.zoom]]"
+           view="[[mapView]]"
+           locations="[[visibleLocations]]"           
            on-selected="_projectSelected"
            on-bbox="_updateBoundingBox"></vientos-map>
          <vientos-project-profile
