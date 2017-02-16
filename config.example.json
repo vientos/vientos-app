@@ -5,7 +5,7 @@
     "categories": "http://localhost:8080/node_modules/vientos-data/categories.json",
     "collaboration-types": "http://localhost:8080/node_modules/vientos-data/collaborationTypes.json",
     "labels": "http://localhost:8080/node_modules/vientos-data/labels.json",
-    "intents": "http://localhost:3000/intents",
+    "intents": "http://localhost:8080/node_modules/vientos-fixtures/intents.json",
     "hello": "http://localhost:3000/auth/hello",
     "bye": "http://localhost:3000/auth/bye",
     "login": {
