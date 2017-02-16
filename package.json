@@ -9,7 +9,7 @@
     "redux-logger": "^2.7.4",
     "redux-saga": "^0.12.1",
     "vientos-data": "https://github.com/ehecame/vientos-data.git",
-    "vientos-fixtures": "https://github.com/ehecame/vientos-fixtures.git#0.0.2"
+    "vientos-fixtures": "https://github.com/ehecame/vientos-fixtures.git#0.0.3"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
