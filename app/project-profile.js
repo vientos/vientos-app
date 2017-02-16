@@ -91,9 +91,9 @@ Polymer({
     return intents.filter(intent => intent.projects.includes(projectId) && intent.direction === 'request')
   },
 
-  _goBack () {
-    window.history.back()
-  },
+  // _goBack () {
+  //   window.history.back()
+  // },
 
   _follow () {
     this.dispatch('follow', this.person._id, this.projectId)

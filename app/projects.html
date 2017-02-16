@@ -28,7 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
-    <paper-icon-button icon="vientos:subtree" on-tap="_toggleExpanded"></paper-icon-button>
+    <!-- FIXME with grid it shows only 3 projects, unless window gets resized -->
     <iron-list id="list" items="[[projects]]" as="item" grid>
       <template>
         <vientos-project-preview project="[[item]]"></vientos-project-preview>
