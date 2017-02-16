@@ -108,7 +108,6 @@ Polymer({
   },
 
   _resetIntent () {
-    console.log('_resetIntent')
     this.set('intent', {})
   },
 
