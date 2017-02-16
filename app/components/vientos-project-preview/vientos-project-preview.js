@@ -28,11 +28,6 @@ Polymer({
 
   },
 
-  _collapseCollaborations () {
-
-    this.set("expanded", false )
-
-  },
 
   _linkTo (item) {
     return '/project/'+item._id

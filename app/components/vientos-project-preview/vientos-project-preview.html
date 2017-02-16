@@ -53,33 +53,24 @@
 
       }
 
-      :host:focus,
-      :host:hover {
-        @apply --
-      }
+
 
       vientos-card {
         /*padding-top: var(--spacing-1);*/
         padding-top: 0 !important;
       }
 
-      :host, :host * {
-        font-size: 14px;
-      }
-
-
       h4 {
         font-size: 20px;
       }
 
-      h6 {
+      h5 {
         font-size: 16px;
       }
 
       header#project-title {
         height: 5em;
-        @apply --layout-vertical;
-        @apply --layout-center-justified;
+        @apply --center-y;
         text-align: center;
       }
 
@@ -106,10 +97,15 @@
       main ul li {
         padding-bottom: var(--spacing-1);
       }
+
+      main ul li iron-icon,
+      #project-collaborations iron-icon  {
+        color: var(--vientos-color-button-light)
+      }
+
       main ul li iron-icon {
         width: var(--spacing-1);
         height: var(--spacing-1);
-        color: var(--vientos-color-button-light)
       }
 
       footer  {
@@ -127,6 +123,25 @@
       }
 
 
+      #project-collaborations {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+        padding-top: var(--spacing-1);
+      }
+
+
+      #project-collaborations > *  {
+        @apply --layout-flex;
+      }
+
+      #project-collaborations ul {
+        margin-top: var(--spacing-1);
+      }
+      #project-collaborations ul li {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
       #project-collaborations-view-header {
         @apply --layout-horizontal;
         @apply --layout-around-justified;
@@ -134,25 +149,51 @@
       }
 
 
+      #project-collaborations iron-icon {
+        width: 11px;
+        height: 11px;
+        margin-right: 3px;
+      }
+
       #project-collaborations-view-header iron-image {
         width: 3em;
         height: 3em;
         margin-right: 1em;
       }
 
+      #project-collaborations-view-header div {
+        @apply --center-y;
+      }
 
-    #project-collaborations-list {
-      height: 222px;
+
+    #project-collaborations {
+      height: 202px;
       overflow-y: auto;
     }
+
+
 
     </style>
 
 
     <vientos-card>
-      <template is="dom-if" if="[[!expanded]]">
+        <template is="dom-if" if="[[expanded]]">
+          <header id="project-collaborations-view-header">
+            <iron-image
+               src="http://vientos.coop/img/[[project.logo]]"
+               sizing="contain"
+            ></iron-image>
+            <div>
+              <h5>
+                [[project.name]]
+              </h5>
+            </div>
+            </header>
+        </template>
+
+        <template is="dom-if" if="[[!expanded]]">
       <a href="[[_linkTo(project)]]">
-        <header id="project-title" on-tap="">
+        <header id="project-title">
           <h4>
             [[project.name]]
           </h4>
@@ -178,7 +219,46 @@
               [[item.territory]]
             </paper-item>
           </div>
+        </template> <!-- expanded -->
 
+          <template is="dom-if" if="[[expanded]]">
+
+            <section id="project-collaborations">
+
+
+                <div>
+                  <h5>Offers</h5>
+                  <ul id="project-offers-list">
+                    <template is="dom-repeat" items="[[project.offers]]">
+                      <li>
+                        <iron-icon icon="arrow-back" mini></iron-icon>
+                      <span>
+                        [[item.title]]
+                      </span>
+                    </li>
+                    </template>
+                  </ul>
+                </div>
+
+
+                <div>
+                  <h5>Requests</h5>
+                  <ul id="project-requests-list">
+                    <template is="dom-repeat" items="[[project.requests]]">
+                      <li>
+                        <iron-icon icon="arrow-forward" mini></iron-icon>
+                      <span>
+                        [[item.title]]
+                      </span>
+                    </li>
+                    </template>
+                  </ul>
+                </div>
+
+
+              </section>
+
+          </template>
 
         </main>
       </a>
@@ -208,44 +288,8 @@
 
         </app-toolbar>
       </footer>
-    </template> <!-- expanded -->
 
-      <template is="dom-if" if="[[expanded]]">
 
-        <section id="project-collaborations">
-
-          <section id="project-collaborations-view" >
-            <header id="project-collaborations-view-header" on-tap="">
-              <iron-image
-                 src="http://vientos.coop/img/[[project.logo]]"
-                 sizing="contain"
-              ></iron-image>
-              <h6>
-                [[project.name]]
-              </h6>
-              <iron-icon icon="expand-less" on-tap="_collapseCollaborations"></iron-icon>
-            </header>
-
-            <h6>Collaborations</h6>
-
-            <ul id="project-collaborations-list">
-              <template is="dom-repeat" items="[[project.offers]]">
-                <li>-&gt; : [[item.title]]</li>
-              </template>
-              <template is="dom-repeat" items="[[project.requests]]">
-                <li>&lt;- : [[item.title]]</li>
-              </template>
-            </ul>
-
-            <footer>
-              <a href="[[_linkTo(project)]]">
-                <paper-fab mini neutral icon="arrow-forward"></paper-fab>
-              </a>
-
-            </footer>
-          </section>
-
-      </template>
 
 
     </vientos-card>

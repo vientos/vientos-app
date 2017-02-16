@@ -39,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply --layout-vertical;
       @apply --vientos-toolbar;
       @apply --h-100;
-      background-color: var(--vientos-color-header);
+      background-color: var(--vientos-color-header) !important;
 
    }
 
@@ -79,18 +79,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      width: 5em !important;
    }
 
+  #logo {
+    width: 32px;
+    height: 32px;
+    /*margin: var(--spacing-1);*/
+    margin: 4px;
+  }
    </style>
 
    <!-- <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation"> -->
 
       <div class="button-holder" id="menu-button-holder-left">
 
-        <vientos-icon-button
-           id="button-home"
-           text=""
-           icon="vientos:follow"
-           large
-        ></vientos-icon-button>
+        <a href="/">
+          <iron-image id="logo" src="../../../../images/logo.png" sizing="contain"></iron-image>
+        </a>
 
 
       </div>

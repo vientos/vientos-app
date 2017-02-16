@@ -8,7 +8,10 @@ Polymer({
   me: undefined,
   ready () {
     this.map = L.map(this.$.map)
-    this.icon = L.icon({ iconUrl: 'https://stendhalgame.org/images/mapmarker/me.png' })
+    this.icon = L.icon({
+      iconUrl: 'http://azbigmedia.com/wp-content/wptouch-data/icons/smallicons/marker.png',
+      iconSize: [16,16]
+    })
     this.map.setView([this.latitude, this.longitude], this.zoom)
 
     L.tileLayer(this.tilelayer).addTo(this.map)
