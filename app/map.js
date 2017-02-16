@@ -34,6 +34,7 @@ Polymer({
         this.longitude = this.map.getCenter().lng
       })
     this._drawMarkers()
+    this.map.invalidateSize()
   },
   properties: {
     locations: {
