@@ -19,11 +19,14 @@
         padding: var(--spacing-2);
         @apply --center-y;
         text-align: center !important;
+
+        margin-bottom: 96px;
       }
 
 
       #intent-direction-toggle {
 
+        margin: 8px 0;
 
       }
       #intent-direction-toggle iron-icon {
@@ -45,12 +48,27 @@
 
       }
 
+      #menuButton,
+      .paper-dropdown-menu-0,
+      paper-listbox,
+      paper-dropdown-menu paper-menu-button {
+        width: 100% !important;
+        max-width: none;
+      }
+
+
+
       input {
         border-radius: 0 !important;
         border: none !important;
         padding: 6px;
         margin-bottom: 4px;
 
+      }
+
+
+      #button-save-intent {
+        color: #4aba7a;
       }
 
     </style>
@@ -87,6 +105,7 @@
     </paper-dropdown-menu>
 
     <vientos-icon-button
+      id="button-save-intent"
       icon="vientos:ok"
       text="Save"
       on-tap="_createOrUpdateIntent"
