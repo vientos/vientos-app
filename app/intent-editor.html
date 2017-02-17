@@ -6,19 +6,75 @@
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="vientos-intent-editor">
   <template>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block;
         padding: 10px;
+        max-width: 300px;
+        background-color: #eee;
+        padding: var(--spacing-2);
+        @apply --center-y;
+        text-align: center !important;
       }
+
+
+      #intent-direction-toggle {
+
+
+      }
+      #intent-direction-toggle iron-icon {
+
+        color: var(--vientos-color-button);
+
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+
+      }
+
+      input,
+      div,
+      paper-dropdown-menu,
+      paper-menu-button {
+        @apply --layout-horizontal;
+        width: 100% !important;
+
+      }
+
+      input {
+        border-radius: 0 !important;
+        border: none !important;
+        padding: 6px;
+        margin-bottom: 4px;
+
+      }
+
     </style>
-    <span>-&gt;</span>
-    <paper-toggle-button on-tap="_toggleDirection" checked="[[intentDirection]]">&lt;-</paper-toggle-button>
+
     <input id="intentTitle" placeholder="Intent name" value="[[intent.title]]"/>
-    <paper-dropdown-menu>
+
+    <div id="intent-direction-toggle">
+
+      <span>
+        Request
+      </span>
+      <iron-icon icon="arrow-forward"></iron-icon>
+
+      <paper-toggle-button on-tap="_toggleDirection" checked="[[intentDirection]]"></paper-toggle-button>
+
+      <iron-icon icon="arrow-back"></iron-icon>
+      <span>
+        Offer
+      </span>
+
+    </div>
+
+
+    <paper-dropdown-menu label="Intent Type">
       <paper-listbox
         class="dropdown-content"
         attr-for-selected="name"
@@ -29,9 +85,25 @@
         </template>
       </paper-listbox>
     </paper-dropdown-menu>
-    <paper-icon-button icon="vientos:ok" on-tap="_createOrUpdateIntent"></paper-icon-button>
+
+    <vientos-icon-button
+      icon="vientos:ok"
+      text="Save"
+      on-tap="_createOrUpdateIntent"
+    ></vientos-icon-button>
+
+    <!-- <paper-icon-button icon="vientos:ok" on-tap="_createOrUpdateIntent"></paper-icon-button> -->
+
     <template is="dom-if" if="[[intent._id]]">
-      <paper-icon-button icon="vientos:cancel" on-tap="_deleteIntent"></paper-icon-button>
+      <!-- <paper-icon-button icon="vientos:cancel" on-tap="_deleteIntent"></paper-icon-button> -->
+
+          <vientos-icon-button
+            icon="vientos:cancel"
+            text="Delete"
+
+            on-tap="_deleteIntent"
+          ></vientos-icon-button>
+
     </template>
   </template>
   <script src="intent-editor.js"></script>
