@@ -13,6 +13,7 @@
       }
     </style>
     <template is="dom-if" if="[[person]]">
+      <h2>[[person.name]]</h2>
       <paper-icon-button icon="vientos:login" on-tap="_bye"></paper-icon-button>
     </template>
     <template is="dom-if" if="[[!person]]">
