@@ -62,6 +62,10 @@ Polymer({
 
   _iconFor (item) {
     return 'vientos:' + item.id
+  },
+
+  ready () {
+    console.log( this.resources )
   }
 
 })

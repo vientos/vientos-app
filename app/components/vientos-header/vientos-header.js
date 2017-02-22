@@ -1,6 +1,8 @@
+// var store = window.vientos.store
+// var ReduxBehavior = PolymerRedux(store)
 Polymer({
   is: 'vientos-header',
-  // behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
   actions: {
    },
 
@@ -8,6 +10,14 @@ Polymer({
     page: {
       type: String,
       notify: true
+    },
+    language: {
+      type: String,
+      statePath: 'language'
+    },
+    resources: {
+      type: Object,
+      statePath: 'labels'
     }
   },
 
@@ -23,6 +33,7 @@ Polymer({
   },
 
   ready () {
+    console.log(this.localize, this.localize('job'));
   }
 
 })

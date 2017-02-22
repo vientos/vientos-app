@@ -1,5 +1,6 @@
 Polymer({
   is: 'vientos-project-preview',
+  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
   },
@@ -11,6 +12,15 @@ Polymer({
     },
     project: {
       type: Object
+    },
+
+    language: {
+      type: String,
+      statePath: 'language'
+    },
+    resources: {
+      type: Object,
+      statePath: 'labels'
     }
 
   },

@@ -1,10 +1,13 @@
 const store = window.vientos.store
 const ActionTypes = window.vientos.ActionTypes
-const ReduxBehavior = PolymerRedux(store)
+// const ReduxBehavior = PolymerRedux(store)
 const locationsInBoundingBox = window.vientos.util.locationsInBoundingBox
 Polymer({
+
   is: 'vientos-shell',
+
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
   actions: {
     setLanguage (language) {
       return {
@@ -191,13 +194,17 @@ Polymer({
   },
 
   ready () {
+
     // TODO define actions and use this.store instead
+
     store.dispatch({type: ActionTypes.HELLO_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_LABELS_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_CATEGORIES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_PROJECTS_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_INTENTS_REQUESTED})
+
+
   }
 
 })

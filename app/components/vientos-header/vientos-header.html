@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/polymer-redux/polymer-redux.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -28,7 +27,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
+<link rel="import" href="../../redux-store.html">
+
 <link rel="import" href="../../vientos-styles/vientos-styles.html">
+
 
 
 <dom-module id="vientos-header">
@@ -102,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <vientos-icon-button
            id="button-account"
-           text="Profile"
+           text="[[localize('button:profile')]]"
            icon="vientos:user"
            small
            on-tap="_changePage"
@@ -112,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <vientos-icon-button
            id="button-menu"
            name="[[page]]"
-           text="Menu"
+           text="[[localize('button:menu')]]"
            icon="vientos:menu"
            small
            on-tap="_fireToggleDrawer"

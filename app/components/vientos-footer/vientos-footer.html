@@ -1,3 +1,27 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<link rel="import" href="../../redux-store.html">
+
+
 <dom-module id="vientos-footer">
   <template>
     <style>
@@ -91,7 +115,7 @@
               <iron-icon icon="vientos:filter"></iron-icon>
               <paper-badge label="[[visibleCount]]" for="filter-button"></paper-badge>
               <span>
-                Filters
+                [[localize('button:filters')]]
               </span>
            </paper-button>
 
@@ -103,13 +127,13 @@
 
            <vientos-icon-button
            name="projects"
-           text="Projects"
+           text="[[localize('button:projects')]]"
            icon="vientos:list">
            </vientos-icon-button>
 
            <vientos-icon-button
            name="map"
-           text="Map"
+           text="[[localize('button:map')]]"
            icon="vientos:map">
            </vientos-icon-button>
 
