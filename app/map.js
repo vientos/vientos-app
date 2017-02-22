@@ -83,7 +83,7 @@ Polymer({
         this.longitude = this.map.getCenter().lng
       })
     this._drawMarkers()
-    this.map.invalidateSize()
+
   },
 
   _drawMarkers () {
@@ -92,7 +92,7 @@ Polymer({
       L.marker([l.latitude, l.longitude], { project_id: l.project._id, icon: this.icon })
         .addTo(this.markers)
         .on('click', e => {
-          this.fire('selected', e.target.options.project_id)
+          this._projectSelected(e.target.options.project_id)
         })
     })
   },
@@ -102,13 +102,22 @@ Polymer({
       this._drawMarkers()
     }
   },
-  _getBoundingBox () {
+
+  _getBoundingBox (lat, lon, zoom) {
+    console.log('_getBoundingBox', lat, lon, zoom)
     if (this.map) {
       let sw, ne
       ({ _southWest: sw, _northEast: ne } = this.map.getBounds())
       return { sw, ne }
     }
   },
+
+
+  _projectSelected (projectId) {
+    window.history.pushState({}, '', '/project/' + projectId )
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _updatedBoundingBox () {
     // FIXME gets called 3 times for lat, lon and zoom
     if (this.boundingBox) {
@@ -128,7 +137,10 @@ Polymer({
   },
 
   ready() {
-    console.log('view',this.view)
     this._initializeMap()
+    // If not this 100 ms interval, doesn't load some tiles
+    setInterval(() => {
+      this.map.invalidateSize()
+    }, 100)
   }
 })

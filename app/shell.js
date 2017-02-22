@@ -31,8 +31,7 @@ Polymer({
     page: {
       type: String,
       reflectToAttribute: true,
-      observer: '_pageChanged',
-      value: 'projects'
+  observer: '_pageChanged'
     },
     projects: {
       type: Array,
@@ -79,9 +78,10 @@ Polymer({
   ],
 
   _routePageChanged (page) {
-    this.page = page || 'projects'
-    if (page !== 'map') history.pushState({}, '', `/${page}`)
-
+    console.log('_routePageChanged',page, this.routeData);
+    let selectedPage = page || 'projects'
+    this.set('page', selectedPage)
+    // if (page !== 'map') history.replaceState({}, '', `/${page}`)
   },
 
   _queryChanged (query) {
@@ -94,8 +94,9 @@ Polymer({
     }
   },
 
-  _pageChanged (page) {
-    this.set('routeData.page', page)
+_pageChanged (page) {
+    console.log('page',page)
+    // this.set('routeData.page', page)
       // Load page import on demand. Show 404 page if fails
     var viewUrl
     switch (page) {
@@ -180,13 +181,9 @@ Polymer({
     }, [])
   },
 
-  _projectSelected (e, detail) {
-    window.history.pushState({}, '', '/project/' + detail )
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
   _updateBoundingBox (e, detail) {
-    this.dispatch('setBoundingBox', detail)
+    if(this.page === 'map')
+      this.dispatch('setBoundingBox', detail)
   },
 
   _toggleDrawer (){

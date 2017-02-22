@@ -9,7 +9,7 @@ Polymer({
   properties: {
     page: {
       type: String,
-      notify: true
+      observer: '_pageChanged'
     },
     language: {
       type: String,
@@ -21,15 +21,17 @@ Polymer({
     }
   },
 
-  observers: [
-  ],
+  _pageChanged (page) {
+    history.pushState({}, '', `/${page}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
 
   _fireToggleDrawer (){
     this.fire('toggle')
   },
 
-  _changePage () {
-    this.set('page', 'me')
+  _showProfile () {
+    this._pageChanged('me')
   },
 
   ready () {

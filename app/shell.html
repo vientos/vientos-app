@@ -46,6 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="components/vientos-header/vientos-header.html">
 <link rel="import" href="components/vientos-footer/vientos-footer.html">
+<link rel="import" href="map.html">
 
 
 
@@ -130,7 +131,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   pattern="/:projectId"
   data="{{subrouteData}}"></app-route>
 
-  <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
+  <!-- <app-scrollpos-control selected="{{page}}"></app-scrollpos-control> -->
 
   <app-drawer-layout fullbleed force-narrow>
 
@@ -147,7 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <app-header id="header" fixed>
         <app-toolbar>
-          <vientos-header page="{{page}}" on-toggle="_toggleDrawer"></vientos-header>
+          <vientos-header page="[[page]]" on-toggle="_toggleDrawer"></vientos-header>
         </app-toolbar>
       </app-header>
 
@@ -171,7 +172,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       name="map"
       view="[[mapView]]"
       locations="[[visibleLocations]]"
-      on-selected="_projectSelected"
       on-bbox="_updateBoundingBox"></vientos-map>
 
       <vientos-project-profile
@@ -186,7 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </iron-pages>
 
 
-    <vientos-footer page="{{page}}" visible-count="[[visibleProjects.length]]"></vientos-footer>
+    <vientos-footer page="[[page]]" visible-count="[[visibleProjects.length]]"></vientos-footer>
 
   </app-header-layout>
 </app-drawer-layout>

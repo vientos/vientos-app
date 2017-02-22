@@ -25,13 +25,6 @@ Polymer({
 
   },
 
-  _viewProfile () {
-
-    window.history.pushState({}, '', '/project/' + this.project._id )
-    window.dispatchEvent(new CustomEvent('location-changed'))
-
-  },
-
   _expandCollaborations () {
 
     this.set("expanded", ! this.expanded )

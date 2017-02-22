@@ -9,7 +9,7 @@ Polymer({
   properties: {
     page: {
       type: String,
-      notify: true
+      observer: '_pageChanged'
     },
     language: {
       type: String,
@@ -20,6 +20,13 @@ Polymer({
       statePath: 'labels'
     }
   },
+
+  _pageChanged (page) {
+    console.log('footer-page-changed',page);
+    // history.pushState({}, '', `/${page}`)
+    // window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   ready () {
   }
 
