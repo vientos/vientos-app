@@ -1,7 +1,10 @@
+/* global Polymer, ReduxBehavior, CustomEvent */
+
 const store = window.vientos.store
 const ActionTypes = window.vientos.ActionTypes
 // const ReduxBehavior = PolymerRedux(store)
 const locationsInBoundingBox = window.vientos.util.locationsInBoundingBox
+
 Polymer({
 
   is: 'vientos-shell',
@@ -31,7 +34,7 @@ Polymer({
     page: {
       type: String,
       reflectToAttribute: true,
-  observer: '_pageChanged'
+      observer: '_pageChanged'
     },
     projects: {
       type: Array,
@@ -78,26 +81,23 @@ Polymer({
   ],
 
   _routePageChanged (page) {
-    console.log('_routePageChanged',page, this.routeData);
     let selectedPage = page || 'projects'
     this.set('page', selectedPage)
-    // if (page !== 'map') history.replaceState({}, '', `/${page}`)
+    // if (!['map', 'project'].includes(page)) window.history.replaceState({}, '', `/${page}`)
   },
 
   _queryChanged (query) {
-    if(query.zoom) {
+    if (query.zoom) {
       this.set('mapView', {
         latitude: Number(query.latitude),
         longitude: Number(query.longitude),
-        zoom: Number(query.zoom),
+        zoom: Number(query.zoom)
       })
     }
   },
 
-_pageChanged (page) {
-    console.log('page',page)
-    // this.set('routeData.page', page)
-      // Load page import on demand. Show 404 page if fails
+  _pageChanged (page) {
+    // Load page import on demand. Show 404 page if fails
     var viewUrl
     switch (page) {
 

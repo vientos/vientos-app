@@ -83,7 +83,6 @@ Polymer({
         this.longitude = this.map.getCenter().lng
       })
     this._drawMarkers()
-
   },
 
   _drawMarkers () {
@@ -104,7 +103,6 @@ Polymer({
   },
 
   _getBoundingBox (lat, lon, zoom) {
-    console.log('_getBoundingBox', lat, lon, zoom)
     if (this.map) {
       let sw, ne
       ({ _southWest: sw, _northEast: ne } = this.map.getBounds())
@@ -112,9 +110,8 @@ Polymer({
     }
   },
 
-
   _projectSelected (projectId) {
-    window.history.pushState({}, '', '/project/' + projectId )
+    window.history.pushState({}, '', '/project/' + projectId)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

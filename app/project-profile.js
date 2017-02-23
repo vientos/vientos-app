@@ -115,7 +115,6 @@ Polymer({
     let location = e.model.location
     window.history.pushState({}, '', `/map?latitude=${location.latitude}&longitude=${location.longitude}&zoom=15`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-
   }
 
 })

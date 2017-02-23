@@ -1,15 +1,18 @@
+/* global Polymer, ReduxBehavior, CustomEvent */
+
 Polymer({
   is: 'vientos-footer',
 
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
-  actions: {
-  },
-
   properties: {
     page: {
       type: String,
       observer: '_pageChanged'
+    },
+    buttons: {
+      type: Array,
+      value: ['filter', 'projects', 'map']
     },
     language: {
       type: String,
@@ -22,12 +25,12 @@ Polymer({
   },
 
   _pageChanged (page) {
-    console.log('footer-page-changed',page);
-    // history.pushState({}, '', `/${page}`)
-    // window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
-  ready () {
+    if (this.buttons.includes(page)) {
+      if (page === 'projects' && window.location.pathname === '/') return
+      if (page === 'map' && window.location.search !== '') return
+      let pathname = page === 'projects' ? '/' : `/${page}`
+      window.history.pushState({}, '', pathname)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   }
-
 })
