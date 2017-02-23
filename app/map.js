@@ -1,5 +1,4 @@
-const Polymer = window.Polymer
-const L = window.L
+/* global Polymer, L, CustomEvent */
 
 Polymer({
   is: 'vientos-map',
@@ -133,7 +132,7 @@ Polymer({
     if (this.map) this.map.setView([view.latitude, view.longitude], view.zoom)
   },
 
-  ready() {
+  ready () {
     this._initializeMap()
     // If not this 100 ms interval, doesn't load some tiles
     setInterval(() => {

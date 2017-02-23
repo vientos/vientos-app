@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent */
+/* global Polymer, ReduxBehavior */
 
 const store = window.vientos.store
 const ActionTypes = window.vientos.ActionTypes
@@ -182,26 +182,23 @@ Polymer({
   },
 
   _updateBoundingBox (e, detail) {
-    if(this.page === 'map')
+    if (this.page === 'map') {
       this.dispatch('setBoundingBox', detail)
+    }
   },
 
-  _toggleDrawer (){
+  _toggleDrawer () {
     this.$$('app-drawer').toggle()
   },
 
   ready () {
-
     // TODO define actions and use this.store instead
-
     store.dispatch({type: ActionTypes.HELLO_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_LABELS_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_CATEGORIES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_PROJECTS_REQUESTED})
     store.dispatch({type: ActionTypes.FETCH_INTENTS_REQUESTED})
-
-
   }
 
 })

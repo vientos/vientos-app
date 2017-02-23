@@ -1,3 +1,5 @@
+/* global Polymer, ReduxBehavior */
+
 Polymer({
   is: 'vientos-intent-editor',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
@@ -64,7 +66,7 @@ Polymer({
   },
 
   _createOrUpdateIntent () {
-    if(this.intent._id) {
+    if (this.intent._id) {
       this.dispatch('updateIntent', this.intent)
     } else {
       this.dispatch('createIntent')
@@ -79,12 +81,12 @@ Polymer({
     this._reset()
   },
 
-  _reset() {
+  _reset () {
     this.fire('reset')
   },
 
   _setIntentDirection (intent) {
-    return intent && intent.direction == 'offer'
+    return intent && intent.direction === 'offer'
   },
 
   _toggleDirection () {

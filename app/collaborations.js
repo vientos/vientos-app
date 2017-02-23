@@ -1,3 +1,5 @@
+/* global Polymer, ReduxBehavior */
+
 Polymer({
   is: 'vientos-collaborations',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
@@ -8,12 +10,12 @@ Polymer({
     collaborations: {
       type: Array,
       value: [
-         {
-            name: "Collaboration 1"
-         },
-         {
-            name: "Collaboration 2"
-         }
+        {
+          name: 'Collaboration 1'
+        },
+        {
+          name: 'Collaboration 2'
+        }
       ]
     },
 
@@ -28,7 +30,7 @@ Polymer({
   },
 
   ready () {
-    console.log( "Collaborations Ready" )
-  },
+    console.log('Collaborations Ready')
+  }
 
 })

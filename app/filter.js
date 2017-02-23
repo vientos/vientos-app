@@ -1,3 +1,5 @@
+/* global Polymer, ReduxBehavior */
+
 Polymer({
   is: 'vientos-filter',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
@@ -62,10 +64,5 @@ Polymer({
 
   _iconFor (item) {
     return 'vientos:' + item.id
-  },
-
-  ready () {
-    console.log( this.resources )
   }
-
 })

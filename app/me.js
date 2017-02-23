@@ -1,3 +1,5 @@
+/* global Polymer, ReduxBehavior */
+
 Polymer({
   is: 'vientos-me',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],

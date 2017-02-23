@@ -1,21 +1,15 @@
+/* global Polymer */
+
 Polymer({
   is: 'vientos-icon-button',
-  actions: {
-  },
 
   properties: {
     text: {
-      type: String,
-      value: "Button Text"
+      type: String
     },
     icon: {
-      type: String,
-      value: "vientos:follow"
-    },
-  },
-
-
-  ready () {
+      type: String
+    }
   }
 
 })

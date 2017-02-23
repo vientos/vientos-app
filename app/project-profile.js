@@ -1,3 +1,5 @@
+/* global Polymer, ReduxBehavior, CustomEvent */
+
 Polymer({
   is: 'vientos-project-profile',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],

@@ -1,13 +1,5 @@
+/* global Polymer */
+
 Polymer({
-  is: 'vientos-card',
-
-  actions: {
-  },
-
-  properties: {
-  },
-
-  ready () {
-  }
-
+  is: 'vientos-card'
 })
