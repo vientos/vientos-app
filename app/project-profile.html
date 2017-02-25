@@ -105,21 +105,21 @@
         <template is="dom-if" if="[[!followed]]">
           <vientos-icon-button
           icon="vientos:follow"
-          text="Follow"
+          text="[[localize('button:follow')]]"
           on-tap="_follow"
           ></vientos-icon-button>
         </template>
         <template is="dom-if" if="[[followed]]">
           <vientos-icon-button
           icon="vientos:unfollow"
-          text="Unfollow"
+          text="[[localize('button:unfollow')]]"
           on-tap="_unfollow"
           ></vientos-icon-button>
         </template>
       </template>
 <vientos-icon-button
   icon="room"
-  text="Contact"
+  text="[[localize('button:contact')]]"
 ></vientos-icon-button>
     </section>
 
@@ -129,7 +129,7 @@
 </div>
 <div>
   <template is="dom-repeat" items="[[project.locations]]" as="location">
-    <vientos-icon-button on-tap="_showLocationOnMap" icon="vientos:crosshairs" text="Show in Map"></vientos-icon-button>
+    <vientos-icon-button on-tap="_showLocationOnMap" icon="vientos:crosshairs" text="[[localize('button:show-on-map')]]"></vientos-icon-button>
 
   </template>
 
@@ -147,15 +147,13 @@
 
 
     <div>
-      <h5>Offers</h5>
+      <h5>[[localize('nouns:offers')]]</h5>
       <ul id="project-offers-list">
         <template is="dom-repeat" items="[[offers]]">
           <li>
             <paper-item on-tap="_editIntent">
-              <iron-icon icon="arrow-back" mini></iron-icon>
-              <span>
-                [[item.title]]
-              </span>
+              <iron-icon icon="arrow-forward" mini></iron-icon>
+              <span>[[item.title]]</span>
             </paper-item>
         </li>
         </template>
@@ -164,15 +162,13 @@
 
 
     <div>
-      <h5>Requests</h5>
+      <h5>[[localize('nouns:requests')]]</h5>
       <ul id="project-requests-list">
         <template is="dom-repeat" items="[[requests]]">
           <li>
             <paper-item on-tap="_editIntent">
-              <iron-icon icon="arrow-forward" mini></iron-icon>
-              <span>
-                [[item.title]]
-              </span>
+              <iron-icon icon="arrow-back" mini></iron-icon>
+              <span>[[item.title]]</span>
           </paper-item>
         </li>
         </template>

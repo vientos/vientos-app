@@ -75,19 +75,11 @@
     <input id="intentTitle" placeholder="Intent name" value="[[intent.title]]"/>
 
     <div id="intent-direction-toggle">
-
-      <span>
-        Request
-      </span>
-      <iron-icon icon="arrow-forward"></iron-icon>
-
-      <paper-toggle-button on-tap="_toggleDirection" checked="[[intentDirection]]"></paper-toggle-button>
-
+      <span>[[localize('nouns:request')]]</span>
       <iron-icon icon="arrow-back"></iron-icon>
-      <span>
-        Offer
-      </span>
-
+      <paper-toggle-button on-tap="_toggleDirection" checked="[[intentDirection]]"></paper-toggle-button>
+      <iron-icon icon="arrow-forward"></iron-icon>
+      <span>[[localize('nouns:offer')]]</span>
     </div>
 
 
@@ -106,22 +98,16 @@
     <vientos-icon-button
       id="button-save-intent"
       icon="vientos:ok"
-      text="Save"
+      text="[[localize('button:save')]]"
       on-tap="_createOrUpdateIntent"
     ></vientos-icon-button>
 
-    <!-- <paper-icon-button icon="vientos:ok" on-tap="_createOrUpdateIntent"></paper-icon-button> -->
-
     <template is="dom-if" if="[[intent._id]]">
-      <!-- <paper-icon-button icon="vientos:cancel" on-tap="_deleteIntent"></paper-icon-button> -->
-
           <vientos-icon-button
             icon="vientos:cancel"
-            text="Delete"
-
+            text="[[localize('button:delete')]]"
             on-tap="_deleteIntent"
           ></vientos-icon-button>
-
     </template>
   </template>
   <script src="intent-editor.js"></script>
