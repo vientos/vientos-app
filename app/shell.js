@@ -1,10 +1,16 @@
+/* global Polymer, ReduxBehavior */
+
 const store = window.vientos.store
 const ActionTypes = window.vientos.ActionTypes
-const ReduxBehavior = PolymerRedux(store)
+// const ReduxBehavior = PolymerRedux(store)
 const locationsInBoundingBox = window.vientos.util.locationsInBoundingBox
+
 Polymer({
+
   is: 'vientos-shell',
+
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
   actions: {
     setLanguage (language) {
       return {
@@ -75,28 +81,29 @@ Polymer({
   ],
 
   _routePageChanged (page) {
-    // console.log(page)
-    this.page = page || 'projects'
-    // console.log(this.query)
-    if (page !== 'map') history.pushState({}, '', `/${page}`)
-
+    let selectedPage = page || 'projects'
+    this.set('page', selectedPage)
+    // if (!['map', 'project'].includes(page)) window.history.replaceState({}, '', `/${page}`)
   },
 
   _queryChanged (query) {
-    if(query.zoom) {
+    if (query.zoom) {
       this.set('mapView', {
         latitude: Number(query.latitude),
         longitude: Number(query.longitude),
-        zoom: Number(query.zoom),
+        zoom: Number(query.zoom)
       })
     }
   },
 
   _pageChanged (page) {
-    this.set('routeData.page', page)
-      // Load page import on demand. Show 404 page if fails
+    // Load page import on demand. Show 404 page if fails
     var viewUrl
     switch (page) {
+
+      case 'collaborations':
+        viewUrl = 'collaborations'
+        break
 
       case 'projects':
         viewUrl = 'projects'
@@ -114,7 +121,7 @@ Polymer({
         viewUrl = 'me'
         break
 
-      case 'project-profile':
+      case 'project':
         viewUrl = 'project-profile'
         break
 
@@ -174,12 +181,14 @@ Polymer({
     }, [])
   },
 
-  _projectSelected (e, detail) {
-    this.set('route.path', '/project-profile/' + detail)
+  _updateBoundingBox (e, detail) {
+    if (this.page === 'map') {
+      this.dispatch('setBoundingBox', detail)
+    }
   },
 
-  _updateBoundingBox (e, detail) {
-    this.dispatch('setBoundingBox', detail)
+  _toggleDrawer () {
+    this.$$('app-drawer').toggle()
   },
 
   ready () {

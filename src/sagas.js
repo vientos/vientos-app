@@ -8,10 +8,17 @@ import * as Vientos from './vientos'
 function * get (action) {
   try {
     const json = yield call(Vientos.get, action)
-    yield put({
-      type: ActionTypes[action.type.replace('REQUESTED', 'SUCCEEDED')],
-      json
-    })
+    if (!json.error) {
+      yield put({
+        type: ActionTypes[action.type.replace('REQUESTED', 'SUCCEEDED')],
+        json
+      })
+    } else {
+      yield put({
+        type: ActionTypes[action.type.replace('REQUESTED', 'FAILED')],
+        message: json.message
+      })
+    }
   } catch (e) {
     yield put({
       type: ActionTypes[action.type.replace('REQUESTED', 'FAILED')],

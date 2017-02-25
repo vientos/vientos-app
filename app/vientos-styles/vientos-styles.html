@@ -1,0 +1,203 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="vientos-layout.html">
+<link rel="import" href="vientos-typography.html">
+<link rel="import" href="vientos-colors.html">
+<link rel="import" href="vientos-spacing.html">
+<link rel="import" href="vientos-reset.html">
+
+<dom-module id="vientos-styles">
+
+  <template>
+  <style include="vientos-layout vientos-typography vientos-colors vientos-spacing vientos-reset">
+
+
+
+
+  :root {
+
+    --body-styles: {
+      margin: 0;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      background-color: #fa0;
+    };
+
+    --fixed: {
+      position: fixed;
+    };
+
+    --fixed-bottom: {
+      @apply (--fixed);
+      bottom: 0;
+    };
+
+
+
+    /* icons */
+
+    --icon-layout: {
+      @apply --layout-horizontal;
+      @apply --layout-center-justified;
+    };
+
+    --vientos-toolbar: {
+      /*padding: 1.5em;*/
+      height: 4em;
+      @apply --vientos-typography-menu;
+      color: var(--vientos-color-icon);
+    };
+
+    --vientos-button: {
+      color: var(--vientos-color-button);
+    };
+
+    --vientos-card: {
+      @apply --layout-vertical;
+      background-color: var(--vientos-color-card-bg);
+      margin: var(--spacing-1) !important;
+      padding: var(--spacing-1) !important;
+      box-sizing: border-box;
+      -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+      box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+    };
+
+    --small-icon: {
+
+      @apply --icon-layout;
+
+      --iron-icon-height: 10px;
+      --iron-icon-width: 10px;
+
+      padding: 0 !important;
+      margin: 0 !important;
+
+    };
+
+
+  }
+
+
+
+  * {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+  }
+
+  a {
+    color: var(--vientos-color-link);
+    text-decoration: none;
+  }
+
+  paper-button {
+
+  }
+
+  body {
+    @apply --body-styles;
+  }
+  h1 {
+    /*margin: 16px 0;*/
+    color: #212121;
+    font-size: 22px;
+  }
+
+  h1,h2,h3,h4,h4,h5,h6 {
+    margin: 0;
+  }
+
+  /*iron-icon {
+  --iron-icon-width: 28px;
+  --iron-icon-height: 28px;
+  }*/
+
+  /*#contentContainer,*/
+  iron-pages {
+    /*@apply --layout-horizontal;*/
+    width: 100vw;
+  }
+
+  app-toolbar {
+    padding: 0 !important;
+    @apply --layout-horizontal;
+  }
+
+  app-toolbar iron-selector {
+    /*margin: 0 !important;
+    padding: 0 !important;*/
+    @apply --layout-fit;
+  }
+
+
+  app-header .button-holder {
+    @apply --layout-horizontal;
+  }
+
+  app-header #menu-button-holder-left {
+    @apply --layout-fixed-left;
+    @apply --layout-start-justified;
+  }
+
+  app-header #menu-button-holder-right {
+    @apply --layout-fixed-right;
+    @apply --layout-end-justified;
+  }
+
+
+  app-header .button-holder paper-button div,
+  app-header .button-holder paper-button iron-icon {
+    @apply --layout-horizontal;
+    @apply --layout-center-justified;
+    width: auto !important;
+    text-align: center !important;
+  }
+
+
+
+
+  paper-button {
+    @apply --vientos-button;
+    color: #444;
+  }
+  paper-button span {
+
+    /*@apply --padding-2;*/
+    /*margin: 8px;*/
+  }
+
+  vientos-icon-button {
+    @apply --layout-flex;
+    @apply --center-x;
+  }
+
+
+  paper-fab[color] {
+    background-color: var(--vientos-color-button-bg);
+    color: var(--vientos-color-button);
+  }
+
+  paper-fab[neutral] {
+    background-color: var(--vientos-color-button-bg);
+    color: var(--vientos-color-button);
+  }
+
+  icon-icon[mini] {
+    width: 10px;
+    height: 10px;
+  }
+
+
+  </style>
+</template>
+</dom-module>

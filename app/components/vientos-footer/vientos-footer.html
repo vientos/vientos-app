@@ -1,0 +1,147 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<link rel="import" href="../../redux-store.html">
+
+
+<dom-module id="vientos-footer">
+  <template>
+    <style>
+      :host {
+          @apply --fixed-bottom;
+          @apply --vientos-toolbar;
+          @apply --layout-horizontal;
+          @apply --layout-flex;
+          @apply --w-100;
+          @apply --spaced-x;
+          background-color: var(--vientos-color-footer);
+
+       }
+
+       app-toolbar {
+
+         @apply --p-0;
+         @apply --w-100;
+         @apply --h-100;
+       }
+
+       /*app-toolbar, */
+       iron-selector {
+         /*@apply --fixed-bottom;*/
+         @apply --w-100;
+         @apply --h-100;
+
+         @apply --spaced-x;
+         @apply --vientos-typography-button-x;
+
+       }
+
+       #filter-button{
+
+          /*@apply --center-y;*/
+          @apply --layout-vertical;
+          @apply --layout-center-justified;
+          position: absolute;
+
+          right: 1em;
+          bottom: 0;
+          width: 6em !important;
+          height: 6em !important;
+          margin: 1em;
+          /*padding: 1em;*/
+          bottom: 4em !important;
+          /*display: inline-block;*/
+          @apply --w-100;
+          border-radius: 50%;
+          text-align: center;
+          /*background-color: var(--app-footer-background-color);*/
+
+          @apply --vientos-button;
+          @apply --vientos-typography-button;
+
+          background-color: var(--vientos-color-button-bg);
+
+          @apply --shadow-elevation-2dp;
+       }
+
+      #filter-button iron-icon,
+      #filter-button span {
+        @apply --force-center;
+      }
+
+      #filter-button iron-icon {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 4px !important;
+      }
+
+      #filter-button span {
+        height: auto !important;
+        display: block !important;
+      }
+
+      vientos-icon-button {
+        @apply --layout-flex;
+      }
+
+
+
+    </style>
+     <app-toolbar>
+        <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+
+           <paper-button
+           id="filter-button"
+           name="filter"
+           >
+              <iron-icon icon="vientos:filter"></iron-icon>
+              <paper-badge label="[[visibleCount]]" for="filter-button"></paper-badge>
+              <span>
+                [[localize('button:filters')]]
+              </span>
+           </paper-button>
+
+           <!-- <vientos-icon-button
+           name="collaborations"
+           text="[[localize('button:collaborations')]]"
+           icon="vientos:collaboration">
+           </vientos-icon-button> -->
+
+           <vientos-icon-button
+           name="projects"
+           text="[[localize('button:projects')]]"
+           icon="vientos:list">
+           </vientos-icon-button>
+
+           <vientos-icon-button
+           name="map"
+           text="[[localize('button:map')]]"
+           icon="vientos:map">
+           </vientos-icon-button>
+
+
+        </iron-selector>
+
+     </app-toolbar>
+
+  </template>
+  <script src="vientos-footer.js"></script>
+</dom-module>

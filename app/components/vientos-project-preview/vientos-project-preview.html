@@ -1,0 +1,303 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../../bower_components/polymer-redux/polymer-redux.html"> -->
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/paper-fab/paper-fab.html">
+
+
+
+
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../../redux-store.html">
+
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+
+<link rel="import" href="../../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<link rel="import" href="../vientos-card/vientos-card.html">
+
+<link rel="import" href="../vientos-icon-button/vientos-icon-button.html">
+
+
+<dom-module id="vientos-project-preview">
+  <template expanded=[[expanded]]>
+    <style include="vientos-styles">
+
+      :host {
+
+
+        width: 292px !important;
+
+        height: auto;
+        /*overflow-y: auto;*/
+
+        /*height: auto;*/
+
+
+      }
+
+
+
+      vientos-card {
+        /*padding-top: var(--spacing-1);*/
+        padding-top: 0 !important;
+      }
+
+      h4 {
+        font-size: 20px;
+      }
+
+      h5 {
+        font-size: 16px;
+      }
+
+      header#project-title {
+        height: 5em;
+        @apply --center-y;
+        text-align: center;
+      }
+
+
+
+
+      main > div {
+        @apply --layout-horizontal;
+      }
+      main iron-image {
+        @apply --center-x;
+
+        width: 60%;
+        height: 10em;
+        margin-left: 20%;
+      }
+      main ul {
+        width: 20%;
+        @apply --layout-vertical;
+        @apply --layout-start-justified;
+        text-align: right;
+
+      }
+      main ul li {
+        padding-bottom: var(--spacing-1);
+      }
+
+      main ul li iron-icon,
+      #project-collaborations iron-icon  {
+        color: var(--vientos-color-button-light)
+      }
+
+      main ul li iron-icon {
+        width: var(--spacing-1);
+        height: var(--spacing-1);
+      }
+
+      footer  {
+        position: relative;
+      }
+
+      footer app-toolbar {
+        height: auto !important;
+      }
+
+      footer a {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
+
+      #project-collaborations {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+        padding-top: var(--spacing-1);
+      }
+
+
+      #project-collaborations > *  {
+        @apply --layout-flex;
+      }
+
+      #project-collaborations ul {
+        margin-top: var(--spacing-1);
+      }
+      #project-collaborations ul li {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
+      #project-collaborations-view-header {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+        padding-top: var(--spacing-1);
+      }
+
+
+      #project-collaborations iron-icon {
+        width: 11px;
+        height: 11px;
+        margin-right: 3px;
+      }
+
+      #project-collaborations-view-header iron-image {
+        width: 3em;
+        height: 3em;
+        margin-right: 1em;
+      }
+
+      #project-collaborations-view-header div {
+        @apply --center-y;
+      }
+
+
+    #project-collaborations {
+      height: 202px;
+      overflow-y: auto;
+    }
+
+
+
+    </style>
+
+
+    <vientos-card>
+        <template is="dom-if" if="[[expanded]]">
+          <header id="project-collaborations-view-header">
+            <iron-image
+               src="[[project.logo]]"
+               sizing="contain"
+            ></iron-image>
+            <div>
+              <h5>
+                [[project.name]]
+              </h5>
+            </div>
+            </header>
+        </template>
+
+        <template is="dom-if" if="[[!expanded]]">
+      <a href="[[_linkTo(project)]]">
+        <header id="project-title">
+          <h4>
+            [[project.name]]
+          </h4>
+        </header>
+        <main>
+
+          <div>
+            <iron-image
+               src="[[project.logo]]"
+               sizing="contain"
+            ></iron-image>
+
+            <ul id="project-preview-categories">
+            <template is="dom-repeat" items="[[project.categories]]">
+              <li>
+                <iron-icon icon="vientos:[[item.catId]]"></iron-icon>
+              </li>
+            </template>
+            </ul>
+          </div>
+          <div>
+            <paper-item>
+              [[item.territory]]
+            </paper-item>
+          </div>
+        </template> <!-- expanded -->
+
+          <template is="dom-if" if="[[expanded]]">
+
+            <section id="project-collaborations">
+
+
+                <div>
+                  <h5>[[localize('nouns:offers')]]</h5>
+                  <ul id="project-offers-list">
+                    <template is="dom-repeat" items="[[project.offers]]">
+                      <li>
+                        <iron-icon icon="arrow-back" mini></iron-icon>
+                      <span>
+                        [[item.title]]
+                      </span>
+                    </li>
+                    </template>
+                  </ul>
+                </div>
+
+
+                <div>
+                  <h5>[[localize('nouns:requests')]]</h5>
+                  <ul id="project-requests-list">
+                    <template is="dom-repeat" items="[[project.requests]]">
+                      <li>
+                        <iron-icon icon="arrow-forward" mini></iron-icon>
+                      <span>
+                        [[item.title]]
+                      </span>
+                    </li>
+                    </template>
+                  </ul>
+                </div>
+
+
+              </section>
+
+          </template>
+
+        </main>
+      </a>
+      <footer>
+        <app-toolbar>
+          <paper-button on-tap="_expandCollaborations">
+            <span>
+              [[localize('nouns:collaborations')]]
+            </span>
+
+            <template is="dom-if" if=[[expanded]]>
+              <iron-icon icon="expand-less"></iron-icon>
+            </template>
+            <template is="dom-if" if=[[!expanded]]>
+              <iron-icon icon="expand-more"></iron-icon>
+            </template>
+
+          </paper-button>
+          <!--
+          <paper-button>
+          -&gt;
+          </paper-button>
+          -->
+          <a href="[[_linkTo(project)]]">
+            <paper-fab mini neutral icon="arrow-forward"></paper-fab>
+          </a>
+
+        </app-toolbar>
+      </footer>
+
+
+
+
+    </vientos-card>
+
+  </template>
+</dom-module>
+
+<script src="vientos-project-preview.js"></script>

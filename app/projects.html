@@ -14,34 +14,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="shared-styles.html">
+<link rel="import" href="vientos-styles/vientos-styles.html">
+
+<link rel="import" href="components/vientos-card/vientos-card.html">
+
+<link rel="import" href="components/vientos-project-preview/vientos-project-preview.html">
 
 <dom-module id="vientos-projects">
   <template>
-    <style include="shared-styles">
+    <style include="vientos-styles">
       :host {
         display: block;
         padding: 10px;
+        background-color: var(--vientos-color-app-background-light);
       }
     </style>
-    <paper-icon-button icon="vientos:subtree" on-tap="_toggleExpanded"></paper-icon-button>
-    <iron-list id="list" items="[[projects]]" as="item">
+    <!-- FIXME with grid it shows only 3 projects, unless window gets resized -->
+    <iron-list id="list" items="[[projects]]" as="item" grid>
       <template>
-        <paper-item>
-          <paper-item-body two-line>
-            <div><a href="[[_linkTo(item)]]">[[item.name]]</a></div>
-            <template is="dom-if" if="[[expanded]]">
-              <div secondary>
-                <template is="dom-repeat" items="[[item.offers]]">
-                  <div>-&gt; [[item.title]]</div>
-                </template>
-                <template is="dom-repeat" items="[[item.requests]]">
-                  <div>&lt;- [[item.title]]</div>
-                </template>
-              </div>
-            </template>
-          </paper-item-body>
-        </paper-item>
+        <vientos-project-preview project="[[item]]"></vientos-project-preview>
       </template>
     </iron-list>
   </template>

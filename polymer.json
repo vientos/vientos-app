@@ -4,6 +4,7 @@
   "fragments": [
     "app/projects.html",
     "app/map.html",
+    "app/collaborations.html",
     "app/project-profile.html",
     "app/filter.html",
     "app/me.html",

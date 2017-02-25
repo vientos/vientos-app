@@ -1,3 +1,5 @@
+/* global Polymer, ReduxBehavior, CustomEvent */
+
 Polymer({
   is: 'vientos-project-profile',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
@@ -91,9 +93,9 @@ Polymer({
     return intents.filter(intent => intent.projects.includes(projectId) && intent.direction === 'request')
   },
 
-  _goBack () {
-    window.history.back()
-  },
+  // _goBack () {
+  //   window.history.back()
+  // },
 
   _follow () {
     this.dispatch('follow', this.person._id, this.projectId)
@@ -108,7 +110,6 @@ Polymer({
   },
 
   _resetIntent () {
-    console.log('_resetIntent')
     this.set('intent', {})
   },
 
@@ -116,7 +117,6 @@ Polymer({
     let location = e.model.location
     window.history.pushState({}, '', `/map?latitude=${location.latitude}&longitude=${location.longitude}&zoom=15`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-
   }
 
 })

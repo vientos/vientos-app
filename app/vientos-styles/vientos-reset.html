@@ -8,21 +8,29 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<!-- shared styles for all views -->
-<dom-module id="shared-styles">
+<dom-module id="vientos-reset">
+
   <template>
-    <style>
-      h1 {
-        margin: 16px 0;
-        color: #212121;
-        font-size: 22px;
-      }
-      iron-icon {
-        --iron-icon-width: 28px;
-        --iron-icon-height: 28px;
-      }
+  <style>
+    :host {
+    }
+
+    ul, li {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    iron-list {
+      min-height: 100vh;
+    }
+
+
     </style>
   </template>
 </dom-module>

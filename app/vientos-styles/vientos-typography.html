@@ -1,0 +1,65 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-typography">
+<style>
+
+:root {
+
+  --spacing-1: 16px;
+  --spacing-2: 32px;
+  --spacing-3: 48px;
+
+
+  --font-xs: {
+    font-size: 11px !important;
+  };
+
+  --font-s: {
+    font-size: 13px !important;
+  };
+
+  --font-m: {
+    font-size: 16px !important;
+  };
+
+  --font-l: {
+    font-size: 20px !important;
+  };
+
+  --font-xl: {
+    font-size: 28px !important;
+  };
+
+  --vientos-typography-menu: {
+    @apply --font-xs;
+  };
+
+
+  --vientos-typography-button: {
+    @apply --font-xs;
+  };
+
+
+
+  --vientos-color-button-bg: #eaeee8;
+
+}
+
+paper-button,
+vientos-icon-button {
+  @apply --vientos-typography-button;
+}
+
+</style>
+</template>
+</dom-module>
