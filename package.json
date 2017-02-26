@@ -12,15 +12,21 @@
     "vientos-fixtures": "https://github.com/ehecame/vientos-fixtures.git#0.0.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
-    "babel-polyfill": "^6.16.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.18.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
+    "chai": "^3.5.0",
+    "cross-env": "^3.1.4",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
     "standard": "^8.6.0"
   },
   "scripts": {
-    "test": "standard",
+    "test": "standard && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test/unit/*.js",
     "bundle": "browserify src/main.js -t [ babelify --presets [ es2015 ] --plugins [ transform-object-rest-spread ] ] -o bundle.js -d"
   },
   "author": "",
@@ -33,5 +39,12 @@
         "experimentalObjectRestSpread": true
       }
     }
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }

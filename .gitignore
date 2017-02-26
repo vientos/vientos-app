@@ -3,3 +3,5 @@ build/
 node_modules/
 bundle.js
 config.json
+coverage
+.nyc_output
