@@ -2,8 +2,7 @@
 
 const store = window.vientos.store
 const ActionTypes = window.vientos.ActionTypes
-// const ReduxBehavior = PolymerRedux(store)
-const locationsInBoundingBox = window.vientos.util.locationsInBoundingBox
+const util = window.vientos.util
 
 Polymer({
 
@@ -145,41 +144,9 @@ Polymer({
     this.page = 'view404'
   },
 
-  _filterProjects (projects, categories, collaborationTypes, boundingBox) {
-    let filtered
-    // filter on categories
-    if (categories.every(f => !f.selected)) {
-      filtered = projects.slice()
-    } else {
-      filtered = projects.filter(project => {
-        return project.categories.some(category => {
-          return categories.some(filter => {
-            return filter.selected && filter.id === category.catId
-          })
-        })
-      })
-    }
-    // filter on collaboration types
-    if (!collaborationTypes.every(filter => !filter.selected)) {
-      filtered = filtered.filter(project => {
-        return project.needs.concat(project.offers).some(intent => {
-          return collaborationTypes.some(filter => {
-            return filter.selected && filter.id === intent.type
-          })
-        })
-      })
-    }
-    // filter by bounding box
-    return filtered.filter(project => {
-      return locationsInBoundingBox(project, boundingBox).length > 0
-    })
-  },
+  _filterProjects: util.filterProjects,
 
-  _extractLocations (visibleProjects, boundingBox) {
-    return visibleProjects.reduce((acc, project) => {
-      return acc.concat(locationsInBoundingBox(project, boundingBox))
-    }, [])
-  },
+  _extractLocations: util.extractLocations,
 
   _updateBoundingBox (e, detail) {
     if (this.page === 'map') {

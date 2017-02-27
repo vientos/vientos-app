@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, util */
 
 Polymer({
   is: 'vientos-projects',
@@ -24,8 +24,8 @@ Polymer({
   _addIntentsToProjects () {
     if (this.projects && this.intents) {
       this.projects.forEach((project, index) => {
-        this.set(['projects', index, 'offers'], this.intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'offer'))
-        this.set(['projects', index, 'requests'], this.intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'request'))
+        this.set(['projects', index, 'offers'], util.filterProjectOffers(project, this.intents))
+        this.set(['projects', index, 'requests'], util.filterProjectRequests(project, this.intents))
       })
     }
   }

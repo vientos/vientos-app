@@ -10,3 +10,63 @@ export function locationsInBoundingBox (project, boundingBox) {
     return location
   })
 }
+
+export function extractLocations (projects, boundingBox) {
+  return projects.reduce((acc, project) => {
+    return acc.concat(locationsInBoundingBox(project, boundingBox))
+  }, [])
+}
+
+export function filterProjects (projects, categories, collaborationTypes, boundingBox) {
+  let filtered
+  // filter on categories
+  if (categories.every(f => !f.selected)) {
+    filtered = projects.slice()
+  } else {
+    filtered = projects.filter(project => {
+      return project.categories.some(category => {
+        return categories.some(filter => {
+          return filter.selected && filter.id === category.catId
+        })
+      })
+    })
+  }
+  // filter on collaboration types
+  if (!collaborationTypes.every(filter => !filter.selected)) {
+    filtered = filtered.filter(project => {
+      return project.needs.concat(project.offers).some(intent => {
+        return collaborationTypes.some(filter => {
+          return filter.selected && filter.id === intent.type
+        })
+      })
+    })
+  }
+  // filter by bounding box
+  return filtered.filter(project => {
+    return locationsInBoundingBox(project, boundingBox).length > 0
+  })
+}
+
+export function filterProjectOffers (project, intents) {
+  return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'offer')
+}
+
+export function filterProjectRequests (project, intents) {
+  return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'request')
+}
+
+export function checkIfAdmin (person, project) {
+  return person && project && project.admins && project.admins.includes(person._id)
+}
+
+export function checkIfFollows (person, project) {
+  return person && project && person.follows && person.follows.includes(project._id)
+}
+
+export function projectPath (project) {
+  return `/project/${project._id}`
+}
+
+export function iconFor (item) {
+  return 'vientos:' + item.id
+}

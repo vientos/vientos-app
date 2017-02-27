@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent */
+/* global Polymer, ReduxBehavior, CustomEvent, util */
 
 Polymer({
   is: 'vientos-project-profile',
@@ -30,6 +30,10 @@ Polymer({
       value: false,
       computed: '_checkIfAdmin(person, project)'
     },
+    followed: {
+      type: Boolean,
+      computed: '_checkIfFollows(person, project)'
+    },
     projectId: {
       type: String
     },
@@ -52,16 +56,12 @@ Polymer({
     offers: {
       type: Array,
       value: [],
-      computed: '_filterOffers(projectId, intents)'
+      computed: '_filterOffers(project, intents)'
     },
     requests: {
       type: Array,
       value: [],
-      computed: '_filterRequests(projectId, intents)'
-    },
-    followed: {
-      type: Boolean,
-      computed: '_followedByPerson(projectId, person)'
+      computed: '_filterRequests(project, intents)'
     },
     language: {
       type: String,
@@ -77,25 +77,13 @@ Polymer({
     return projects.find(p => p._id === this.projectId)
   },
 
-  _followedByPerson (projectId, person) {
-    return person && person.follows && person.follows.includes(projectId)
-  },
+  _checkIfFollows: util.checkIfFollows,
 
-  _checkIfAdmin (person, project) {
-    return person && project && project.admins && project.admins.includes(person._id)
-  },
+  _checkIfAdmin: util.checkIfAdmin,
 
-  _filterOffers (projectId, intents) {
-    return intents.filter(intent => intent.projects.includes(projectId) && intent.direction === 'offer')
-  },
+  _filterOffers: util.filterProjectOffers,
 
-  _filterRequests (projectId, intents) {
-    return intents.filter(intent => intent.projects.includes(projectId) && intent.direction === 'request')
-  },
-
-  // _goBack () {
-  //   window.history.back()
-  // },
+  _filterRequests: util.filterProjectRequests,
 
   _follow () {
     this.dispatch('follow', this.person._id, this.projectId)

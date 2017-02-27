@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, util */
 
 Polymer({
   is: 'vientos-filter',
@@ -62,7 +62,6 @@ Polymer({
     this.dispatch('clearCollaborationTypesFilter')
   },
 
-  _iconFor (item) {
-    return 'vientos:' + item.id
-  }
+  _iconFor: util.iconFor
+
 })
