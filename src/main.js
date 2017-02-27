@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createLogger from 'redux-logger'
 
-import * as ActionTypes from './actionTypes'
+import * as ActionCreators from './actionCreators'
 import reducer from './reducers'
 import sagas from './sagas'
 import * as util from './util'
@@ -19,7 +19,7 @@ sagaMiddleware.run(sagas)
 
 window.vientos = {
   store,
-  ActionTypes,
+  ActionCreators,
   util,
   config: require('../config.json')
 }

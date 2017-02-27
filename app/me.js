@@ -1,14 +1,11 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, ActionCreators */
 
 Polymer({
   is: 'vientos-me',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
   actions: {
-    bye () {
-      return {
-        type: window.vientos.ActionTypes.BYE_REQUESTED
-      }
-    }
+    bye: ActionCreators.bye
   },
 
   properties: {

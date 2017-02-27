@@ -1,7 +1,6 @@
 /* global Polymer, ReduxBehavior */
 
-const store = window.vientos.store
-const ActionTypes = window.vientos.ActionTypes
+const ActionCreators = window.vientos.ActionCreators
 const util = window.vientos.util
 
 Polymer({
@@ -11,18 +10,14 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    setLanguage (language) {
-      return {
-        type: ActionTypes.SET_LANGUAGE,
-        language: language
-      }
-    },
-    setBoundingBox (boundingBox) {
-      return {
-        type: ActionTypes.SET_BOUNDING_BOX,
-        boundingBox
-      }
-    }
+    setLanguage: ActionCreators.setLanguage,
+    setBoundingBox: ActionCreators.setBoundingBox,
+    hello: ActionCreators.hello,
+    fetchLabels: ActionCreators.fetchLabels,
+    fetchCategories: ActionCreators.fetchCategories,
+    fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
+    fetchProjects: ActionCreators.fetchProjects,
+    fetchIntents: ActionCreators.fetchIntents
   },
 
   properties: {
@@ -159,13 +154,12 @@ Polymer({
   },
 
   ready () {
-    // TODO define actions and use this.store instead
-    store.dispatch({type: ActionTypes.HELLO_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_LABELS_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_CATEGORIES_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_PROJECTS_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_INTENTS_REQUESTED})
+    this.dispatch('hello')
+    this.dispatch('fetchLabels')
+    this.dispatch('fetchCategories')
+    this.dispatch('fetchCollaborationTypes')
+    this.dispatch('fetchProjects')
+    this.dispatch('fetchIntents')
   }
 
 })

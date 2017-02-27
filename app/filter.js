@@ -1,32 +1,16 @@
-/* global Polymer, ReduxBehavior, util */
+/* global Polymer, ReduxBehavior, ActionCreators, util */
 
 Polymer({
   is: 'vientos-filter',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
   actions: {
-    toggleCategory (id) {
-      return {
-        type: 'TOGGLE_CATEGORY',
-        id
-      }
-    },
-    clearCategoriesFilter () {
-      return {
-        type: 'CLEAR_CATEGORIES_FILTER'
-      }
-    },
-    toggleCollaborationType (id) {
-      return {
-        type: 'TOGGLE_COLLABORATION_TYPE',
-        id
-      }
-    },
-    clearCollaborationTypesFilter () {
-      return {
-        type: 'CLEAR_COLLABORATION_TYPES_FILTER'
-      }
-    }
+    toggleCategory: ActionCreators.toggleCategory,
+    clearCategoriesFilter: ActionCreators.clearCategoriesFilter,
+    toggleCollaborationType: ActionCreators.toggleCollaborationType,
+    clearCollaborationTypesFilter: ActionCreators.clearCollaborationTypesFilter
   },
+
   properties: {
     categories: {
       type: Array,
@@ -46,6 +30,8 @@ Polymer({
     }
   },
 
+  _iconFor: util.iconFor,
+
   _toggleCategory (event) {
     this.dispatch('toggleCategory', event.model.item.id)
   },
@@ -60,8 +46,6 @@ Polymer({
 
   _clearCollaborationTypesFilter () {
     this.dispatch('clearCollaborationTypesFilter')
-  },
-
-  _iconFor: util.iconFor
+  }
 
 })

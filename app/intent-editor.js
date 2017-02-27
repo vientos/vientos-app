@@ -1,36 +1,13 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, ActionCreators */
 
 Polymer({
   is: 'vientos-intent-editor',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
-  actions: {
-    createIntent (intent) {
-      return {
-        type: window.vientos.ActionTypes.CREATE_INTENT_REQUESTED,
-        intent: {
-          projects: [ this.projectId ],
-          title: this.$$('#intentTitle').value,
-          direction: this.direction,
-          collaborationType: this.collaborationType
-        }
-      }
-    },
-    updateIntent (intent) {
-      intent.title = this.$$('#intentTitle').value
-      intent.direction = this.direction
-      intent.collaborationType = this.collaborationType
-      return {
-        type: window.vientos.ActionTypes.UPDATE_INTENT_REQUESTED,
-        intent
-      }
-    },
-    deleteIntent (intentId) {
-      return {
-        type: window.vientos.ActionTypes.DELETE_INTENT_REQUESTED,
-        intentId
-      }
-    }
 
+  actions: {
+    createIntent: ActionCreators.createIntent,
+    updateIntent: ActionCreators.updateIntent,
+    deleteIntent: ActionCreators.deleteIntent
   },
 
   properties: {
@@ -67,16 +44,24 @@ Polymer({
 
   _createOrUpdateIntent () {
     if (this.intent._id) {
+      this.intent.title = this.$$('#intentTitle').value
+      this.intent.direction = this.direction
+      this.intent.collaborationType = this.collaborationType
       this.dispatch('updateIntent', this.intent)
     } else {
-      this.dispatch('createIntent')
+      this.dispatch('createIntent', {
+        projects: [ this.projectId ],
+        title: this.$$('#intentTitle').value,
+        direction: this.direction,
+        collaborationType: this.collaborationType
+      })
     }
     this.set('intent', {})
     this._reset()
   },
 
   _deleteIntent () {
-    this.dispatch('deleteIntent', this.intent._id)
+    this.dispatch('deleteIntent', this.intent)
     this.set('intent', {})
     this._reset()
   },

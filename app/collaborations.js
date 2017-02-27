@@ -3,20 +3,10 @@
 Polymer({
   is: 'vientos-collaborations',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
-  actions: {
 
-  },
   properties: {
     collaborations: {
-      type: Array,
-      value: [
-        {
-          name: 'Collaboration 1'
-        },
-        {
-          name: 'Collaboration 2'
-        }
-      ]
+      type: Array
     },
 
     language: {
@@ -27,10 +17,6 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
-
-  ready () {
-    console.log('Collaborations Ready')
   }
 
 })

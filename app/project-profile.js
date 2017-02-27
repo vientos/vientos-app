@@ -1,23 +1,12 @@
-/* global Polymer, ReduxBehavior, CustomEvent, util */
+/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
 
 Polymer({
   is: 'vientos-project-profile',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
   actions: {
-    follow (personId, projectId) {
-      return {
-        type: window.vientos.ActionTypes.FOLLOW_REQUESTED,
-        personId,
-        projectId
-      }
-    },
-    unfollow (personId, projectId) {
-      return {
-        type: window.vientos.ActionTypes.UNFOLLOW_REQUESTED,
-        personId,
-        projectId
-      }
-    }
+    follow: ActionCreators.follow,
+    unfollow: ActionCreators.unfollow
   },
 
   properties: {
@@ -86,11 +75,11 @@ Polymer({
   _filterRequests: util.filterProjectRequests,
 
   _follow () {
-    this.dispatch('follow', this.person._id, this.projectId)
+    this.dispatch('follow', this.person, this.project)
   },
 
   _unfollow () {
-    this.dispatch('unfollow', this.person._id, this.projectId)
+    this.dispatch('unfollow', this.person, this.project)
   },
 
   _editIntent (e) {
