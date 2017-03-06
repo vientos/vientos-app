@@ -5,8 +5,7 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    createIntent: ActionCreators.createIntent,
-    updateIntent: ActionCreators.updateIntent,
+    saveIntent: ActionCreators.saveIntent,
     deleteIntent: ActionCreators.deleteIntent
   },
 
@@ -43,26 +42,15 @@ Polymer({
   },
 
   _createOrUpdateIntent () {
-    if (this.intent._id) {
-      this.intent.title = this.$$('#intentTitle').value
-      this.intent.direction = this.direction
-      this.intent.collaborationType = this.collaborationType
-      this.dispatch('updateIntent', this.intent)
-    } else {
-      this.dispatch('createIntent', {
-        projects: [ this.projectId ],
-        title: this.$$('#intentTitle').value,
-        direction: this.direction,
-        collaborationType: this.collaborationType
-      })
-    }
-    this.set('intent', {})
+    this.intent.title = this.$$('#intentTitle').value
+    this.intent.direction = this.direction
+    this.intent.collaborationType = this.collaborationType
+    this.dispatch('saveIntent', this.intent)
     this._reset()
   },
 
   _deleteIntent () {
     this.dispatch('deleteIntent', this.intent)
-    this.set('intent', {})
     this._reset()
   },
 

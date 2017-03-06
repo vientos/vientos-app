@@ -15,7 +15,11 @@ function * handler (action) {
       })
     } else {
       let success = { type: ActionTypes[action.type.replace('REQUESTED', 'SUCCEEDED')] }
-      if (json) success.json = json
+      if (json) {
+        success.json = json
+      } else {
+        success.requestedAction = action
+      }
       yield put(success)
     }
   } catch (e) {
@@ -39,8 +43,7 @@ const handleLatest = [
 const handleEvery = [
   ActionTypes.FOLLOW_REQUESTED,
   ActionTypes.UNFOLLOW_REQUESTED,
-  ActionTypes.CREATE_INTENT_REQUESTED,
-  ActionTypes.UPDATE_INTENT_REQUESTED,
+  ActionTypes.SAVE_INTENT_REQUESTED,
   ActionTypes.DELETE_INTENT_REQUESTED
 ]
 

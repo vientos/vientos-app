@@ -64,16 +64,9 @@ export function fetchIntents () {
   return { type: ActionTypes.FETCH_INTENTS_REQUESTED }
 }
 
-export function createIntent (intent) {
+export function saveIntent (intent) {
   return {
-    type: ActionTypes.CREATE_INTENT_REQUESTED,
-    intent
-  }
-}
-
-export function updateIntent (intent) {
-  return {
-    type: ActionTypes.UPDATE_INTENT_REQUESTED,
+    type: ActionTypes.SAVE_INTENT_REQUESTED,
     intent
   }
 }
@@ -81,7 +74,7 @@ export function updateIntent (intent) {
 export function deleteIntent (intent) {
   return {
     type: ActionTypes.DELETE_INTENT_REQUESTED,
-    intentId: intent._id
+    intent
   }
 }
 

@@ -13,27 +13,23 @@ export default function vientos (action) {
     case ActionTypes.UNFOLLOW_REQUESTED:
       url = api.unfollow.replace('{personId}', action.personId).replace('{projectId}', action.projectId)
       return fetch(url, { method: 'DELETE', credentials: 'include' })
-    case ActionTypes.CREATE_INTENT_REQUESTED:
-      return fetch(api.intents, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(action.intent)
-      }).then(response => {
-        action.intent._id = response.headers.get('location').split('/')[2]
-        return action.intent
-      })
-    case ActionTypes.UPDATE_INTENT_REQUESTED:
+    case ActionTypes.SAVE_INTENT_REQUESTED:
       return fetch(api.intents + '/' + action.intent._id, {
         method: 'PUT',
         credentials: 'include',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(action.intent)
-      })
+      }).then(response => action.intent)
     case ActionTypes.DELETE_INTENT_REQUESTED:
-      return fetch(api.intents + '/' + action.intentId, {
+      return fetch(api.intents + '/' + action.intent._id, {
         method: 'DELETE',
         credentials: 'include'
+      }).then(response => {
+        if (response.ok) {
+          return null
+        } else {
+          return response.json()
+        }
       })
     default:
       url = api[action.type.replace('FETCH_', '').replace('_REQUESTED', '').replace('_', '-').toLowerCase()]

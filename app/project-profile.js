@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
+/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, cuid, util */
 
 Polymer({
   is: 'vientos-project-profile',
@@ -24,7 +24,8 @@ Polymer({
       computed: '_checkIfFollows(person, project)'
     },
     projectId: {
-      type: String
+      type: String,
+      observer: '_resetIntent'
     },
     projects: {
       type: Array,
@@ -40,12 +41,13 @@ Polymer({
     },
     intent: {
       type: Object,
-      value: {}
+      observer: 'log'
     },
     offers: {
       type: Array,
       value: [],
-      computed: '_filterOffers(project, intents)'
+      computed: '_filterOffers(project, intents)',
+      observer: 'log'
     },
     requests: {
       type: Array,
@@ -60,6 +62,10 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
+  },
+
+  log (what) {
+    console.log(what)
   },
 
   _findProject (projectId, projects) {
@@ -87,7 +93,7 @@ Polymer({
   },
 
   _resetIntent () {
-    this.set('intent', {})
+    this.set('intent', { _id: cuid(), projects: [ this.projectId ] })
   },
 
   _showLocationOnMap (e) {

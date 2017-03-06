@@ -26,29 +26,25 @@ function projects (state = [], action) {
   }
 }
 
+function removeElement (array, element) {
+  return array.filter(el => el._id !== element._id)
+}
+
+function replaceOrAddElement (array, element) {
+  return [
+    ...removeElement(array, element),
+    Object.create(element)
+  ]
+}
+
 function intents (state = [], action) {
-  let index
   switch (action.type) {
     case ActionTypes.FETCH_INTENTS_SUCCEEDED:
       return action.json
-    case ActionTypes.CREATE_INTENT_SUCCEEDED:
-      return [
-        ...state,
-        action.intent
-      ]
-    case ActionTypes.UPDATE_INTENT_SUCCEEDED:
-      index = state.findIndex(e => e._id === action.intent._id)
-      return [
-        ...state.slice(0, index),
-        Object.create(action.intent),
-        ...state.slice(index + 1)
-      ]
+    case ActionTypes.SAVE_INTENT_SUCCEEDED:
+      return replaceOrAddElement(state, action.json)
     case ActionTypes.DELETE_INTENT_SUCCEEDED:
-      index = state.findIndex(e => e._id === action.intentId)
-      return [
-        ...state.slice(0, index),
-        ...state.slice(index + 1)
-      ]
+      return removeElement(state, action.requestedAction.intent)
     default:
       return state
   }
