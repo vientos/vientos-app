@@ -60,7 +60,11 @@ export function checkIfAdmin (person, project) {
 }
 
 export function checkIfFollows (person, project) {
-  return person && project && person.follows && person.follows.includes(project._id)
+  if (person && project && person.followings) {
+    return person.followings.find(el => el.project === project._id) || null
+  } else {
+    return null
+  }
 }
 
 export function projectPath (project) {

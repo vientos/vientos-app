@@ -102,14 +102,14 @@
 
     <section id="project-actions">
       <template is="dom-if" if="[[person]]">
-        <template is="dom-if" if="[[!followed]]">
+        <template is="dom-if" if="[[!following]]">
           <vientos-icon-button
           icon="vientos:follow"
           text="[[localize('button:follow')]]"
           on-tap="_follow"
           ></vientos-icon-button>
         </template>
-        <template is="dom-if" if="[[followed]]">
+        <template is="dom-if" if="[[following]]">
           <vientos-icon-button
           icon="vientos:unfollow"
           text="[[localize('button:unfollow')]]"

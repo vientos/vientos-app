@@ -16,13 +16,9 @@ Polymer({
     intent: {
       type: Object
     },
-    intentDirection: {
+    toggled: {
       type: Boolean,
-      computed: '_setIntentDirection(intent)'
-    },
-    direction: {
-      type: String,
-      value: 'offer'
+      computed: '_checkIfToggled(intent)'
     },
     collaborationType: {
       type: String
@@ -43,7 +39,6 @@ Polymer({
 
   _createOrUpdateIntent () {
     this.intent.title = this.$$('#intentTitle').value
-    this.intent.direction = this.direction
     this.intent.collaborationType = this.collaborationType
     this.dispatch('saveIntent', this.intent)
     this._reset()
@@ -58,12 +53,12 @@ Polymer({
     this.fire('reset')
   },
 
-  _setIntentDirection (intent) {
-    return intent && intent.direction === 'offer'
+  _checkIfToggled (intent) {
+    return intent && intent.direction === 'request'
   },
 
   _toggleDirection () {
-    this.direction = this.direction === 'offer' ? 'request' : 'offer'
+    this.set('intent.direction', this.intent.direction === 'offer' ? 'request' : 'offer')
   },
 
   _setCollaborationType (e, detail) {

@@ -2,6 +2,7 @@ import 'babel-polyfill'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createLogger from 'redux-logger'
+import cuid from 'cuid'
 
 import * as ActionCreators from './actionCreators'
 import reducer from './reducers'
@@ -23,3 +24,4 @@ window.vientos = {
   util,
   config: require('../config.json')
 }
+window.cuid = cuid

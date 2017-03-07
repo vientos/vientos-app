@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import * as ActionTypes from './actionTypes'
 
 export function setLanguage (language) {
@@ -81,15 +82,17 @@ export function deleteIntent (intent) {
 export function follow (person, project) {
   return {
     type: ActionTypes.FOLLOW_REQUESTED,
-    personId: person._id,
-    projectId: project._id
+    following: {
+      _id: cuid(),
+      person: person._id,
+      project: project._id
+    }
   }
 }
 
-export function unfollow (person, project) {
+export function unfollow (following) {
   return {
     type: ActionTypes.UNFOLLOW_REQUESTED,
-    personId: person._id,
-    projectId: project._id
+    following
   }
 }

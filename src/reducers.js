@@ -33,7 +33,7 @@ function removeElement (array, element) {
 function replaceOrAddElement (array, element) {
   return [
     ...removeElement(array, element),
-    Object.create(element)
+    Object.assign({}, element)
   ]
 }
 
@@ -56,7 +56,7 @@ function categories (state = [], action) {
       return action.json.map(category => Object.assign(category, { selected: false }))
     case ActionTypes.TOGGLE_CATEGORY:
       let index = state.findIndex(e => e.id === action.id)
-      let updated = Object.create(state[index])
+      let updated = Object.assign({}, state[index])
       updated.selected = !updated.selected
       return [
         ...state.slice(0, index),
@@ -76,7 +76,7 @@ function collaborationTypes (state = [], action) {
       return action.json.map(collaborationType => Object.assign(collaborationType, { selected: false }))
     case ActionTypes.TOGGLE_COLLABORATION_TYPE:
       let index = state.findIndex(e => e.id === action.id)
-      let updated = Object.create(state[index])
+      let updated = Object.assign({}, state[index])
       updated.selected = !updated.selected
       return [
         ...state.slice(0, index),
@@ -93,20 +93,17 @@ function collaborationTypes (state = [], action) {
 function person (state = null, action) {
   switch (action.type) {
     case ActionTypes.HELLO_SUCCEEDED:
-      if (action.json && !action.json.follows) action.json.follows = []
+      if (action.json && !action.json.followings) action.json.followings = []
       return action.json
     case ActionTypes.BYE_SUCCEEDED:
       return null
     case ActionTypes.FOLLOW_SUCCEEDED:
-      let updated = state.follows.slice()
-      updated.push(action.projectId)
-      return Object.assign({}, state, { follows: updated })
+      return Object.assign({}, state, {
+        followings: replaceOrAddElement(state.followings, action.json)})
     case ActionTypes.UNFOLLOW_SUCCEEDED:
-      let index = state.follows.indexOf(action.projectId)
-      return Object.assign({}, state, { follows: [
-        ...state.follows.slice(0, index),
-        ...state.follows.slice(index + 1)
-      ]})
+      return Object.assign({}, state, {
+        followings: removeElement(state.followings, action.requestedAction.following)
+      })
     default:
       return state
   }

@@ -19,8 +19,9 @@ Polymer({
       value: false,
       computed: '_checkIfAdmin(person, project)'
     },
-    followed: {
-      type: Boolean,
+    following: {
+      type: Object,
+      value: null,
       computed: '_checkIfFollows(person, project)'
     },
     projectId: {
@@ -40,14 +41,12 @@ Polymer({
       statePath: 'intents'
     },
     intent: {
-      type: Object,
-      observer: 'log'
+      type: Object
     },
     offers: {
       type: Array,
       value: [],
-      computed: '_filterOffers(project, intents)',
-      observer: 'log'
+      computed: '_filterOffers(project, intents)'
     },
     requests: {
       type: Array,
@@ -62,10 +61,6 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
-
-  log (what) {
-    console.log(what)
   },
 
   _findProject (projectId, projects) {
@@ -85,7 +80,7 @@ Polymer({
   },
 
   _unfollow () {
-    this.dispatch('unfollow', this.person, this.project)
+    this.dispatch('unfollow', this.following)
   },
 
   _editIntent (e) {
@@ -93,7 +88,11 @@ Polymer({
   },
 
   _resetIntent () {
-    this.set('intent', { _id: cuid(), projects: [ this.projectId ] })
+    this.set('intent', {
+      _id: cuid(),
+      projects: [ this.projectId ],
+      direction: 'offer'
+    })
   },
 
   _showLocationOnMap (e) {

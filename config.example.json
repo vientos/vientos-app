@@ -12,8 +12,8 @@
       "google": "http://localhost:3000/auth/google",
       "facebook": "http://localhost:3000/auth/facebook"
     },
-    "follow": "http://localhost:3000/person/{personId}/follows/{projectId}",
-    "unfollow": "http://localhost:3000/person/{personId}/follows/{projectId}"
+    "follow": "http://localhost:3000/followings/{id}",
+    "unfollow": "http://localhost:3000/followings/{id}"
   },
   "map": {
     "latitude": 19.43,
