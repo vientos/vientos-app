@@ -92,7 +92,7 @@ function collaborationTypes (state = [], action) {
 
 function person (state = null, action) {
   switch (action.type) {
-    case ActionTypes.HELLO_SUCCEEDED:
+    case ActionTypes.FETCH_PERSON_SUCCEEDED:
       if (action.json && !action.json.followings) action.json.followings = []
       return action.json
     case ActionTypes.BYE_SUCCEEDED:
@@ -104,6 +104,17 @@ function person (state = null, action) {
       return Object.assign({}, state, {
         followings: removeElement(state.followings, action.requestedAction.following)
       })
+    default:
+      return state
+  }
+}
+
+function session (state = null, action) {
+  switch (action.type) {
+    case ActionTypes.HELLO_SUCCEEDED:
+      return action.json
+    case ActionTypes.BYE_SUCCEEDED:
+      return null
     default:
       return state
   }
@@ -140,6 +151,7 @@ export default combineReducers({
   categories,
   collaborationTypes,
   person,
+  session,
   boundingBox,
   language,
   labels,

@@ -13,6 +13,7 @@ Polymer({
     setLanguage: ActionCreators.setLanguage,
     setBoundingBox: ActionCreators.setBoundingBox,
     hello: ActionCreators.hello,
+    fetchPerson: ActionCreators.fetchPerson,
     fetchLabels: ActionCreators.fetchLabels,
     fetchCategories: ActionCreators.fetchCategories,
     fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
@@ -24,6 +25,11 @@ Polymer({
     config: {
       type: Object,
       value: window.vientos.config
+    },
+    session: {
+      type: Object,
+      statePath: 'session',
+      observer: '_sessionChanged'
     },
     page: {
       type: String,
@@ -151,6 +157,12 @@ Polymer({
 
   _toggleDrawer () {
     this.$$('app-drawer').toggle()
+  },
+
+  _sessionChanged (session) {
+    if (session && session.person) {
+      this.dispatch('fetchPerson', session.person)
+    }
   },
 
   ready () {

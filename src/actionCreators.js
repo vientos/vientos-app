@@ -41,6 +41,10 @@ export function hello () {
   return { type: ActionTypes.HELLO_REQUESTED }
 }
 
+export function fetchPerson (id) {
+  return { type: ActionTypes.FETCH_PERSON_REQUESTED, id }
+}
+
 export function bye () {
   return { type: ActionTypes.BYE_REQUESTED }
 }
