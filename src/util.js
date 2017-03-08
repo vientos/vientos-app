@@ -1,3 +1,5 @@
+const service = require('../config.json').service
+
 // FIXME: calculations work only for NW coordinates
 export function locationsInBoundingBox (project, boundingBox) {
   return project.locations.filter(location => {
@@ -68,7 +70,11 @@ export function checkIfFollows (person, project) {
 }
 
 export function projectPath (project) {
-  return `/project/${project._id}`
+  return `/project/${project._id.split('/').pop()}`
+}
+
+export function urlFromId (id, collection) {
+  return service + '/' + collection + '/' + id
 }
 
 export function iconFor (item) {

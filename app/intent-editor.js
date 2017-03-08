@@ -10,9 +10,6 @@ Polymer({
   },
 
   properties: {
-    projectId: {
-      type: String
-    },
     intent: {
       type: Object
     },

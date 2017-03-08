@@ -2,7 +2,6 @@ import 'babel-polyfill'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createLogger from 'redux-logger'
-import cuid from 'cuid'
 
 import * as ActionCreators from './actionCreators'
 import reducer from './reducers'
@@ -18,10 +17,7 @@ const store = createStore(
 
 sagaMiddleware.run(sagas)
 
-window.vientos = {
-  store,
-  ActionCreators,
-  util,
-  config: require('../config.json')
-}
-window.cuid = cuid
+window.vientos.store = store
+window.vientos.ActionCreators = ActionCreators
+window.vientos.util = util
+window.vientos.config = require('../config.json')

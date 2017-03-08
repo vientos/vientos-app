@@ -15,7 +15,7 @@ Polymer({
     },
     login: {
       type: String,
-      value: () => { return window.vientos.config.api.login }
+      value: () => { return window.vientos.login }
     },
     language: {
       type: String,

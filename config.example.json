@@ -1,21 +1,6 @@
 {
   "language": "es",
-  "api": {
-    "categories": "http://localhost:8080/node_modules/vientos-data/categories.json",
-    "collaboration-types": "http://localhost:8080/node_modules/vientos-data/collaborationTypes.json",
-    "labels": "http://localhost:8080/node_modules/vientos-data/labels.json",
-    "projects": "http://localhost:8080/node_modules/vientos-fixtures/projects.json",
-    "intents": "http://localhost:8080/node_modules/vientos-fixtures/intents.json",
-    "hello": "http://localhost:3000/auth/hello",
-    "bye": "http://localhost:3000/auth/bye",
-    "people": "http://localhost:3000/people",
-    "sessions": "http://localhost:3000/sessions",
-    "followings": "http://localhost:3000/followings",
-    "login": {
-      "google": "http://localhost:3000/auth/google",
-      "facebook": "http://localhost:3000/auth/facebook"
-    }
-  },
+  "service": "http://localhost:3000",
   "map": {
     "latitude": 19.43,
     "longitude": -99.13,

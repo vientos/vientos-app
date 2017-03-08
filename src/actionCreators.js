@@ -1,4 +1,3 @@
-import cuid from 'cuid'
 import * as ActionTypes from './actionTypes'
 
 export function setLanguage (language) {
@@ -87,7 +86,7 @@ export function follow (person, project) {
   return {
     type: ActionTypes.FOLLOW_REQUESTED,
     following: {
-      _id: cuid(),
+      type: 'Following',
       person: person._id,
       project: project._id
     }

@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, cuid, util */
+/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
 
 Polymer({
   is: 'vientos-project-profile',
@@ -64,7 +64,7 @@ Polymer({
   },
 
   _findProject (projectId, projects) {
-    return projects.find(p => p._id === this.projectId)
+    return projects.find(p => p._id === util.urlFromId(this.projectId, 'projects'))
   },
 
   _checkIfFollows: util.checkIfFollows,
@@ -89,8 +89,8 @@ Polymer({
 
   _resetIntent () {
     this.set('intent', {
-      _id: cuid(),
-      projects: [ this.projectId ],
+      type: 'Intent',
+      projects: [ util.urlFromId(this.projectId, 'projects') ],
       direction: 'offer'
     })
   },
