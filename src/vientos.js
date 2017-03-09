@@ -3,7 +3,17 @@ import cuid from 'cuid'
 import * as ActionTypes from './actionTypes'
 
 const service = require('../config.json').service
-const pwa = window.location.protocol + '//' + window.location.host
+const pwa = require('../config.json').pwa
+
+// otherwise unit tests not run in browser will fail
+if (typeof window !== 'undefined') {
+  // TODO: discover from vientos-service API
+  window.vientos.login = {
+    google: service + '/auth/google',
+    facebook: service + '/auth/facebook'
+  }
+}
+
 const hello = service + '/auth/hello'
 const data = {
   categories: '/node_modules/vientos-data/categories.json',
@@ -20,12 +30,6 @@ const collections = {
   intents: { type: 'Intent' },
   sessions: { type: 'Session' },
   followings: { type: 'Following' }
-}
-
-// TODO: discover from vientos-service API
-window.vientos.login = {
-  google: service + '/auth/google',
-  facebook: service + '/auth/facebook'
 }
 
 function dataUrl (actionType) {

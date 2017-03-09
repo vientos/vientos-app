@@ -17,7 +17,10 @@ const store = createStore(
 
 sagaMiddleware.run(sagas)
 
-window.vientos.store = store
-window.vientos.ActionCreators = ActionCreators
-window.vientos.util = util
-window.vientos.config = require('../config.json')
+// otherwise unit tests not run in browser will fail
+if (typeof window !== 'undefined') {
+  window.vientos.store = store
+  window.vientos.ActionCreators = ActionCreators
+  window.vientos.util = util
+  window.vientos.config = require('../config.json')
+}
