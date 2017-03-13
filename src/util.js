@@ -1,6 +1,5 @@
 const service = require('../config.json').service
 
-// FIXME: calculations work only for NW coordinates
 export function locationsInBoundingBox (project, boundingBox) {
   return project.locations.filter(location => {
     return location.latitude <= boundingBox.ne.lat &&

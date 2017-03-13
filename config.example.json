@@ -6,10 +6,6 @@
     "latitude": 19.43,
     "longitude": -99.13,
     "zoom": 11,
-    "boundingBox": {
-      "sw": { "lat": 0, "lng": -180 },
-      "ne": { "lat": 90, "lng": 0 }
-    },
     "tilelayer": "https://api.mapbox.com/styles/v1/vientos/cixqjuql4002y2rrsrjy004fg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmllbnRvcyIsImEiOiJjaXdwZG5iN3kwMDRxMnRsaHJkNzQxZGVmIn0.TvQBDcF8tKU2wmqsEHVzNA"
   }
 }

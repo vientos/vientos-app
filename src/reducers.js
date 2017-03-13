@@ -138,7 +138,12 @@ function labels (state = {}, action) {
   }
 }
 
-function boundingBox (state = config.map.boundingBox, action) {
+const DEFUALT_BOUNDINGBOX = {
+  sw: { lat: -90, lng: -180 },
+  ne: { lat: 90, lng: 180 }
+}
+
+function boundingBox (state = DEFUALT_BOUNDINGBOX, action) {
   switch (action.type) {
     case ActionTypes.SET_BOUNDING_BOX:
       return action.boundingBox
