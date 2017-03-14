@@ -1,28 +1,11 @@
 {
   "language": "es",
-  "api": {
-    "projects": "http://localhost:8080/node_modules/vientos-fixtures/projects.json",
-    "categories": "http://localhost:8080/node_modules/vientos-data/categories.json",
-    "collaboration-types": "http://localhost:8080/node_modules/vientos-data/collaborationTypes.json",
-    "labels": "http://localhost:8080/node_modules/vientos-data/labels.json",
-    "intents": "http://localhost:8080/node_modules/vientos-fixtures/intents.json",
-    "hello": "http://localhost:3000/auth/hello",
-    "bye": "http://localhost:3000/auth/bye",
-    "login": {
-      "google": "http://localhost:3000/auth/google",
-      "facebook": "http://localhost:3000/auth/facebook"
-    },
-    "follow": "http://localhost:3000/person/{personId}/follows/{projectId}",
-    "unfollow": "http://localhost:3000/person/{personId}/follows/{projectId}"
-  },
+  "service": "http://localhost:3000",
+  "pwa": "http://localhost:8080",
   "map": {
     "latitude": 19.43,
     "longitude": -99.13,
     "zoom": 11,
-    "boundingBox": {
-      "sw": { "lat": 0, "lng": -180 },
-      "ne": { "lat": 90, "lng": 0 }
-    },
     "tilelayer": "https://api.mapbox.com/styles/v1/vientos/cixqjuql4002y2rrsrjy004fg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmllbnRvcyIsImEiOiJjaXdwZG5iN3kwMDRxMnRsaHJkNzQxZGVmIn0.TvQBDcF8tKU2wmqsEHVzNA"
   }
 }

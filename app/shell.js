@@ -1,9 +1,7 @@
 /* global Polymer, ReduxBehavior */
 
-const store = window.vientos.store
-const ActionTypes = window.vientos.ActionTypes
-// const ReduxBehavior = PolymerRedux(store)
-const locationsInBoundingBox = window.vientos.util.locationsInBoundingBox
+const ActionCreators = window.vientos.ActionCreators
+const util = window.vientos.util
 
 Polymer({
 
@@ -12,24 +10,26 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    setLanguage (language) {
-      return {
-        type: ActionTypes.SET_LANGUAGE,
-        language: language
-      }
-    },
-    setBoundingBox (boundingBox) {
-      return {
-        type: ActionTypes.SET_BOUNDING_BOX,
-        boundingBox
-      }
-    }
+    setLanguage: ActionCreators.setLanguage,
+    setBoundingBox: ActionCreators.setBoundingBox,
+    hello: ActionCreators.hello,
+    fetchPerson: ActionCreators.fetchPerson,
+    fetchLabels: ActionCreators.fetchLabels,
+    fetchCategories: ActionCreators.fetchCategories,
+    fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
+    fetchProjects: ActionCreators.fetchProjects,
+    fetchIntents: ActionCreators.fetchIntents
   },
 
   properties: {
     config: {
       type: Object,
       value: window.vientos.config
+    },
+    session: {
+      type: Object,
+      statePath: 'session',
+      observer: '_sessionChanged'
     },
     page: {
       type: String,
@@ -145,41 +145,9 @@ Polymer({
     this.page = 'view404'
   },
 
-  _filterProjects (projects, categories, collaborationTypes, boundingBox) {
-    let filtered
-    // filter on categories
-    if (categories.every(f => !f.selected)) {
-      filtered = projects.slice()
-    } else {
-      filtered = projects.filter(project => {
-        return project.categories.some(category => {
-          return categories.some(filter => {
-            return filter.selected && filter.id === category.catId
-          })
-        })
-      })
-    }
-    // filter on collaboration types
-    if (!collaborationTypes.every(filter => !filter.selected)) {
-      filtered = filtered.filter(project => {
-        return project.needs.concat(project.offers).some(intent => {
-          return collaborationTypes.some(filter => {
-            return filter.selected && filter.id === intent.type
-          })
-        })
-      })
-    }
-    // filter by bounding box
-    return filtered.filter(project => {
-      return locationsInBoundingBox(project, boundingBox).length > 0
-    })
-  },
+  _filterProjects: util.filterProjects,
 
-  _extractLocations (visibleProjects, boundingBox) {
-    return visibleProjects.reduce((acc, project) => {
-      return acc.concat(locationsInBoundingBox(project, boundingBox))
-    }, [])
-  },
+  _extractLocations: util.extractLocations,
 
   _updateBoundingBox (e, detail) {
     if (this.page === 'map') {
@@ -191,14 +159,19 @@ Polymer({
     this.$$('app-drawer').toggle()
   },
 
+  _sessionChanged (session) {
+    if (session && session.person) {
+      this.dispatch('fetchPerson', session.person)
+    }
+  },
+
   ready () {
-    // TODO define actions and use this.store instead
-    store.dispatch({type: ActionTypes.HELLO_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_LABELS_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_CATEGORIES_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_PROJECTS_REQUESTED})
-    store.dispatch({type: ActionTypes.FETCH_INTENTS_REQUESTED})
+    this.dispatch('hello')
+    this.dispatch('fetchLabels')
+    this.dispatch('fetchCategories')
+    this.dispatch('fetchCollaborationTypes')
+    this.dispatch('fetchProjects')
+    this.dispatch('fetchIntents')
   }
 
 })

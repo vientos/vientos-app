@@ -1,4 +1,4 @@
-/* global Polymer, L, CustomEvent */
+/* global Polymer, L, CustomEvent, util */
 
 Polymer({
   is: 'vientos-map',
@@ -87,10 +87,10 @@ Polymer({
   _drawMarkers () {
     this.markers.clearLayers()
     this.locations.forEach(l => {
-      L.marker([l.latitude, l.longitude], { project_id: l.project._id, icon: this.icon })
+      L.marker([l.latitude, l.longitude], { project: l.project, icon: this.icon })
         .addTo(this.markers)
         .on('click', e => {
-          this._projectSelected(e.target.options.project_id)
+          this._projectSelected(e.target.options.project)
         })
     })
   },
@@ -109,8 +109,8 @@ Polymer({
     }
   },
 
-  _projectSelected (projectId) {
-    window.history.pushState({}, '', '/project/' + projectId)
+  _projectSelected (project) {
+    window.history.pushState({}, '', util.projectPath(project))
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
@@ -120,11 +120,12 @@ Polymer({
       this.fire('bbox', this.boundingBox)
     }
   },
+
   _showMyLocation () {
     this.set('view', {
       latitude: this.myLatitude,
       longitude: this.myLongitude,
-      zoom: 15
+      zoom: 15 // FIXME move magic number to config
     })
   },
 

@@ -1,14 +1,11 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, ActionCreators */
 
 Polymer({
   is: 'vientos-me',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
   actions: {
-    bye () {
-      return {
-        type: window.vientos.ActionTypes.BYE_REQUESTED
-      }
-    }
+    bye: ActionCreators.bye
   },
 
   properties: {
@@ -18,7 +15,7 @@ Polymer({
     },
     login: {
       type: String,
-      value: () => { return window.vientos.config.api.login }
+      value: () => { return window.vientos.login }
     },
     language: {
       type: String,

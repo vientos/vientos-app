@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, util */
 
 Polymer({
   is: 'vientos-project-preview',
@@ -27,8 +27,6 @@ Polymer({
     this.set('expanded', !this.expanded)
   },
 
-  _linkTo (item) {
-    return '/project/' + item._id
-  }
+  _linkTo: util.projectPath
 
 })

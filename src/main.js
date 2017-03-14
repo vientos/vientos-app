@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createLogger from 'redux-logger'
 
-import * as ActionTypes from './actionTypes'
+import * as ActionCreators from './actionCreators'
 import reducer from './reducers'
 import sagas from './sagas'
 import * as util from './util'
@@ -17,9 +17,10 @@ const store = createStore(
 
 sagaMiddleware.run(sagas)
 
-window.vientos = {
-  store,
-  ActionTypes,
-  util,
-  config: require('../config.json')
+// otherwise unit tests not run in browser will fail
+if (typeof window !== 'undefined') {
+  window.vientos.store = store
+  window.vientos.ActionCreators = ActionCreators
+  window.vientos.util = util
+  window.vientos.config = require('../config.json')
 }
