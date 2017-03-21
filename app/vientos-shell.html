@@ -33,13 +33,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
 
+<link rel="import" href="vientos-shell/vientos-shell-styles.html">
+
 <link rel="import" href="redux-store.html">
 
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
 
 
 <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="vientos-styles/vientos-styles.html">
 
 <link rel="import" href="components/vientos-icon-button/vientos-icon-button.html">
 
@@ -49,73 +50,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="map.html">
 
 
+<link rel="import" href="vientos-styles/vientos-styles.html">
+<link rel="import" href="vientos-shell/vientos-shell-styles.html">
 
 <dom-module id="vientos-shell">
   <template>
-  <style is="custom-style" include="vientos-styles vientos-layout vientos-typography vientos-colors iron-flex iron-flex-alignment iron-positioning">
-  /* Will be prevented from affecting local DOM of Polymer elements */
-  * {
-    box-sizing: border-box;
-    background-color: var(--vientos-color-app-background);
-  }
 
-  /* Use the :root selector to define custom properties and mixins */
-  /* at the document level  */
-  :root {
-
-  }
-
-  :host {
-
-  }
-
-  app-header {
-    @apply --vientos-toolbar;
-  }
-
-  app-header-layout {
-    position: relative;
-  }
-
-  app-header-layout,
-  app-header-layout app-header,
-  app-header-layout footer {
-    @apply --layout-horizontal;
-  }
-
-
-  app-header-layout > main {
-    height: calc(100vh-128px);
-    overflow-y: auto;
-  }
-
-  #vientos-footer,
-  #vientos-footer app-toolbar,
-  app-header-layout app-toolbar iron-selector {
-    @apply --w-100;
-    @apply --layout-horizontal;
-  }
-
-
-  vientos-footer {
-    z-index: 10000;
-  }
-
-
-  #vientos-header {
-    /*background-color: var(--app-header-background-color);*/
-  }
-  app-toolbar {
-    @apply --h-100;
-  }
-  /*app-header > #contentContainer,
-  app-toolbar {
-  font-size: 22px !important;
-  height: 2.5em !important;
-  }*/
-
-
-  </style>
+  <style include="vientos-shell-styles"></style>
 
 
   <app-location route="{{route}}" query-params="{{query}}"></app-location>
@@ -194,5 +135,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 </template>
-<script src="shell.js"></script>
+
+<script src="vientos-shell/vientos-shell.js"></script>
+
 </dom-module>

@@ -1,6 +1,6 @@
 {
   "entrypoint": "index.html",
-  "shell": "app/shell.html",
+  "shell": "app/vientos-shell.html",
   "fragments": [
     "app/projects.html",
     "app/map.html",
