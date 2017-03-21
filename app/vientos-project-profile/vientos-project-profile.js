@@ -24,17 +24,14 @@ Polymer({
       value: null,
       computed: '_checkIfFollows(person, project)'
     },
-    projectId: {
-      type: String,
-      observer: '_resetIntent'
-    },
     projects: {
       type: Array,
       statePath: 'projects'
     },
     project: {
+      // passed from parent
       type: Object,
-      computed: '_findProject(projectId, projects)'
+      observer: '_resetIntent'
     },
     intents: {
       type: Array,
@@ -63,10 +60,6 @@ Polymer({
     }
   },
 
-  _findProject (projectId, projects) {
-    return projects.find(p => p._id === util.urlFromId(this.projectId, 'projects'))
-  },
-
   _checkIfFollows: util.checkIfFollows,
 
   _checkIfAdmin: util.checkIfAdmin,
@@ -88,11 +81,13 @@ Polymer({
   },
 
   _resetIntent () {
-    this.set('intent', {
-      type: 'Intent',
-      projects: [ util.urlFromId(this.projectId, 'projects') ],
-      direction: 'offer'
-    })
+    if (this.project) {
+      this.set('intent', {
+        type: 'Intent',
+        projects: [ this.project._id ],
+        direction: 'offer'
+      })
+    }
   },
 
   _showLocationOnMap (e) {

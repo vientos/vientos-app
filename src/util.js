@@ -49,10 +49,12 @@ export function filterProjects (projects, categories, collaborationTypes, boundi
 }
 
 export function filterProjectOffers (project, intents) {
+  if (!project) return []
   return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'offer')
 }
 
 export function filterProjectRequests (project, intents) {
+  if (!project) return []
   return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'request')
 }
 

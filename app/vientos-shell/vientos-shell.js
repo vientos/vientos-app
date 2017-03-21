@@ -55,6 +55,11 @@ Polymer({
     mapView: {
       type: Object
     },
+    currentProject: {
+      type: Object,
+      value: null,
+      computed: '_findProject(routeData.page, subrouteData.projectId, projects)'
+    },
     visibleProjects: {
       type: Array,
       value: [],
@@ -141,6 +146,11 @@ Polymer({
 
   _showPage404 () {
     this.page = 'view404'
+  },
+
+  _findProject (page, projectId, projects) {
+    if (page !== 'project') return null
+    return projects.find(p => p._id === util.urlFromId(projectId, 'projects'))
   },
 
   _filterProjects: util.filterProjects,
