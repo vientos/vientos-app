@@ -1,0 +1,90 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-footer-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      :host {
+          @apply --fixed-bottom;
+          @apply --vientos-toolbar;
+          @apply --layout-horizontal;
+          @apply --layout-flex;
+          @apply --w-100;
+          @apply --spaced-x;
+          background-color: var(--vientos-color-footer);
+
+       }
+
+       app-toolbar {
+
+         @apply --p-0;
+         @apply --w-100;
+         @apply --h-100;
+       }
+
+       /*app-toolbar, */
+       iron-selector {
+         /*@apply --fixed-bottom;*/
+         @apply --w-100;
+         @apply --h-100;
+
+         @apply --spaced-x;
+         @apply --vientos-typography-button-x;
+
+       }
+
+       #filter-button{
+
+          /*@apply --center-y;*/
+          @apply --layout-vertical;
+          @apply --layout-center-justified;
+          position: absolute;
+
+          right: 1em;
+          bottom: 0;
+          width: 6em !important;
+          height: 6em !important;
+          margin: 1em;
+          /*padding: 1em;*/
+          bottom: 4em !important;
+          /*display: inline-block;*/
+          @apply --w-100;
+          border-radius: 50%;
+          text-align: center;
+          /*background-color: var(--app-footer-background-color);*/
+
+          @apply --vientos-button;
+          @apply --vientos-typography-button;
+
+          background-color: var(--vientos-color-button-bg);
+
+          @apply --shadow-elevation-2dp;
+       }
+
+      #filter-button iron-icon,
+      #filter-button span {
+        @apply --force-center;
+      }
+
+      #filter-button iron-icon {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 4px !important;
+      }
+
+      #filter-button span {
+        height: auto !important;
+        display: block !important;
+      }
+
+      vientos-icon-button {
+        @apply --layout-flex;
+      }
+
+    </style>
+
+  </template>
+
+</dom-module>

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for i in *.js
+do
+	mkdir vientos-${i%.*}
+	mv $i vientos-${i%.*}/vientos-$i
+	mv ${i%.*}.html vientos-${i%.*}/vientos-${i%.*}.html
+	cp vientos-component/vientos-component-styles.html vientos-${i%.*}/vientos-${i%.*}-styles.html
+done

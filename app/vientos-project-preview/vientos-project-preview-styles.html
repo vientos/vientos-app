@@ -1,0 +1,145 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-project-preview-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+
+      :host {
+
+
+        width: 292px !important;
+
+        height: auto;
+        /*overflow-y: auto;*/
+
+        /*height: auto;*/
+
+
+      }
+
+
+
+      vientos-card {
+        /*padding-top: var(--spacing-1);*/
+        padding-top: 0 !important;
+      }
+
+      h4 {
+        font-size: 20px;
+      }
+
+      h5 {
+        font-size: 16px;
+      }
+
+      header#project-title {
+        height: 5em;
+        @apply --center-y;
+        text-align: center;
+      }
+
+
+
+
+      main > div {
+        @apply --layout-horizontal;
+      }
+      main iron-image {
+        @apply --center-x;
+
+        width: 60%;
+        height: 10em;
+        margin-left: 20%;
+      }
+      main ul {
+        width: 20%;
+        @apply --layout-vertical;
+        @apply --layout-start-justified;
+        text-align: right;
+
+      }
+      main ul li {
+        padding-bottom: var(--spacing-1);
+      }
+
+      main ul li iron-icon,
+      #project-collaborations iron-icon  {
+        color: var(--vientos-color-button-light)
+      }
+
+      main ul li iron-icon {
+        width: var(--spacing-1);
+        height: var(--spacing-1);
+      }
+
+      footer  {
+        position: relative;
+      }
+
+      footer app-toolbar {
+        height: auto !important;
+      }
+
+      footer a {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
+
+      #project-collaborations {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+        padding-top: var(--spacing-1);
+      }
+
+
+      #project-collaborations > *  {
+        @apply --layout-flex;
+      }
+
+      #project-collaborations ul {
+        margin-top: var(--spacing-1);
+      }
+      #project-collaborations ul li {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
+      #project-collaborations-view-header {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+        padding-top: var(--spacing-1);
+      }
+
+
+      #project-collaborations iron-icon {
+        width: 11px;
+        height: 11px;
+        margin-right: 3px;
+      }
+
+      #project-collaborations-view-header iron-image {
+        width: 3em;
+        height: 3em;
+        margin-right: 1em;
+      }
+
+      #project-collaborations-view-header div {
+        @apply --center-y;
+      }
+
+
+    #project-collaborations {
+      height: 202px;
+      overflow-y: auto;
+    }
+
+  </style>
+
+  </template>
+
+</dom-module>

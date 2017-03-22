@@ -1,0 +1,65 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-header-styles">
+
+  <template>
+
+  <style include="vientos-styles">
+
+
+  :host {
+    @apply --layout-vertical;
+    @apply --vientos-toolbar;
+    @apply --h-100;
+    background-color: var(--vientos-color-header) !important;
+
+  }
+
+  :host,
+  iron-selector {
+    /*@apply --layout-relative;
+    @apply --layout-horizontal;
+    width: 100vw !important;
+    @apply --no-spacing;*/
+  }
+
+
+
+  iron-selector {
+    @apply --layout-horizontal;
+    width: 100vw !important;
+  }
+
+  #menu-button-holder-left,
+  #menu-button-holder-right {
+    @apply --layout-horizontal;
+    @apply --h-100;
+  }
+
+  #menu-button-holder-left {
+    @apply --layout-fixed-left;
+    @apply --layout-start-justified;
+  }
+  #menu-button-holder-right {
+    @apply --layout-fixed-right;
+    @apply --layout-end-justified;
+
+  }
+
+
+  vientos-icon-button {
+    width: 5em !important;
+  }
+
+  #logo {
+    width: 32px;
+    height: 32px;
+    /*margin: var(--spacing-1);*/
+    margin: 4px;
+  }
+
+  </style>
+
+</template>
+
+</dom-module>

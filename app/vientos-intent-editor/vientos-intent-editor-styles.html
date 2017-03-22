@@ -1,0 +1,74 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-intent-editor-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      :host {
+        display: block;
+        padding: 10px;
+        max-width: 300px;
+        background-color: #eee;
+        padding: var(--spacing-2);
+        @apply --center-y;
+        text-align: center !important;
+
+        margin-bottom: 96px;
+      }
+
+
+      #intent-direction-toggle {
+
+        margin: 8px 0;
+
+      }
+      #intent-direction-toggle iron-icon {
+
+        color: var(--vientos-color-button);
+
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+
+      }
+
+      input,
+      div,
+      paper-dropdown-menu,
+      paper-menu-button {
+        @apply --layout-horizontal;
+        width: 100% !important;
+
+      }
+
+      #menuButton,
+      .paper-dropdown-menu-0,
+      paper-listbox,
+      paper-dropdown-menu paper-menu-button {
+        width: 100% !important;
+        max-width: none;
+      }
+
+
+
+      input {
+        border-radius: 0 !important;
+        border: none !important;
+        padding: 6px;
+        margin-bottom: 4px;
+
+      }
+
+
+      #button-save-intent {
+        color: #4aba7a;
+      }
+
+
+    </style>
+
+  </template>
+
+</dom-module>

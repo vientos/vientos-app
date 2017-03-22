@@ -1,19 +1,17 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="vientos-styles/vientos-styles.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="vientos-filter-styles.html">
 
 <dom-module id="vientos-filter">
   <template>
-    <style include="vientos-styles">
-      :host {
-        display: block;
-        padding: 10px;
-      }
-    </style>
+    
+    <style include="vientos-filter-styles"></style>
 
     <template is="dom-repeat" items="[[categories]]">
       <paper-toggle-button toggles active="[[item.selected]]" on-tap="_toggleCategory">
@@ -34,5 +32,7 @@
      [[localize('button:clear')]]
    </paper-button>
   </template>
-  <script src="filter.js"></script>
+
+  <script src="vientos-filter.js"></script>
+
 </dom-module>
