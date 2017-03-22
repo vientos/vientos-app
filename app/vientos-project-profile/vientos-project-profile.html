@@ -16,7 +16,13 @@
 <dom-module id="vientos-project-profile">
   <template>
 
-    <style include="vientos-project-profile-styles"></style>
+    <style include="vientos-project-profile-styles">
+      :host {
+        display: block;
+        padding: 10px;
+        background-color: #fff !important;
+      }
+    </style>
 
     <header>
       <iron-image src="[[project.logo]]" sizing="contain"></iron-image>

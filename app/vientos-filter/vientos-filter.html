@@ -10,8 +10,13 @@
 
 <dom-module id="vientos-filter">
   <template>
-    
-    <style include="vientos-filter-styles"></style>
+
+    <style include="vientos-filter-styles">
+          :host {
+            display: block;
+            padding: 10px;
+          }
+    </style>
 
     <template is="dom-repeat" items="[[categories]]">
       <paper-toggle-button toggles active="[[item.selected]]" on-tap="_toggleCategory">

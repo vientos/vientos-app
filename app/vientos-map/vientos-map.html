@@ -11,7 +11,13 @@
 <dom-module id="vientos-map">
   <template>
 
-    <style include="vientos-map-styles"></style>
+    <style include="vientos-map-styles">
+      :host {
+        display: block;
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
 
 		<paper-icon-button id="my-location" on-tap="_showMyLocation" icon="vientos:crosshairs"></paper-icon-button>
     <div id="map"></div>
