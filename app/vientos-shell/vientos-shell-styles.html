@@ -12,6 +12,60 @@
     background-color: var(--vientos-color-app-background);
   }
 
+
+  vientos-header {
+    @apply --layout-vertical;
+    @apply --vientos-toolbar;
+    @apply --h-100;
+    background-color: var(--vientos-color-header) !important;
+  }
+
+  vientos-footer {
+    @apply --fixed-bottom;
+    @apply --vientos-toolbar;
+    @apply --layout-horizontal;
+    @apply --layout-flex;
+    @apply --w-100;
+    @apply --spaced-x;
+    background-color: var(--vientos-color-footer);
+  }
+
+  vientos-collaborations,
+  vientos-filter,
+  vientos-me,
+  vientos-project-profile,
+  vientos-projects {
+    display: block;
+    padding: 10px;
+  }
+
+
+  vientos-map {
+    display: block;
+    height: 100vh;
+    width: 100vw;
+  }
+
+
+  vientos-project-preview {
+    height: auto;
+    width: 292px !important;
+  }
+
+  vientos-project-profile {
+    background-color: #fff !important;
+  }
+
+  vientos-projects {
+    background-color: var(--vientos-color-app-background-light);
+  }
+
+
+
+
+
+
+
   app-header {
     @apply --vientos-toolbar;
   }

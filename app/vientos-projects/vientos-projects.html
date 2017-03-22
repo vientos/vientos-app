@@ -25,15 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="vientos-projects">
   <template>
 
-    <style include="vientos-projects-styles">
-
-          :host {
-            display: block;
-            padding: 10px;
-            background-color: var(--vientos-color-app-background-light);
-          }
-          
-    </style>
+    <style include="vientos-projects-styles"></style>
 
     <!-- FIXME with grid it shows only 3 projects, unless window gets resized -->
     <iron-list id="list" items="[[projects]]" as="item" grid>
