@@ -16,9 +16,15 @@ frontend mutante para vientos
 npm install
 bower install
 cp config.example.json config.json
+
+# If running Vientos' Client without running the whole DB and API App,
+# set 'service' property to 'false' inside **config.json**
+
 npm run bundle
 polymer serve
 ```
+
+
 
 ### multilingual
 
