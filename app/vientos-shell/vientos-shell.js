@@ -102,27 +102,27 @@ Polymer({
     switch (page) {
 
       case 'collaborations':
-        viewUrl = 'collaborations'
+        viewUrl = '../vientos-collaborations/vientos-collaborations'
         break
 
       case 'projects':
-        viewUrl = 'projects'
+        viewUrl = '../vientos-projects/vientos-projects'
         break
 
       case 'map':
-        viewUrl = 'map'
+        viewUrl = '../vientos-map/vientos-map'
         break
 
       case 'filter':
-        viewUrl = 'filter'
+        viewUrl = '../vientos-filter/vientos-filter'
         break
 
       case 'me':
-        viewUrl = 'me'
+        viewUrl = '../vientos-me/vientos-me'
         break
 
       case 'project':
-        viewUrl = 'project-profile'
+        viewUrl = '../vientos-project-profile/vientos-project-profile'
         break
 
     }

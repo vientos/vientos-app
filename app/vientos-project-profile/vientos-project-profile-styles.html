@@ -1,0 +1,83 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-project-profile-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      header {
+        @apply --layout-horizontal;
+        height: 11em;
+      }
+
+
+      header iron-image {
+        @apply --layout-horizontal;
+        width: 10em;
+        margin-left: 0.5em;
+        height: 100%;
+      }
+
+      header div {
+        @apply --center-y;
+        padding: var(--spacing-1);
+      }
+
+      vientos-project-profile > section {
+        @apply --layout-horizontal;
+        margin: var(--spacing-1) 0;
+      }
+
+      #project-location div:first-child {
+        @apply --layout-flex;
+        padding: var(--spacing-1);
+      }
+
+      #project-location div {
+        @apply --center-y;
+        @apply --font-xs;
+      }
+
+      #project-description {
+        font-size: 14px;
+        line-height: 1.5;
+        padding: var(--spacing-1);
+      }
+
+      #project-collaborations iron-icon  {
+        color: var(--vientos-color-button-light)
+      }
+      #project-collaborations {
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
+
+      }
+      #project-collaborations > *  {
+        @apply --layout-flex;
+      }
+
+      #project-collaborations,
+      #project-collaborations > *  {
+        padding: 0 var(--spacing-1);
+
+      }
+      #project-collaborations ul {
+        margin-top: var(--spacing-1);
+      }
+      #project-collaborations ul li {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
+      #project-collaborations iron-icon {
+        width: 11px;
+        height: 11px;
+        margin-right: 3px;
+      }
+
+    </style>
+
+  </template>
+
+</dom-module>

@@ -1,0 +1,59 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="vientos-intent-editor-styles.html">
+
+<dom-module id="vientos-intent-editor">
+  <template>
+    
+    <style include="vientos-intent-editor-styles"></style>
+
+    <input id="intentTitle" placeholder="Intent name" value="[[intent.title]]"/>
+
+    <div id="intent-direction-toggle">
+      <iron-icon icon="arrow-forward"></iron-icon>
+      <span>[[localize('nouns:offer')]]</span>
+      <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
+      <iron-icon icon="arrow-back"></iron-icon>
+      <span>[[localize('nouns:request')]]</span>
+    </div>
+
+
+    <paper-dropdown-menu label="Intent Type">
+      <paper-listbox
+        class="dropdown-content"
+        attr-for-selected="name"
+        on-iron-select="_setCollaborationType"
+        selected="[[intent.collaborationType]]">
+        <template is="dom-repeat" items="[[collaborationTypes]]">
+          <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+
+    <vientos-icon-button
+      id="button-save-intent"
+      icon="vientos:ok"
+      text="[[localize('button:save')]]"
+      on-tap="_createOrUpdateIntent"
+    ></vientos-icon-button>
+
+    <template is="dom-if" if="[[intent._id]]">
+          <vientos-icon-button
+            icon="vientos:cancel"
+            text="[[localize('button:delete')]]"
+            on-tap="_deleteIntent"
+          ></vientos-icon-button>
+    </template>
+  </template>
+
+  <script src="vientos-intent-editor.js"></script>
+
+</dom-module>

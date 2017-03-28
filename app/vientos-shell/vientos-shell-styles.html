@@ -1,0 +1,129 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vientos-shell-styles">
+
+  <template>
+  <style include="vientos-styles">
+
+
+  /* Will be prevented from affecting local DOM of Polymer elements */
+  * {
+    box-sizing: border-box;
+    background-color: var(--vientos-color-app-background);
+  }
+
+
+  vientos-header {
+    @apply --layout-vertical;
+    @apply --vientos-toolbar;
+    @apply --h-100;
+    background-color: var(--vientos-color-header) !important;
+  }
+
+  vientos-footer {
+    @apply --fixed-bottom;
+    @apply --vientos-toolbar;
+    @apply --layout-horizontal;
+    @apply --layout-flex;
+    @apply --w-100;
+    @apply --spaced-x;
+    background-color: var(--vientos-color-footer);
+  }
+
+  vientos-collaborations,
+  vientos-filter,
+  vientos-me,
+  vientos-project-profile,
+  vientos-projects {
+    display: block;
+    padding: 10px;
+  }
+
+  vientos-intent-editor {
+    display: block;
+    padding: 10px;
+    max-width: 300px;
+    background-color: #eee;
+    padding: var(--spacing-2);
+    @apply --center-y;
+    text-align: center !important;
+
+    margin-bottom: 96px;
+  }
+
+
+  vientos-map {
+    display: block;
+    width: 100vw;
+    height: 85vh;
+  }
+
+
+  vientos-project-preview {
+    height: auto;
+    width: 292px !important;
+  }
+
+  vientos-project-profile {
+    background-color: #fff !important;
+  }
+
+
+  vientos-projects {
+    background-color: var(--vientos-color-app-background-light);
+  }
+
+
+
+
+
+
+
+  app-header {
+    @apply --vientos-toolbar;
+  }
+
+  app-header-layout {
+    position: relative;
+  }
+
+  app-header-layout,
+  app-header-layout app-header,
+  app-header-layout footer {
+    @apply --layout-horizontal;
+  }
+
+
+  app-header-layout > main {
+    height: calc(100vh-128px);
+    overflow-y: auto;
+  }
+
+  #vientos-footer,
+  #vientos-footer app-toolbar,
+  app-header-layout app-toolbar iron-selector {
+    @apply --w-100;
+    @apply --layout-horizontal;
+  }
+
+
+  vientos-footer {
+    z-index: 10000;
+  }
+
+
+  #vientos-header {
+    /*background-color: var(--app-header-background-color);*/
+  }
+  app-toolbar {
+    @apply --h-100;
+  }
+  /*app-header > #contentContainer,
+  app-toolbar {
+  font-size: 22px !important;
+  height: 2.5em !important;
+  }*/
+
+  </style>
+</template>
+</dom-module>
