@@ -1,11 +1,11 @@
 # vientos-nahual
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ehecame/vientos-nahual.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/ehecame/vientos-nahual.svg?branch=master)](https://travis-ci.org/ehecame/vientos-nahual)
 [![codecov](https://codecov.io/gh/ehecame/vientos-nahual/branch/master/graph/badge.svg)](https://codecov.io/gh/ehecame/vientos-nahual)
 [![Code Climate](https://codeclimate.com/github/ehecame/vientos-nahual/badges/gpa.svg)](https://codeclimate.com/github/ehecame/vientos-nahual)
 [![bitHound Code](https://www.bithound.io/github/ehecame/vientos-nahual/badges/code.svg)](https://www.bithound.io/github/ehecame/vientos-nahual)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/ehecame/vientos-nahual.svg)](https://greenkeeper.io/)
 [![bitHound Dependencies](https://www.bithound.io/github/ehecame/vientos-nahual/badges/dependencies.svg)](https://www.bithound.io/github/ehecame/vientos-nahual/master/dependencies/npm)
 [![NSP Status](https://nodesecurity.io/orgs/vientos/projects/43149b48-d35a-4c5d-9d7c-ef24383fcb70/badge)](https://nodesecurity.io/orgs/vientos/projects/43149b48-d35a-4c5d-9d7c-ef24383fcb70)
 
