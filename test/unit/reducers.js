@@ -1,6 +1,6 @@
 /* global describe, it */
 
-import { expect } from 'chai'
+import expect from '../expect'
 
 import * as ActionTypes from '../../src/actionTypes'
 import reducers from '../../src/reducers'
