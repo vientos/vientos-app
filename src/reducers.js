@@ -21,6 +21,8 @@ function projects (state = [], action) {
         }
         return project
       })
+    case ActionTypes.SAVE_PROJECT_SUCCEEDED:
+      return replaceOrAddElement(state, action.json)
     default:
       return state
   }

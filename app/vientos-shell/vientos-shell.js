@@ -128,6 +128,10 @@ Polymer({
       case 'project':
         viewUrl = '../vientos-project-profile/vientos-project-profile'
         break
+
+      case 'edit-project-details':
+        viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
+        break
     }
 
     viewUrl += '.html'
@@ -149,7 +153,7 @@ Polymer({
   },
 
   _findProject (page, projectId, projects) {
-    if (page !== 'project') return null
+    if (page !== 'project' && page !== 'edit-project-details') return null
     return projects.find(p => p._id === util.urlFromId(projectId, 'projects'))
   },
 

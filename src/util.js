@@ -7,6 +7,7 @@ export function locationsInBoundingBox (project, boundingBox) {
            location.longitude <= boundingBox.ne.lng &&
            location.longitude >= boundingBox.sw.lng
   }).map(location => {
+    // FIXME don't create circular references
     location.project = project
     return location
   })

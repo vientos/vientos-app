@@ -64,6 +64,13 @@ export function fetchProjects () {
   return { type: ActionTypes.FETCH_PROJECTS_REQUESTED }
 }
 
+export function saveProject (project) {
+  return {
+    type: ActionTypes.SAVE_PROJECT_REQUESTED,
+    project
+  }
+}
+
 export function fetchIntents () {
   return { type: ActionTypes.FETCH_INTENTS_REQUESTED }
 }
