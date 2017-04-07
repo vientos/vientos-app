@@ -19,17 +19,15 @@ export function extractLocations (projects, boundingBox) {
   }, [])
 }
 
-export function filterProjects (projects, categories, collaborationTypes, boundingBox) {
+export function filterProjects (projects, filteredCategories, collaborationTypes, boundingBox) {
   let filtered
   // filter on categories
-  if (categories.every(f => !f.selected)) {
+  if (filteredCategories.length === 0) {
     filtered = projects.slice()
   } else {
     filtered = projects.filter(project => {
       return project.categories.some(category => {
-        return categories.some(filter => {
-          return filter.selected && filter.id === category.catId
-        })
+        return filteredCategories.includes(category)
       })
     })
   }

@@ -17,7 +17,7 @@
     </style>
 
     <template is="dom-repeat" items="[[categories]]">
-      <paper-toggle-button toggles active="[[_isInSelected(item)]]" on-tap="_toggleCategory">
+      <paper-toggle-button toggles checked="[[_isInSelected(item)]]" on-tap="_toggleCategory">
         <iron-icon icon="[[_iconFor(item)]]"></iron-icon>
         [[localize(item.id)]]
       </paper-toggle-button>

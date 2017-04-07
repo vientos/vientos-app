@@ -12,7 +12,6 @@ Polymer({
     },
     selection: {
       type: Array
-      // observer: '_selectionChanged'
     },
     language: {
       type: String,
@@ -24,19 +23,7 @@ Polymer({
     }
   },
 
-  observers: [
-    'log(categories)'
-  ],
-
   _iconFor: util.iconFor,
-
-  log () {
-    console.log('categories', this.categories)
-  },
-
-  _selectionChanged () {
-    this.fire('selection-changed', this.selection)
-  },
 
   _isInSelected (category) {
     return this.selection.includes(category.id)
@@ -48,6 +35,6 @@ Polymer({
     } else {
       this.set('selection', [...this.selection, e.model.item.id])
     }
-    this._selectionChanged()
+    this.fire('selection-changed', this.selection)
   }
 })

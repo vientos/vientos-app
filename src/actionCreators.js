@@ -28,10 +28,6 @@ export function toggleCollaborationType (id) {
   }
 }
 
-export function clearCategoriesFilter () {
-  return { type: ActionTypes.CLEAR_CATEGORIES_FILTER }
-}
-
 export function clearCollaborationTypesFilter () {
   return { type: ActionTypes.CLEAR_COLLABORATION_TYPES_FILTER }
 }

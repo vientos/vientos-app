@@ -7,8 +7,8 @@ function projects (state = [], action) {
     case ActionTypes.FETCH_PROJECTS_SUCCEEDED:
       // normalize
       return action.json.map(project => {
-        if (!project.offers) project.offers = []
-        if (!project.requests) project.requests = []
+        if (!project.links) project.links = []
+        if (!project.contacts) project.contacts = []
         if (!project.locations) {
           project.locations = []
         } else {
@@ -55,7 +55,7 @@ function intents (state = [], action) {
 function categories (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
-      return action.json.map(category => Object.assign(category, { selected: false }))
+      return action.json
     default:
       return state
   }
@@ -66,13 +66,12 @@ function filteredCategories (state = [], action) {
     case ActionTypes.UPDATE_FILTERED_CATEGORIES:
       console.log('action', action)
       return action.selection
-    case ActionTypes.CLEAR_CATEGORIES_FILTER:
-      return []
     default:
       return state
   }
 }
 
+// TODO: refactor to match filteredCategories
 function collaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:

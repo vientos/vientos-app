@@ -21,6 +21,14 @@ Polymer({
       type: String,
       value: ''
     },
+    newContact: {
+      type: String,
+      value: ''
+    },
+    categories: {
+      type: Array,
+      statePath: 'categories'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -40,7 +48,20 @@ Polymer({
     }
   },
 
+  _addContact () {
+    // TODO validate URLs
+    if (this.newContact === '' || this.updated.contacts.includes(this.newContact)) return
+    this.set('updated.contacts', [...this.updated.contacts, this.newContact])
+    this.set('newContact', '')
+  },
+
+  _removeContact (e) {
+    this.set('updated.contacts', this.updated.contacts.filter(l => l !== e.model.item))
+  },
+
   _addLink () {
+    // TODO validate URLs
+    if (this.newLink === '' || this.updated.links.includes(this.newLink)) return
     this.set('updated.links', [...this.updated.links, this.newLink])
     this.set('newLink', '')
   },
@@ -49,9 +70,11 @@ Polymer({
     this.set('updated.links', this.updated.links.filter(l => l !== e.model.item))
   },
 
+  _categoriesSelectionChanged (e, selection) {
+    this.set('updated.categories', selection)
+  },
+
   _save () {
-    window.foo = this.updated
-    console.log(JSON.stringify(this.updated))
-    // this.dispatch('saveProject', this.updated)
+    this.dispatch('saveProject', this.updated)
   }
 })

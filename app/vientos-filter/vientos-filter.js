@@ -36,15 +36,12 @@ Polymer({
 
   _iconFor: util.iconFor,
 
-  _selectionChanged (e, selected) {
-    console.log('e', e)
-    console.log('selected', selected)
-    this.dispatch('updateFilteredCategories', selected)
-    // this.dispatch('clearCategoriesFilter', selected)
+  _selectionChanged (e, selection) {
+    this.dispatch('updateFilteredCategories', selection)
   },
 
   _clearCategoriesFilter () {
-    this.dispatch('clearCategoriesFilter')
+    this.dispatch('updateFilteredCategories', [])
   },
 
   _toggleCollaborationType (e) {
