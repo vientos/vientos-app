@@ -16,6 +16,7 @@
 <dom-module id="vientos-project-profile">
   <template>
 
+
     <style include="vientos-project-profile-styles"></style>
 
     <header>
@@ -26,6 +27,11 @@
         </h2>
       </div>
     </header>
+
+    <template is="dom-if" if="[[admin]]">
+      <paper-button on-tap="_editDetails">[[localize('button:edit')]]</paper-button>
+    </template>
+
 
     <section id="project-actions">
       <template is="dom-if" if="[[person]]">

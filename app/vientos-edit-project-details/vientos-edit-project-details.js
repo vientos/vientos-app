@@ -42,8 +42,6 @@ Polymer({
   _makeClone () {
     if (this.project) {
       let updated = Object.assign({}, this.project)
-      // FIXME util.js creates ciruclar references
-      updated.locations.forEach(location => delete location.project)
       this.set('updated', updated)
     }
   },
@@ -75,6 +73,13 @@ Polymer({
   },
 
   _save () {
+    this.updated.locations.forEach(location => delete location.project)
     this.dispatch('saveProject', this.updated)
+  },
+
+  _cancel () {
+    window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
+
 })

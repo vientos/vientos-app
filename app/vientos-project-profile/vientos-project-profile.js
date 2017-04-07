@@ -80,6 +80,11 @@ Polymer({
     this.set('intent', e.model.item)
   },
 
+  _editDetails () {
+    window.history.pushState({}, '', `/edit-project-details/${this.project._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _resetIntent () {
     if (this.project) {
       this.set('intent', {

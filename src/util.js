@@ -7,8 +7,7 @@ export function locationsInBoundingBox (project, boundingBox) {
            location.longitude <= boundingBox.ne.lng &&
            location.longitude >= boundingBox.sw.lng
   }).map(location => {
-    // FIXME don't create circular references
-    location.project = project
+    location.project = project._id
     return location
   })
 }
@@ -70,7 +69,9 @@ export function checkIfFollows (person, project) {
 }
 
 export function projectPath (project) {
-  return `/project/${project._id.split('/').pop()}`
+  let url = project
+  if (typeof project === 'object') url = project._id
+  return `/project/${url.split('/').pop()}`
 }
 
 export function urlFromId (id, collection) {
