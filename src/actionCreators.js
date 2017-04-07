@@ -102,3 +102,9 @@ export function unfollow (following) {
     following
   }
 }
+
+export function toggleFilterFollowings () {
+  return {
+    type: ActionTypes.TOGGLE_FILTER_FOLLOWINGS
+  }
+}

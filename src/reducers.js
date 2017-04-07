@@ -71,6 +71,15 @@ function filteredCategories (state = [], action) {
   }
 }
 
+function filteredFollowings (state = false, action) {
+  switch (action.type) {
+    case ActionTypes.TOGGLE_FILTER_FOLLOWINGS:
+      return !state
+    default:
+      return state
+  }
+}
+
 // TODO: refactor to match filteredCategories
 function collaborationTypes (state = [], action) {
   switch (action.type) {
@@ -157,6 +166,7 @@ export default combineReducers({
   projects,
   categories,
   filteredCategories,
+  filteredFollowings,
   collaborationTypes,
   person,
   session,

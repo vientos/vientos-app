@@ -18,7 +18,7 @@ export function extractLocations (projects, boundingBox) {
   }, [])
 }
 
-export function filterProjects (projects, filteredCategories, collaborationTypes, boundingBox) {
+export function filterProjects (person, projects, filteredCategories, filteredFollowings, collaborationTypes, boundingBox) {
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -27,6 +27,14 @@ export function filterProjects (projects, filteredCategories, collaborationTypes
     filtered = projects.filter(project => {
       return project.categories.some(category => {
         return filteredCategories.includes(category)
+      })
+    })
+  }
+  // filter following projects
+  if (filteredFollowings) {
+    filtered = filtered.filter(project => {
+      return person.followings.some(following => {
+        return following.project === project._id
       })
     })
   }

@@ -14,6 +14,11 @@
 
     <style include="vientos-filter-styles"></style>
 
+    <paper-toggle-button on-tap="_filterFollowings">
+      <iron-icon icon="vientos:follow"></iron-icon>
+      [[localize('button:filter-followings')]]
+    </paper-toggle-button>
+
     <vientos-categories-selector
       categories="[[categories]]"
       selection="[[filteredCategories]]"

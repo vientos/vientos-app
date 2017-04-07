@@ -8,7 +8,8 @@ Polymer({
     updateFilteredCategories: ActionCreators.updateFilteredCategories,
     clearCategoriesFilter: ActionCreators.clearCategoriesFilter,
     toggleCollaborationType: ActionCreators.toggleCollaborationType,
-    clearCollaborationTypesFilter: ActionCreators.clearCollaborationTypesFilter
+    clearCollaborationTypesFilter: ActionCreators.clearCollaborationTypesFilter,
+    toggleFilterFollowings: ActionCreators.toggleFilterFollowings
   },
 
   properties: {
@@ -50,6 +51,10 @@ Polymer({
 
   _clearCollaborationTypesFilter () {
     this.dispatch('clearCollaborationTypesFilter')
+  },
+
+  _filterFollowings () {
+    this.dispatch('toggleFilterFollowings')
   }
 
 })
