@@ -56,17 +56,18 @@ function categories (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
       return action.json.map(category => Object.assign(category, { selected: false }))
-    case ActionTypes.TOGGLE_CATEGORY:
-      let index = state.findIndex(e => e.id === action.id)
-      let updated = Object.assign({}, state[index])
-      updated.selected = !updated.selected
-      return [
-        ...state.slice(0, index),
-        updated,
-        ...state.slice(index + 1)
-      ]
+    default:
+      return state
+  }
+}
+
+function filteredCategories (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.UPDATE_FILTERED_CATEGORIES:
+      console.log('action', action)
+      return action.selection
     case ActionTypes.CLEAR_CATEGORIES_FILTER:
-      return state.map(category => Object.assign(category, { selected: false }))
+      return []
     default:
       return state
   }
@@ -156,6 +157,7 @@ function boundingBox (state = DEFUALT_BOUNDINGBOX, action) {
 export default combineReducers({
   projects,
   categories,
+  filteredCategories,
   collaborationTypes,
   person,
   session,

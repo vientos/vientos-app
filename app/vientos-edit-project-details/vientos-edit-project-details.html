@@ -29,7 +29,9 @@
       <div><label>[[localize('label:org-description')]]: <iron-autogrow-textarea bind-value="{{updated.description}}" ></label></div>
     </section>
     <section id="categories">
+      <category-selector categories="[[categories]]" selected="{{updated.categories}}">
 
+      </category-selector>
     </section>
     <section id="contact-data"></section>
     <section id="web-social-media">

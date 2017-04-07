@@ -5,7 +5,7 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    toggleCategory: ActionCreators.toggleCategory,
+    updateFilteredCategories: ActionCreators.updateFilteredCategories,
     clearCategoriesFilter: ActionCreators.clearCategoriesFilter,
     toggleCollaborationType: ActionCreators.toggleCollaborationType,
     clearCollaborationTypesFilter: ActionCreators.clearCollaborationTypesFilter
@@ -15,6 +15,10 @@ Polymer({
     categories: {
       type: Array,
       statePath: 'categories'
+    },
+    filteredCategories: {
+      type: Array,
+      statePath: 'filteredCategories'
     },
     collaborationTypes: {
       type: Array,
@@ -32,16 +36,19 @@ Polymer({
 
   _iconFor: util.iconFor,
 
-  _toggleCategory (event) {
-    this.dispatch('toggleCategory', event.model.item.id)
+  _selectionChanged (e, selected) {
+    console.log('e', e)
+    console.log('selected', selected)
+    this.dispatch('updateFilteredCategories', selected)
+    // this.dispatch('clearCategoriesFilter', selected)
   },
 
   _clearCategoriesFilter () {
     this.dispatch('clearCategoriesFilter')
   },
 
-  _toggleCollaborationType (event) {
-    this.dispatch('toggleCollaborationType', event.model.item.id)
+  _toggleCollaborationType (e) {
+    this.dispatch('toggleCollaborationType', e.model.item.id)
   },
 
   _clearCollaborationTypesFilter () {

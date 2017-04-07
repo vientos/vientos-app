@@ -14,10 +14,10 @@ export function setBoundingBox (boundingBox) {
   }
 }
 
-export function toggleCategory (id) {
+export function updateFilteredCategories (selection) {
   return {
-    type: ActionTypes.TOGGLE_CATEGORY,
-    id
+    type: ActionTypes.UPDATE_FILTERED_CATEGORIES,
+    selection
   }
 }
 

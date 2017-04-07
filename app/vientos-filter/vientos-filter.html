@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-filter-styles.html">
@@ -13,12 +14,10 @@
 
     <style include="vientos-filter-styles"></style>
 
-    <template is="dom-repeat" items="[[categories]]">
-      <paper-toggle-button toggles active="[[item.selected]]" on-tap="_toggleCategory">
-        <iron-icon icon="[[_iconFor(item)]]"></iron-icon>
-        [[localize(item.id)]]
-      </paper-toggle-button>
-    </template>
+    <vientos-categories-selector
+      categories="[[categories]]"
+      selection="[[filteredCategories]]"
+      on-selection-changed="_selectionChanged">
     <paper-button on-tap="_clearCategoriesFilter">
       [[localize('button:clear')]]
     </paper-button>
