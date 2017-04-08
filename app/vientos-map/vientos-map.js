@@ -110,7 +110,7 @@ Polymer({
   },
 
   _projectSelected (project) {
-    window.history.pushState({}, '', util.projectPath(project))
+    window.history.pushState({}, '', util.pathFor(project, 'project'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

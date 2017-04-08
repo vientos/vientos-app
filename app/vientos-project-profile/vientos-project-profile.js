@@ -68,6 +68,10 @@ Polymer({
 
   _filterRequests: util.filterProjectRequests,
 
+  _intentPageUrl (intent) {
+    return util.pathFor(intent, 'intent')
+  },
+
   _follow () {
     this.dispatch('follow', this.person, this.project)
   },

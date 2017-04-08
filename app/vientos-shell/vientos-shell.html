@@ -69,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <app-route
   route="{{subroute}}"
-  pattern="/:projectId"
+  pattern="/:id"
   data="{{subrouteData}}"></app-route>
 
   <!-- <app-scrollpos-control selected="{{page}}"></app-scrollpos-control> -->
@@ -122,6 +122,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <vientos-edit-project-details
       name="edit-project-details"
       project="[[currentProject]]"></vientos-edit-project-details>
+
+      <vientos-intent-page
+      name="intent"
+      intent="[[currentIntent]]"></vientos-intent-page>
+
 
       <vientos-me name="me"></vientos-me>
 

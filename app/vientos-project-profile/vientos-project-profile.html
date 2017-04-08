@@ -86,7 +86,7 @@
           <li>
             <paper-item on-tap="_editIntent">
               <iron-icon icon="arrow-forward" mini></iron-icon>
-              <span>[[item.title]]</span>
+              <a href="[[_intentPageUrl(item)]]">[[item.title]]</a>
             </paper-item>
         </li>
         </template>
@@ -101,7 +101,7 @@
           <li>
             <paper-item on-tap="_editIntent">
               <iron-icon icon="arrow-back" mini></iron-icon>
-              <span>[[item.title]]</span>
+              <a href="[[_intentPageUrl(item)]]">[[item.title]]</a>
           </paper-item>
         </li>
         </template>

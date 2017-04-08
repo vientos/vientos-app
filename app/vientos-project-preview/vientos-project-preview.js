@@ -27,6 +27,8 @@ Polymer({
     this.set('expanded', !this.expanded)
   },
 
-  _linkTo: util.projectPath
+  _linkTo (project) {
+    return util.pathFor(project, 'project')
+  }
 
 })

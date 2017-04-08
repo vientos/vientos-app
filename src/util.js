@@ -76,10 +76,10 @@ export function checkIfFollows (person, project) {
   }
 }
 
-export function projectPath (project) {
-  let url = project
-  if (typeof project === 'object') url = project._id
-  return `/project/${url.split('/').pop()}`
+export function pathFor (entity, type) {
+  let url = entity
+  if (typeof entity === 'object') url = entity._id
+  return `/${type}/${url.split('/').pop()}`
 }
 
 export function urlFromId (id, collection) {
@@ -88,4 +88,8 @@ export function urlFromId (id, collection) {
 
 export function iconFor (item) {
   return 'vientos:' + item.id
+}
+
+export function intentPageUrl (i) {
+
 }

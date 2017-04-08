@@ -40,6 +40,10 @@ Polymer({
       type: Array,
       statePath: 'projects'
     },
+    intents: {
+      type: Array,
+      statePath: 'intents'
+    },
     person: {
       type: Object,
       statePath: 'person'
@@ -66,7 +70,17 @@ Polymer({
     currentProject: {
       type: Object,
       value: null,
-      computed: '_findProject(routeData.page, subrouteData.projectId, projects)'
+      computed: '_findProject(routeData.page, subrouteData.id, projects)'
+    },
+    currentIntent: {
+      type: Object,
+      value: null,
+      computed: '_findProject(routeData.page, subrouteData.id, projects)'
+    },
+    currentIntent: {
+      type: Object,
+      value: null,
+      computed: '_findIntent(routeData.page, subrouteData.id, intents)'
     },
     visibleProjects: {
       type: Array,
@@ -137,6 +151,10 @@ Polymer({
         viewUrl = '../vientos-project-profile/vientos-project-profile'
         break
 
+      case 'intent':
+        viewUrl = '../vientos-intent-page/vientos-intent-page'
+        break
+
       case 'edit-project-details':
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
@@ -162,7 +180,12 @@ Polymer({
 
   _findProject (page, projectId, projects) {
     if (page !== 'project' && page !== 'edit-project-details') return null
-    return projects.find(p => p._id === util.urlFromId(projectId, 'projects'))
+    return projects.find(project => project._id === util.urlFromId(projectId, 'projects'))
+  },
+
+  _findIntent (page, intentId, intents) {
+    if (page !== 'intent') return null
+    return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
   },
 
   _filterProjects: util.filterProjects,
