@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
@@ -23,18 +24,20 @@
       categories="[[categories]]"
       selection="[[filteredCategories]]"
       on-selection-changed="_selectionChanged"></vientos-categories-selector>
-    <paper-button on-tap="_clearCategoriesFilter">
+    <paper-button id="clear-categories" on-tap="_clearCategoriesFilter">
       [[localize('button:clear')]]
     </paper-button>
+    <paper-badge label="[[filteredCategories.length]]" for="clear-categories"></paper-badge>
 
     <template is="dom-repeat" items="[[collaborationTypes]]">
        <paper-toggle-button toggles checked="[[_isCollaborationTypeSelected(item, filteredCollaborationTypes)]]" on-tap="_toggleCollaborationType">
           [[localize(item.id)]]
        </paper-toggle-button>
     </template>
-   <paper-button on-tap="_clearCollaborationTypesFilter">
+   <paper-button id="clear-collaboration-types" on-tap="_clearCollaborationTypesFilter">
      [[localize('button:clear')]]
    </paper-button>
+   <paper-badge label="[[filteredCollaborationTypes.length]]" for="clear-collaboration-types"></paper-badge>
   </template>
 
   <script src="vientos-filter.js"></script>

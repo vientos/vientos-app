@@ -59,7 +59,6 @@
         </template>
 
         <template is="dom-if" if="[[!expanded]]">
-          <a href="[[_linkTo(project)]]">
             <header id="project-title">
               <h4>
                 [[project.name]]
@@ -90,7 +89,6 @@
                 </paper-item>
               </div>
               </main>
-            </a>
           </template> <!-- expanded -->
 
           <template is="dom-if" if="[[expanded]]">
