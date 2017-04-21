@@ -5,9 +5,12 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
 
+<link rel="import" href="../intent-preview/intent-preview.html">
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-collaborations-styles.html">
+<link rel="import" href="../redux-store.html">
 
 <dom-module id="vientos-collaborations">
   <template>
@@ -15,12 +18,11 @@
   <style include="vientos-collaborations-styles"></style>
 
   <section>
-
-    <template is="dom-repeat" items="[[collaborations]]">
-      <paper-item>
-        [[item.name]]
-      </paper-item>
-    </template>
+    <iron-list id="list" items="[[intents]]" as="item" grid>
+      <template>
+        <intent-preview intent="[[item]]"></intent-preview>
+      </template>
+    </iron-list>
 
 
   </section>

@@ -1,13 +1,12 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, util */
 
 Polymer({
-  is: 'vientos-collaborations',
+  is: 'intent-preview',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   properties: {
-    intents: {
-      type: Array,
-      statePath: 'intents'
+    intent: {
+      type: Object
     },
     language: {
       type: String,
@@ -17,5 +16,9 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
+  },
+
+  _intentPageUrl (intent) {
+    return util.pathFor(intent, 'intent')
   }
 })

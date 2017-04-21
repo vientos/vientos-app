@@ -122,7 +122,7 @@ Polymer({
     // Load page import on demand. Show 404 page if fails
     var viewUrl
     switch (page) {
-      case 'collaborations':
+      case 'intents':
         viewUrl = '../vientos-collaborations/vientos-collaborations'
         break
 

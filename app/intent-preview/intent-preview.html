@@ -1,0 +1,12 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../components/vientos-card/vientos-card.html">
+
+<dom-module id="intent-preview">
+  <template>
+    <vientos-card>
+<a href="[[_intentPageUrl(intent)]]">[[intent.title]]</a>
+    </vientos-card>
+  </template>
+  <script src="intent-preview.js"></script>
+</dom-module>
