@@ -38,7 +38,8 @@ const handleLatest = [
   ActionTypes.FETCH_INTENTS_REQUESTED,
   ActionTypes.FETCH_PERSON_REQUESTED,
   ActionTypes.HELLO_REQUESTED,
-  ActionTypes.BYE_REQUESTED
+  ActionTypes.BYE_REQUESTED,
+  ActionTypes.SAVE_PERSON_REQUESTED
 ]
 
 const handleEvery = [

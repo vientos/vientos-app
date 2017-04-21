@@ -166,6 +166,10 @@ Polymer({
       case 'edit-project-details':
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
+
+      case 'edit-my-profile':
+        viewUrl = '../personal-profile-editor/personal-profile-editor'
+        break
     }
 
     viewUrl += '.html'

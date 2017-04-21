@@ -9,6 +9,7 @@ function projects (state = [], action) {
       return action.json.map(project => {
         if (!project.links) project.links = []
         if (!project.contacts) project.contacts = []
+        if (!project.categories) project.categories = []
         if (!project.locations) {
           project.locations = []
         } else {
@@ -100,7 +101,10 @@ function collaborationTypes (state = [], action) {
 function person (state = null, action) {
   switch (action.type) {
     case ActionTypes.FETCH_PERSON_SUCCEEDED:
-      if (action.json && !action.json.followings) action.json.followings = []
+      if (!action.json.categories) action.json.categories = []
+      if (!action.json.followings) action.json.followings = []
+      return action.json
+    case ActionTypes.SAVE_PERSON_SUCCEEDED:
       return action.json
     case ActionTypes.BYE_SUCCEEDED:
       return null

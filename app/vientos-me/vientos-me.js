@@ -27,6 +27,11 @@ Polymer({
     }
   },
 
+  _editProfile () {
+    window.history.pushState({}, '', `/edit-my-profile/`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _bye () {
     this.dispatch('bye')
   }

@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
+
+<link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="personal-profile-editor-styles.html">
+
+<dom-module id="personal-profile-editor">
+  <template>
+
+    <style include="personal-profile-editor-styles"></style>
+
+    <input is="iron-input" bind-value="{{updated.name}}">
+
+    <section id="categories">
+      <vientos-categories-selector
+        categories="[[categories]]"
+        selection="[[person.categories]]"
+        on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
+    </section>
+
+    <paper-button on-tap="_save">[[localize('button:save')]]</paper-button>
+    <paper-button on-tap="_cancel">[[localize('button:cancel')]]</paper-button>
+
+
+  </template>
+
+  <script src="personal-profile-editor.js"></script>
+
+</dom-module>

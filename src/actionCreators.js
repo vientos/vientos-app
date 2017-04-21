@@ -63,6 +63,13 @@ export function saveProject (project) {
   }
 }
 
+export function savePerson (person) {
+  return {
+    type: ActionTypes.SAVE_PERSON_REQUESTED,
+    person
+  }
+}
+
 export function fetchIntents () {
   return { type: ActionTypes.FETCH_INTENTS_REQUESTED }
 }

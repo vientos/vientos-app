@@ -12,8 +12,17 @@
     <style include="vientos-me-styles"></style>
 
     <template is="dom-if" if="[[person]]">
+      <paper-button on-tap="_editProfile">
+        [[localize('button:edit')]]
+      </paper-button>
       <h2>[[person.name]]</h2>
       <paper-icon-button icon="vientos:login" on-tap="_bye"></paper-icon-button>
+
+      <section id="categories">
+        <template is="dom-repeat" items="[[person.categories]]">
+          [[localize(item.id)]]
+        </template>
+      </section>
     </template>
     <template is="dom-if" if="[[!person]]">
       <ul>
@@ -21,6 +30,8 @@
         <li><a href="[[login.facebook]]">facebook</a></li>
       </ul>
     </template>
+
+
 
 
   </template>
