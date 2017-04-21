@@ -64,8 +64,15 @@ export function filterProjectRequests (project, intents) {
   return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'request')
 }
 
-export function checkIfAdmin (person, project) {
-  return person && project && project.admins && project.admins.includes(person._id)
+export function getIntentProjects (intent, projects) {
+  if (!intent) return []
+  return projects.filter(project => intent.projects.includes(project._id))
+}
+
+export function checkIfAdmin (person, projects) {
+  if (!projects) return false
+  if (!Array.isArray(projects)) projects = [ projects ]
+  return person && projects.some(project => project.admins && project.admins.includes(person._id))
 }
 
 export function checkIfFollows (person, project) {

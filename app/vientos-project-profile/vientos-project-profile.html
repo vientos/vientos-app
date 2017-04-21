@@ -84,7 +84,7 @@
       <ul id="project-offers-list">
         <template is="dom-repeat" items="[[offers]]">
           <li>
-            <paper-item on-tap="_editIntent">
+            <paper-item>
               <iron-icon icon="arrow-forward" mini></iron-icon>
               <a href="[[_intentPageUrl(item)]]">[[item.title]]</a>
             </paper-item>
@@ -93,13 +93,12 @@
       </ul>
     </div>
 
-
     <div>
       <h5>[[localize('nouns:requests')]]</h5>
       <ul id="project-requests-list">
         <template is="dom-repeat" items="[[requests]]">
           <li>
-            <paper-item on-tap="_editIntent">
+            <paper-item>
               <iron-icon icon="arrow-back" mini></iron-icon>
               <a href="[[_intentPageUrl(item)]]">[[item.title]]</a>
           </paper-item>
@@ -110,11 +109,6 @@
 
 
   </section>
-
-  <template is="dom-if" if="[[admin]]">
-    <vientos-intent-editor intent="[[intent]]" on-reset="_resetIntent"></vientos-intent-editor>
-  </template>
-
 
   </template>
 

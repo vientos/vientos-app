@@ -13,9 +13,11 @@
 
 <dom-module id="vientos-intent-page">
   <template>
-
-
     <style include="vientos-intent-page-styles"></style>
+
+    <template is="dom-if" if="[[admin]]">
+      <paper-button on-tap="_editIntent">[[localize('button:edit')]]</paper-button>
+    </template>
 
     <h2>[[intent.title]]</h2>
 

@@ -64,7 +64,6 @@ function categories (state = [], action) {
 function filteredCategories (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_CATEGORIES:
-      console.log('action', action)
       return action.selection
     default:
       return state

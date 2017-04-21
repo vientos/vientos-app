@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
+/* global Polymer, ReduxBehavior, CustomEvent, util */
 
 Polymer({
   is: 'vientos-intent-page',
@@ -10,8 +10,19 @@ Polymer({
       statePath: 'person'
     },
     intent: {
-      type: Object,
-      observer: 'log'
+      type: Object
+    },
+    projects: {
+      type: Array,
+      statePath: 'projects'
+    },
+    intentProjects: {
+      type: Array,
+      computed: '_getIntentProjects(intent, projects)'
+    },
+    admin: {
+      type: Boolean,
+      computed: '_checkIfAdmin(person, intentProjects)'
     },
     language: {
       type: String,
@@ -23,6 +34,13 @@ Polymer({
     }
   },
 
-  log: console.log
+  _checkIfAdmin: util.checkIfAdmin,
+
+  _getIntentProjects: util.getIntentProjects,
+
+  _editIntent () {
+    window.history.pushState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
 
 })

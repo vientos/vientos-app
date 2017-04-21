@@ -30,15 +30,11 @@ Polymer({
     },
     project: {
       // passed from parent
-      type: Object,
-      observer: '_resetIntent'
+      type: Object
     },
     intents: {
       type: Array,
       statePath: 'intents'
-    },
-    intent: {
-      type: Object
     },
     offers: {
       type: Array,
@@ -80,23 +76,9 @@ Polymer({
     this.dispatch('unfollow', this.following)
   },
 
-  _editIntent (e) {
-    this.set('intent', e.model.item)
-  },
-
   _editDetails () {
     window.history.pushState({}, '', `/edit-project-details/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
-  _resetIntent () {
-    if (this.project) {
-      this.set('intent', {
-        type: 'Intent',
-        projects: [ this.project._id ],
-        direction: 'offer'
-      })
-    }
   },
 
   _showLocationOnMap (e) {

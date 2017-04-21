@@ -75,11 +75,6 @@ Polymer({
     currentIntent: {
       type: Object,
       value: null,
-      computed: '_findProject(routeData.page, subrouteData.id, projects)'
-    },
-    currentIntent: {
-      type: Object,
-      value: null,
       computed: '_findIntent(routeData.page, subrouteData.id, intents)'
     },
     visibleProjects: {
@@ -155,6 +150,10 @@ Polymer({
         viewUrl = '../vientos-intent-page/vientos-intent-page'
         break
 
+      case 'edit-intent':
+        viewUrl = '../vientos-intent-editor/vientos-intent-editor'
+        break
+
       case 'edit-project-details':
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
@@ -184,7 +183,7 @@ Polymer({
   },
 
   _findIntent (page, intentId, intents) {
-    if (page !== 'intent') return null
+    if (page !== 'intent' && page !== 'edit-intent') return null
     return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
   },
 
