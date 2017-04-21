@@ -18,7 +18,7 @@ export function extractLocations (projects, boundingBox) {
   }, [])
 }
 
-export function filterProjects (person, projects, filteredCategories, filteredFollowings, collaborationTypes, boundingBox) {
+export function filterProjects (person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, boundingBox) {
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -39,19 +39,24 @@ export function filterProjects (person, projects, filteredCategories, filteredFo
     })
   }
   // filter on collaboration types
-  if (!collaborationTypes.every(filter => !filter.selected)) {
+  if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(project => {
-      return project.needs.concat(project.offers).some(intent => {
-        return collaborationTypes.some(filter => {
-          return filter.selected && filter.id === intent.type
-        })
-      })
+      // return the projects which has at least one intent which its collaborationType is among filteredCollaborationTypes
+      return intents.some(intent => intent.projects.includes(project._id) && filteredCollaborationTypes.includes(intent.collaborationType))
     })
   }
   // filter by bounding box
   return filtered.filter(project => {
     return locationsInBoundingBox(project, boundingBox).length > 0
   })
+}
+
+export function filterIntents (intents, visibleProjects, filteredCollaborationTypes) {
+  let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
+  if (filteredCollaborationTypes.length > 0) {
+    filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
+  }
+  return filtered
 }
 
 export function filterProjectOffers (project, intents) {

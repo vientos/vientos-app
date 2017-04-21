@@ -6,8 +6,14 @@ Polymer({
 
   properties: {
     intents: {
+      // passed from parent
       type: Array,
-      statePath: 'intents'
+      observer: '_addProjectsToIntents'
+    },
+    projects: {
+      type: Array,
+      statePath: 'projects',
+      observer: '_addProjectsToIntents'
     },
     language: {
       type: String,
@@ -16,6 +22,14 @@ Polymer({
     resources: {
       type: Object,
       statePath: 'labels'
+    }
+  },
+
+  _addProjectsToIntents () {
+    if (this.intents && this.projects) {
+      this.intents.forEach(intent => {
+        intent.projectRefs = intent.projects.map(projectId => this.projects.find(p => p._id === projectId))
+      })
     }
   }
 })

@@ -21,15 +21,11 @@ export function updateFilteredCategories (selection) {
   }
 }
 
-export function toggleCollaborationType (id) {
+export function updateFilteredCollaborationTypes (selection) {
   return {
-    type: ActionTypes.TOGGLE_COLLABORATION_TYPE,
-    id
+    type: ActionTypes.UPDATE_FILTERED_COLLABORATION_TYPES,
+    selection
   }
-}
-
-export function clearCollaborationTypesFilter () {
-  return { type: ActionTypes.CLEAR_COLLABORATION_TYPES_FILTER }
 }
 
 export function hello () {

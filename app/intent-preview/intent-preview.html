@@ -5,7 +5,10 @@
 <dom-module id="intent-preview">
   <template>
     <vientos-card>
-<a href="[[_intentPageUrl(intent)]]">[[intent.title]]</a>
+      <a href="[[_intentPageUrl(intent)]]">[[intent.title]]</a>
+      <template is="dom-repeat" items="[[intent.projectRefs]]">
+        [[item.name]]
+      </template>
     </vientos-card>
   </template>
   <script src="intent-preview.js"></script>

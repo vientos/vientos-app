@@ -52,6 +52,10 @@ Polymer({
       type: Array,
       statePath: 'filteredCategories'
     },
+    filteredCollaborationTypes: {
+      type: Array,
+      statePath: 'filteredCollaborationTypes'
+    },
     filteredFollowings: {
       type: Boolean,
       statePath: 'filteredFollowings'
@@ -80,7 +84,12 @@ Polymer({
     visibleProjects: {
       type: Array,
       value: [],
-      computed: '_filterProjects(person, projects, filteredCategories, filteredFollowings, collaborationTypes, boundingBox)'
+      computed: '_filterProjects(person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, boundingBox)'
+    },
+    visibleIntents: {
+      type: Array,
+      value: [],
+      computed: '_filterIntents(intents, visibleProjects, filteredCollaborationTypes)' // TODO boundingBox
     },
     visibleLocations: {
       type: Array,
@@ -188,6 +197,8 @@ Polymer({
   },
 
   _filterProjects: util.filterProjects,
+
+  _filterIntents: util.filterIntents,
 
   _extractLocations: util.extractLocations,
 

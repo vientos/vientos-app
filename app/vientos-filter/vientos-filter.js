@@ -6,9 +6,7 @@ Polymer({
 
   actions: {
     updateFilteredCategories: ActionCreators.updateFilteredCategories,
-    clearCategoriesFilter: ActionCreators.clearCategoriesFilter,
-    toggleCollaborationType: ActionCreators.toggleCollaborationType,
-    clearCollaborationTypesFilter: ActionCreators.clearCollaborationTypesFilter,
+    updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
     toggleFilterFollowings: ActionCreators.toggleFilterFollowings
   },
 
@@ -24,6 +22,10 @@ Polymer({
     collaborationTypes: {
       type: Array,
       statePath: 'collaborationTypes'
+    },
+    filteredCollaborationTypes: {
+      type: Array,
+      statePath: 'filteredCollaborationTypes'
     },
     language: {
       type: String,
@@ -46,11 +48,20 @@ Polymer({
   },
 
   _toggleCollaborationType (e) {
-    this.dispatch('toggleCollaborationType', e.model.item.id)
+    if (this.filteredCollaborationTypes.includes(e.model.item.id)) {
+      this.set('filteredCollaborationTypes', this.filteredCollaborationTypes.filter(colType => colType !== e.model.item.id))
+    } else {
+      this.set('filteredCollaborationTypes', [...this.filteredCollaborationTypes, e.model.item.id])
+    }
+    this.dispatch('updateFilteredCollaborationTypes', this.filteredCollaborationTypes)
   },
 
   _clearCollaborationTypesFilter () {
-    this.dispatch('clearCollaborationTypesFilter')
+    this.dispatch('updateFilteredCollaborationTypes', [])
+  },
+
+  _isCollaborationTypeSelected (collaborationType, filteredCollaborationTypes) {
+    return filteredCollaborationTypes.includes(collaborationType.id)
   },
 
   _filterFollowings () {

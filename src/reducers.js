@@ -70,6 +70,15 @@ function filteredCategories (state = [], action) {
   }
 }
 
+function filteredCollaborationTypes (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.UPDATE_FILTERED_COLLABORATION_TYPES:
+      return action.selection
+    default:
+      return state
+  }
+}
+
 function filteredFollowings (state = false, action) {
   switch (action.type) {
     case ActionTypes.TOGGLE_FILTER_FOLLOWINGS:
@@ -79,22 +88,10 @@ function filteredFollowings (state = false, action) {
   }
 }
 
-// TODO: refactor to match filteredCategories
 function collaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
-      return action.json.map(collaborationType => Object.assign(collaborationType, { selected: false }))
-    case ActionTypes.TOGGLE_COLLABORATION_TYPE:
-      let index = state.findIndex(e => e.id === action.id)
-      let updated = Object.assign({}, state[index])
-      updated.selected = !updated.selected
-      return [
-        ...state.slice(0, index),
-        updated,
-        ...state.slice(index + 1)
-      ]
-    case ActionTypes.CLEAR_COLLABORATION_TYPES_FILTER:
-      return state.collaborationTypes.map(collaborationType => Object.assign(collaborationType, { selected: false }))
+      return action.json
     default:
       return state
   }
@@ -165,6 +162,7 @@ export default combineReducers({
   projects,
   categories,
   filteredCategories,
+  filteredCollaborationTypes,
   filteredFollowings,
   collaborationTypes,
   person,

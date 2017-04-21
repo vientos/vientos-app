@@ -28,7 +28,7 @@
     </paper-button>
 
     <template is="dom-repeat" items="[[collaborationTypes]]">
-       <paper-toggle-button toggles active="[[item.selected]]" on-tap="_toggleCollaborationType">
+       <paper-toggle-button toggles checked="[[_isCollaborationTypeSelected(item, filteredCollaborationTypes)]]" on-tap="_toggleCollaborationType">
           [[localize(item.id)]]
        </paper-toggle-button>
     </template>

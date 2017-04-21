@@ -25,8 +25,8 @@ Polymer({
 
   _iconFor: util.iconFor,
 
-  _isInSelected (category) {
-    return this.selection.includes(category.id)
+  _isInSelected (category, selection) {
+    return selection.includes(category.id)
   },
 
   _toggleCategory (e) {

@@ -106,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       name="projects"
       projects="[[visibleProjects]]"></vientos-projects>
 
-      <vientos-collaborations name="intents">
+      <vientos-collaborations name="intents" intents="[[visibleIntents]]">
       </vientos-collaborations>
 
       <vientos-map
@@ -140,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </iron-pages>
 
 
-    <vientos-footer page="[[page]]" visible-count="[[visibleProjects.length]]"></vientos-footer>
+    <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
 
   </app-header-layout>
 </app-drawer-layout>
