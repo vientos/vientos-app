@@ -55,7 +55,7 @@
                 [[project.name]]
               </h5>
             </div>
-            </header>
+          </header>
         </template>
 
         <template is="dom-if" if="[[!expanded]]">
@@ -63,6 +63,9 @@
             <header id="project-title">
               <h4>
                 [[project.name]]
+                <template is="dom-if" if="[[following]]">
+                  <iron-icon icon="vientos:follow"></iron-icon>
+                </template>
               </h4>
             </header>
             <main>

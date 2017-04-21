@@ -12,7 +12,15 @@ Polymer({
     project: {
       type: Object
     },
-
+    person: {
+      type: Object,
+      statePath: 'person'
+    },
+    following: {
+      type: Object,
+      value: null,
+      computed: '_checkIfFollows(person, project)'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -22,6 +30,8 @@ Polymer({
       statePath: 'labels'
     }
   },
+
+  _checkIfFollows: util.checkIfFollows,
 
   _expandCollaborations () {
     this.set('expanded', !this.expanded)
