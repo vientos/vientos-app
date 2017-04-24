@@ -39,11 +39,13 @@ Polymer({
     },
     projects: {
       type: Array,
-      statePath: 'projects'
+      statePath: 'projects',
+      observer: '_addProjectsToIntents'
     },
     intents: {
       type: Array,
-      statePath: 'intents'
+      statePath: 'intents',
+      observer: '_addProjectsToIntents'
     },
     person: {
       type: Object,
@@ -164,6 +166,10 @@ Polymer({
         viewUrl = '../vientos-intent-editor/vientos-intent-editor'
         break
 
+      case 'new-intent':
+        viewUrl = '../vientos-intent-editor/vientos-intent-editor'
+        break
+
       case 'edit-project-details':
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
@@ -192,13 +198,21 @@ Polymer({
   },
 
   _findProject (page, projectId, projects) {
-    if (page !== 'project' && page !== 'edit-project-details') return null
+    if (page !== 'project' && page !== 'edit-project-details' && page !== 'new-intent') return null
     return projects.find(project => project._id === util.urlFromId(projectId, 'projects'))
   },
 
   _findIntent (page, intentId, intents) {
     if (page !== 'intent' && page !== 'edit-intent') return null
     return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
+  },
+
+  _addProjectsToIntents () {
+    if (this.intents && this.projects) {
+      this.intents.forEach(intent => {
+        intent.projectRefs = intent.projects.map(projectId => this.projects.find(p => p._id === projectId))
+      })
+    }
   },
 
   _filterProjects: util.filterProjects,

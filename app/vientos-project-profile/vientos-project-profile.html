@@ -81,8 +81,11 @@
     </section>
 
 
-<section id="project-collaborations">
+<template is="dom-if" if="[[admin]]">
+  <paper-button on-tap="_newIntent">[[localize('button:new-intent')]]</paper-button>
+</template>
 
+<section id="project-collaborations">
 
     <div>
       <h5>[[localize('nouns:offers')]]</h5>

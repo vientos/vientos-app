@@ -12,7 +12,7 @@
 
 <dom-module id="vientos-intent-editor">
   <template>
-    
+
     <style include="vientos-intent-editor-styles"></style>
 
     <input id="intentTitle" placeholder="Intent name" value="[[intent.title]]"/>
@@ -42,7 +42,7 @@
       id="button-save-intent"
       icon="vientos:ok"
       text="[[localize('button:save')]]"
-      on-tap="_createOrUpdateIntent"
+      on-tap="_saveIntent"
     ></vientos-icon-button>
 
     <template is="dom-if" if="[[intent._id]]">

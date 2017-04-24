@@ -41,6 +41,10 @@ Polymer({
   _editIntent () {
     window.history.pushState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _projectPageUrl (project) {
+    return util.pathFor(project, 'project')
   }
 
 })

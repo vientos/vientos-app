@@ -81,6 +81,11 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _newIntent () {
+    window.history.pushState({}, '', `/new-intent/${this.project._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _showLocationOnMap (e) {
     let location = e.model.location
     window.history.pushState({}, '', `/map?latitude=${location.latitude}&longitude=${location.longitude}&zoom=15`)

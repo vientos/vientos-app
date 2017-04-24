@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, ActionCreators */
+/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent */
 
 Polymer({
   is: 'vientos-intent-editor',
@@ -12,6 +12,10 @@ Polymer({
   properties: {
     intent: {
       type: Object
+    },
+    project: {
+      type: Object,
+      observer: '_createNewIntent'
     },
     toggled: {
       type: Boolean,
@@ -34,11 +38,17 @@ Polymer({
     }
   },
 
-  _createOrUpdateIntent () {
+  _saveIntent () {
     this.intent.title = this.$$('#intentTitle').value
     this.intent.collaborationType = this.collaborationType
     this.dispatch('saveIntent', this.intent)
-    this._reset()
+    if (this.project) {
+      window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    } else {
+      window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   },
 
   _deleteIntent () {
@@ -60,6 +70,16 @@ Polymer({
 
   _setCollaborationType (e, detail) {
     this.collaborationType = detail.item.name
+  },
+
+  _createNewIntent () {
+    if (this.project) {
+      this.set('intent', {
+        type: 'Intent',
+        direction: 'offer',
+        projects: [ this.project._id ]
+      })
+    }
   }
 
 })
