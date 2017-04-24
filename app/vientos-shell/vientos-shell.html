@@ -81,6 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <span>ES</span>
         <paper-toggle-button on-tap="_toggleLanguage">EN</paper-toggle-button>
       </div>
+      <template is="dom-if" if="[[session]]">
+        <div>
+          <vientos-icon-button icon="vientos:login" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
+        </div>
+      </template>
     </app-drawer>
 
     <!-- Main content -->

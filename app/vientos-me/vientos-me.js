@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, ActionCreators */
+/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent */
 
 Polymer({
   is: 'vientos-me',
@@ -38,6 +38,8 @@ Polymer({
 
   _bye () {
     this.dispatch('bye', this.session)
+    window.history.pushState({}, '', `/`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   ready () {

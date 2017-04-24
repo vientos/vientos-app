@@ -50,30 +50,35 @@
           ></vientos-icon-button>
         </template>
       </template>
-<vientos-icon-button
-  icon="room"
-  text="[[localize('button:contact')]]"
-></vientos-icon-button>
     </section>
 
     <section id="project-location">
-<div class="address">
-  [[project.address]]
-</div>
-<div>
-  <template is="dom-repeat" items="[[project.locations]]" as="location">
-    <vientos-icon-button on-tap="_showLocationOnMap" icon="vientos:crosshairs" text="[[localize('button:show-on-map')]]"></vientos-icon-button>
+      <ul>
+        <template is="dom-repeat" items="[[project.locations]]" as="location">
+          <li><vientos-icon-button on-tap="_showLocationOnMap" icon="vientos:crosshairs" text="[[location.address]]"></vientos-icon-button></li>
+        </template>
+      </ul>
+    </section>
 
-  </template>
+    <section id="project-description">
 
-</div>
-</section>
+      [[project.description]]
 
-<section id="project-description">
-
-  [[project.description]]
-
-</section>
+    </section>
+    <section id="project-links">
+      <ul>
+      <template is="dom-repeat" items="[[project.links]]">
+        <li><a href="[[item]]" target="_blank">[[item]]</a></li>
+      </template>
+      </ul>
+    </section>
+    <section id="project-contacts">
+      <ul>
+      <template is="dom-repeat" items="[[project.contacts]]">
+        <li>[[item]]</li>
+      </template>
+      </ul>
+    </section>
 
 
 <section id="project-collaborations">

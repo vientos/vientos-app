@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, CustomEvent */
 
 const ActionCreators = window.vientos.ActionCreators
 const util = window.vientos.util
@@ -13,6 +13,7 @@ Polymer({
     setLanguage: ActionCreators.setLanguage,
     setBoundingBox: ActionCreators.setBoundingBox,
     hello: ActionCreators.hello,
+    bye: ActionCreators.bye,
     fetchPerson: ActionCreators.fetchPerson,
     fetchLabels: ActionCreators.fetchLabels,
     fetchCategories: ActionCreators.fetchCategories,
@@ -220,6 +221,13 @@ Polymer({
     if (session && session.person) {
       this.dispatch('fetchPerson', session.person)
     }
+  },
+
+  _bye () {
+    this.dispatch('bye', this.session)
+    this.$$('app-drawer').toggle()
+    window.history.pushState({}, '', `/`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   ready () {

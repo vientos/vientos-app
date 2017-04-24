@@ -15,18 +15,21 @@
 
     <style include="vientos-filter-styles"></style>
 
-    <paper-toggle-button on-tap="_filterFollowings">
-      <iron-icon icon="vientos:follow"></iron-icon>
-      [[localize('button:filter-followings')]]
-    </paper-toggle-button>
-
+    <template is="dom-if" if="[[person]]">
+      <paper-toggle-button on-tap="_filterFollowings">
+        <iron-icon icon="vientos:follow"></iron-icon>
+        [[localize('button:filter-followings')]]
+      </paper-toggle-button>
+    </template>
     <vientos-categories-selector
       categories="[[categories]]"
       selection="[[filteredCategories]]"
       on-selection-changed="_selectionChanged"></vientos-categories-selector>
-    <paper-button on-tap="_selectMyCategories">
-      [[localize('button:my-categories')]]
-    </paper-button>
+    <template is="dom-if" if="[[person]]">
+      <paper-button on-tap="_selectMyCategories">
+        [[localize('button:my-categories')]]
+      </paper-button>
+    </template>
     <paper-button id="clear-categories" on-tap="_clearCategoriesFilter">
       [[localize('button:clear')]]
     </paper-button>
