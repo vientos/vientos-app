@@ -35,6 +35,18 @@ Polymer({
         'share'
       ]
     },
+    expiryDate: {
+      type: String,
+      value: () => {
+        return new Date(Date.now() + 32 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      }
+    },
+    expiryMinDate: {
+      type: String,
+      value: () => {
+        return new Date().toISOString().split('T')[0]
+      }
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -49,6 +61,7 @@ Polymer({
     this.intent.title = this.$$('#intentTitle').value
     this.intent.collaborationType = this.collaborationType
     this.intent.condition = this.condition
+    this.intent.expiryDate = this.expiryDate
     this.dispatch('saveIntent', this.intent)
     if (this.project) {
       window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
@@ -93,6 +106,12 @@ Polymer({
         projects: [ this.project._id ]
       })
     }
+  },
+
+  ready () {
+    window.editor = this
+    this.$.datepicker.set('i18n.firstDayOfWeek', 1)
+    // this.$.datepicker.set('i18n.formatDate', (date) => { return date.toLocaleDateString() })
   }
 
 })

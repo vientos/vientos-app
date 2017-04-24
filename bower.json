@@ -32,7 +32,8 @@
     "leaflet": "^1.0.3",
     "iron-icons": "^1.2.0",
     "iron-input": "PolymerElements/iron-input#^1.0.10",
-    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.15"
+    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.15",
+    "vaadin-date-picker": "vaadin/vaadin-date-picker#^1.2.3"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

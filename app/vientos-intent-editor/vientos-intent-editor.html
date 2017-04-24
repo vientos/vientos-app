@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
@@ -49,6 +50,12 @@
         </template>
       </paper-listbox>
     </paper-dropdown-menu>
+
+    <vaadin-date-picker
+      id="datepicker"
+      value="{{expiryDate}}"
+      min="[[expiryMinDate]]"
+      label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
 
     <vientos-icon-button
       id="button-save-intent"
