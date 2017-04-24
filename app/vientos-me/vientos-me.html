@@ -3,6 +3,8 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
+<link rel="import" href="../vientos-icon-button/vientos-icon-button.html">
+
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-me-styles.html">
 
@@ -16,13 +18,13 @@
         [[localize('button:edit')]]
       </paper-button>
       <h2>[[person.name]]</h2>
-      <paper-icon-button icon="vientos:login" on-tap="_bye"></paper-icon-button>
+      <vientos-icon-button icon="vientos:login" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
 
-      <section id="categories">
+        <ul>
         <template is="dom-repeat" items="[[person.categories]]">
-          [[localize(item.id)]]
+          <li><iron-icon icon="vientos:[[item]]"></iron-icon>[[localize(item)]]</li>
         </template>
-      </section>
+        </ul>
     </template>
     <template is="dom-if" if="[[!person]]">
       <ul>

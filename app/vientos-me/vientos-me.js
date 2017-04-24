@@ -17,6 +17,10 @@ Polymer({
       type: String,
       value: () => { return window.vientos.login }
     },
+    session: {
+      type: Object,
+      statePath: 'session'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -33,7 +37,11 @@ Polymer({
   },
 
   _bye () {
-    this.dispatch('bye')
+    this.dispatch('bye', this.session)
+  },
+
+  ready () {
+    window.page = this
   }
 
 })

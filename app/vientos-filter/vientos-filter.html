@@ -24,6 +24,9 @@
       categories="[[categories]]"
       selection="[[filteredCategories]]"
       on-selection-changed="_selectionChanged"></vientos-categories-selector>
+    <paper-button on-tap="_selectMyCategories">
+      [[localize('button:my-categories')]]
+    </paper-button>
     <paper-button id="clear-categories" on-tap="_clearCategoriesFilter">
       [[localize('button:clear')]]
     </paper-button>

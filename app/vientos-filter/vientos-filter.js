@@ -15,6 +15,10 @@ Polymer({
       type: Array,
       statePath: 'categories'
     },
+    person: {
+      type: Object,
+      statePath: 'person'
+    },
     filteredCategories: {
       type: Array,
       statePath: 'filteredCategories'
@@ -45,6 +49,10 @@ Polymer({
 
   _clearCategoriesFilter () {
     this.dispatch('updateFilteredCategories', [])
+  },
+
+  _selectMyCategories () {
+    this.dispatch('updateFilteredCategories', this.person.categories)
   },
 
   _toggleCollaborationType (e) {
