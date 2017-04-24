@@ -26,7 +26,7 @@
     </div>
 
 
-    <paper-dropdown-menu label="Intent Type">
+    <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">
       <paper-listbox
         class="dropdown-content"
         attr-for-selected="name"
@@ -34,6 +34,18 @@
         selected="[[intent.collaborationType]]">
         <template is="dom-repeat" items="[[collaborationTypes]]">
           <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+
+    <paper-dropdown-menu label="[[localize('label:collaboration-condition')]]">
+      <paper-listbox
+        class="dropdown-content"
+        attr-for-selected="name"
+        on-iron-select="_setCollaborationCondition"
+        selected="[[intent.condition]]">
+        <template is="dom-repeat" items="[[conditions]]">
+          <paper-item name="[[item]]">[[localize(item)]]</paper-item>
         </template>
       </paper-listbox>
     </paper-dropdown-menu>

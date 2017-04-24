@@ -28,6 +28,13 @@ Polymer({
       type: Array,
       statePath: 'collaborationTypes'
     },
+    conditions: {
+      type: Array,
+      value: [
+        'gift',
+        'share'
+      ]
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -41,6 +48,7 @@ Polymer({
   _saveIntent () {
     this.intent.title = this.$$('#intentTitle').value
     this.intent.collaborationType = this.collaborationType
+    this.intent.condition = this.condition
     this.dispatch('saveIntent', this.intent)
     if (this.project) {
       window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
@@ -72,11 +80,16 @@ Polymer({
     this.collaborationType = detail.item.name
   },
 
+  _setCollaborationCondition (e, detail) {
+    this.condition = detail.item.name
+  },
+
   _createNewIntent () {
     if (this.project) {
       this.set('intent', {
         type: 'Intent',
         direction: 'offer',
+        condition: 'gift',
         projects: [ this.project._id ]
       })
     }
