@@ -111,3 +111,10 @@ export function toggleFilterFollowings () {
     type: ActionTypes.TOGGLE_FILTER_FOLLOWINGS
   }
 }
+
+export function setLocationFilter (locationFilter) {
+  return {
+    type: ActionTypes.SET_LOCATION_FILTER,
+    locationFilter
+  }
+}

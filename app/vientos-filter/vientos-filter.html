@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
@@ -21,6 +22,11 @@
         [[localize('button:filter-followings')]]
       </paper-toggle-button>
     </template>
+    <paper-radio-group selected="[[locationFilter]]" on-iron-select="_locationFilterChanged">
+      <paper-radio-button name="all">[[localize('label:all')]]</paper-radio-button>
+      <paper-radio-button name="city">[[localize('label:city-wide')]]</paper-radio-button>
+      <paper-radio-button name="specific">[[localize('label:specific-location')]]</paper-radio-button>
+    </paper-radio-group>
     <vientos-categories-selector
       categories="[[categories]]"
       selection="[[filteredCategories]]"

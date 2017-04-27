@@ -7,7 +7,8 @@ Polymer({
   actions: {
     updateFilteredCategories: ActionCreators.updateFilteredCategories,
     updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
-    toggleFilterFollowings: ActionCreators.toggleFilterFollowings
+    toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
+    setLocationFilter: ActionCreators.setLocationFilter
   },
 
   properties: {
@@ -18,6 +19,10 @@ Polymer({
     person: {
       type: Object,
       statePath: 'person'
+    },
+    locationFilter: {
+      type: String,
+      statePath: 'locationFilter'
     },
     filteredCategories: {
       type: Array,
@@ -74,6 +79,10 @@ Polymer({
 
   _filterFollowings () {
     this.dispatch('toggleFilterFollowings')
+  },
+
+  _locationFilterChanged (e, detail) {
+    if (this.locationFilter !== detail.item.name) this.dispatch('setLocationFilter', detail.item.name)
   }
 
 })

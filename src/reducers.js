@@ -89,6 +89,15 @@ function filteredFollowings (state = false, action) {
   }
 }
 
+function locationFilter (state = 'all', action) {
+  switch (action.type) {
+    case ActionTypes.SET_LOCATION_FILTER:
+      return action.locationFilter
+    default:
+      return state
+  }
+}
+
 function collaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
@@ -168,6 +177,7 @@ export default combineReducers({
   filteredCategories,
   filteredCollaborationTypes,
   filteredFollowings,
+  locationFilter,
   collaborationTypes,
   person,
   session,
