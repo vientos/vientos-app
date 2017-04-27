@@ -75,8 +75,16 @@ Polymer({
       type: Object,
       statePath: 'boundingBox'
     },
+    boundingBoxFilter: {
+      type: Boolean,
+      statePath: 'boundingBoxFilter'
+    },
     mapView: {
       type: Object
+    },
+    mapButtonVisible: {
+      type: Boolean,
+      computed: '_mapButtonVisibility(page, locationFilter)'
     },
     currentProject: {
       type: Object,
@@ -91,7 +99,7 @@ Polymer({
     visibleProjects: {
       type: Array,
       value: [],
-      computed: '_filterProjects(person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, locationFilter, boundingBox)'
+      computed: '_filterProjects(person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
     },
     visibleIntents: {
       type: Array,
@@ -233,6 +241,15 @@ Polymer({
 
   _toggleDrawer () {
     this.$$('app-drawer').toggle()
+  },
+
+  _showMap () {
+    window.history.pushState({}, '', '/map')
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _mapButtonVisibility (page, locationFilter) {
+    return page === 'projects' && locationFilter !== 'city'
   },
 
   _sessionChanged (session) {

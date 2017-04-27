@@ -8,7 +8,8 @@ Polymer({
     updateFilteredCategories: ActionCreators.updateFilteredCategories,
     updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
     toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
-    setLocationFilter: ActionCreators.setLocationFilter
+    setLocationFilter: ActionCreators.setLocationFilter,
+    toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
   },
 
   properties: {
@@ -23,6 +24,10 @@ Polymer({
     locationFilter: {
       type: String,
       statePath: 'locationFilter'
+    },
+    boundingBoxFilter: {
+      type: Boolean,
+      statePath: 'boundingBoxFilter'
     },
     filteredCategories: {
       type: Array,
@@ -83,6 +88,14 @@ Polymer({
 
   _locationFilterChanged (e, detail) {
     if (this.locationFilter !== detail.item.name) this.dispatch('setLocationFilter', detail.item.name)
+  },
+
+  _boundingBoxButtonDisabled () {
+    return this.locationFilter === 'city'
+  },
+
+  _toggleBoundingBoxFilter () {
+    this.dispatch('toggleBoundingBoxFilter')
   }
 
 })

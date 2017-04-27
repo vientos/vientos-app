@@ -148,7 +148,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- </main> -->
     </iron-pages>
-
+    <template is="dom-if" if="[[mapButtonVisible]]">
+      <paper-button id="map-button" name="map" on-tap="_showMap">
+        <iron-icon icon="vientos:map"></iron-icon>
+        <span>
+        [[localize('button:map')]]
+        </span>
+      </paper-button>
+    </template>
 
     <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
 

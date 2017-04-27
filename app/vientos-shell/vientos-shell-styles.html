@@ -124,6 +124,51 @@
   height: 2.5em !important;
   }*/
 
+  #map-button{
+
+   /*@apply --center-y;*/
+   @apply --layout-vertical;
+   @apply --layout-center-justified;
+   position: fixed;
+   z-index: 1000;
+   right: 1em;
+   bottom: 0;
+   width: 6em !important;
+   height: 6em !important;
+   margin: 1em;
+   /*padding: 1em;*/
+   bottom: 6em !important;
+   /*display: inline-block;*/
+   @apply --w-100;
+   border-radius: 50%;
+   text-align: center;
+   /*background-color: var(--app-footer-background-color);*/
+
+   @apply --vientos-button;
+   @apply --vientos-typography-button;
+
+   background-color: var(--vientos-color-button-bg);
+
+   @apply --shadow-elevation-2dp;
+  }
+
+ #map-button iron-icon,
+ #map-button span {
+   @apply --force-center;
+ }
+
+ #map-button iron-icon {
+   width: 18px;
+   height: 18px;
+   margin-bottom: 4px !important;
+ }
+
+ #map-button span {
+   height: auto !important;
+   display: block !important;
+ }
+
+
   </style>
 </template>
 </dom-module>

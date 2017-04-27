@@ -118,3 +118,9 @@ export function setLocationFilter (locationFilter) {
     locationFilter
   }
 }
+
+export function toggleBoundingBoxFilter () {
+  return {
+    type: ActionTypes.TOGGLE_BOUNDINBOX_FILTER
+  }
+}

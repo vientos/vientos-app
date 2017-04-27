@@ -12,7 +12,7 @@ Polymer({
     },
     buttons: {
       type: Array,
-      value: ['filter', 'projects', 'map', 'intents']
+      value: ['filter', 'projects', 'intents']
     },
     language: {
       type: String,
@@ -28,7 +28,7 @@ Polymer({
     if (this.buttons.includes(page)) {
       if (page === 'projects' && window.location.pathname === '/') return
       if (page === 'intents' && window.location.pathname === '/intents') return
-      if (page === 'map' && window.location.search !== '') return
+      // if (page === 'map' && window.location.search   !== '') return
       let pathname = page === 'projects' ? '/' : `/${page}`
       window.history.pushState({}, '', pathname)
       window.dispatchEvent(new CustomEvent('location-changed'))

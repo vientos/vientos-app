@@ -18,7 +18,7 @@ export function extractLocations (projects, boundingBox) {
   }, [])
 }
 
-export function filterProjects (person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, locationFilter, boundingBox) {
+export function filterProjects (person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -45,10 +45,20 @@ export function filterProjects (person, projects, intents, filteredCategories, f
       return intents.some(intent => intent.projects.includes(project._id) && filteredCollaborationTypes.includes(intent.collaborationType))
     })
   }
-  if (locationFilter === 'specific') {
-    // filter by bounding box
+  if (locationFilter === 'specific' && boundingBoxFilter) {
+    // filter with location inside bounding box
     filtered = filtered.filter(project => {
       return locationsInBoundingBox(project, boundingBox).length > 0
+    })
+  } else if (locationFilter === 'specific' && !boundingBoxFilter) {
+    // filter projects with some location
+    filtered = filtered.filter(project => {
+      return project.locations.length !== 0
+    })
+  } else if (locationFilter === 'all' && boundingBoxFilter) {
+    // show all projects without location and the ones with location inside bounding box
+    filtered = filtered.filter(project => {
+      return project.locations.length === 0 || locationsInBoundingBox(project, boundingBox).length > 0
     })
   } else if (locationFilter === 'city') {
     filtered = filtered.filter(project => {

@@ -22,6 +22,10 @@
         [[localize('button:filter-followings')]]
       </paper-toggle-button>
     </template>
+    <paper-toggle-button on-tap="_toggleBoundingBoxFilter" disabled="[[_boundingBoxButtonDisabled(locationFilter)]]" checked="[[boundingBoxFilter]]">
+      <iron-icon icon="vientos:map"></iron-icon>
+      [[localize('button:filter-boundingbox')]]
+    </paper-toggle-button>
     <paper-radio-group selected="[[locationFilter]]" on-iron-select="_locationFilterChanged">
       <paper-radio-button name="all">[[localize('label:all')]]</paper-radio-button>
       <paper-radio-button name="city">[[localize('label:city-wide')]]</paper-radio-button>

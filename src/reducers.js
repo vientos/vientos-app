@@ -89,6 +89,15 @@ function filteredFollowings (state = false, action) {
   }
 }
 
+function boundingBoxFilter (state = true, action) {
+  switch (action.type) {
+    case ActionTypes.TOGGLE_BOUNDINBOX_FILTER:
+      return !state
+    default:
+      return state
+  }
+}
+
 function locationFilter (state = 'all', action) {
   switch (action.type) {
     case ActionTypes.SET_LOCATION_FILTER:
@@ -178,6 +187,7 @@ export default combineReducers({
   filteredCollaborationTypes,
   filteredFollowings,
   locationFilter,
+  boundingBoxFilter,
   collaborationTypes,
   person,
   session,
