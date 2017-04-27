@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
+/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, google */
 
 Polymer({
   is: 'vientos-edit-project-details',
@@ -28,6 +28,10 @@ Polymer({
     categories: {
       type: Array,
       statePath: 'categories'
+    },
+    googleMapsApiKey: {
+      type: String,
+      value: 'AIzaSyAj1ARlapCB3msLX9lAVD1h0S1fpfaosOg'
     },
     language: {
       type: String,
@@ -75,11 +79,32 @@ Polymer({
   _save () {
     this.updated.locations.forEach(location => delete location.project)
     this.dispatch('saveProject', this.updated)
+    window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _cancel () {
     window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _getMainLocation () {
+    console.log(this.project.locations[0])
+    return this.project.locations[0].address
+  },
+
+  _onGoogleMapsApiLoad () {
+    this.autocomplete = new google.maps.places.Autocomplete(this.$['place-input'])
+    google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
+  },
+
+  _placeChanged () {
+    let place = this.autocomplete.getPlace()
+    this.set('updated.locations', [{
+      address: place.formatted_address,
+      latitude: place.geometry.location.lat(),
+      longitude: place.geometry.location.lng()
+    }])
   }
 
 })

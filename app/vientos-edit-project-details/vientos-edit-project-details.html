@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
@@ -39,6 +40,10 @@
       categories="[[categories]]"
       selection="[[updated.categories]]"
       on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
+    </section>
+    <section>
+      <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
+      <input id="place-input" value="[[_getMainLocation(project)]]">
     </section>
     <section id="contact-data">
       <ul>

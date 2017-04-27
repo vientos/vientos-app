@@ -15,6 +15,7 @@ function projects (state = [], action) {
         } else {
           project.locations = project.locations.map(location => {
             return {
+              address: location.address,
               latitude: Number(location.latitude),
               longitude: Number(location.longitude)
             }
