@@ -1,9 +1,15 @@
+/* global FormData */
 import fetch from 'isomorphic-fetch'
 import cuid from 'cuid'
 import * as ActionTypes from './actionTypes'
 
-const service = require('../config.json').service
-const pwa = require('../config.json').pwa
+const config = require('../config.json')
+const service = config.service
+const pwa = config.pwa
+const cloudinary = {
+  url: `https://api.cloudinary.com/v1_1/${config.cloudinary.cloud}/image/upload`,
+  preset: config.cloudinary.preset
+}
 
 // otherwise unit tests not run in browser will fail
 if (typeof window !== 'undefined') {
@@ -80,6 +86,22 @@ function del (resource) {
   })
 }
 
+function uploadAndSave (project, image) {
+  if (!image) return put(project)
+  let data = new FormData()
+  data.append('file', image)
+  data.append('upload_preset', cloudinary.preset)
+  return fetch(cloudinary.url, {
+    method: 'POST',
+    body: data
+  }).then(response => response.json())
+  .then(cloudinaryData => {
+    return Object.assign({}, project, {
+      logo: cloudinaryData.secure_url
+    })
+  }).then(updated => put(updated))
+}
+
 export default function vientos (action) {
   switch (action.type) {
     case ActionTypes.HELLO_REQUESTED:
@@ -93,7 +115,7 @@ export default function vientos (action) {
     case ActionTypes.SAVE_INTENT_REQUESTED:
       return put(action.intent)
     case ActionTypes.SAVE_PROJECT_REQUESTED:
-      return put(action.project)
+      return uploadAndSave(action.project, action.image)
     case ActionTypes.SAVE_PERSON_REQUESTED:
       return put(action.person)
     case ActionTypes.DELETE_INTENT_REQUESTED:

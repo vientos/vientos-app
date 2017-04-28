@@ -28,8 +28,8 @@
     </style>
 
     <section id="logo">
-      <label>[[localize('label:logo-url')]]: <input is="iron-input" bind-value="{{updated.logo}}" ></label>
-      <div><iron-image src="[[updated.logo]]"></iron-image></div>
+      <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
+      <div><input id="new-image" type="file" on-change="_imageInputChanged"></div>
     </section>
     <section id="general-info">
       <div><label>[[localize('label:org-name')]]: <input is="iron-input" bind-value="{{updated.name}}" ></label></div>

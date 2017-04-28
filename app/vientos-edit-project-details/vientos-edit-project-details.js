@@ -5,7 +5,8 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    saveProject: ActionCreators.saveProject
+    saveProject: ActionCreators.saveProject,
+    uploadImage: ActionCreators.uploadImage
   },
 
   properties: {
@@ -24,6 +25,14 @@ Polymer({
     newContact: {
       type: String,
       value: ''
+    },
+    newImage: {
+      type: Object,
+      value: null
+    },
+    imagePreviewSrc: {
+      type: String,
+      computed: '_getImagePreviewSrc(project, newImage)'
     },
     categories: {
       type: Array,
@@ -78,12 +87,13 @@ Polymer({
 
   _save () {
     this.updated.locations.forEach(location => delete location.project)
-    this.dispatch('saveProject', this.updated)
+    this.dispatch('saveProject', this.updated, this.newImage)
     window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _cancel () {
+    // TODO if (this.newFile) reset file input
     window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
@@ -104,6 +114,21 @@ Polymer({
       latitude: place.geometry.location.lat(),
       longitude: place.geometry.location.lng()
     }])
+  },
+
+  _imageInputChanged (e) {
+    let image = e.target.files[0]
+    if (image) {
+      this.set('newImage', image)
+    }
+  },
+
+  _getImagePreviewSrc (project, newImage) {
+    if (newImage) {
+      return window.URL.createObjectURL(newImage)
+    } else {
+      return project.logo
+    }
   }
 
 })

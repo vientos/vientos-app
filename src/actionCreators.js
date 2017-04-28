@@ -56,10 +56,11 @@ export function fetchProjects () {
   return { type: ActionTypes.FETCH_PROJECTS_REQUESTED }
 }
 
-export function saveProject (project) {
+export function saveProject (project, image) {
   return {
     type: ActionTypes.SAVE_PROJECT_REQUESTED,
-    project
+    project,
+    image
   }
 }
 
