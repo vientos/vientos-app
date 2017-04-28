@@ -31,7 +31,7 @@ Polymer({
     },
     googleMapsApiKey: {
       type: String,
-      value: 'AIzaSyAj1ARlapCB3msLX9lAVD1h0S1fpfaosOg'
+      value: window.vientos.config.map.googleApiKey
     },
     language: {
       type: String,
@@ -89,8 +89,7 @@ Polymer({
   },
 
   _getMainLocation () {
-    console.log(this.project.locations[0])
-    return this.project.locations[0].address
+    if (this.project) return this.project.locations[0].address
   },
 
   _onGoogleMapsApiLoad () {
