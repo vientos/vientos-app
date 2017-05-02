@@ -20,7 +20,13 @@
     </template>
 
     <h2>[[intent.title]]</h2>
-
+    <p>[[intent.description]]</p>
+    <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
+    <ul>
+      <template is="dom-repeat" items="[[intent.locations]]" as="location">
+        <li>[[location.address]]</li>
+      </template>
+    </ul>
     <p>[[localize(intent.collaborationType)]]</p>
     <p>[[localize(intent.condition)]]</p>
     <p>[[intent.direction]]</p>

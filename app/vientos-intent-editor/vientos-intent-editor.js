@@ -181,7 +181,6 @@ Polymer({
 
   _getImagePreviewSrc (intent, newImage) {
     if (newImage) {
-      console.log(window.URL.createObjectURL(newImage))
       return window.URL.createObjectURL(newImage)
     } else if (intent) {
       return intent.logo
@@ -189,7 +188,6 @@ Polymer({
   },
 
   ready () {
-    window.editor = this
     this.$.datepicker.set('i18n.firstDayOfWeek', 1)
     // this.$.datepicker.set('i18n.formatDate', (date) => { return date.toLocaleDateString() })
   }
