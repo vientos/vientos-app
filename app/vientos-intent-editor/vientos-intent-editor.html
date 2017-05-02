@@ -5,7 +5,11 @@
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
@@ -16,7 +20,7 @@
 
     <style include="vientos-intent-editor-styles"></style>
 
-    <input id="intentTitle" placeholder="Intent name" value="[[intent.title]]"/>
+    <input is="iron-input" bind-value="{{updated.title}}"/>
 
     <div id="intent-direction-toggle">
       <iron-icon icon="arrow-forward"></iron-icon>
@@ -26,13 +30,32 @@
       <span>[[localize('request')]]</span>
     </div>
 
+    <section id="logo">
+      <form id="new-image-form">
+        <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
+        <div>
+          <input id="new-image"
+            type="file"
+            accept="image/*"
+            on-change="_imageInputChanged">
+        </div>
+      </form>
+    </section>
+
+    <div><label>[[localize('label:org-description')]]:
+      <iron-autogrow-textarea bind-value="{{updated.description}}" ></iron-autogrow-textarea></label></div>
+
+    <section>
+      <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
+      <input id="place-input" value="[[_getMainLocation(project)]]">
+    </section>
 
     <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">
       <paper-listbox
         class="dropdown-content"
         attr-for-selected="name"
         on-iron-select="_setCollaborationType"
-        selected="[[intent.collaborationType]]">
+        selected="[[updated.collaborationType]]">
         <template is="dom-repeat" items="[[collaborationTypes]]">
           <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
         </template>
@@ -44,7 +67,7 @@
         class="dropdown-content"
         attr-for-selected="name"
         on-iron-select="_setCollaborationCondition"
-        selected="[[intent.condition]]">
+        selected="[[updated.condition]]">
         <template is="dom-repeat" items="[[conditions]]">
           <paper-item name="[[item]]">[[localize(item)]]</paper-item>
         </template>
@@ -57,19 +80,20 @@
       min="[[expiryMinDate]]"
       label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
 
-    <vientos-icon-button
+    <paper-button
       id="button-save-intent"
-      icon="vientos:ok"
-      text="[[localize('button:save')]]"
-      on-tap="_saveIntent"
-    ></vientos-icon-button>
+      on-tap="_save"
+    >[[localize('button:save')]]</paper-button>
+
+    <paper-button
+      id="button-cancel"
+      on-tap="_cancel"
+    >[[localize('button:cancel')]]</paper-button>
 
     <template is="dom-if" if="[[intent._id]]">
-          <vientos-icon-button
-            icon="vientos:cancel"
-            text="[[localize('button:delete')]]"
-            on-tap="_deleteIntent"
-          ></vientos-icon-button>
+          <paper-button
+            on-tap="_delete"
+          >[[localize('button:delete')]]</paper-button>
     </template>
   </template>
 

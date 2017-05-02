@@ -1,0 +1,25 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/ralex/.nvm/versions/node/v6.10.2/bin/node',
+1 verbose cli   '/home/ralex/.nvm/versions/node/v6.10.2/bin/npm',
+1 verbose cli   'completion',
+1 verbose cli   '--',
+1 verbose cli   'npm',
+1 verbose cli   'run',
+1 verbose cli   'bundle' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.2
+4 verbose stack TypeError: Cannot read property 'length' of undefined
+4 verbose stack     at EventEmitter.completion (/home/ralex/.nvm/versions/node/v6.10.2/lib/node_modules/npm/lib/completion.js:80:22)
+4 verbose stack     at Object.commandCache.(anonymous function) (/home/ralex/.nvm/versions/node/v6.10.2/lib/node_modules/npm/lib/npm.js:124:13)
+4 verbose stack     at EventEmitter.<anonymous> (/home/ralex/.nvm/versions/node/v6.10.2/lib/node_modules/npm/bin/npm-cli.js:73:30)
+4 verbose stack     at _combinedTickCallback (internal/process/next_tick.js:73:7)
+4 verbose stack     at process._tickCallback (internal/process/next_tick.js:104:9)
+5 verbose cwd /home/ralex/projects/vientos/vientos-sdk/vientos-pwa
+6 error Linux 3.16.0-4-amd64
+7 error argv "/home/ralex/.nvm/versions/node/v6.10.2/bin/node" "/home/ralex/.nvm/versions/node/v6.10.2/bin/npm" "completion" "--" "npm" "run" "bundle"
+8 error node v6.10.2
+9 error npm  v3.10.10
+10 error Cannot read property 'length' of undefined
+11 error If you need help, you may report this error at:
+11 error     <https://github.com/npm/npm/issues>
+12 verbose exit [ 1, true ]

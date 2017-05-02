@@ -75,10 +75,11 @@ export function fetchIntents () {
   return { type: ActionTypes.FETCH_INTENTS_REQUESTED }
 }
 
-export function saveIntent (intent) {
+export function saveIntent (intent, image) {
   return {
     type: ActionTypes.SAVE_INTENT_REQUESTED,
-    intent
+    intent,
+    image
   }
 }
 

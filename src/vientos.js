@@ -86,8 +86,8 @@ function del (resource) {
   })
 }
 
-function uploadAndSave (project, image) {
-  if (!image) return put(project)
+function uploadAndSave (entity, image) {
+  if (!image) return put(entity)
   let data = new FormData()
   data.append('file', image)
   data.append('upload_preset', cloudinary.preset)
@@ -96,7 +96,7 @@ function uploadAndSave (project, image) {
     body: data
   }).then(response => response.json())
   .then(cloudinaryData => {
-    return Object.assign({}, project, {
+    return Object.assign({}, entity, {
       logo: cloudinaryData.secure_url
     })
   }).then(updated => put(updated))
@@ -113,7 +113,7 @@ export default function vientos (action) {
     case ActionTypes.UNFOLLOW_REQUESTED:
       return del(action.following)
     case ActionTypes.SAVE_INTENT_REQUESTED:
-      return put(action.intent)
+      return uploadAndSave(action.intent, action.image)
     case ActionTypes.SAVE_PROJECT_REQUESTED:
       return uploadAndSave(action.project, action.image)
     case ActionTypes.SAVE_PERSON_REQUESTED:

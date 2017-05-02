@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent */
+/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, google */
 
 Polymer({
   is: 'vientos-intent-editor',
@@ -11,15 +11,35 @@ Polymer({
 
   properties: {
     intent: {
+      type: Object,
+      observer: '_intentChanged'
+    },
+    person: {
+      type: Object,
+      statePath: 'person'
+    },
+    updated: {
       type: Object
     },
     project: {
       type: Object,
       observer: '_createNewIntent'
     },
+    imagePreviewSrc: {
+      type: String,
+      computed: '_getImagePreviewSrc(intent, newImage)'
+    },
+    newImage: {
+      type: Object,
+      value: null
+    },
     toggled: {
       type: Boolean,
-      computed: '_checkIfToggled(intent)'
+      computed: '_checkIfToggled(updated)'
+    },
+    googleMapsApiKey: {
+      type: String,
+      value: window.vientos.config.map.googleApiKey
     },
     collaborationType: {
       type: String
@@ -57,12 +77,23 @@ Polymer({
     }
   },
 
-  _saveIntent () {
-    this.intent.title = this.$$('#intentTitle').value
-    this.intent.collaborationType = this.collaborationType
-    this.intent.condition = this.condition
-    this.intent.expiryDate = this.expiryDate
-    this.dispatch('saveIntent', this.intent)
+  _intentChanged () {
+    this._reset()
+    this._makeClone()
+  },
+
+  _makeClone () {
+    if (this.intent) {
+      let updated = Object.assign({}, this.intent)
+      this.set('updated', updated)
+    }
+  },
+
+  _save () {
+    this.updated.collaborationType = this.collaborationType
+    this.updated.condition = this.condition
+    this.updated.expiryDate = this.expiryDate
+    this.dispatch('saveIntent', this.updated, this.newImage)
     if (this.project) {
       window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
@@ -72,21 +103,33 @@ Polymer({
     }
   },
 
-  _deleteIntent () {
+  _delete () {
     this.dispatch('deleteIntent', this.intent)
     this._reset()
   },
 
   _reset () {
-    this.fire('reset')
+    this.set('newImage', null)
+    this.$['new-image-form'].reset()
   },
 
-  _checkIfToggled (intent) {
-    return intent && intent.direction === 'request'
+  _cancel () {
+    this._reset()
+    if (this.project) {
+      window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    } else {
+      window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
+  },
+
+  _checkIfToggled (updated) {
+    return updated && updated.direction === 'request'
   },
 
   _toggleDirection () {
-    this.set('intent.direction', this.intent.direction === 'offer' ? 'request' : 'offer')
+    this.set('updated.direction', this.updated.direction === 'offer' ? 'request' : 'offer')
   },
 
   _setCollaborationType (e, detail) {
@@ -99,12 +142,49 @@ Polymer({
 
   _createNewIntent () {
     if (this.project) {
-      this.set('intent', {
+      this._reset()
+      this.set('updated', {
         type: 'Intent',
         direction: 'offer',
         condition: 'gift',
+        creator: this.person._id,
+        admins: [this.person._id],
         projects: [ this.project._id ]
       })
+    }
+  },
+
+  _getMainLocation () {
+    if (this.project) return this.project.locations[0].address
+  },
+
+  _onGoogleMapsApiLoad () {
+    this.autocomplete = new google.maps.places.Autocomplete(this.$['place-input'])
+    google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
+  },
+
+  _placeChanged () {
+    let place = this.autocomplete.getPlace()
+    this.set('updated.locations', [{
+      address: place.formatted_address,
+      latitude: place.geometry.location.lat(),
+      longitude: place.geometry.location.lng()
+    }])
+  },
+
+  _imageInputChanged (e) {
+    let image = e.target.files[0]
+    if (image) {
+      this.set('newImage', image)
+    }
+  },
+
+  _getImagePreviewSrc (intent, newImage) {
+    if (newImage) {
+      console.log(window.URL.createObjectURL(newImage))
+      return window.URL.createObjectURL(newImage)
+    } else if (intent) {
+      return intent.logo
     }
   },
 
