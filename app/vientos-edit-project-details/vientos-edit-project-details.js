@@ -13,7 +13,7 @@ Polymer({
     project: {
       // passed from parent
       type: Object,
-      observer: '_makeClone'
+      observer: '_projectChanged'
     },
     updated: {
       type: Object
@@ -52,6 +52,11 @@ Polymer({
     }
   },
 
+  _projectChanged () {
+    this._reset()
+    this._makeClone()
+  },
+
   _makeClone () {
     if (this.project) {
       let updated = Object.assign({}, this.project)
@@ -85,15 +90,23 @@ Polymer({
     this.set('updated.categories', selection)
   },
 
+  _reset() {
+    this.set('newImage', null)
+    this.set('newContact', '')
+    this.set('newLink', '')
+    this.$['new-image-form'].reset()
+  },
+
   _save () {
     this.updated.locations.forEach(location => delete location.project)
     this.dispatch('saveProject', this.updated, this.newImage)
+    this._reset()
     window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _cancel () {
-    // TODO if (this.newFile) reset file input
+    this._reset()
     window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
@@ -126,7 +139,7 @@ Polymer({
   _getImagePreviewSrc (project, newImage) {
     if (newImage) {
       return window.URL.createObjectURL(newImage)
-    } else {
+    } else if (project) {
       return project.logo
     }
   }

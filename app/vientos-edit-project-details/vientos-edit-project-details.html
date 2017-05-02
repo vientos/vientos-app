@@ -28,8 +28,15 @@
     </style>
 
     <section id="logo">
-      <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
-      <div><input id="new-image" type="file" on-change="_imageInputChanged"></div>
+      <form id="new-image-form">
+        <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
+        <div>
+          <input id="new-image"
+            type="file"
+            accept="image/*"
+            on-change="_imageInputChanged">
+        </div>
+      </form>
     </section>
     <section id="general-info">
       <div><label>[[localize('label:org-name')]]: <input is="iron-input" bind-value="{{updated.name}}" ></label></div>
