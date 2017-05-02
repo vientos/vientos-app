@@ -20,11 +20,16 @@
       <h2>[[person.name]]</h2>
       <vientos-icon-button icon="vientos:login" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
 
-        <ul>
+      <ul>
         <template is="dom-repeat" items="[[person.categories]]">
           <li><iron-icon icon="vientos:[[item]]"></iron-icon>[[localize(item)]]</li>
         </template>
-        </ul>
+      </ul>
+      <ul>
+        <template is="dom-repeat" items="[[myProjects]]" as="project">
+          <li><a href="[[_projectUrl(project)]]">[[project.name]]</a></li>
+        </template>
+      </ul>
     </template>
     <template is="dom-if" if="[[!person]]">
       <ul>

@@ -13,6 +13,14 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    myProjects: {
+      type: Array,
+      computed: '_filterMyProjects(projects)'
+    },
+    projects: {
+      type: Array,
+      statePath: 'projects'
+    },
     login: {
       type: String,
       value: () => { return window.vientos.login }
@@ -36,6 +44,10 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _projectUrl (project) {
+    return util.pathFor(project, 'project')
+  },
+
   _bye () {
     this.dispatch('bye', this.session)
     window.history.pushState({}, '', `/`)
@@ -44,6 +56,10 @@ Polymer({
 
   ready () {
     window.page = this
+  },
+
+  _filterMyProjects (projects) {
+    return projects.filter(project => project.admins.includes(this.person._id))
   }
 
 })

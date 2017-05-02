@@ -90,7 +90,7 @@ Polymer({
     this.set('updated.categories', selection)
   },
 
-  _reset() {
+  _reset () {
     this.set('newImage', null)
     this.set('newContact', '')
     this.set('newLink', '')
