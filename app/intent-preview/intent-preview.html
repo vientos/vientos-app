@@ -1,14 +1,31 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../components/vientos-card/vientos-card.html">
 
 <dom-module id="intent-preview">
   <template>
-    <vientos-card>
-      <a href="[[_intentPageUrl(intent)]]">[[intent.title]]</a>
-      <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]">
-        [[item.name]]
-      </template>
+
+    <style>
+      iron-image {
+        width: 26px;
+        height: 26px;
+        padding-left: 5px;
+      }
+    </style>
+
+    <vientos-card on-tap="_showIntentDetails">
+      <p>[[localize(intent.direction)]]</p>
+      <p>[[intent.title]]</p>
+      <p>[[localize(intent.collaborationType)]]</p>
+      <template is="dom-if" if="[[showProjects]]">
+        <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
+          <p>
+            <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
+            [[project.name]]</p>
+          </template>
+        </template>
+
     </vientos-card>
   </template>
   <script src="intent-preview.js"></script>

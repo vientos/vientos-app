@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, util */
+/* global Polymer, ReduxBehavior, util, CustomEvent */
 
 Polymer({
   is: 'intent-preview',
@@ -12,6 +12,9 @@ Polymer({
       type: Array,
       statePath: 'projects'
     },
+    showProjects: {
+      type: Boolean
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -24,8 +27,13 @@ Polymer({
 
   _getRef: util.getRef,
 
-  _intentPageUrl (intent) {
-    return util.pathFor(intent, 'intent')
+  _showIntentDetails () {
+    window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  ready () {
+    console.log(this.showProjects)
   }
 
 })
