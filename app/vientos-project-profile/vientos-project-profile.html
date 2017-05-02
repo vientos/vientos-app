@@ -8,7 +8,7 @@
 
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 
-<link rel="import" href="../vientos-intent-editor/vientos-intent-editor.html">
+<link rel="import" href="../intent-preview/intent-preview.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-project-profile-styles.html">
@@ -86,37 +86,18 @@
 </template>
 
 <section id="project-collaborations">
+  <div>
+    <template is="dom-repeat" items="[[requests]]">
+      <intent-preview intent="[[item]]"></intent-preview>
+    </template>
+  </div>
+  <div>
+    <template is="dom-repeat" items="[[offers]]">
+      <intent-preview intent="[[item]]"></intent-preview>
+    </template>
+  </div>
 
-    <div>
-      <h5>[[localize('offers')]]</h5>
-      <ul id="project-offers-list">
-        <template is="dom-repeat" items="[[offers]]">
-          <li>
-            <paper-item>
-              <iron-icon icon="arrow-forward" mini></iron-icon>
-              <a href="[[_intentPageUrl(item)]]">[[item.title]]</a>
-            </paper-item>
-        </li>
-        </template>
-      </ul>
-    </div>
-
-    <div>
-      <h5>[[localize('requests')]]</h5>
-      <ul id="project-requests-list">
-        <template is="dom-repeat" items="[[requests]]">
-          <li>
-            <paper-item>
-              <iron-icon icon="arrow-back" mini></iron-icon>
-              <a href="[[_intentPageUrl(item)]]">[[item.title]]</a>
-          </paper-item>
-        </li>
-        </template>
-      </ul>
-    </div>
-
-
-  </section>
+</section>
 
   </template>
 
