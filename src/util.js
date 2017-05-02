@@ -120,6 +120,6 @@ export function iconFor (item) {
   return 'vientos:' + item.id
 }
 
-export function intentPageUrl (i) {
-
+export function getRef (entityIds, collection) {
+  return collection.filter(entity => entityIds.includes(entity._id))
 }

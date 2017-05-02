@@ -38,6 +38,8 @@ Polymer({
 
   _getIntentProjects: util.getIntentProjects,
 
+  _getRef: util.getRef,
+
   _editIntent () {
     window.history.pushState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))

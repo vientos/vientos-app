@@ -8,6 +8,10 @@ Polymer({
     intent: {
       type: Object
     },
+    projects: {
+      type: Array,
+      statePath: 'projects'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -18,7 +22,10 @@ Polymer({
     }
   },
 
+  _getRef: util.getRef,
+
   _intentPageUrl (intent) {
     return util.pathFor(intent, 'intent')
   }
+
 })

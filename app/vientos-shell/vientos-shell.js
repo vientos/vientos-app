@@ -39,13 +39,11 @@ Polymer({
     },
     projects: {
       type: Array,
-      statePath: 'projects',
-      observer: '_addProjectsToIntents'
+      statePath: 'projects'
     },
     intents: {
       type: Array,
-      statePath: 'intents',
-      observer: '_addProjectsToIntents'
+      statePath: 'intents'
     },
     person: {
       type: Object,
@@ -217,14 +215,6 @@ Polymer({
   _findIntent (page, intentId, intents) {
     if (page !== 'intent' && page !== 'edit-intent') return null
     return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
-  },
-
-  _addProjectsToIntents () {
-    if (this.intents && this.projects) {
-      this.intents.forEach(intent => {
-        intent.projectRefs = intent.projects.map(projectId => this.projects.find(p => p._id === projectId))
-      })
-    }
   },
 
   _filterProjects: util.filterProjects,

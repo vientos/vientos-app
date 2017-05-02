@@ -27,7 +27,7 @@
     <p>[[intent.expiryDate]]</p>
 
     <ul>
-      <template is="dom-repeat" items="[[intent.projectRefs]]" as="project">
+      <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
         <li><a href="[[_projectPageUrl(project)]]">[[project.name]]</a></li>
       </template>
     </ul>

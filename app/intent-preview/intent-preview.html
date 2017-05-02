@@ -6,7 +6,7 @@
   <template>
     <vientos-card>
       <a href="[[_intentPageUrl(intent)]]">[[intent.title]]</a>
-      <template is="dom-repeat" items="[[intent.projectRefs]]">
+      <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]">
         [[item.name]]
       </template>
     </vientos-card>
