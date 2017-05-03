@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
@@ -17,6 +18,7 @@
       <paper-button on-tap="_editProfile">
         [[localize('button:edit')]]
       </paper-button>
+      <div><iron-image src="[[person.logo]]" sizing="contain"></iron-image></div>
       <h2>[[person.name]]</h2>
       <vientos-icon-button icon="vientos:login" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
 

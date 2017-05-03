@@ -5,3 +5,4 @@ bundle.js
 config.json
 coverage
 .nyc_output
+npm-debug.log

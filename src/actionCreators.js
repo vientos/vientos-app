@@ -64,10 +64,11 @@ export function saveProject (project, image) {
   }
 }
 
-export function savePerson (person) {
+export function savePerson (person, image) {
   return {
     type: ActionTypes.SAVE_PERSON_REQUESTED,
-    person
+    person,
+    image
   }
 }
 

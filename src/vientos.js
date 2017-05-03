@@ -117,7 +117,7 @@ export default function vientos (action) {
     case ActionTypes.SAVE_PROJECT_REQUESTED:
       return uploadAndSave(action.project, action.image)
     case ActionTypes.SAVE_PERSON_REQUESTED:
-      return put(action.person)
+      return uploadAndSave(action.person, action.image)
     case ActionTypes.DELETE_INTENT_REQUESTED:
       return del(action.intent)
     case ActionTypes.FETCH_PERSON_REQUESTED:

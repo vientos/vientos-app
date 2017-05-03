@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
 
@@ -15,6 +16,18 @@
     <style include="personal-profile-editor-styles"></style>
 
     <input is="iron-input" bind-value="{{updated.name}}">
+
+    <section id="logo">
+      <form id="new-image-form">
+        <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
+        <div>
+          <input id="new-image"
+            type="file"
+            accept="image/*"
+            on-change="_imageInputChanged">
+        </div>
+      </form>
+    </section>
 
     <section id="categories">
       <vientos-categories-selector
