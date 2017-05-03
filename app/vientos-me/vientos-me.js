@@ -15,7 +15,7 @@ Polymer({
     },
     myProjects: {
       type: Array,
-      computed: '_filterMyProjects(projects)'
+      computed: '_filterMyProjects(person, projects)'
     },
     projects: {
       type: Array,
@@ -58,8 +58,8 @@ Polymer({
     window.page = this
   },
 
-  _filterMyProjects (projects) {
-    return projects.filter(project => project.admins.includes(this.person._id))
+  _filterMyProjects (person, projects) {
+    if (person) return projects.filter(project => project.admins.includes(this.person._id))
   }
 
 })

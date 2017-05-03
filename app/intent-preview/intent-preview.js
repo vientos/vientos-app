@@ -30,10 +30,6 @@ Polymer({
   _showIntentDetails () {
     window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
-  ready () {
-    console.log(this.showProjects)
   }
 
 })
