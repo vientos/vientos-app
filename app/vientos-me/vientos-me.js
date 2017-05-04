@@ -1,21 +1,35 @@
-/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent */
+/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util */
 
 Polymer({
   is: 'vientos-me',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    bye: ActionCreators.bye
+    bye: ActionCreators.bye,
+    fetchMyConversations: ActionCreators.fetchMyConversations
   },
 
   properties: {
     person: {
       type: Object,
-      statePath: 'person'
+      statePath: 'person',
+      observer: '_personChanged'
+    },
+    intents: {
+      type: Array,
+      statePath: 'intents'
     },
     myProjects: {
       type: Array,
       computed: '_filterMyProjects(person, projects)'
+    },
+    activeIntents: {
+      type: Array,
+      computed: '_filterActiveIntents(person, intents, myConversations)'
+    },
+    myConversations: {
+      type: Array,
+      statePath: 'myConversations'
     },
     projects: {
       type: Array,
@@ -54,12 +68,18 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  ready () {
-    window.page = this
-  },
-
   _filterMyProjects (person, projects) {
     if (person) return projects.filter(project => project.admins.includes(this.person._id))
+  },
+
+  _filterActiveIntents: util.filterActiveIntents,
+
+  _personChanged (person) {
+    if (person) {
+      setTimeout(() => {
+        this.dispatch('fetchMyConversations', person)
+      }, 100)
+    }
   }
 
 })

@@ -63,6 +63,17 @@ function categories (state = [], action) {
   }
 }
 
+function myConversations (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_MY_CONVERSATIONS_SUCCEEDED:
+      return action.json
+    case ActionTypes.START_CONVERSATION_SUCCEEDED:
+      return replaceOrAddElement(state, action.json)
+    default:
+      return state
+  }
+}
+
 function filteredCategories (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_CATEGORIES:
@@ -191,6 +202,7 @@ export default combineReducers({
   boundingBoxFilter,
   collaborationTypes,
   person,
+  myConversations,
   session,
   boundingBox,
   language,

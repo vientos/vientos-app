@@ -135,9 +135,9 @@ Polymer({
 
   ready () {
     this._initializeMap()
-    // If not this 100 ms interval, doesn't load some tiles
+    // FIXME do only once, after viewing map page.. If not this 100 ms interval, doesn't load some tiles
     setInterval(() => {
       this.map.invalidateSize()
-    }, 100)
+    }, 200)
   }
 })

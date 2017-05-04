@@ -35,7 +35,8 @@ const collections = {
   projects: { type: 'Project' },
   intents: { type: 'Intent' },
   sessions: { type: 'Session' },
-  followings: { type: 'Following' }
+  followings: { type: 'Following' },
+  conversations: { type: 'Conversation' }
 }
 
 function dataUrl (actionType) {
@@ -122,6 +123,8 @@ export default function vientos (action) {
       return del(action.intent)
     case ActionTypes.FETCH_PERSON_REQUESTED:
       return get(action.id)
+    case ActionTypes.FETCH_MY_CONVERSATIONS_REQUESTED:
+      return get(action.person._id + '/conversations')
     case ActionTypes.FETCH_CATEGORIES_REQUESTED:
     case ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED:
     case ActionTypes.FETCH_LABELS_REQUESTED:
@@ -129,6 +132,8 @@ export default function vientos (action) {
     case ActionTypes.FETCH_PROJECTS_REQUESTED:
     case ActionTypes.FETCH_INTENTS_REQUESTED:
       return get(collectionUrl(action.type))
+    case ActionTypes.START_CONVERSATION_REQUESTED:
+      return put(action.conversation)
     default:
       throw new Error('unknown action: ' + action.type)
   }

@@ -47,6 +47,11 @@ Polymer({
 
   _projectPageUrl (project) {
     return util.pathFor(project, 'project')
+  },
+
+  _startConversation () {
+    window.history.pushState({}, '', `/new-conversation/${this.intent._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
 })

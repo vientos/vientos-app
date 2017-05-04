@@ -187,6 +187,10 @@ Polymer({
       case 'edit-my-profile':
         viewUrl = '../personal-profile-editor/personal-profile-editor'
         break
+
+      case 'new-conversation':
+        viewUrl = '../start-conversation/start-conversation'
+        break
     }
 
     viewUrl += '.html'
@@ -213,7 +217,7 @@ Polymer({
   },
 
   _findIntent (page, intentId, intents) {
-    if (page !== 'intent' && page !== 'edit-intent') return null
+    if (page !== 'intent' && page !== 'edit-intent' && page !== 'new-conversation') return null
     return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
   },
 

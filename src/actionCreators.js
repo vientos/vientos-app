@@ -127,3 +127,17 @@ export function toggleBoundingBoxFilter () {
     type: ActionTypes.TOGGLE_BOUNDINBOX_FILTER
   }
 }
+
+export function startConversation (conversation) {
+  return {
+    type: ActionTypes.START_CONVERSATION_REQUESTED,
+    conversation
+  }
+}
+
+export function fetchMyConversations (person) {
+  return {
+    type: ActionTypes.FETCH_MY_CONVERSATIONS_REQUESTED,
+    person
+  }
+}

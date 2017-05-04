@@ -37,6 +37,7 @@ const handleLatest = [
   ActionTypes.FETCH_LABELS_REQUESTED,
   ActionTypes.FETCH_INTENTS_REQUESTED,
   ActionTypes.FETCH_PERSON_REQUESTED,
+  ActionTypes.FETCH_MY_CONVERSATIONS_REQUESTED,
   ActionTypes.HELLO_REQUESTED,
   ActionTypes.BYE_REQUESTED,
   ActionTypes.SAVE_PERSON_REQUESTED
@@ -47,7 +48,8 @@ const handleEvery = [
   ActionTypes.UNFOLLOW_REQUESTED,
   ActionTypes.SAVE_INTENT_REQUESTED,
   ActionTypes.DELETE_INTENT_REQUESTED,
-  ActionTypes.SAVE_PROJECT_REQUESTED
+  ActionTypes.SAVE_PROJECT_REQUESTED,
+  ActionTypes.START_CONVERSATION_REQUESTED
 ]
 
 function * root () {

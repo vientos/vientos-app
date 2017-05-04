@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 
@@ -37,6 +38,10 @@
         <li><a href="[[_projectPageUrl(project)]]">[[project.name]]</a></li>
       </template>
     </ul>
+
+    <div>
+      <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
+    </div>
   </template>
 
   <script src="vientos-intent-page.js"></script>

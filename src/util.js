@@ -123,3 +123,26 @@ export function iconFor (item) {
 export function getRef (entityIds, collection) {
   return collection.filter(entity => entityIds.includes(entity._id))
 }
+
+export function findPotentialMatches (person, projects, intents, matchedIntent) {
+  if (matchedIntent && person) {
+    return intents.filter(intent => {
+      return matchedIntent.direction !== intent.direction && intent.projects.some(projectId => {
+        return projects.filter(project => {
+          return project.admins.includes(person._id)
+        }).some(project => project._id === projectId)
+      })
+    })
+  }
+}
+
+export function filterActiveIntents (person, intents, myConversations) {
+  console.log('filterActiveIntents')
+  if (person) {
+    let createdConversations = myConversations.filter(conversation => conversation.creator === person._id)
+    // TODO add matching intent
+    let ints = intents.filter(intent => createdConversations.some(conversation => conversation.causingIntent === intent._id))
+    console.log(ints)
+    return ints
+  }
+}
