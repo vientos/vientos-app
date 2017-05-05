@@ -19,7 +19,8 @@ Polymer({
     fetchCategories: ActionCreators.fetchCategories,
     fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
     fetchProjects: ActionCreators.fetchProjects,
-    fetchIntents: ActionCreators.fetchIntents
+    fetchIntents: ActionCreators.fetchIntents,
+    fetchMyConversations: ActionCreators.fetchMyConversations
   },
 
   properties: {
@@ -47,7 +48,12 @@ Polymer({
     },
     person: {
       type: Object,
-      statePath: 'person'
+      statePath: 'person',
+      observer: '_personChanged'
+    },
+    myConversations: {
+      type: Array,
+      statePath: 'myConversations'
     },
     filteredCategories: {
       type: Array,
@@ -93,6 +99,11 @@ Polymer({
       type: Object,
       value: null,
       computed: '_findIntent(routeData.page, subrouteData.id, intents)'
+    },
+    currentConversation: {
+      type: Object,
+      value: null,
+      computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
     },
     visibleProjects: {
       type: Array,
@@ -191,6 +202,10 @@ Polymer({
       case 'new-conversation':
         viewUrl = '../start-conversation/start-conversation'
         break
+
+      case 'conversation':
+        viewUrl = '../conversation-page/conversation-page'
+        break
     }
 
     viewUrl += '.html'
@@ -211,6 +226,12 @@ Polymer({
     this.page = 'view404'
   },
 
+  _personChanged (person) {
+    if (person) {
+      this.dispatch('fetchMyConversations', person)
+    }
+  },
+
   _findProject (page, projectId, projects) {
     if (page !== 'project' && page !== 'edit-project-details' && page !== 'new-intent') return null
     return projects.find(project => project._id === util.urlFromId(projectId, 'projects'))
@@ -219,6 +240,11 @@ Polymer({
   _findIntent (page, intentId, intents) {
     if (page !== 'intent' && page !== 'edit-intent' && page !== 'new-conversation') return null
     return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
+  },
+
+  _findConversation (page, conversationId, conversations) {
+    if (page !== 'conversation') return null
+    return conversations.find(conversation => conversation._id === util.urlFromId(conversationId, 'conversations'))
   },
 
   _filterProjects: util.filterProjects,

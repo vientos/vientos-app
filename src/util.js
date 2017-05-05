@@ -121,7 +121,11 @@ export function iconFor (item) {
 }
 
 export function getRef (entityIds, collection) {
-  return collection.filter(entity => entityIds.includes(entity._id))
+  if (!Array.isArray(entityIds)) {
+    return collection.find(entity => entityIds === entity._id)
+  } else {
+    return collection.filter(entity => entityIds.includes(entity._id))
+  }
 }
 
 export function findPotentialMatches (person, projects, intents, matchedIntent) {
@@ -144,5 +148,11 @@ export function filterActiveIntents (person, intents, myConversations) {
     let ints = intents.filter(intent => createdConversations.some(conversation => conversation.causingIntent === intent._id))
     console.log(ints)
     return ints
+  }
+}
+
+export function filterIntentConversations (intent, myConversations) {
+  if (intent) {
+    return myConversations.filter(conversation => conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id)
   }
 }

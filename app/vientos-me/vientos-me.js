@@ -5,15 +5,13 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    bye: ActionCreators.bye,
-    fetchMyConversations: ActionCreators.fetchMyConversations
+    bye: ActionCreators.bye
   },
 
   properties: {
     person: {
       type: Object,
-      statePath: 'person',
-      observer: '_personChanged'
+      statePath: 'person'
     },
     intents: {
       type: Array,
@@ -72,14 +70,6 @@ Polymer({
     if (person) return projects.filter(project => project.admins.includes(this.person._id))
   },
 
-  _filterActiveIntents: util.filterActiveIntents,
-
-  _personChanged (person) {
-    if (person) {
-      setTimeout(() => {
-        this.dispatch('fetchMyConversations', person)
-      }, 100)
-    }
-  }
+  _filterActiveIntents: util.filterActiveIntents
 
 })

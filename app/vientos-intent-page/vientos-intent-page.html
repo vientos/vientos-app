@@ -17,6 +17,14 @@
     <style include="vientos-intent-page-styles"></style>
 
     <template is="dom-if" if="[[admin]]">
+      <ul>
+        <template is="dom-repeat" items="[[conversations]]" as="conversation">
+          <!-- TODO think what to show -->
+          <li><a href="[[_conversationUrl(conversation)]]">[[conversation._id]]</a></li>
+        </template>
+      </ul>
+    </template>
+    <template is="dom-if" if="[[admin]]">
       <paper-button on-tap="_editIntent">[[localize('button:edit')]]</paper-button>
     </template>
 
@@ -39,9 +47,9 @@
       </template>
     </ul>
 
-    <div>
+    <template is="dom-if" if="[[!admin]]">
       <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
-    </div>
+    </template>
   </template>
 
   <script src="vientos-intent-page.js"></script>

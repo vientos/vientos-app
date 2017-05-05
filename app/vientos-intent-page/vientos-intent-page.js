@@ -12,6 +12,14 @@ Polymer({
     intent: {
       type: Object
     },
+    conversations: {
+      type: Array,
+      computed: '_filterIntentConversations(intent, myConversations)'
+    },
+    myConversations: {
+      type: Array,
+      statePath: 'myConversations'
+    },
     projects: {
       type: Array,
       statePath: 'projects'
@@ -40,6 +48,8 @@ Polymer({
 
   _getRef: util.getRef,
 
+  _filterIntentConversations: util.filterIntentConversations,
+
   _editIntent () {
     window.history.pushState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
@@ -47,6 +57,10 @@ Polymer({
 
   _projectPageUrl (project) {
     return util.pathFor(project, 'project')
+  },
+
+  _conversationUrl (conversation) {
+    return util.pathFor(conversation, 'conversation')
   },
 
   _startConversation () {
