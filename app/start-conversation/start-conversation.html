@@ -19,8 +19,12 @@
 
 
 <!-- TODO set label -->
-    <div><label>[[localize('label:org-description')]]:
-      <iron-autogrow-textarea bind-value="{{answer.body}}" ></iron-autogrow-textarea></label></div>
+    <p>[[intent.question]]</p>
+    <div>
+      <label>[[localize('label:org-description')]]:
+        <iron-autogrow-textarea bind-value="{{answer.body}}" ></iron-autogrow-textarea>
+      </label>
+    </div>
 
       <!-- TODO set label -->
     <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">

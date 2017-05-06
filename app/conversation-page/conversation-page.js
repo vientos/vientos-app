@@ -35,11 +35,11 @@ Polymer({
   },
 
   _getCausingIntent (conversation, intents) {
-    return util.getRef(conversation.causingIntent, intents)
+    if (conversation) return util.getRef(conversation.causingIntent, intents)
   },
 
   _getMatchingIntent (conversation, intents) {
-    return util.getRef(conversation.matchingIntent, intents)
+    if (conversation) return util.getRef(conversation.matchingIntent, intents)
   },
 
   ready () {

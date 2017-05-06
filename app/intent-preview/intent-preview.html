@@ -22,9 +22,13 @@
         <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
           <p>
             <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
-            [[project.name]]</p>
-          </template>
+            [[project.name]]
+          </p>
         </template>
+      </template>
+      <template is="dom-if" if="[[intent.openConversations.length]]">
+        <p>[[intent.openConversations.length]]</p>
+      </template>
 
     </vientos-card>
   </template>

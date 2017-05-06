@@ -16,7 +16,7 @@
   <template>
     <style include="vientos-intent-page-styles"></style>
 
-    <template is="dom-if" if="[[admin]]">
+    <template is="dom-if" if="[[_conversationsVisible(admin, conversationCreator)]]">
       <ul>
         <template is="dom-repeat" items="[[conversations]]" as="conversation">
           <!-- TODO think what to show -->
@@ -30,6 +30,7 @@
 
     <h2>[[intent.title]]</h2>
     <p>[[intent.description]]</p>
+    <p>[[intent.question]]</p>
     <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
     <ul>
       <template is="dom-repeat" items="[[intent.locations]]" as="location">
@@ -47,7 +48,7 @@
       </template>
     </ul>
 
-    <template is="dom-if" if="[[!admin]]">
+    <template is="dom-if" if="[[_collaborateVisible(admin, conversationCreator)]]">
       <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
     </template>
   </template>

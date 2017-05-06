@@ -42,8 +42,17 @@
       </form>
     </section>
 
-    <div><label>[[localize('label:org-description')]]:
-      <iron-autogrow-textarea bind-value="{{updated.description}}" ></iron-autogrow-textarea></label></div>
+    <div>
+      <label>[[localize('label:org-description')]]:
+        <iron-autogrow-textarea bind-value="{{updated.description}}" ></iron-autogrow-textarea>
+      </label>
+    </div>
+
+    <div>
+      <label>[[localize('label:org-description')]]:
+        <iron-autogrow-textarea bind-value="{{updated.question}}" ></iron-autogrow-textarea>
+      </label>
+    </div>
 
     <section>
       <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>

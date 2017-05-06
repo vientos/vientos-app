@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, google */
+/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util, google */
 
 Polymer({
   is: 'vientos-intent-editor',
@@ -94,13 +94,8 @@ Polymer({
     this.updated.condition = this.condition
     this.updated.expiryDate = this.expiryDate
     this.dispatch('saveIntent', this.updated, this.newImage)
-    if (this.project) {
-      window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
-      window.dispatchEvent(new CustomEvent('location-changed'))
-    } else {
-      window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
-      window.dispatchEvent(new CustomEvent('location-changed'))
-    }
+    window.history.pushState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _delete () {
@@ -144,6 +139,7 @@ Polymer({
     if (this.project) {
       this._reset()
       this.set('updated', {
+        _id: util.mintUrl({ type: 'Intent' }),
         type: 'Intent',
         direction: 'offer',
         condition: 'gift',

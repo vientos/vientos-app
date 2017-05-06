@@ -58,7 +58,8 @@ Polymer({
     this.conversation.messages.push(this.answer)
     this.dispatch('startConversation', this.conversation)
     this._reset()
-    // TODO navigates to convesation page
+    window.history.pushState({}, '', `/conversation/${this.conversation._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _reset () {
@@ -73,6 +74,7 @@ Polymer({
   _createConversation (person, intent) {
     if (person && intent) {
       this.set('conversation', {
+        _id: util.mintUrl({ type: 'Conversation' }),
         type: 'Conversation',
         creator: person._id,
         causingIntent: intent._id,

@@ -53,7 +53,7 @@ function collectionUrl (actionType) {
   }
 }
 
-function mintUrl (resource) {
+export function mintUrl (resource) {
   let path = Object.keys(collections)
               .find(key => collections[key].type === resource.type)
   return `${service}/${path}/${cuid()}`

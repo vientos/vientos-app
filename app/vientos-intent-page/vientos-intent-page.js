@@ -32,6 +32,10 @@ Polymer({
       type: Boolean,
       computed: '_checkIfAdmin(person, intentProjects)'
     },
+    conversationCreator: {
+      type: Boolean,
+      computed: '_checkIfConversationCreator(person, intent, myConversations)'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -43,6 +47,8 @@ Polymer({
   },
 
   _checkIfAdmin: util.checkIfAdmin,
+
+  _checkIfConversationCreator: util.checkIfConversationCreator,
 
   _getIntentProjects: util.getIntentProjects,
 
@@ -66,6 +72,13 @@ Polymer({
   _startConversation () {
     window.history.pushState({}, '', `/new-conversation/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  }
+  },
 
+  _conversationsVisible (admin, conversationCreator) {
+    return admin || conversationCreator
+  },
+
+  _collaborateVisible (admin, conversationCreator) {
+    return !admin && !conversationCreator
+  }
 })

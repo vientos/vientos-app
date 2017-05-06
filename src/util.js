@@ -1,4 +1,7 @@
+import { mintUrl } from './vientos'
 const service = require('../config.json').service
+
+export { mintUrl }
 
 export function locationsInBoundingBox (project, boundingBox) {
   return project.locations.filter(location => {
@@ -98,6 +101,15 @@ export function checkIfAdmin (person, projects) {
   return person && projects.some(project => project.admins && project.admins.includes(person._id))
 }
 
+export function checkIfConversationCreator (person, intent, myConversations) {
+  if (person && intent && myConversations) {
+    return myConversations.some(conversation => {
+      return conversation.causingIntent === intent._id &&
+             conversation.creator === person._id
+    })
+  }
+}
+
 export function checkIfFollows (person, project) {
   if (person && project && person.followings) {
     return person.followings.find(el => el.project === project._id) || null
@@ -141,13 +153,10 @@ export function findPotentialMatches (person, projects, intents, matchedIntent) 
 }
 
 export function filterActiveIntents (person, intents, myConversations) {
-  console.log('filterActiveIntents')
   if (person) {
     let createdConversations = myConversations.filter(conversation => conversation.creator === person._id)
     // TODO add matching intent
-    let ints = intents.filter(intent => createdConversations.some(conversation => conversation.causingIntent === intent._id))
-    console.log(ints)
-    return ints
+    return intents.filter(intent => createdConversations.some(conversation => conversation.causingIntent === intent._id))
   }
 }
 
