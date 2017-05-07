@@ -42,6 +42,7 @@
     <paper-button
       id="button-save-intent"
       on-tap="_save"
+      disabled="[[!answer.body]]"
     >[[localize('button:save')]]</paper-button>
 
     <paper-button

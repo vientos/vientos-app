@@ -141,3 +141,17 @@ export function fetchMyConversations (person) {
     person
   }
 }
+
+export function addMessage (message) {
+  return {
+    type: ActionTypes.ADD_MESSAGE_REQUESTED,
+    message
+  }
+}
+
+export function addReview (review) {
+  return {
+    type: ActionTypes.ADD_REVIEW_REQUESTED,
+    review
+  }
+}

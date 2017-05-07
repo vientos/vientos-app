@@ -36,7 +36,9 @@ const collections = {
   intents: { type: 'Intent' },
   sessions: { type: 'Session' },
   followings: { type: 'Following' },
-  conversations: { type: 'Conversation' }
+  conversations: { type: 'Conversation' },
+  messages: { type: 'Message' },
+  reviews: { type: 'Review' }
 }
 
 function dataUrl (actionType) {
@@ -134,6 +136,10 @@ export default function vientos (action) {
       return get(collectionUrl(action.type))
     case ActionTypes.START_CONVERSATION_REQUESTED:
       return put(action.conversation)
+    case ActionTypes.ADD_MESSAGE_REQUESTED:
+      return put(action.message)
+    case ActionTypes.ADD_REVIEW_REQUESTED:
+      return put(action.review)
     default:
       throw new Error('unknown action: ' + action.type)
   }

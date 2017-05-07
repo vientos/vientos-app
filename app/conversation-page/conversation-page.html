@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+m
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
@@ -27,9 +28,22 @@
     <template is="dom-repeat" items="[[conversation.messages]]" as="message">
       <div>[[message.body]]</div>
     </template>
-    <iron-autogrow-textarea bind-value="{{newMessage}}" ></iron-autogrow-textarea>
-    <!-- TDOO add label in vientos-data save / send -->
-    <paper-button>[[localize('button:save')]]</paper-button>
+    <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
+      <div>[[review.body]]</div>
+    </template>
+    <template is="dom-if" if="[[_showNewMessage(conversation, reviewing)]]">
+      <iron-autogrow-textarea bind-value="{{newMessage}}" ></iron-autogrow-textarea>
+      <!-- TODO add label in vientos-data save / send -->
+      <paper-button on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:save')]]</paper-button>
+      <paper-button on-tap="_startReview">[[localize('button:cancel')]]</paper-button>
+    </template>
+    <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
+      <p>:) :| :(</p>
+      <iron-autogrow-textarea bind-value="{{newReview}}" ></iron-autogrow-textarea>
+      <!-- TODO add label in vientos-data save / send -->
+      <paper-button on-tap="_sendReview" disabled="[[!newReview]]">[[localize('button:save')]]</paper-button>
+      <paper-button on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
+    </template>
   </template>
 
   <script src="conversation-page.js"></script>

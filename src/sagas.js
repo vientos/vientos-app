@@ -49,7 +49,9 @@ const handleEvery = [
   ActionTypes.SAVE_INTENT_REQUESTED,
   ActionTypes.DELETE_INTENT_REQUESTED,
   ActionTypes.SAVE_PROJECT_REQUESTED,
-  ActionTypes.START_CONVERSATION_REQUESTED
+  ActionTypes.START_CONVERSATION_REQUESTED,
+  ActionTypes.ADD_MESSAGE_REQUESTED,
+  ActionTypes.ADD_REVIEW_REQUESTED
 ]
 
 function * root () {
