@@ -38,7 +38,8 @@ const collections = {
   followings: { type: 'Following' },
   conversations: { type: 'Conversation' },
   messages: { type: 'Message' },
-  reviews: { type: 'Review' }
+  reviews: { type: 'Review' },
+  collaborations: { type: 'Collaboration' }
 }
 
 function dataUrl (actionType) {
@@ -140,6 +141,8 @@ export default function vientos (action) {
       return put(action.message)
     case ActionTypes.ADD_REVIEW_REQUESTED:
       return put(action.review)
+    case ActionTypes.SAVE_COLLABORATION_REQUESTED:
+      return put(action.collaboration)
     default:
       throw new Error('unknown action: ' + action.type)
   }

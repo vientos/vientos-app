@@ -51,7 +51,8 @@ const handleEvery = [
   ActionTypes.SAVE_PROJECT_REQUESTED,
   ActionTypes.START_CONVERSATION_REQUESTED,
   ActionTypes.ADD_MESSAGE_REQUESTED,
-  ActionTypes.ADD_REVIEW_REQUESTED
+  ActionTypes.ADD_REVIEW_REQUESTED,
+  ActionTypes.SAVE_COLLABORATION_REQUESTED
 ]
 
 function * root () {

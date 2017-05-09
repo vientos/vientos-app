@@ -2,10 +2,13 @@
 
 Polymer({
   is: 'conversation-page',
+
   actions: {
     addMessage: ActionCreators.addMessage,
-    addReview: ActionCreators.addReview
+    addReview: ActionCreators.addReview,
+    saveCollaboration: ActionCreators.saveCollaboration
   },
+
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   properties: {
@@ -18,7 +21,15 @@ Polymer({
       statePath: 'intents'
     },
     conversation: {
-      type: Object
+      type: Object,
+      observer: '_setEditedCollaboration'
+    },
+    editedCollaborationBody: {
+      type: String
+    },
+    editingCollaboration: {
+      type: Boolean,
+      value: false
     },
     causingIntent: {
       type: Object,
@@ -61,6 +72,18 @@ Polymer({
 
   _getMatchingIntent (conversation, intents) {
     if (conversation) return util.getRef(conversation.matchingIntent, intents)
+  },
+
+  _setEditedCollaboration (conversation) {
+    if (!conversation.collaboration) {
+      this.set('conversation.collaboration', {
+        _id: util.mintUrl({ type: 'Collaboration' }),
+        type: 'Collaboration',
+        body: '',
+        conversation: conversation._id
+      })
+    }
+    this.set('editedCollaborationBody', conversation.collaboration.body)
   },
 
   _sendMessage () {
@@ -137,6 +160,34 @@ Polymer({
 
   ready () {
     window.foo = this
+  },
+
+  _showCollaborationEditor (conversation, reviewing, editingCollaboration) {
+    let bothMessaged = [...new Set(conversation.messages.map(message => message.creator))].length > 1
+    return bothMessaged && conversation.reviews.length === 0 && !reviewing && editingCollaboration
+  },
+
+  _disableSaveCollaboration (oldCollaboration, editedCollaborationBody) {
+    return !editedCollaborationBody || editedCollaborationBody === oldCollaboration.body
+  },
+
+  _toggleCollaborationEditor () {
+    this.set('editingCollaboration', !this.editingCollaboration)
+  },
+
+  _cancelCollaborationEditing () {
+    this._toggleCollaborationEditor()
+    this.set('editedCollaborationBody', this.conversation.collaboration.body)
+  },
+
+  _showReviewButton (reviewing, editingCollaboration) {
+    return !reviewing && !editingCollaboration
+  },
+
+  _saveCollaboration () {
+    this.conversation.collaboration.body = this.editedCollaborationBody
+    this.dispatch('saveCollaboration', this.conversation.collaboration)
+    this._toggleCollaborationEditor()
   }
 
 })

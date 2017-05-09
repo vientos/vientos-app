@@ -155,3 +155,10 @@ export function addReview (review) {
     review
   }
 }
+
+export function saveCollaboration (collaboration) {
+  return {
+    type: ActionTypes.SAVE_COLLABORATION_REQUESTED,
+    collaboration
+  }
+}

@@ -81,6 +81,10 @@ function myConversations (state = [], action) {
       updated = Object.assign({}, conversation, {
         reviews: replaceOrAddElement(conversation.reviews, action.json)})
       return replaceOrAddElement(state, updated)
+    case ActionTypes.SAVE_COLLABORATION_SUCCEEDED:
+      conversation = state.find(conversation => conversation._id === action.json.conversation)
+      updated = Object.assign({}, conversation, { collaboration: action.json })
+      return replaceOrAddElement(state, updated)
     default:
       return state
   }

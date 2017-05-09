@@ -33,9 +33,18 @@ m
     </template>
     <template is="dom-if" if="[[_showNewMessage(conversation, reviewing)]]">
       <iron-autogrow-textarea bind-value="{{newMessage}}" ></iron-autogrow-textarea>
-      <!-- TODO add label in vientos-data save / send -->
-      <paper-button on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:save')]]</paper-button>
-      <paper-button on-tap="_startReview">[[localize('button:cancel')]]</paper-button>
+      <paper-button on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button>
+    </template>
+    <template is="dom-if" if="[[!_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
+      <p>[[conversation.collaboration.body]]</p>
+      <template is="dom-if" if="[[!reviewing]]">
+        <paper-button on-tap="_toggleCollaborationEditor">[[localize('button:edit')]]</paper-button>
+      </template>
+    </template>
+    <template is="dom-if" if="[[_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
+      <iron-autogrow-textarea bind-value="{{editedCollaborationBody}}"></iron-autogrow-textarea>
+      <paper-button on-tap="_saveCollaboration" disabled="[[_disableSaveCollaboration(conversation.collaboration, editedCollaborationBody)]]">[[localize('button:save')]]</paper-button>
+      <paper-button on-tap="_cancelCollaborationEditing">[[localize('button:cancel')]]</paper-button>
     </template>
     <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
       <p>:) :| :(</p>
@@ -43,6 +52,9 @@ m
       <!-- TODO add label in vientos-data save / send -->
       <paper-button on-tap="_sendReview" disabled="[[!newReview]]">[[localize('button:save')]]</paper-button>
       <paper-button on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
+    </template>
+    <template is="dom-if" if="[[_showReviewButton(reviewing, editingCollaboration)]]">
+      <div><paper-button on-tap="_startReview">[[localize('button:review')]]</paper-button></div>
     </template>
   </template>
 
