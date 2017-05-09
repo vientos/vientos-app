@@ -18,16 +18,14 @@
     <style include="start-conversation-styles"></style>
 
 
-<!-- TODO set label -->
     <p>[[intent.question]]</p>
     <div>
-      <label>[[localize('label:org-description')]]:
+      <label>[[localize('label:intent-answer')]]:
         <iron-autogrow-textarea bind-value="{{answer.body}}" ></iron-autogrow-textarea>
       </label>
     </div>
 
-      <!-- TODO set label -->
-    <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">
+    <paper-dropdown-menu label="[[localize('label:matching-intent')]]">
       <paper-listbox
         class="dropdown-content"
         attr-for-selected="name"
@@ -38,12 +36,11 @@
       </paper-listbox>
     </paper-dropdown-menu>
 
-    <!-- TODO set label -->
     <paper-button
       id="button-save-intent"
       on-tap="_save"
       disabled="[[!answer.body]]"
-    >[[localize('button:save')]]</paper-button>
+    >[[localize('button:send')]]</paper-button>
 
     <paper-button
       id="button-cancel"

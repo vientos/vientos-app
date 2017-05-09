@@ -20,7 +20,7 @@
       <ul>
         <template is="dom-repeat" items="[[conversations]]" as="conversation">
           <!-- TODO think what to show -->
-          <li><a href="[[_conversationUrl(conversation)]]">[[conversation._id]]</a></li>
+          <li><a href="[[_conversationUrl(conversation)]]">[[_getConversationCreatorName(conversation.creator, people)]]</a></li>
         </template>
       </ul>
     </template>

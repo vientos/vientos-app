@@ -9,6 +9,10 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    people: {
+      type: Array,
+      statePath: 'people'
+    },
     intent: {
       type: Object
     },
@@ -80,5 +84,9 @@ Polymer({
 
   _collaborateVisible (admin, conversationCreator) {
     return !admin && !conversationCreator
+  },
+
+  _getConversationCreatorName (personId, people) {
+    return util.getRef(personId, people).name
   }
 })

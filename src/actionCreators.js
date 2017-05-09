@@ -36,6 +36,10 @@ export function fetchPerson (id) {
   return { type: ActionTypes.FETCH_PERSON_REQUESTED, id }
 }
 
+export function fetchPeople () {
+  return { type: ActionTypes.FETCH_PEOPLE_REQUESTED }
+}
+
 export function bye (session) {
   return { type: ActionTypes.BYE_REQUESTED, session }
 }

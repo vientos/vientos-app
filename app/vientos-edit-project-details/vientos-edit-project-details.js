@@ -65,7 +65,6 @@ Polymer({
   },
 
   _addContact () {
-    // TODO validate URLs
     if (this.newContact === '' || this.updated.contacts.includes(this.newContact)) return
     this.set('updated.contacts', [...this.updated.contacts, this.newContact])
     this.set('newContact', '')

@@ -63,6 +63,15 @@ function categories (state = [], action) {
   }
 }
 
+function people (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_PEOPLE_SUCCEEDED:
+      return action.json
+    default:
+      return state
+  }
+}
+
 function myConversations (state = [], action) {
   let conversation
   let updated
@@ -211,6 +220,7 @@ function boundingBox (state = DEFUALT_BOUNDINGBOX, action) {
 export default combineReducers({
   projects,
   categories,
+  people,
   filteredCategories,
   filteredCollaborationTypes,
   filteredFollowings,

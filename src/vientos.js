@@ -133,6 +133,7 @@ export default function vientos (action) {
     case ActionTypes.FETCH_LABELS_REQUESTED:
       return get(dataUrl(action.type))
     case ActionTypes.FETCH_PROJECTS_REQUESTED:
+    case ActionTypes.FETCH_PEOPLE_REQUESTED:
     case ActionTypes.FETCH_INTENTS_REQUESTED:
       return get(collectionUrl(action.type))
     case ActionTypes.START_CONVERSATION_REQUESTED:

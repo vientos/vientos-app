@@ -15,6 +15,7 @@ Polymer({
     hello: ActionCreators.hello,
     bye: ActionCreators.bye,
     fetchPerson: ActionCreators.fetchPerson,
+    fetchPeople: ActionCreators.fetchPeople,
     fetchLabels: ActionCreators.fetchLabels,
     fetchCategories: ActionCreators.fetchCategories,
     fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
@@ -291,6 +292,7 @@ Polymer({
     this.dispatch('fetchCategories')
     this.dispatch('fetchCollaborationTypes')
     this.dispatch('fetchProjects')
+    this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
   }
 

@@ -97,6 +97,7 @@ Polymer({
   },
 
   _canReview (person, conversation) {
+    if (!conversation) return
     // no reviews
     if (conversation.reviews.length === 0) return true
     // you created conversation and didn't review yet
