@@ -31,14 +31,16 @@ m
     <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
       <div>[[review.body]]</div>
     </template>
-    <template is="dom-if" if="[[_showNewMessage(conversation, reviewing)]]">
+    <template is="dom-if" if="[[_showNewMessage(conversation, reviewing, editingCollaboration)]]">
       <iron-autogrow-textarea bind-value="{{newMessage}}" ></iron-autogrow-textarea>
-      <paper-button on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button>
+      <div><paper-button on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button></div>
     </template>
     <template is="dom-if" if="[[!_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
-      <p>[[conversation.collaboration.body]]</p>
-      <template is="dom-if" if="[[!reviewing]]">
-        <paper-button on-tap="_toggleCollaborationEditor">[[localize('button:edit')]]</paper-button>
+      <template is="dom-if" if="[[_showCollaborationBody(reviewing, success)]]">
+        <p>[[conversation.collaboration.body]]</p>
+      </template>
+      <template is="dom-if" if="[[_showCollaborationEditButton(conversation, reviewing)]]">
+        <paper-button on-tap="_toggleCollaborationEditor">[[localize('button:edit-collaboration')]]</paper-button>
       </template>
     </template>
     <template is="dom-if" if="[[_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
@@ -49,11 +51,16 @@ m
     <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
       <p>:) :| :(</p>
       <iron-autogrow-textarea bind-value="{{newReview}}" ></iron-autogrow-textarea>
-      <paper-button on-tap="_sendReview" disabled="[[!newReview]]">[[localize('button:save')]]</paper-button>
+      <paper-button on-tap="_sendReview" disabled="[[!newReview]]">[[localize('button:review')]]</paper-button>
       <paper-button on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
     </template>
-    <template is="dom-if" if="[[_showReviewButton(reviewing, editingCollaboration)]]">
-      <div><paper-button on-tap="_startReview">[[localize('button:review')]]</paper-button></div>
+    <template is="dom-if" if="[[_showReviewButton(person, conversation, reviewing, editingCollaboration)]]">
+      <div>
+        <paper-button on-tap="_abort">[[localize('button:abort')]]</paper-button>
+        <template is="dom-if" if="[[conversation.collaboration.body]]">
+          <paper-button on-tap="_succeed">[[localize('button:succeed')]]</paper-button>
+        </template>
+      </div>
     </template>
   </template>
 

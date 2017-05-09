@@ -6,7 +6,8 @@ Polymer({
   actions: {
     addMessage: ActionCreators.addMessage,
     addReview: ActionCreators.addReview,
-    saveCollaboration: ActionCreators.saveCollaboration
+    saveCollaboration: ActionCreators.saveCollaboration,
+    abortConversation: ActionCreators.abortConversation
   },
 
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
@@ -47,6 +48,10 @@ Polymer({
       type: String,
       value: ''
     },
+    success: {
+      type: Boolean,
+      value: false
+    },
     reviewing: {
       type: Boolean,
       value: false
@@ -74,6 +79,7 @@ Polymer({
     if (conversation) return util.getRef(conversation.matchingIntent, intents)
   },
 
+  // TODO don't set it directly on conversation but create editedCollaboration
   _setEditedCollaboration (conversation) {
     if (!conversation.collaboration) {
       this.set('conversation.collaboration', {
@@ -116,10 +122,21 @@ Polymer({
     return false
   },
 
+  _abort () {
+    this.set('success', false)
+    this._startReview()
+  },
+
+  _succeed () {
+    this.set('success', true)
+    this._startReview()
+  },
+
   _startReview () {
     this.set('reviewing', true)
   },
   _abortReview () {
+    this.set('success', false)
     this.set('reviewing', false)
   },
 
@@ -134,20 +151,25 @@ Polymer({
     }
   },
 
+  // TODO mark review as of success or abortion
   _sendReview () {
-    this.dispatch('addReview', {
+    let review = {
       type: 'Review',
       creator: this.person._id,
       as: this._whoReviews(),
       body: this.newReview,
       conversation: this.conversation._id
-    })
+    }
+    if (this.success) {
+      this.dispatch('addReview', review)
+    } else {
+      this.dispatch('abortConversation', this.conversation, review)
+    }
     this._reset()
-    this.set('reviewing', true)
   },
 
-  _showNewMessage (conversation, reviewing) {
-    return conversation.reviews.length === 0 && !reviewing
+  _showNewMessage (conversation, reviewing, editingCollaboration) {
+    return conversation.reviews.length === 0 && !reviewing && !editingCollaboration
   },
 
   _showNewReview (conversation, canReview, reviewing) {
@@ -161,6 +183,10 @@ Polymer({
 
   ready () {
     window.foo = this
+  },
+
+  _showCollaborationBody (reviewing, success) {
+    return !reviewing || (reviewing && success)
   },
 
   _showCollaborationEditor (conversation, reviewing, editingCollaboration) {
@@ -181,8 +207,13 @@ Polymer({
     this.set('editedCollaborationBody', this.conversation.collaboration.body)
   },
 
-  _showReviewButton (reviewing, editingCollaboration) {
-    return !reviewing && !editingCollaboration
+  _showReviewButton (person, conversation, reviewing, editingCollaboration) {
+    return this._canReview(person, conversation) && !reviewing && !editingCollaboration
+  },
+
+  _showCollaborationEditButton (conversation, reviewing) {
+    if (!conversation) return
+    return !reviewing && conversation.reviews.length === 0
   },
 
   _saveCollaboration () {
