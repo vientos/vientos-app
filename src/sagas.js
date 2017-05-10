@@ -8,6 +8,7 @@ import vientos from './vientos'
 function * handler (action) {
   try {
     const json = yield call(vientos, action)
+    // FIXME now rejects so not needed?
     if (json && json.error) {
       yield put({
         type: ActionTypes[action.type.replace('REQUESTED', 'FAILED')],
@@ -53,6 +54,7 @@ const handleEvery = [
   ActionTypes.START_CONVERSATION_REQUESTED,
   ActionTypes.ADD_MESSAGE_REQUESTED,
   ActionTypes.ADD_REVIEW_REQUESTED,
+  ActionTypes.ABORT_CONVERSATION_REQUESTED,
   ActionTypes.SAVE_COLLABORATION_REQUESTED
 ]
 

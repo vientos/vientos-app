@@ -25,8 +25,8 @@ Polymer({
       type: Object,
       observer: '_setEditedCollaboration'
     },
-    editedCollaborationBody: {
-      type: String
+    editedCollaboration: {
+      type: Object
     },
     editingCollaboration: {
       type: Boolean,
@@ -79,17 +79,17 @@ Polymer({
     if (conversation) return util.getRef(conversation.matchingIntent, intents)
   },
 
-  // TODO don't set it directly on conversation but create editedCollaboration
   _setEditedCollaboration (conversation) {
-    if (!conversation.collaboration) {
-      this.set('conversation.collaboration', {
+    if (conversation.collaboration) {
+      this.set('editedCollaboration', Object.assign({}, conversation.collaboration))
+    } else {
+      this.set('editedCollaboration', {
         _id: util.mintUrl({ type: 'Collaboration' }),
         type: 'Collaboration',
         body: '',
         conversation: conversation._id
       })
     }
-    this.set('editedCollaborationBody', conversation.collaboration.body)
   },
 
   _sendMessage () {
@@ -195,7 +195,11 @@ Polymer({
   },
 
   _disableSaveCollaboration (oldCollaboration, editedCollaborationBody) {
-    return !editedCollaborationBody || editedCollaborationBody === oldCollaboration.body
+    if (!oldCollaboration) {
+      return editedCollaborationBody === ''
+    } else {
+      return !editedCollaborationBody || editedCollaborationBody === oldCollaboration.body
+    }
   },
 
   _toggleCollaborationEditor () {
@@ -204,7 +208,7 @@ Polymer({
 
   _cancelCollaborationEditing () {
     this._toggleCollaborationEditor()
-    this.set('editedCollaborationBody', this.conversation.collaboration.body)
+    this.set('editedCollaboration.body', this.conversation.collaboration.body)
   },
 
   _showReviewButton (person, conversation, reviewing, editingCollaboration) {
@@ -217,8 +221,7 @@ Polymer({
   },
 
   _saveCollaboration () {
-    this.conversation.collaboration.body = this.editedCollaborationBody
-    this.dispatch('saveCollaboration', this.conversation.collaboration)
+    this.dispatch('saveCollaboration', this.editedCollaboration)
     this._toggleCollaborationEditor()
   }
 

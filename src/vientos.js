@@ -78,14 +78,22 @@ function put (resource) {
 }
 
 function del (resource) {
+  let delResponse
   return fetch(resource._id, {
     method: 'DELETE',
     credentials: 'include'
   }).then(response => {
-    if (response.ok) {
+    delResponse = response
+    if (delResponse.ok) {
       return null
     } else {
       return response.json()
+    }
+  }).then(nullOrJson => {
+    if (delResponse.ok) {
+      return null
+    } else {
+      return Promise.reject(nullOrJson)
     }
   })
 }
@@ -104,6 +112,15 @@ function uploadAndSave (entity, image) {
       logo: cloudinaryData.secure_url
     })
   }).then(updated => put(updated))
+}
+
+function abortConversation (conversation, review) {
+  if (conversation.collaboration) {
+    return del(conversation.collaboration)
+      .then(() => put(review))
+  } else {
+    return put(review)
+  }
 }
 
 export default function vientos (action) {
@@ -142,6 +159,8 @@ export default function vientos (action) {
       return put(action.message)
     case ActionTypes.ADD_REVIEW_REQUESTED:
       return put(action.review)
+    case ActionTypes.ABORT_CONVERSATION_REQUESTED:
+      return abortConversation(action.conversation, action.review)
     case ActionTypes.SAVE_COLLABORATION_REQUESTED:
       return put(action.collaboration)
     default:

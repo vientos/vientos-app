@@ -153,6 +153,14 @@ export function addMessage (message) {
   }
 }
 
+export function abortConversation (conversation, review) {
+  return {
+    type: ActionTypes.ABORT_CONVERSATION_REQUESTED,
+    conversation,
+    review
+  }
+}
+
 export function addReview (review) {
   return {
     type: ActionTypes.ADD_REVIEW_REQUESTED,

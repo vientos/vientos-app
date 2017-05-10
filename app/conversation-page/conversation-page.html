@@ -28,9 +28,6 @@ m
     <template is="dom-repeat" items="[[conversation.messages]]" as="message">
       <div>[[message.body]]</div>
     </template>
-    <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
-      <div>[[review.body]]</div>
-    </template>
     <template is="dom-if" if="[[_showNewMessage(conversation, reviewing, editingCollaboration)]]">
       <iron-autogrow-textarea bind-value="{{newMessage}}" ></iron-autogrow-textarea>
       <div><paper-button on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button></div>
@@ -44,9 +41,12 @@ m
       </template>
     </template>
     <template is="dom-if" if="[[_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
-      <iron-autogrow-textarea bind-value="{{editedCollaborationBody}}"></iron-autogrow-textarea>
-      <paper-button on-tap="_saveCollaboration" disabled="[[_disableSaveCollaboration(conversation.collaboration, editedCollaborationBody)]]">[[localize('button:save')]]</paper-button>
+      <iron-autogrow-textarea bind-value="{{editedCollaboration.body}}"></iron-autogrow-textarea>
+      <paper-button on-tap="_saveCollaboration" disabled="[[_disableSaveCollaboration(conversation.collaboration, editedCollaboration.body)]]">[[localize('button:save')]]</paper-button>
       <paper-button on-tap="_cancelCollaborationEditing">[[localize('button:cancel')]]</paper-button>
+    </template>
+    <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
+      <div>[[review.body]]</div>
     </template>
     <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
       <p>:) :| :(</p>

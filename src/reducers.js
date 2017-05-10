@@ -85,6 +85,12 @@ function myConversations (state = [], action) {
       updated = Object.assign({}, conversation, {
         messages: replaceOrAddElement(conversation.messages, action.json)})
       return replaceOrAddElement(state, updated)
+    case ActionTypes.ABORT_CONVERSATION_SUCCEEDED:
+      conversation = state.find(conversation => conversation._id === action.json.conversation)
+      updated = Object.assign({}, conversation, {
+        reviews: replaceOrAddElement(conversation.reviews, action.json)})
+      delete updated.collaboratio
+      return replaceOrAddElement(state, updated)
     case ActionTypes.ADD_REVIEW_SUCCEEDED:
       conversation = state.find(conversation => conversation._id === action.json.conversation)
       updated = Object.assign({}, conversation, {
