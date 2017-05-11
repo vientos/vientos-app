@@ -109,6 +109,14 @@ export function checkIfFollows (person, project) {
   }
 }
 
+export function checkIfFavors (person, intent) {
+  if (person && intent && person.favorings) {
+    return person.favorings.find(el => el.intent === intent._id) || null
+  } else {
+    return null
+  }
+}
+
 export function pathFor (entity, type) {
   let url = entity
   if (typeof entity === 'object') url = entity._id

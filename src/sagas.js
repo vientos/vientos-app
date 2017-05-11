@@ -50,6 +50,8 @@ const handleLatest = [
 const handleEvery = [
   ActionTypes.FOLLOW_REQUESTED,
   ActionTypes.UNFOLLOW_REQUESTED,
+  ActionTypes.FAVOR_REQUESTED,
+  ActionTypes.UNFAVOR_REQUESTED,
   ActionTypes.SAVE_INTENT_REQUESTED,
   ActionTypes.DELETE_INTENT_REQUESTED,
   ActionTypes.SAVE_PROJECT_REQUESTED,

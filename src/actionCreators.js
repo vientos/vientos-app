@@ -121,6 +121,24 @@ export function unfollow (following) {
   }
 }
 
+export function favor (person, intent) {
+  return {
+    type: ActionTypes.FAVOR_REQUESTED,
+    favoring: {
+      type: 'Favoring',
+      person: person._id,
+      intent: intent._id
+    }
+  }
+}
+
+export function unfavor (favoring) {
+  return {
+    type: ActionTypes.UNFAVOR_REQUESTED,
+    favoring
+  }
+}
+
 export function toggleFilterFollowings () {
   return {
     type: ActionTypes.TOGGLE_FILTER_FOLLOWINGS

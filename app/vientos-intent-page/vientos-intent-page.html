@@ -31,6 +31,26 @@
     </template>
 
     <h2>[[intent.title]]</h2>
+
+    <section>
+      <template is="dom-if" if="[[person]]">
+        <template is="dom-if" if="[[!favoring]]">
+          <vientos-icon-button
+          icon="vientos:follow"
+          text="[[localize('button:follow')]]"
+          on-tap="_favor"
+          ></vientos-icon-button>
+        </template>
+        <template is="dom-if" if="[[favoring]]">
+          <vientos-icon-button
+          icon="vientos:unfollow"
+          text="[[localize('button:unfollow')]]"
+          on-tap="_unfavor"
+          ></vientos-icon-button>
+        </template>
+      </template>
+    </section>
+
     <p>[[intent.description]]</p>
     <p>[[intent.question]]</p>
     <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>

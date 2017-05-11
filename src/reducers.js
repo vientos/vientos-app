@@ -182,6 +182,7 @@ function person (state = null, action) {
     case ActionTypes.FETCH_PERSON_SUCCEEDED:
       if (!action.json.categories) action.json.categories = []
       if (!action.json.followings) action.json.followings = []
+      if (!action.json.favorings) action.json.favorings = []
       return action.json
     case ActionTypes.SAVE_PERSON_SUCCEEDED:
       return action.json
@@ -193,6 +194,13 @@ function person (state = null, action) {
     case ActionTypes.UNFOLLOW_SUCCEEDED:
       return Object.assign({}, state, {
         followings: removeElement(state.followings, action.requestedAction.following)
+      })
+    case ActionTypes.FAVOR_SUCCEEDED:
+      return Object.assign({}, state, {
+        favorings: replaceOrAddElement(state.favorings, action.json)})
+    case ActionTypes.UNFAVOR_SUCCEEDED:
+      return Object.assign({}, state, {
+        favorings: removeElement(state.favorings, action.requestedAction.favoring)
       })
     default:
       return state

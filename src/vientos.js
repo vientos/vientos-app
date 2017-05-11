@@ -36,6 +36,7 @@ const collections = {
   intents: { type: 'Intent' },
   sessions: { type: 'Session' },
   followings: { type: 'Following' },
+  favorings: { type: 'Favoring' },
   conversations: { type: 'Conversation' },
   messages: { type: 'Message' },
   reviews: { type: 'Review' },
@@ -133,6 +134,10 @@ export default function vientos (action) {
       return put(action.following)
     case ActionTypes.UNFOLLOW_REQUESTED:
       return del(action.following)
+    case ActionTypes.FAVOR_REQUESTED:
+      return put(action.favoring)
+    case ActionTypes.UNFAVOR_REQUESTED:
+      return del(action.favoring)
     case ActionTypes.SAVE_INTENT_REQUESTED:
       return uploadAndSave(action.intent, action.image)
     case ActionTypes.SAVE_PROJECT_REQUESTED:

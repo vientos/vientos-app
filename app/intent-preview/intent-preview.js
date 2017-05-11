@@ -8,9 +8,18 @@ Polymer({
     intent: {
       type: Object
     },
+    person: {
+      type: Object,
+      statePath: 'person'
+    },
     projects: {
       type: Array,
       statePath: 'projects'
+    },
+    favoring: {
+      type: Object,
+      value: null,
+      computed: '_checkIfFavors(person, intent)'
     },
     showProjects: {
       type: Boolean
@@ -26,6 +35,7 @@ Polymer({
   },
 
   _getRef: util.getRef,
+  _checkIfFavors: util.checkIfFavors,
 
   _showIntentDetails () {
     window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))

@@ -102,6 +102,7 @@ Polymer({
   },
 
   _getPotentialAdmins (project, people) {
+    if (!project) return []
     return people.filter(person => !project.admins.includes(person._id))
   },
 

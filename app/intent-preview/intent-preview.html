@@ -1,7 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../components/vientos-card/vientos-card.html">
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <dom-module id="intent-preview">
   <template>
@@ -25,6 +27,9 @@
             [[project.name]]
           </p>
         </template>
+      </template>
+      <template is="dom-if" if="[[favoring]]">
+        <iron-icon icon="vientos:follow"></iron-icon>
       </template>
       <p>[[intent.openConversations.length]] | [[intent.collaborations.length]] | [[intent.abortedConversations.length]]</p>
     </vientos-card>

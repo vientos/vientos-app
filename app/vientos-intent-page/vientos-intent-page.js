@@ -1,8 +1,13 @@
-/* global Polymer, ReduxBehavior, CustomEvent, util */
+/* global Polymer, ReduxBehavior, ActionCreators,  CustomEvent, util */
 
 Polymer({
   is: 'vientos-intent-page',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+
+  actions: {
+    favor: ActionCreators.favor,
+    unfavor: ActionCreators.unfavor
+  },
 
   properties: {
     person: {
@@ -23,6 +28,11 @@ Polymer({
     },
     intent: {
       type: Object
+    },
+    favoring: {
+      type: Object,
+      value: null,
+      computed: '_checkIfFavors(person, intent)'
     },
     conversations: {
       type: Array,
@@ -59,6 +69,8 @@ Polymer({
   },
 
   _checkIfAdmin: util.checkIfAdmin,
+
+  _checkIfFavors: util.checkIfFavors,
 
   _getIntentProjects: util.getIntentProjects,
 
@@ -113,5 +125,13 @@ Polymer({
     return intent.abortedConversations.map(conversationId => {
       return reviews.filter(review => review.conversation === conversationId)
     })
+  },
+
+  _favor () {
+    this.dispatch('favor', this.person, this.intent)
+  },
+
+  _unfavor () {
+    this.dispatch('unfavor', this.favoring)
   }
 })
