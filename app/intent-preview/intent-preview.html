@@ -26,10 +26,7 @@
           </p>
         </template>
       </template>
-      <template is="dom-if" if="[[intent.openConversations.length]]">
-        <p>[[intent.openConversations.length]]</p>
-      </template>
-
+      <p>[[intent.openConversations.length]] | [[intent.collaborations.length]] | [[intent.abortedConversations.length]]</p>
     </vientos-card>
   </template>
   <script src="intent-preview.js"></script>

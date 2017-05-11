@@ -63,6 +63,24 @@ function categories (state = [], action) {
   }
 }
 
+function collaborations (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_COLLABORATIONS_SUCCEEDED:
+      return action.json
+    default:
+      return state
+  }
+}
+
+function reviews (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_REVIEWS_SUCCEEDED:
+      return action.json
+    default:
+      return state
+  }
+}
+
 function people (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_PEOPLE_SUCCEEDED:
@@ -239,5 +257,7 @@ export default combineReducers({
   boundingBox,
   language,
   labels,
-  intents
+  intents,
+  collaborations,
+  reviews
 })

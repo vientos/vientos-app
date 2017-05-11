@@ -16,13 +16,15 @@
   <template>
     <style include="vientos-intent-page-styles"></style>
 
-    <template is="dom-if" if="[[_conversationsVisible(admin, conversationCreator)]]">
+    <template is="dom-if" if="[[admin]]">
       <ul>
         <template is="dom-repeat" items="[[conversations]]" as="conversation">
-          <!-- TODO think what to show -->
           <li><a href="[[_conversationUrl(conversation)]]">[[_getConversationCreatorName(conversation.creator, people)]]</a></li>
         </template>
       </ul>
+    </template>
+    <template is="dom-if" if="[[conversationOfCreator]]">
+      <p><a href="[[_conversationUrl(conversationOfCreator)]]">[[person.name]]</a></p>
     </template>
     <template is="dom-if" if="[[admin]]">
       <paper-button on-tap="_editIntent">[[localize('button:edit')]]</paper-button>
@@ -47,8 +49,27 @@
         <li><a href="[[_projectPageUrl(project)]]">[[project.name]]</a></li>
       </template>
     </ul>
+    <ul>
+      <template is="dom-repeat" items="[[_getRef(intent.collaborations, collaborations)]]" as="collaboration">
+        <li>
+          <div>[[collaboration.body]]</div>
+          <template is="dom-repeat" items="[[_reviewsOfCollaboration(collaboration, reviews)]]" as="review">
+            <p>[[review.body]]</p>
+          </template>
+        </li>
+      </template>
+    </ul>
+    <ul>
+      <template is="dom-repeat" items="[[_reviewsOfAbortedConversations(intent, reviews)]]" as="reviewsGroup">
+        <li>
+          <template is="dom-repeat" items="[[reviewsGroup]]" as="review">
+            <p>[[review.body]]</p>
+          </template>
+        </li>
+      </template>
+    </ul>
 
-    <template is="dom-if" if="[[_collaborateVisible(admin, conversationCreator)]]">
+    <template is="dom-if" if="[[_collaborateVisible(admin, conversationOfCreator)]]">
       <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
     </template>
   </template>

@@ -21,6 +21,8 @@ Polymer({
     fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
     fetchProjects: ActionCreators.fetchProjects,
     fetchIntents: ActionCreators.fetchIntents,
+    fetchCollaborations: ActionCreators.fetchCollaborations,
+    fetchReviews: ActionCreators.fetchReviews,
     fetchMyConversations: ActionCreators.fetchMyConversations
   },
 
@@ -294,6 +296,8 @@ Polymer({
     this.dispatch('fetchProjects')
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
+    this.dispatch('fetchCollaborations')
+    this.dispatch('fetchReviews')
   }
 
 })

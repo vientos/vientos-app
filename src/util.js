@@ -101,15 +101,6 @@ export function checkIfAdmin (person, projects) {
   return person && projects.some(project => project.admins && project.admins.includes(person._id))
 }
 
-export function checkIfConversationCreator (person, intent, myConversations) {
-  if (person && intent && myConversations) {
-    return myConversations.some(conversation => {
-      return conversation.causingIntent === intent._id &&
-             conversation.creator === person._id
-    })
-  }
-}
-
 export function checkIfFollows (person, project) {
   if (person && project && person.followings) {
     return person.followings.find(el => el.project === project._id) || null

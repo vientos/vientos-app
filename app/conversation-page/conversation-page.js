@@ -80,6 +80,7 @@ Polymer({
   },
 
   _setEditedCollaboration (conversation) {
+    if (!conversation) return
     if (conversation.collaboration) {
       this.set('editedCollaboration', Object.assign({}, conversation.collaboration))
     } else {
@@ -161,6 +162,7 @@ Polymer({
       conversation: this.conversation._id
     }
     if (this.success) {
+      review.collaboration = this.conversation.collaboration._id
       this.dispatch('addReview', review)
     } else {
       this.dispatch('abortConversation', this.conversation, review)
@@ -169,6 +171,7 @@ Polymer({
   },
 
   _showNewMessage (conversation, reviewing, editingCollaboration) {
+    if (!conversation) return
     return conversation.reviews.length === 0 && !reviewing && !editingCollaboration
   },
 
@@ -181,17 +184,12 @@ Polymer({
     this.set('newReview', '')
   },
 
-  ready () {
-    window.foo = this
-  },
-
   _showCollaborationBody (reviewing, success) {
     return !reviewing || (reviewing && success)
   },
 
   _showCollaborationEditor (conversation, reviewing, editingCollaboration) {
-    let bothMessaged = [...new Set(conversation.messages.map(message => message.creator))].length > 1
-    return bothMessaged && conversation.reviews.length === 0 && !reviewing && editingCollaboration
+    return conversation && this._bothMessaged(conversation) && conversation.reviews.length === 0 && !reviewing && editingCollaboration
   },
 
   _disableSaveCollaboration (oldCollaboration, editedCollaborationBody) {
@@ -215,9 +213,12 @@ Polymer({
     return this._canReview(person, conversation) && !reviewing && !editingCollaboration
   },
 
+  _bothMessaged (conversation) {
+    return [...new Set(conversation.messages.map(message => message.creator))].length > 1
+  },
+
   _showCollaborationEditButton (conversation, reviewing) {
-    if (!conversation) return
-    return !reviewing && conversation.reviews.length === 0
+    return conversation && this._bothMessaged(conversation) && !reviewing && conversation.reviews.length === 0
   },
 
   _saveCollaboration () {

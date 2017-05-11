@@ -152,6 +152,8 @@ export default function vientos (action) {
     case ActionTypes.FETCH_PROJECTS_REQUESTED:
     case ActionTypes.FETCH_PEOPLE_REQUESTED:
     case ActionTypes.FETCH_INTENTS_REQUESTED:
+    case ActionTypes.FETCH_COLLABORATIONS_REQUESTED:
+    case ActionTypes.FETCH_REVIEWS_REQUESTED:
       return get(collectionUrl(action.type))
     case ActionTypes.START_CONVERSATION_REQUESTED:
       return put(action.conversation)

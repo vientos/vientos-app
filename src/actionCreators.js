@@ -40,6 +40,14 @@ export function fetchPeople () {
   return { type: ActionTypes.FETCH_PEOPLE_REQUESTED }
 }
 
+export function fetchCollaborations () {
+  return { type: ActionTypes.FETCH_COLLABORATIONS_REQUESTED }
+}
+
+export function fetchReviews () {
+  return { type: ActionTypes.FETCH_REVIEWS_REQUESTED }
+}
+
 export function bye (session) {
   return { type: ActionTypes.BYE_REQUESTED, session }
 }
