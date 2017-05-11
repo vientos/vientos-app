@@ -8,6 +8,7 @@ Polymer({
     updateFilteredCategories: ActionCreators.updateFilteredCategories,
     updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
     toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
+    toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
     setLocationFilter: ActionCreators.setLocationFilter,
     toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
   },
@@ -84,6 +85,10 @@ Polymer({
 
   _filterFollowings () {
     this.dispatch('toggleFilterFollowings')
+  },
+
+  _filterFavorings () {
+    this.dispatch('toggleFilterFavorings')
   },
 
   _locationFilterChanged (e, detail) {

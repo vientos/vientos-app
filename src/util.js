@@ -21,7 +21,7 @@ export function extractLocations (projects, boundingBox) {
   }, [])
 }
 
-export function filterProjects (person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
+export function filterProjects (person, projects, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -41,6 +41,14 @@ export function filterProjects (person, projects, intents, filteredCategories, f
       })
     })
   }
+
+  if (filteredFavorings) {
+    filtered = filtered.filter(project => {
+      // return the projects which has at least one intent which person favored
+      return intents.some(intent => intent.projects.includes(project._id) && person.favorings.some(favoring => favoring.intent === intent._id))
+    })
+  }
+
   // filter on collaboration types
   if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(project => {
@@ -72,10 +80,18 @@ export function filterProjects (person, projects, intents, filteredCategories, f
   return filtered
 }
 
-export function filterIntents (intents, visibleProjects, filteredCollaborationTypes) {
+export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
   let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
   if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
+  }
+  // filter favoring intents
+  if (filteredFavorings) {
+    filtered = filtered.filter(intent => {
+      return person.favorings.some(favoring => {
+        return favoring.intent === intent._id
+      })
+    })
   }
   return filtered
 }

@@ -70,6 +70,10 @@ Polymer({
       type: Boolean,
       statePath: 'filteredFollowings'
     },
+    filteredFavorings: {
+      type: Boolean,
+      statePath: 'filteredFavorings'
+    },
     locationFilter: {
       type: String,
       statePath: 'locationFilter'
@@ -111,12 +115,12 @@ Polymer({
     visibleProjects: {
       type: Array,
       value: [],
-      computed: '_filterProjects(person, projects, intents, filteredCategories, filteredFollowings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
+      computed: '_filterProjects(person, projects, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
     },
     visibleIntents: {
       type: Array,
       value: [],
-      computed: '_filterIntents(intents, visibleProjects, filteredCollaborationTypes)' // TODO boundingBox
+      computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
     },
     visibleLocations: {
       type: Array,

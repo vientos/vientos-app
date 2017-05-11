@@ -150,6 +150,15 @@ function filteredFollowings (state = false, action) {
   }
 }
 
+function filteredFavorings (state = false, action) {
+  switch (action.type) {
+    case ActionTypes.TOGGLE_FILTER_FAVORINGS:
+      return !state
+    default:
+      return state
+  }
+}
+
 function boundingBoxFilter (state = true, action) {
   switch (action.type) {
     case ActionTypes.TOGGLE_BOUNDINBOX_FILTER:
@@ -256,6 +265,7 @@ export default combineReducers({
   filteredCategories,
   filteredCollaborationTypes,
   filteredFollowings,
+  filteredFavorings,
   locationFilter,
   boundingBoxFilter,
   collaborationTypes,

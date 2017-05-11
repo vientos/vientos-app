@@ -45,6 +45,12 @@
     </paper-button>
     <paper-badge label="[[filteredCategories.length]]" for="clear-categories"></paper-badge>
 
+    <template is="dom-if" if="[[person]]">
+      <paper-toggle-button on-tap="_filterFavorings">
+        <iron-icon icon="vientos:follow"></iron-icon>
+        [[localize('button:filter-followings')]]
+      </paper-toggle-button>
+    </template>
     <template is="dom-repeat" items="[[collaborationTypes]]">
        <paper-toggle-button toggles checked="[[_isCollaborationTypeSelected(item, filteredCollaborationTypes)]]" on-tap="_toggleCollaborationType">
           [[localize(item.id)]]

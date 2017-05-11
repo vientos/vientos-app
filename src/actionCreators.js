@@ -145,6 +145,12 @@ export function toggleFilterFollowings () {
   }
 }
 
+export function toggleFilterFavorings () {
+  return {
+    type: ActionTypes.TOGGLE_FILTER_FAVORINGS
+  }
+}
+
 export function setLocationFilter (locationFilter) {
   return {
     type: ActionTypes.SET_LOCATION_FILTER,
