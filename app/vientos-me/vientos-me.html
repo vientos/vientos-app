@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
@@ -34,6 +36,10 @@
           <li><a href="[[_projectUrl(project)]]">[[project.name]]</a></li>
         </template>
       </ul>
+      <div>
+        <input is="iron-input" bind-value="{{newProjectName}}">
+        <paper-button on-tap="_crateProject">[[localize('button:save')]]</paper-button>
+      </div>
       <template is="dom-repeat" items="[[activeIntents]]" as="intent">
         <intent-preview intent="[[intent]]" show-projects></intent-preview>
       </template>

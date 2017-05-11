@@ -5,7 +5,8 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    bye: ActionCreators.bye
+    bye: ActionCreators.bye,
+    saveProject: ActionCreators.saveProject
   },
 
   properties: {
@@ -32,6 +33,10 @@ Polymer({
     projects: {
       type: Array,
       statePath: 'projects'
+    },
+    newProjectName: {
+      type: String,
+      value: ''
     },
     login: {
       type: String,
@@ -64,6 +69,16 @@ Polymer({
     this.dispatch('bye', this.session)
     window.history.pushState({}, '', `/`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _crateProject () {
+    this.dispatch('saveProject', {
+      _id: util.mintUrl({ type:'Project' }),
+      name: this.newProjectName,
+      type: 'Project',
+      admins: [this.person._id]
+    })
+    this.set('newProjectName','')
   },
 
   _filterMyProjects (person, projects) {

@@ -111,7 +111,7 @@ Polymer({
   },
 
   _getMainLocation () {
-    if (this.project) return this.project.locations[0].address
+    if (this.project && this.project.locations[0]) return this.project.locations[0].address
   },
 
   _onGoogleMapsApiLoad () {
