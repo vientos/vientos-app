@@ -6,7 +6,8 @@ Polymer({
 
   actions: {
     follow: ActionCreators.follow,
-    unfollow: ActionCreators.unfollow
+    unfollow: ActionCreators.unfollow,
+    saveProject: ActionCreators.saveProject
   },
 
   properties: {
@@ -27,6 +28,18 @@ Polymer({
     projects: {
       type: Array,
       statePath: 'projects'
+    },
+    people: {
+      type: Array,
+      statePath: 'people'
+    },
+    potentialAdmins: {
+      type: Array,
+      computed: '_getPotentialAdmins(project, people)'
+    },
+    newAdmin: {
+      type: String,
+      value: null
     },
     project: {
       // passed from parent
@@ -64,6 +77,8 @@ Polymer({
 
   _filterRequests: util.filterProjectRequests,
 
+  _getRef: util.getRef,
+
   _intentPageUrl (intent) {
     return util.pathFor(intent, 'intent')
   },
@@ -84,6 +99,19 @@ Polymer({
   _newIntent () {
     window.history.pushState({}, '', `/new-intent/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _getPotentialAdmins (project, people) {
+    return people.filter(person => !project.admins.includes(person._id))
+  },
+
+  _setNewAdmin (e, detail) {
+    this.set('newAdmin', detail.item.name)
+  },
+
+  _addNewAdmin () {
+    this.project.admins = [...new Set([...this.project.admins, this.newAdmin])]
+    this.dispatch('saveProject', this.project)
   },
 
   _showLocationOnMap (e) {

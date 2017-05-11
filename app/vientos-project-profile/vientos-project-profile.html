@@ -1,6 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
@@ -30,6 +33,27 @@
 
     <template is="dom-if" if="[[admin]]">
       <paper-button on-tap="_editDetails">[[localize('button:edit')]]</paper-button>
+
+      <ul>
+        <template is="dom-repeat" items="[[_getRef(project.admins, people)]]">
+          <li>[[item.name]]</li>
+        </template>
+      </ul>
+      <div>
+        <!-- TODO add label in vientos-data -->
+        <paper-dropdown-menu label="[[localize('label:select-person')]]">
+          <paper-listbox
+            class="dropdown-content"
+            attr-for-selected="name"
+            on-iron-select="_setNewAdmin">
+            <template is="dom-repeat" items="[[potentialAdmins]]">
+              <paper-item name="[[item._id]]">[[item.name]]</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-button on-tap="_addNewAdmin" disabled="[[!newAdmin]]">[[localize('button:save')]]</paper-button>
+      </div>
+
     </template>
 
 

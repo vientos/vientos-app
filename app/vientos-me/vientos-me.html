@@ -38,7 +38,7 @@
       </ul>
       <div>
         <input is="iron-input" bind-value="{{newProjectName}}">
-        <paper-button on-tap="_crateProject">[[localize('button:save')]]</paper-button>
+        <paper-button on-tap="_crateProject" disabled="[[!newProjectName]]">[[localize('button:save')]]</paper-button>
       </div>
       <template is="dom-repeat" items="[[activeIntents]]" as="intent">
         <intent-preview intent="[[intent]]" show-projects></intent-preview>
