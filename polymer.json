@@ -4,7 +4,7 @@
   "fragments": [
     "app/vientos-projects/vientos-projects.html",
     "app/vientos-map/vientos-map.html",
-    "app/vientos-collaborations/vientos-collaborations.html",
+    "app/intents-list/intents-list.html",
     "app/vientos-project/vientos-project-profile.html",
     "app/vientos-filter/vientos-filter.html",
     "app/vientos-me/vientos-me.html",

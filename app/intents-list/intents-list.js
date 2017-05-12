@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior */
 
 Polymer({
-  is: 'vientos-collaborations',
+  is: 'intents-list',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   properties: {

@@ -163,7 +163,7 @@ Polymer({
     var viewUrl
     switch (page) {
       case 'intents':
-        viewUrl = '../vientos-collaborations/vientos-collaborations'
+        viewUrl = '../intents-list/intents-list'
         break
 
       case 'projects':
