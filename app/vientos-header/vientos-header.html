@@ -21,7 +21,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -50,14 +52,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="button-holder" id="menu-button-holder-right">
 
-        <vientos-icon-button
-           id="button-account"
-           text="[[localize('button:profile')]]"
-           icon="vientos:user"
-           small
-           on-tap="_showProfile"
+        <template is="dom-if" if="[[person]]">
+          <paper-button on-tap="_showProfile">
+            <iron-image id="person-avatar" src="[[person.logo]]" sizing="contain"></iron-image>
+          </paper-button>
+        </template>
+        <template is="dom-if" if="[[!person]]">
+          <vientos-icon-button
+             id="button-account"
+             text="[[localize('button:login')]]"
+             icon="vientos:user"
+             small
+             on-tap="_showProfile"
 
-        ></vientos-icon-button>
+          ></vientos-icon-button>
+        </template>
         <!-- FIXME put me  -->
         <vientos-icon-button
            id="button-menu"

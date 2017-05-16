@@ -5,8 +5,7 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    saveIntent: ActionCreators.saveIntent,
-    deleteIntent: ActionCreators.deleteIntent
+    saveIntent: ActionCreators.saveIntent
   },
 
   properties: {
@@ -22,8 +21,7 @@ Polymer({
       type: Object
     },
     project: {
-      type: Object,
-      observer: '_createNewIntent'
+      type: Object
     },
     imagePreviewSrc: {
       type: String,
@@ -77,6 +75,8 @@ Polymer({
     }
   },
 
+  observers: ['_createNewIntent(person, project)'],
+
   _intentChanged () {
     this._reset()
     this._makeClone()
@@ -96,11 +96,6 @@ Polymer({
     this.dispatch('saveIntent', this.updated, this.newImage)
     window.history.pushState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
-  _delete () {
-    this.dispatch('deleteIntent', this.intent)
-    this._reset()
   },
 
   _reset () {
@@ -135,23 +130,23 @@ Polymer({
     this.condition = detail.item.name
   },
 
-  _createNewIntent () {
-    if (this.project) {
+  _createNewIntent (person, project) {
+    if (person && project) {
       this._reset()
       this.set('updated', {
         _id: util.mintUrl({ type: 'Intent' }),
         type: 'Intent',
         direction: 'offer',
         condition: 'gift',
-        creator: this.person._id,
-        admins: [this.person._id],
-        projects: [ this.project._id ]
+        creator: person._id,
+        admins: [person._id],
+        projects: [ project._id ]
       })
     }
   },
 
   _getMainLocation () {
-    if (this.project) return this.project.locations[0].address
+    if (this.project && this.project.locations[0]) return this.project.locations[0].address
   },
 
   _onGoogleMapsApiLoad () {

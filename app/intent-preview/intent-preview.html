@@ -4,22 +4,19 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../components/vientos-card/vientos-card.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="intent-preview-styles.html">
 
 <dom-module id="intent-preview">
   <template>
 
-    <style>
-      iron-image {
-        width: 26px;
-        height: 26px;
-        padding-left: 5px;
-      }
-    </style>
+    <style include="intent-preview-styles"></style>
 
     <vientos-card on-tap="_showIntentDetails">
-      <p>[[localize(intent.direction)]]</p>
-      <p>[[intent.title]]</p>
-      <p>[[localize(intent.collaborationType)]]</p>
+      <p>
+        [[localize(intent.direction)]]
+        [[localize(intent.collaborationType)]]
+      </p>
+      <div>[[intent.title]]</div>
       <template is="dom-if" if="[[showProjects]]">
         <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
           <p>
@@ -29,9 +26,22 @@
         </template>
       </template>
       <template is="dom-if" if="[[favoring]]">
-        <iron-icon icon="vientos:follow"></iron-icon>
+        <iron-icon icon="vientos:favor"></iron-icon>
       </template>
-      <p>[[intent.openConversations.length]] | [[intent.collaborations.length]] | [[intent.abortedConversations.length]]</p>
+      <div id="stats">
+        <span>
+          <iron-icon icon="vientos:conversation"></iron-icon>
+          [[intent.openConversations.length]]
+        </span>
+        <span>
+          <iron-icon icon="vientos:success"></iron-icon>
+          [[intent.collaborations.length]]
+        </span>
+        <span>
+          <iron-icon icon="vientos:aborted"></iron-icon>
+        [[intent.abortedConversations.length]]
+        </span>
+      </div>
     </vientos-card>
   </template>
   <script src="intent-preview.js"></script>

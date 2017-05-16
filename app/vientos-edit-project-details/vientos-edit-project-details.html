@@ -6,6 +6,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 
@@ -19,15 +20,11 @@
   <template>
 
     <style include="vientos-edit-project-details-styles">
-
-      :host {
-        padding-bottom: 5em;
-      }
     </style>
 
     <section id="logo">
       <form id="new-image-form">
-        <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
+        <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
         <div>
           <input id="new-image"
             type="file"
@@ -37,8 +34,12 @@
       </form>
     </section>
     <section id="general-info">
-      <div><label>[[localize('label:org-name')]]: <input is="iron-input" bind-value="{{updated.name}}" ></label></div>
-      <div><label>[[localize('label:org-description')]]: <iron-autogrow-textarea bind-value="{{updated.description}}" ></iron-autogrow-textarea></label></div>
+      <paper-input value="{{updated.name}}" label="[[localize('label:org-name')]]"></paper-input>
+      <div>
+        <label>[[localize('label:org-description')]]:
+          <iron-autogrow-textarea value="{{updated.description}}" ></iron-autogrow-textarea>
+        </label>
+      </div>
     </section>
     <section id="categories">
     <vientos-categories-selector
@@ -48,34 +49,39 @@
     </section>
     <section>
       <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
-      <input id="place-input" value="[[_getMainLocation(project)]]">
+      <label>
+        [[localize('label:address')]]
+        <div><input id="place-input" value="[[_getMainLocation(project)]]"></div>
+      </label>
     </section>
     <section id="contact-data">
+      <p>[[localize('label:contacts')]]</p>
       <ul>
         <template is="dom-repeat" items="[[updated.contacts]]">
           <li>
-            <input is="iron-input" bind-value="{{item}}">
-            <paper-button on-tap="_removeContact">X</paper-button>
+            <span>[[item]]</span>
+            <paper-button raised on-tap="_removeContact">X</paper-button>
           </li>
         </template>
       </ul>
-      <input is="iron-input" bind-value="{{newContact}}">
-      <paper-button on-tap="_addContact">[[localize('button:add-contact')]]</paper-button>
+      <paper-input value="{{newContact}}" placeholder="@"></paper-input>
+      <paper-button raised on-tap="_addContact" disabled="[[!newContact]]">[[localize('button:add-contact')]]</paper-button>
     </section>
     <section id="web-social-media">
+      <p>[[localize('label:links')]]</p>
       <ul>
         <template is="dom-repeat" items="[[updated.links]]">
           <li>
-            <input is="iron-input" bind-value="{{item}}">
-            <paper-button on-tap="_removeLink">X</paper-button>
+            <span>[[item]]</span>
+            <paper-button raised on-tap="_removeLink">X</paper-button>
           </li>
         </template>
       </ul>
-      <input is="iron-input" bind-value="{{newLink}}">
-      <paper-button on-tap="_addLink">[[localize('button:add-link')]]</paper-button>
+      <paper-input value="{{newLink}}" placeholder="https://"></paper-input>
+      <paper-button raised on-tap="_addLink" disabled="[[!newLink]]">[[localize('button:add-link')]]</paper-button>
     </section>
-    <paper-button on-tap="_save">[[localize('button:save')]]</paper-button>
-    <paper-button on-tap="_cancel">[[localize('button:cancel')]]</paper-button>
+    <paper-button raised on-tap="_save">[[localize('button:save')]]</paper-button>
+    <paper-button raised on-tap="_cancel">[[localize('button:cancel')]]</paper-button>
 
   </template>
 

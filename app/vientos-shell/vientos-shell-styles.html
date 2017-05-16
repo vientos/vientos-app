@@ -30,6 +30,10 @@
     background-color: var(--vientos-color-footer);
   }
 
+  iron-pages {
+    padding-bottom: 3em;
+  }
+
   intents-list,
   vientos-filter,
   vientos-me,
@@ -39,15 +43,17 @@
     padding: 10px;
   }
 
+  vientos-edit-project-details,
+  vientos-intent-page,
+  start-conversation,
+  personal-profile-editor,
+  conversation-page,
   vientos-intent-editor {
     display: block;
     padding: 10px;
     max-width: 300px;
-    background-color: #eee;
     padding: var(--spacing-2);
     @apply --center-y;
-    text-align: center !important;
-
     margin-bottom: 96px;
   }
 
@@ -72,12 +78,6 @@
   vientos-projects {
     background-color: var(--vientos-color-app-background-light);
   }
-
-
-
-
-
-
 
   app-header {
     @apply --vientos-toolbar;

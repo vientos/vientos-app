@@ -16,80 +16,124 @@
   <template>
     <style include="vientos-intent-page-styles"></style>
 
-    <template is="dom-if" if="[[admin]]">
+    <template is="dom-if" if="[[conversations.length]]">
+      <h3>
+        <iron-icon icon="vientos:conversation"></iron-icon>
+        [[localize('label:open-conversations')]]
+      </h3>
       <ul>
         <template is="dom-repeat" items="[[conversations]]" as="conversation">
           <li><a href="[[_conversationUrl(conversation)]]">[[_getConversationCreatorName(conversation.creator, people)]]</a></li>
         </template>
       </ul>
     </template>
-    <template is="dom-if" if="[[conversationOfCreator]]">
-      <p><a href="[[_conversationUrl(conversationOfCreator)]]">[[person.name]]</a></p>
-    </template>
     <template is="dom-if" if="[[admin]]">
-      <paper-button on-tap="_editIntent">[[localize('button:edit')]]</paper-button>
+      <paper-button
+        raised
+        on-tap="_editIntent">
+        [[localize('button:edit')]]
+      </paper-button>
+      <paper-button
+        raised
+        on-tap="_delete">
+        [[localize('button:delete')]]
+      </paper-button>
     </template>
-
-    <h2>[[intent.title]]</h2>
 
     <section>
-      <template is="dom-if" if="[[person]]">
+      <template is="dom-if" if="[[_canFavor(person, admin)]]">
         <template is="dom-if" if="[[!favoring]]">
           <vientos-icon-button
-          icon="vientos:follow"
-          text="[[localize('button:follow')]]"
+          raised
+          icon="vientos:favor"
+          text="[[localize('button:favor')]]"
           on-tap="_favor"
           ></vientos-icon-button>
         </template>
         <template is="dom-if" if="[[favoring]]">
           <vientos-icon-button
-          icon="vientos:unfollow"
-          text="[[localize('button:unfollow')]]"
+          raised
+          icon="vientos:unfavor"
+          text="[[localize('button:unfavor')]]"
           on-tap="_unfavor"
           ></vientos-icon-button>
         </template>
       </template>
     </section>
 
-    <p>[[intent.description]]</p>
-    <p>[[intent.question]]</p>
-    <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
-    <ul>
-      <template is="dom-repeat" items="[[intent.locations]]" as="location">
-        <li>[[location.address]]</li>
-      </template>
-    </ul>
-    <p>[[localize(intent.collaborationType)]]</p>
-    <p>[[localize(intent.condition)]]</p>
-    <p>[[intent.direction]]</p>
-    <p>[[intent.expiryDate]]</p>
+    <h2>[[intent.title]]</h2>
+    <p>[[localize(intent.direction)]]</p>
 
-    <ul>
-      <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
-        <li><a href="[[_projectPageUrl(project)]]">[[project.name]]</a></li>
+    <section>
+      <h3>[[localize('label:description')]]</h3>
+      <p>[[intent.description]]</p>
+      <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
+      <template is="dom-if" if="[[intent.locations.lenght]]">
+        <h3>[[localize('label:address')]]</h3>
+        <p>
+          <ul>
+            <template is="dom-repeat" items="[[intent.locations]]" as="location">
+              <li>
+                <iron-icon icon="vientos:address"></iron-icon>
+                [[location.address]]
+              </li>
+            </template>
+          </ul>
+        </p>
       </template>
-    </ul>
-    <ul>
-      <template is="dom-repeat" items="[[_getRef(intent.collaborations, collaborations)]]" as="collaboration">
-        <li>
-          <div>[[collaboration.body]]</div>
-          <template is="dom-repeat" items="[[_reviewsOfCollaboration(collaboration, reviews)]]" as="review">
-            <p>[[review.body]]</p>
-          </template>
-        </li>
-      </template>
-    </ul>
-    <ul>
-      <template is="dom-repeat" items="[[_reviewsOfAbortedConversations(intent, reviews)]]" as="reviewsGroup">
-        <li>
-          <template is="dom-repeat" items="[[reviewsGroup]]" as="review">
-            <p>[[review.body]]</p>
-          </template>
-        </li>
-      </template>
-    </ul>
+      <h3>[[localize('label:collaboration-type')]]</h3>
+      <p>[[localize(intent.collaborationType)]]</p>
+      <h3>[[localize('label:collaboration-condition')]]</h3>
+      <p>[[localize(intent.condition)]]</p>
+      <h3>[[localize('label:expiry-date')]]</h3>
+      <p>[[intent.expiryDate]]</p>
+    </section>
 
-    <template is="dom-if" if="[[_collaborateVisible(admin, conversationOfCreator)]]">
+    <section>
+      <h3>
+        <iron-icon icon="vientos:organization"></iron-icon>
+        [[localize('label:projects')]]
+      </h3>
+      <ul>
+        <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
+          <li><a href="[[_projectPageUrl(project)]]">[[project.name]]</a></li>
+        </template>
+      </ul>
+    </section>
+    <template is="dom-if" if="[[intentCollaborations.length]]">
+      <section>
+        <h3>
+          <iron-icon icon="vientos:success"></iron-icon>
+          [[localize('label:collaborations')]]
+        </h3>
+        <ul>
+          <template is="dom-repeat" items="[[intentCollaborations]]" as="collaboration">
+            <li>
+              <div>[[collaboration.body]]</div>
+              <template is="dom-repeat" items="[[_reviewsOfCollaboration(collaboration, reviews)]]" as="review">
+                <p>[[review.body]]</p>
+              </template>
+            </li>
+          </template>
+        </ul>
+      </section>
+    </template>
+    <template is="dom-if" if="[[reviewGroups.length]]">
+      <section>
+        <h3>[[localize('label:reviews-aborted')]]</h3>
+        <ul>
+          <template is="dom-repeat" items="[[reviewGroups]]" as="reviewGroup">
+            <li>
+              <template is="dom-repeat" items="[[reviewGroup]]" as="review">
+                <p>[[review.body]]</p>
+              </template>
+            </li>
+          </template>
+        </ul>
+      </section>
+    </template>
+
+    <template is="dom-if" if="[[_collaborateVisible(admin)]]">
       <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
     </template>
   </template>

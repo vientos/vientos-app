@@ -17,6 +17,10 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    people: {
+      type: Array,
+      statePath: 'people'
+    },
     intents: {
       type: Array,
       statePath: 'intents'
@@ -44,6 +48,11 @@ Polymer({
       type: String,
       value: ''
     },
+    showNewMessage: {
+      type: Boolean,
+      value: false,
+      computed: '_showNewMessage(conversation, reviewing, editingCollaboration)'
+    },
     newReview: {
       type: String,
       value: ''
@@ -69,6 +78,14 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
+  },
+
+  _getMessageCreatorName (creator) {
+    return util.getRef(creator, this.people).name
+  },
+
+  _getMessageCreatorAvatar (creator) {
+    return util.getRef(creator, this.people).logo
   },
 
   _getCausingIntent (conversation, intents) {
@@ -225,5 +242,4 @@ Polymer({
     this.dispatch('saveCollaboration', this.editedCollaboration)
     this._toggleCollaborationEditor()
   }
-
 })

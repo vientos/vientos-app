@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
@@ -20,19 +21,10 @@
 
     <style include="vientos-intent-editor-styles"></style>
 
-    <input is="iron-input" bind-value="{{updated.title}}"/>
-
-    <div id="intent-direction-toggle">
-      <iron-icon icon="arrow-forward"></iron-icon>
-      <span>[[localize('offer')]]</span>
-      <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
-      <iron-icon icon="arrow-back"></iron-icon>
-      <span>[[localize('request')]]</span>
-    </div>
-
     <section id="logo">
       <form id="new-image-form">
-        <div><iron-image src="[[imagePreviewSrc]]"></iron-image></div>
+        <!-- FIXME not showing preview when creating intent, but do when editing  -->
+        <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
         <div>
           <input id="new-image"
             type="file"
@@ -42,68 +34,80 @@
       </form>
     </section>
 
-    <div>
-      <label>[[localize('label:org-description')]]:
-        <iron-autogrow-textarea bind-value="{{updated.description}}" ></iron-autogrow-textarea>
-      </label>
-    </div>
+    <section>
+    <paper-input value="{{updated.title}}" label="[[localize('label:title')]]"></paper-input>
+      <div>
+        <label>[[localize('label:org-description')]]:
+          <iron-autogrow-textarea value="{{updated.description}}" ></iron-autogrow-textarea>
+        </label>
+      </div>
 
-    <div>
-      <label>[[localize('label:org-description')]]:
-        <iron-autogrow-textarea bind-value="{{updated.question}}" ></iron-autogrow-textarea>
-      </label>
+      <div>
+        <label>[[localize('label:questions')]]:
+          <iron-autogrow-textarea value="{{updated.question}}" ></iron-autogrow-textarea>
+        </label>
+      </div>
+    </section>
+
+    <div id="intent-direction-toggle">
+      <iron-icon icon="arrow-forward"></iron-icon>
+      <span>[[localize('offer')]]</span>
+      <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
+      <iron-icon icon="arrow-back"></iron-icon>
+      <span>[[localize('request')]]</span>
     </div>
 
     <section>
+      <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">
+        <paper-listbox
+          class="dropdown-content"
+          attr-for-selected="name"
+          on-iron-select="_setCollaborationType"
+          selected="[[updated.collaborationType]]">
+          <template is="dom-repeat" items="[[collaborationTypes]]">
+            <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-dropdown-menu label="[[localize('label:collaboration-condition')]]">
+        <paper-listbox
+          class="dropdown-content"
+          attr-for-selected="name"
+          on-iron-select="_setCollaborationCondition"
+          selected="[[updated.condition]]">
+          <template is="dom-repeat" items="[[conditions]]">
+            <paper-item name="[[item]]">[[localize(item)]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <vaadin-date-picker
+        id="datepicker"
+        value="{{expiryDate}}"
+        min="[[expiryMinDate]]"
+        label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
+    </section>
+    
+    <section>
       <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
-      <input id="place-input" value="[[_getMainLocation(project)]]">
+      <label>
+        [[localize('label:address')]]
+        <div><input id="place-input" value="[[_getMainLocation(project)]]"></div>
+      </label>
     </section>
 
-    <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">
-      <paper-listbox
-        class="dropdown-content"
-        attr-for-selected="name"
-        on-iron-select="_setCollaborationType"
-        selected="[[updated.collaborationType]]">
-        <template is="dom-repeat" items="[[collaborationTypes]]">
-          <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu>
 
-    <paper-dropdown-menu label="[[localize('label:collaboration-condition')]]">
-      <paper-listbox
-        class="dropdown-content"
-        attr-for-selected="name"
-        on-iron-select="_setCollaborationCondition"
-        selected="[[updated.condition]]">
-        <template is="dom-repeat" items="[[conditions]]">
-          <paper-item name="[[item]]">[[localize(item)]]</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu>
-
-    <vaadin-date-picker
-      id="datepicker"
-      value="{{expiryDate}}"
-      min="[[expiryMinDate]]"
-      label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
-
-    <paper-button
+    <paper-button raised
       id="button-save-intent"
       on-tap="_save"
     >[[localize('button:save')]]</paper-button>
 
-    <paper-button
+    <paper-button raised
       id="button-cancel"
       on-tap="_cancel"
     >[[localize('button:cancel')]]</paper-button>
 
-    <template is="dom-if" if="[[intent._id]]">
-          <paper-button
-            on-tap="_delete"
-          >[[localize('button:delete')]]</paper-button>
-    </template>
   </template>
 
   <script src="vientos-intent-editor.js"></script>

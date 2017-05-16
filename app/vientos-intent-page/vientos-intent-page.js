@@ -6,7 +6,8 @@ Polymer({
 
   actions: {
     favor: ActionCreators.favor,
-    unfavor: ActionCreators.unfavor
+    unfavor: ActionCreators.unfavor,
+    deleteIntent: ActionCreators.deleteIntent
   },
 
   properties: {
@@ -22,9 +23,17 @@ Polymer({
       type: Array,
       statePath: 'collaborations'
     },
+    intentCollaborations: {
+      type: Array,
+      computed: '_getCollaborations(intent, collaborations)'
+    },
     reviews: {
       type: Array,
       statePath: 'reviews'
+    },
+    reviewGroups: {
+      type: Array,
+      computed: '_reviewsOfAbortedConversations(intent, reviews)'
     },
     intent: {
       type: Object
@@ -52,11 +61,8 @@ Polymer({
     },
     admin: {
       type: Boolean,
+      value: false,
       computed: '_checkIfAdmin(person, intentProjects)'
-    },
-    conversationOfCreator: {
-      type: Object,
-      computed: '_getConversationOfCreator(person, intent, myConversations)'
     },
     language: {
       type: String,
@@ -74,16 +80,13 @@ Polymer({
 
   _getIntentProjects: util.getIntentProjects,
 
-  _getRef: util.getRef,
-
   _filterIntentConversations: util.filterIntentConversations,
 
-  _getConversationOfCreator (person, intent, myConversations) {
-    if (!intent) return
-    return myConversations.find(conversation => {
-      return (conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id) &&
-      !conversation.reviews.some(review => review.creator === person._id)
-    }) || null
+  _getRef: util.getRef,
+
+  _getCollaborations (intent, collaborations) {
+    if (!intent || !intent.collaborations || !collaborations) return
+    return util.getRef(intent.collaborations, collaborations)
   },
 
   _editIntent () {
@@ -91,11 +94,16 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _delete () {
+    this.dispatch('deleteIntent', this.intent)
+  },
+
   _projectPageUrl (project) {
     return util.pathFor(project, 'project')
   },
 
   _conversationUrl (conversation) {
+    if (!conversation) return
     return util.pathFor(conversation, 'conversation')
   },
 
@@ -127,11 +135,18 @@ Polymer({
     })
   },
 
+  _canFavor (person, admin) {
+    return person && !admin
+  },
+
   _favor () {
     this.dispatch('favor', this.person, this.intent)
   },
 
   _unfavor () {
     this.dispatch('unfavor', this.favoring)
+  },
+  ready () {
+    window.foo = this
   }
 })

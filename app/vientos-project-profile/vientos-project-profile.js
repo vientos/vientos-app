@@ -21,8 +21,8 @@ Polymer({
       computed: '_checkIfAdmin(person, project)'
     },
     following: {
-      type: Object,
-      value: null,
+      type: Boolean,
+      value: false,
       computed: '_checkIfFollows(person, project)'
     },
     projects: {
@@ -40,6 +40,10 @@ Polymer({
     newAdmin: {
       type: String,
       value: null
+    },
+    addingNewAdmin: {
+      type: Boolean,
+      value: false
     },
     project: {
       // passed from parent
@@ -83,6 +87,10 @@ Polymer({
     return util.pathFor(intent, 'intent')
   },
 
+  _canFollow (person, admin) {
+    return person && !admin
+  },
+
   _follow () {
     this.dispatch('follow', this.person, this.project)
   },
@@ -106,6 +114,14 @@ Polymer({
     return people.filter(person => !project.admins.includes(person._id))
   },
 
+  _startAddingAdmin () {
+    this.set('addingNewAdmin', true)
+  },
+
+  _cancelAddingAdmin () {
+    this.set('addingNewAdmin', false)
+  },
+
   _setNewAdmin (e, detail) {
     this.set('newAdmin', detail.item.name)
   },
@@ -113,6 +129,7 @@ Polymer({
   _addNewAdmin () {
     this.project.admins = [...new Set([...this.project.admins, this.newAdmin])]
     this.dispatch('saveProject', this.project)
+    this.set('addingNewAdmin', false)
   },
 
   _showLocationOnMap (e) {
@@ -120,5 +137,4 @@ Polymer({
     window.history.pushState({}, '', `/map?latitude=${location.latitude}&longitude=${location.longitude}&zoom=15`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
-
 })

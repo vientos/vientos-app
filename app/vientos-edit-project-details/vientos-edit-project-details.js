@@ -64,9 +64,13 @@ Polymer({
     }
   },
 
+  _addToColection (element, collectionPath) {
+    if (element === '' || this.get(collectionPath).includes(element)) return
+    this.set(collectionPath, [...this.get(collectionPath), element])
+  },
+
   _addContact () {
-    if (this.newContact === '' || this.updated.contacts.includes(this.newContact)) return
-    this.set('updated.contacts', [...this.updated.contacts, this.newContact])
+    this._addToColection(this.newContact, 'updated.contacts')
     this.set('newContact', '')
   },
 
@@ -76,8 +80,7 @@ Polymer({
 
   _addLink () {
     // TODO validate URLs
-    if (this.newLink === '' || this.updated.links.includes(this.newLink)) return
-    this.set('updated.links', [...this.updated.links, this.newLink])
+    this._addToColection(this.newLink, 'updated.links')
     this.set('newLink', '')
   },
 
@@ -98,6 +101,10 @@ Polymer({
 
   _save () {
     this.updated.locations.forEach(location => delete location.project)
+    // in case person didn't click 'Add'
+    this._addToColection(this.newContact, 'updated.contacts')
+    this._addToColection(this.newLink, 'updated.links')
+
     this.dispatch('saveProject', this.updated, this.newImage)
     this._reset()
     window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)

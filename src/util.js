@@ -167,16 +167,30 @@ export function findPotentialMatches (person, projects, intents, matchedIntent) 
   }
 }
 
+export function filterVisibleConversations (person, intents, myConversations) {
+}
+
+// TODO reuse for notifications
 export function filterActiveIntents (person, intents, myConversations) {
   if (person) {
-    let createdConversations = myConversations.filter(conversation => conversation.creator === person._id)
-    // TODO add matching intent
-    return intents.filter(intent => createdConversations.some(conversation => conversation.causingIntent === intent._id))
+    // conversations which I created
+    // and conversation on intens (causing or matching) which I admin
+    return intents.filter(intent => {
+      return myConversations.some(conversation => {
+        return (conversation.causingIntent === intent._id ||
+                conversation.matchingIntent === intent._id) &&
+               (conversation.creator === person._id ||
+                intent.admins.includes(person._id))
+      })
+    })
   }
 }
 
 export function filterIntentConversations (intent, myConversations) {
   if (intent) {
-    return myConversations.filter(conversation => conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id)
+    return myConversations.filter(conversation => {
+      return conversation.causingIntent === intent._id ||
+      conversation.matchingIntent === intent._id
+    })
   }
 }

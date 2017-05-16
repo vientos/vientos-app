@@ -5,6 +5,10 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   properties: {
+    person: {
+      type: Object,
+      statePath: 'person'
+    },
     page: {
       type: String,
       observer: '_pageChanged'

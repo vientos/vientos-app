@@ -221,6 +221,16 @@ Polymer({
     this.importHref(resolvedPageUrl, null, this._showPage404, true)
   },
 
+  _hasFooter (page) {
+    return ![
+      'edit-project-details',
+      'edit-my-profile',
+      'new-intent',
+      'edit-intent',
+      'new-conversation'
+    ].includes(page)
+  },
+
   _toggleLanguage (e) {
     if (this.language === 'en') {
       this.dispatch('setLanguage', 'es')

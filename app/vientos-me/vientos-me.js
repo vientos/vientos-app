@@ -38,6 +38,10 @@ Polymer({
       type: String,
       value: ''
     },
+    addingNewProject: {
+      type: Boolean,
+      value: false
+    },
     login: {
       type: String,
       value: () => { return window.vientos.login }
@@ -71,14 +75,24 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _startAddingProject () {
+    this.set('addingNewProject', true)
+  },
+
+  _cancelAddingProject () {
+    this.set('newProjectName', '')
+    this.set('addingNewProject', false)
+  },
+
   _crateProject () {
     this.dispatch('saveProject', {
-      _id: util.mintUrl({ type:'Project' }),
+      _id: util.mintUrl({ type: 'Project' }),
       name: this.newProjectName,
       type: 'Project',
       admins: [this.person._id]
     })
-    this.set('newProjectName','')
+    this.set('newProjectName', '')
+    this.set('addingNewProject', false)
   },
 
   _filterMyProjects (person, projects) {

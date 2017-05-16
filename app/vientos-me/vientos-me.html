@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
@@ -19,30 +20,51 @@
     <style include="vientos-me-styles"></style>
 
     <template is="dom-if" if="[[person]]">
-      <paper-button on-tap="_editProfile">
+      <paper-button raised on-tap="_editProfile">
         [[localize('button:edit')]]
       </paper-button>
       <div><iron-image src="[[person.logo]]" sizing="contain"></iron-image></div>
       <h2>[[person.name]]</h2>
-      <vientos-icon-button icon="vientos:login" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
-
-      <ul>
-        <template is="dom-repeat" items="[[person.categories]]">
-          <li><iron-icon icon="vientos:[[item]]"></iron-icon>[[localize(item)]]</li>
-        </template>
-      </ul>
-      <ul>
-        <template is="dom-repeat" items="[[myProjects]]" as="project">
-          <li><a href="[[_projectUrl(project)]]">[[project.name]]</a></li>
-        </template>
-      </ul>
-      <div>
-        <input is="iron-input" bind-value="{{newProjectName}}">
-        <paper-button on-tap="_crateProject" disabled="[[!newProjectName]]">[[localize('button:save')]]</paper-button>
-      </div>
-      <template is="dom-repeat" items="[[activeIntents]]" as="intent">
-        <intent-preview intent="[[intent]]" show-projects></intent-preview>
+      <vientos-icon-button raised icon="vientos:user" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
+      <template is="dom-if" if="[[person.categories.length]]">
+        <section>
+          <h3>[[localize('button:my-categories')]]</h3>
+          <ul>
+            <template is="dom-repeat" items="[[person.categories]]">
+              <li><iron-icon icon="vientos:[[item]]"></iron-icon>[[localize(item)]]</li>
+            </template>
+          </ul>
+        </section>
       </template>
+      <template is="dom-if" if="[[myProjects.length]]">
+        <section>
+          <h3>[[localize('label:projects')]]</h3>
+          <ul>
+            <template is="dom-repeat" items="[[myProjects]]" as="project">
+              <li><a href="[[_projectUrl(project)]]">[[project.name]]</a></li>
+            </template>
+          </ul>
+        </section>
+      </template>
+      <section>
+        <template is="dom-if" if="[[addingNewProject]]">
+          <div>
+            <paper-input value="{{newProjectName}}" label="[[localize('label:org-name')]]"></paper-input>
+            <section>
+              <paper-button raised on-tap="_crateProject" disabled="[[!newProjectName]]">[[localize('button:save')]]</paper-button>
+              <paper-button raised on-tap="_cancelAddingProject">[[localize('button:cancel')]]</paper-button>
+            </section>
+          </div>
+        </template>
+        <template is="dom-if" if="[[!addingNewProject]]">
+          <paper-button raised on-tap="_startAddingProject">[[localize('button:add-project')]]</paper-button>
+        </template>
+      </section>
+      <section>
+        <template is="dom-repeat" items="[[activeIntents]]" as="intent">
+          <intent-preview intent="[[intent]]" show-projects></intent-preview>
+        </template>
+      </section>
     </template>
     <template is="dom-if" if="[[!person]]">
       <ul>

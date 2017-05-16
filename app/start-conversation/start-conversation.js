@@ -97,7 +97,7 @@ Polymer({
   },
 
   ready () {
-    window.conv = this
+    this.$$('iron-autogrow-textarea').focus()
   }
 
 })

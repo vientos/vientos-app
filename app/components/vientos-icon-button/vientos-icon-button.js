@@ -9,7 +9,8 @@ Polymer({
     },
     icon: {
       type: String
-    }
+    },
+    raised: Boolean
   }
 
 })

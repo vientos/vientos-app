@@ -18,35 +18,37 @@
     <style include="start-conversation-styles"></style>
 
 
+    <h3>[[localize('label:questions')]]</h3>
     <p>[[intent.question]]</p>
     <div>
       <label>[[localize('label:intent-answer')]]:
-        <iron-autogrow-textarea bind-value="{{answer.body}}" ></iron-autogrow-textarea>
+        <iron-autogrow-textarea value="{{answer.body}}" autofocus></iron-autogrow-textarea>
       </label>
     </div>
 
-    <paper-dropdown-menu label="[[localize('label:matching-intent')]]">
-      <paper-listbox
-        class="dropdown-content"
-        attr-for-selected="name"
-        on-iron-select="_setMatchingIntent">
-        <template is="dom-repeat" items="[[potentialMatches]]">
-          <paper-item name="[[item._id]]">[[item.title]]</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu>
-
-    <paper-button
-      id="button-save-intent"
-      on-tap="_save"
-      disabled="[[!answer.body]]"
-    >[[localize('button:send')]]</paper-button>
-
-    <paper-button
-      id="button-cancel"
-      on-tap="_cancel"
-    >[[localize('button:cancel')]]</paper-button>
-
+    <template is="dom-if" if="[[potentialMatches.length]]">
+      <paper-dropdown-menu label="[[localize('label:matching-intent')]]">
+        <paper-listbox
+          class="dropdown-content"
+          attr-for-selected="name"
+          on-iron-select="_setMatchingIntent">
+          <template is="dom-repeat" items="[[potentialMatches]]">
+            <paper-item name="[[item._id]]">[[item.title]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+    </template>
+    <section>
+          <paper-button raised
+            id="button-save-intent"
+            on-tap="_save"
+            disabled="[[!answer.body]]"
+          >[[localize('button:send')]]</paper-button>
+          <paper-button raised
+            id="button-cancel"
+            on-tap="_cancel"
+          >[[localize('button:cancel')]]</paper-button>
+    </section>
   </template>
 
   <script src="start-conversation.js"></script>

@@ -83,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <template is="dom-if" if="[[session]]">
         <div>
-          <vientos-icon-button icon="vientos:login" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
+          <vientos-icon-button raised icon="vientos:user" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
         </div>
       </template>
     </app-drawer>
@@ -165,7 +165,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </paper-button>
     </template>
 
-    <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
+    <template is="dom-if" if="[[_hasFooter(page)]]">
+      <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
+    </template>
 
   </app-header-layout>
 </app-drawer-layout>
