@@ -246,6 +246,7 @@ Polymer({
   _personChanged (person) {
     if (person) {
       this.dispatch('fetchMyConversations', person)
+      setInterval(() => { this.dispatch('fetchMyConversations', person) }, 60000)
     }
   },
 
