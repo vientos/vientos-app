@@ -206,3 +206,15 @@ export function saveCollaboration (collaboration) {
     collaboration
   }
 }
+
+export function saveSubscription (details, person) {
+  return {
+    type: ActionTypes.SAVE_SUBSCRIPTION_REQUESTED,
+    subscription: {
+      type: 'Subscription',
+      endpoint: details.endpoint,
+      keys: details.keys,
+      person: person._id
+    }
+  }
+}

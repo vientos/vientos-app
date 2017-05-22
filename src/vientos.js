@@ -14,6 +14,7 @@ const cloudinary = {
 // otherwise unit tests not run in browser will fail
 if (typeof window !== 'undefined') {
   // TODO: discover from vientos-service API
+  if (!window.vientos) window.vientos = {}
   window.vientos.login = {
     google: service + '/auth/google',
     facebook: service + '/auth/facebook'
@@ -40,7 +41,8 @@ const collections = {
   conversations: { type: 'Conversation' },
   messages: { type: 'Message' },
   reviews: { type: 'Review' },
-  collaborations: { type: 'Collaboration' }
+  collaborations: { type: 'Collaboration' },
+  subscriptions: { type: 'Subscription' }
 }
 
 function dataUrl (actionType) {
@@ -144,6 +146,8 @@ export default function vientos (action) {
       return uploadAndSave(action.project, action.image)
     case ActionTypes.SAVE_PERSON_REQUESTED:
       return uploadAndSave(action.person, action.image)
+    case ActionTypes.SAVE_SUBSCRIPTION_REQUESTED:
+      return put(action.subscription)
     case ActionTypes.DELETE_INTENT_REQUESTED:
       return del(action.intent)
     case ActionTypes.FETCH_PERSON_REQUESTED:

@@ -23,7 +23,8 @@ Polymer({
     fetchIntents: ActionCreators.fetchIntents,
     fetchCollaborations: ActionCreators.fetchCollaborations,
     fetchReviews: ActionCreators.fetchReviews,
-    fetchMyConversations: ActionCreators.fetchMyConversations
+    fetchMyConversations: ActionCreators.fetchMyConversations,
+    saveSubscription: ActionCreators.saveSubscription
   },
 
   properties: {
@@ -245,8 +246,21 @@ Polymer({
 
   _personChanged (person) {
     if (person) {
+      // fetch conversations and update every 60s
       this.dispatch('fetchMyConversations', person)
       setInterval(() => { this.dispatch('fetchMyConversations', person) }, 60000)
+
+      // setup push notifications
+      navigator.serviceWorker.ready.then(registration => {
+        return registration.pushManager.getSubscription()
+        .then(subscription => {
+          if (subscription) return subscription
+          return registration.pushManager.subscribe({ userVisibleOnly: true })
+        })
+      }).then(subscription => {
+        let details = JSON.parse(JSON.stringify(subscription))
+        this.dispatch('saveSubscription', details, person)
+      })
     }
   },
 

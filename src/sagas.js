@@ -44,7 +44,8 @@ const handleLatest = [
   ActionTypes.FETCH_MY_CONVERSATIONS_REQUESTED,
   ActionTypes.HELLO_REQUESTED,
   ActionTypes.BYE_REQUESTED,
-  ActionTypes.SAVE_PERSON_REQUESTED
+  ActionTypes.SAVE_PERSON_REQUESTED,
+  ActionTypes.SAVE_SUBSCRIPTION_REQUESTED
 ]
 
 const handleEvery = [
