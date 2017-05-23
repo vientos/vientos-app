@@ -48,11 +48,20 @@
       on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
     </section>
     <section>
+      <ul>
+        <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
+          <li>
+            [[_getPlaceAddress(placeId, places)]]
+            <paper-button raised on-tap="_removeLocation">X</paper-button>
+          </li>
+        </template>
+      </ul>
       <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
       <label>
         [[localize('label:address')]]
-        <div><input id="place-input" value="[[_getMainLocation(project)]]"></div>
+        <div><input id="place-input"></div>
       </label>
+      <paper-button raised on-tap="_addLocation" disabled="[[!newPlace]]">[[localize('button:add-location')]]</paper-button>
     </section>
     <section id="contact-data">
       <p>[[localize('label:contacts')]]</p>

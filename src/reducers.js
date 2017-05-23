@@ -10,17 +10,7 @@ function projects (state = [], action) {
         if (!project.links) project.links = []
         if (!project.contacts) project.contacts = []
         if (!project.categories) project.categories = []
-        if (!project.locations) {
-          project.locations = []
-        } else {
-          project.locations = project.locations.map(location => {
-            return {
-              address: location.address,
-              latitude: Number(location.latitude),
-              longitude: Number(location.longitude)
-            }
-          })
-        }
+        if (!project.locations) project.locations = []
         return project
       })
     case ActionTypes.SAVE_PROJECT_SUCCEEDED:
@@ -58,6 +48,17 @@ function categories (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_CATEGORIES_SUCCEEDED:
       return action.json
+    default:
+      return state
+  }
+}
+
+function places (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_PLACES_SUCCEEDED:
+      return action.json
+    case ActionTypes.SAVE_PLACE_SUCCEEDED:
+      return replaceOrAddElement(state, action.json)
     default:
       return state
   }
@@ -262,6 +263,7 @@ export default combineReducers({
   projects,
   categories,
   people,
+  places,
   filteredCategories,
   filteredCollaborationTypes,
   filteredFollowings,

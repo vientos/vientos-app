@@ -86,11 +86,11 @@ Polymer({
 
   _drawMarkers () {
     this.markers.clearLayers()
-    this.locations.forEach(l => {
-      L.marker([l.latitude, l.longitude], { project: l.project, icon: this.icon })
+    this.locations.forEach(place => {
+      L.marker([place.latitude, place.longitude], { placeId: place._id, icon: this.icon })
         .addTo(this.markers)
         .on('click', e => {
-          this._projectSelected(e.target.options.project)
+          this._placeSelected(e.target.options.placeId)
         })
     })
   },
@@ -109,8 +109,8 @@ Polymer({
     }
   },
 
-  _projectSelected (project) {
-    window.history.pushState({}, '', util.pathFor(project, 'project'))
+  _placeSelected (placeId) {
+    window.history.pushState({}, '', util.pathFor(placeId, 'place'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

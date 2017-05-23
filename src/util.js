@@ -3,25 +3,23 @@ const service = require('../config.json').service
 
 export { mintUrl }
 
-export function locationsInBoundingBox (project, boundingBox) {
-  return project.locations.filter(location => {
-    return location.latitude <= boundingBox.ne.lat &&
-           location.latitude >= boundingBox.sw.lat &&
-           location.longitude <= boundingBox.ne.lng &&
-           location.longitude >= boundingBox.sw.lng
-  }).map(location => {
-    location.project = project._id
-    return location
+export function locationsInBoundingBox (entity, places, boundingBox) {
+  return places.filter(place => {
+    return entity.locations.some(placeId => placeId === place._id) &&
+           place.latitude <= boundingBox.ne.lat &&
+           place.latitude >= boundingBox.sw.lat &&
+           place.longitude <= boundingBox.ne.lng &&
+           place.longitude >= boundingBox.sw.lng
   })
 }
 
-export function extractLocations (projects, boundingBox) {
-  return projects.reduce((acc, project) => {
-    return acc.concat(locationsInBoundingBox(project, boundingBox))
+export function filterPlaces (entities, places, boundingBox) {
+  return entities.reduce((acc, entity) => {
+    return acc.concat(locationsInBoundingBox(entity, places, boundingBox))
   }, [])
 }
 
-export function filterProjects (person, projects, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
+export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -59,7 +57,7 @@ export function filterProjects (person, projects, intents, filteredCategories, f
   if (locationFilter === 'specific' && boundingBoxFilter) {
     // filter with location inside bounding box
     filtered = filtered.filter(project => {
-      return locationsInBoundingBox(project, boundingBox).length > 0
+      return locationsInBoundingBox(project, places, boundingBox).length > 0
     })
   } else if (locationFilter === 'specific' && !boundingBoxFilter) {
     // filter projects with some location
@@ -69,7 +67,7 @@ export function filterProjects (person, projects, intents, filteredCategories, f
   } else if (locationFilter === 'all' && boundingBoxFilter) {
     // show all projects without location and the ones with location inside bounding box
     filtered = filtered.filter(project => {
-      return project.locations.length === 0 || locationsInBoundingBox(project, boundingBox).length > 0
+      return project.locations.length === 0 || locationsInBoundingBox(project, places, boundingBox).length > 0
     })
   } else if (locationFilter === 'city') {
     filtered = filtered.filter(project => {
@@ -153,6 +151,11 @@ export function getRef (entityIds, collection) {
   } else {
     return collection.filter(entity => entityIds.includes(entity._id))
   }
+}
+
+export function getPlaceAddress (placeId, places) {
+  let place = getRef(placeId, places)
+  if (place) return place.address
 }
 
 export function findPotentialMatches (person, projects, intents, matchedIntent) {

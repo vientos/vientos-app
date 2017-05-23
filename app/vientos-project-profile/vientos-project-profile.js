@@ -33,6 +33,10 @@ Polymer({
       type: Array,
       statePath: 'people'
     },
+    places: {
+      type: Array,
+      statePath: 'places'
+    },
     potentialAdmins: {
       type: Array,
       computed: '_getPotentialAdmins(project, people)'
@@ -82,6 +86,8 @@ Polymer({
   _filterRequests: util.filterProjectRequests,
 
   _getRef: util.getRef,
+
+  _getPlaceAddress: util.getPlaceAddress,
 
   _intentPageUrl (intent) {
     return util.pathFor(intent, 'intent')

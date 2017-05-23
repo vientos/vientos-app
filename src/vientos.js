@@ -34,6 +34,7 @@ const fixtures = {
 const collections = {
   people: { type: 'Person' },
   projects: { type: 'Project' },
+  places: { type: 'Place' },
   intents: { type: 'Intent' },
   sessions: { type: 'Session' },
   followings: { type: 'Following' },
@@ -159,6 +160,7 @@ export default function vientos (action) {
     case ActionTypes.FETCH_LABELS_REQUESTED:
       return get(dataUrl(action.type))
     case ActionTypes.FETCH_PROJECTS_REQUESTED:
+    case ActionTypes.FETCH_PLACES_REQUESTED:
     case ActionTypes.FETCH_PEOPLE_REQUESTED:
     case ActionTypes.FETCH_INTENTS_REQUESTED:
     case ActionTypes.FETCH_COLLABORATIONS_REQUESTED:
@@ -174,6 +176,8 @@ export default function vientos (action) {
       return abortConversation(action.conversation, action.review)
     case ActionTypes.SAVE_COLLABORATION_REQUESTED:
       return put(action.collaboration)
+    case ActionTypes.SAVE_PLACE_REQUESTED:
+      return put(action.place)
     default:
       throw new Error('unknown action: ' + action.type)
   }

@@ -33,6 +33,7 @@ function * handler (action) {
 
 const handleLatest = [
   ActionTypes.FETCH_PROJECTS_REQUESTED,
+  ActionTypes.FETCH_PLACES_REQUESTED,
   ActionTypes.FETCH_CATEGORIES_REQUESTED,
   ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED,
   ActionTypes.FETCH_COLLABORATIONS_REQUESTED,
@@ -60,7 +61,8 @@ const handleEvery = [
   ActionTypes.ADD_MESSAGE_REQUESTED,
   ActionTypes.ADD_REVIEW_REQUESTED,
   ActionTypes.ABORT_CONVERSATION_REQUESTED,
-  ActionTypes.SAVE_COLLABORATION_REQUESTED
+  ActionTypes.SAVE_COLLABORATION_REQUESTED,
+  ActionTypes.SAVE_PLACE_REQUESTED
 ]
 
 function * root () {

@@ -159,7 +159,8 @@ Polymer({
     this.set('updated.locations', [{
       address: place.formatted_address,
       latitude: place.geometry.location.lat(),
-      longitude: place.geometry.location.lng()
+      longitude: place.geometry.location.lng(),
+      googlePlaceId: place.place_id
     }])
   },
 

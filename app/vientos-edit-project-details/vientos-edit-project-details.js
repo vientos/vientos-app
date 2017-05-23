@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, google */
+/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, google, util */
 
 Polymer({
   is: 'vientos-edit-project-details',
@@ -6,6 +6,7 @@ Polymer({
 
   actions: {
     saveProject: ActionCreators.saveProject,
+    savePlace: ActionCreators.savePlace,
     uploadImage: ActionCreators.uploadImage
   },
 
@@ -17,6 +18,14 @@ Polymer({
     },
     updated: {
       type: Object
+    },
+    places: {
+      type: Array,
+      statePath: 'places'
+    },
+    newPlace: {
+      type: Object,
+      value: null
     },
     newLink: {
       type: String,
@@ -52,6 +61,8 @@ Polymer({
     }
   },
 
+  _getPlaceAddress: util.getPlaceAddress,
+
   _projectChanged () {
     this._reset()
     this._makeClone()
@@ -67,6 +78,20 @@ Polymer({
   _addToColection (element, collectionPath) {
     if (element === '' || this.get(collectionPath).includes(element)) return
     this.set(collectionPath, [...this.get(collectionPath), element])
+  },
+
+  _addLocation () {
+    this._addToColection(this.newPlace._id, 'updated.locations')
+    let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
+    if (!existingPlace) {
+      this.dispatch('savePlace', this.newPlace)
+    }
+    this.set('newPlace', null)
+    this.$['place-input'].value = ''
+  },
+
+  _removeLocation (e) {
+    this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
   },
 
   _addContact () {
@@ -94,16 +119,25 @@ Polymer({
 
   _reset () {
     this.set('newImage', null)
+    this.set('newPlace', null)
     this.set('newContact', '')
     this.set('newLink', '')
+    this.$['place-input'].value = ''
     this.$['new-image-form'].reset()
   },
 
   _save () {
-    this.updated.locations.forEach(location => delete location.project)
     // in case person didn't click 'Add'
     this._addToColection(this.newContact, 'updated.contacts')
     this._addToColection(this.newLink, 'updated.links')
+
+    if (this.newPlace) {
+      this._addToColection(this.newPlace, 'updated.locations')
+      let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
+      if (!existingPlace) {
+        this.dispatch('savePlace', this.newPlace)
+      }
+    }
 
     this.dispatch('saveProject', this.updated, this.newImage)
     this._reset()
@@ -117,22 +151,26 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _getMainLocation () {
-    if (this.project && this.project.locations[0]) return this.project.locations[0].address
-  },
-
   _onGoogleMapsApiLoad () {
     this.autocomplete = new google.maps.places.Autocomplete(this.$['place-input'])
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
   },
 
   _placeChanged () {
-    let place = this.autocomplete.getPlace()
-    this.set('updated.locations', [{
-      address: place.formatted_address,
-      latitude: place.geometry.location.lat(),
-      longitude: place.geometry.location.lng()
-    }])
+    let googlePlace = this.autocomplete.getPlace()
+    let place = {
+      address: googlePlace.formatted_address,
+      latitude: googlePlace.geometry.location.lat(),
+      longitude: googlePlace.geometry.location.lng(),
+      googlePlaceId: googlePlace.place_id
+    }
+    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
+    if (existingPlace) {
+      place = existingPlace
+    } else {
+      place._id = util.mintUrl({ type: 'Place' })
+    }
+    this.set('newPlace', place)
   },
 
   _imageInputChanged (e) {

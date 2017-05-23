@@ -93,13 +93,13 @@
 
     <section id="project-location">
       <ul>
-        <template is="dom-repeat" items="[[project.locations]]" as="location">
+        <template is="dom-repeat" items="[[project.locations]]" as="placeId">
           <li>
             <vientos-icon-button
               raised
               on-tap="_showLocationOnMap"
               icon="vientos:crosshairs"
-              text="[[location.address]]">
+              text="[[_getPlaceAddress(placeId, places)]]">
             </vientos-icon-button>
           </li>
         </template>

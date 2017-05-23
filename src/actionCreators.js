@@ -40,6 +40,10 @@ export function fetchPeople () {
   return { type: ActionTypes.FETCH_PEOPLE_REQUESTED }
 }
 
+export function fetchPlaces () {
+  return { type: ActionTypes.FETCH_PLACES_REQUESTED }
+}
+
 export function fetchCollaborations () {
   return { type: ActionTypes.FETCH_COLLABORATIONS_REQUESTED }
 }
@@ -216,5 +220,12 @@ export function saveSubscription (details, person) {
       keys: details.keys,
       person: person._id
     }
+  }
+}
+
+export function savePlace (place) {
+  return {
+    type: ActionTypes.SAVE_PLACE_REQUESTED,
+    place
   }
 }

@@ -16,6 +16,7 @@ Polymer({
     bye: ActionCreators.bye,
     fetchPerson: ActionCreators.fetchPerson,
     fetchPeople: ActionCreators.fetchPeople,
+    fetchPlaces: ActionCreators.fetchPlaces,
     fetchLabels: ActionCreators.fetchLabels,
     fetchCategories: ActionCreators.fetchCategories,
     fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
@@ -45,6 +46,10 @@ Polymer({
     projects: {
       type: Array,
       statePath: 'projects'
+    },
+    places: {
+      type: Array,
+      statePath: 'places'
     },
     intents: {
       type: Array,
@@ -116,17 +121,27 @@ Polymer({
     visibleProjects: {
       type: Array,
       value: [],
-      computed: '_filterProjects(person, projects, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
+      computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
     },
     visibleIntents: {
       type: Array,
       value: [],
       computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
     },
-    visibleLocations: {
+    visiblePlaces: {
       type: Array,
       value: [],
-      computed: '_extractLocations(visibleProjects, boundingBox)'
+      computed: '_setVisiblePlaces(page, visibleProjectLocations, visibleIntentLocations)'
+    },
+    visibleProjectLocations: {
+      type: Array,
+      value: [],
+      computed: '_filterPlaces(visibleProjects, places, boundingBox)'
+    },
+    visibleIntentLocations: {
+      type: Array,
+      value: [],
+      computed: '_filterPlaces(visibleIntents, places, boundingBox)'
     },
     language: {
       type: String,
@@ -283,7 +298,17 @@ Polymer({
 
   _filterIntents: util.filterIntents,
 
-  _extractLocations: util.extractLocations,
+  _filterPlaces: util.filterPlaces,
+
+  _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
+    if (page === 'map') return this.visiblePlaces
+    // TODO add 'intent-page'
+    if (page === 'intents') {
+      return visibleIntentLocations
+    } else {
+      return visibleProjectLocations
+    }
+  },
 
   _updateBoundingBox (e, detail) {
     if (this.page === 'map') {
@@ -301,7 +326,8 @@ Polymer({
   },
 
   _mapButtonVisibility (page, locationFilter) {
-    return page === 'projects' && locationFilter !== 'city'
+    return (page === 'projects' && locationFilter !== 'city') ||
+            page === 'intents'
   },
 
   _sessionChanged (session) {
@@ -323,6 +349,7 @@ Polymer({
     this.dispatch('fetchCategories')
     this.dispatch('fetchCollaborationTypes')
     this.dispatch('fetchProjects')
+    this.dispatch('fetchPlaces')
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
     this.dispatch('fetchCollaborations')
