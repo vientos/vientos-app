@@ -75,13 +75,13 @@ Polymer({
     }
   },
 
-  _addToColection (element, collectionPath) {
+  _addToCollection (element, collectionPath) {
     if (element === '' || this.get(collectionPath).includes(element)) return
     this.set(collectionPath, [...this.get(collectionPath), element])
   },
 
   _addLocation () {
-    this._addToColection(this.newPlace._id, 'updated.locations')
+    this._addToCollection(this.newPlace._id, 'updated.locations')
     let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
     if (!existingPlace) {
       this.dispatch('savePlace', this.newPlace)
@@ -95,7 +95,7 @@ Polymer({
   },
 
   _addContact () {
-    this._addToColection(this.newContact, 'updated.contacts')
+    this._addToCollection(this.newContact, 'updated.contacts')
     this.set('newContact', '')
   },
 
@@ -105,7 +105,7 @@ Polymer({
 
   _addLink () {
     // TODO validate URLs
-    this._addToColection(this.newLink, 'updated.links')
+    this._addToCollection(this.newLink, 'updated.links')
     this.set('newLink', '')
   },
 
@@ -128,11 +128,11 @@ Polymer({
 
   _save () {
     // in case person didn't click 'Add'
-    this._addToColection(this.newContact, 'updated.contacts')
-    this._addToColection(this.newLink, 'updated.links')
+    this._addToCollection(this.newContact, 'updated.contacts')
+    this._addToCollection(this.newLink, 'updated.links')
 
     if (this.newPlace) {
-      this._addToColection(this.newPlace, 'updated.locations')
+      this._addToCollection(this.newPlace, 'updated.locations')
       let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
       if (!existingPlace) {
         this.dispatch('savePlace', this.newPlace)

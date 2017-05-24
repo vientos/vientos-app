@@ -55,6 +55,10 @@ Polymer({
       type: Array,
       statePath: 'projects'
     },
+    places: {
+      type: Array,
+      statePath: 'places'
+    },
     intentProjects: {
       type: Array,
       computed: '_getIntentProjects(intent, projects)'
@@ -83,6 +87,8 @@ Polymer({
   _filterIntentConversations: util.filterIntentConversations,
 
   _getRef: util.getRef,
+
+  _getPlaceAddress: util.getPlaceAddress,
 
   _getCollaborations (intent, collaborations) {
     if (!intent || !intent.collaborations || !collaborations) return
@@ -146,7 +152,10 @@ Polymer({
   _unfavor () {
     this.dispatch('unfavor', this.favoring)
   },
-  ready () {
-    window.foo = this
+
+  _showLocationOnMap (e) {
+    let place = util.getRef(e.model.placeId, this.places)
+    window.history.pushState({}, '', `/map?latitude=${place.latitude}&longitude=${place.longitude}&zoom=15`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 })

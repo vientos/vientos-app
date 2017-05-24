@@ -5,7 +5,8 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    saveIntent: ActionCreators.saveIntent
+    saveIntent: ActionCreators.saveIntent,
+    savePlace: ActionCreators.savePlace
   },
 
   properties: {
@@ -16,6 +17,10 @@ Polymer({
     person: {
       type: Object,
       statePath: 'person'
+    },
+    places: {
+      type: Object,
+      statePath: 'places'
     },
     updated: {
       type: Object
@@ -28,6 +33,10 @@ Polymer({
       computed: '_getImagePreviewSrc(intent, newImage)'
     },
     newImage: {
+      type: Object,
+      value: null
+    },
+    newPlace: {
       type: Object,
       value: null
     },
@@ -77,6 +86,8 @@ Polymer({
 
   observers: ['_createNewIntent(person, project)'],
 
+  _getPlaceAddress: util.getPlaceAddress,
+
   _intentChanged () {
     this._reset()
     this._makeClone()
@@ -89,10 +100,24 @@ Polymer({
     }
   },
 
+  _addToCollection (element, collectionPath) {
+    if (element === '' || this.get(collectionPath).includes(element)) return
+    this.set(collectionPath, [...this.get(collectionPath), element])
+  },
+
   _save () {
     this.updated.collaborationType = this.collaborationType
     this.updated.condition = this.condition
     this.updated.expiryDate = this.expiryDate
+
+    if (this.newPlace) {
+      this._addToCollection(this.newPlace, 'updated.locations')
+      let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
+      if (!existingPlace) {
+        this.dispatch('savePlace', this.newPlace)
+      }
+    }
+
     this.dispatch('saveIntent', this.updated, this.newImage)
     window.history.pushState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
@@ -101,6 +126,7 @@ Polymer({
   _reset () {
     this.set('newImage', null)
     this.$['new-image-form'].reset()
+    this.$['place-input'].value = ''
   },
 
   _cancel () {
@@ -145,23 +171,40 @@ Polymer({
     }
   },
 
-  _getMainLocation () {
-    if (this.project && this.project.locations[0]) return this.project.locations[0].address
-  },
-
   _onGoogleMapsApiLoad () {
     this.autocomplete = new google.maps.places.Autocomplete(this.$['place-input'])
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
   },
 
+  _addLocation () {
+    this._addToCollection(this.newPlace._id, 'updated.locations')
+    let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
+    if (!existingPlace) {
+      this.dispatch('savePlace', this.newPlace)
+    }
+    this.set('newPlace', null)
+    this.$['place-input'].value = ''
+  },
+
+  _removeLocation (e) {
+    this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
+  },
+
   _placeChanged () {
-    let place = this.autocomplete.getPlace()
-    this.set('updated.locations', [{
-      address: place.formatted_address,
-      latitude: place.geometry.location.lat(),
-      longitude: place.geometry.location.lng(),
-      googlePlaceId: place.place_id
-    }])
+    let googlePlace = this.autocomplete.getPlace()
+    let place = {
+      address: googlePlace.formatted_address,
+      latitude: googlePlace.geometry.location.lat(),
+      longitude: googlePlace.geometry.location.lng(),
+      googlePlaceId: googlePlace.place_id
+    }
+    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
+    if (existingPlace) {
+      place = existingPlace
+    } else {
+      place._id = util.mintUrl({ type: 'Place' })
+    }
+    this.set('newPlace', place)
   },
 
   _imageInputChanged (e) {

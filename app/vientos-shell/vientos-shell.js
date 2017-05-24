@@ -118,6 +118,11 @@ Polymer({
       value: null,
       computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
     },
+    currentPlace: {
+      type: Object,
+      value: null,
+      computed: '_findPlace(routeData.page, subrouteData.id, places)'
+    },
     visibleProjects: {
       type: Array,
       value: [],
@@ -229,6 +234,10 @@ Polymer({
       case 'conversation':
         viewUrl = '../conversation-page/conversation-page'
         break
+
+      case 'place':
+        viewUrl = '../place-page/place-page'
+        break
     }
 
     viewUrl += '.html'
@@ -294,6 +303,11 @@ Polymer({
     return conversations.find(conversation => conversation._id === util.urlFromId(conversationId, 'conversations'))
   },
 
+  _findPlace (page, placeId, places) {
+    if (page !== 'place') return null
+    return places.find(place => place._id === util.urlFromId(placeId, 'places'))
+  },
+
   _filterProjects: util.filterProjects,
 
   _filterIntents: util.filterIntents,
@@ -302,8 +316,7 @@ Polymer({
 
   _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
     if (page === 'map') return this.visiblePlaces
-    // TODO add 'intent-page'
-    if (page === 'intents') {
+    if (page === 'intents' || page === 'intent') {
       return visibleIntentLocations
     } else {
       return visibleProjectLocations
