@@ -27,8 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <style include="vientos-projects-styles"></style>
 
-    <!-- FIXME with grid it shows only 3 projects, unless window gets resized -->
-    <iron-list id="list" items="[[projects]]" as="item" grid>
+    <iron-list id="list" items="[[projects]]" as="item">
       <template>
         <vientos-project-preview project="[[item]]"></vientos-project-preview>
       </template>
