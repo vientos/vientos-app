@@ -17,7 +17,8 @@ if (typeof window !== 'undefined') {
   if (!window.vientos) window.vientos = {}
   window.vientos.login = {
     google: service + '/auth/google',
-    facebook: service + '/auth/facebook'
+    facebook: service + '/auth/facebook',
+    vientos: service + '/auth/vientos'
   }
 }
 
