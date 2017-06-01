@@ -137,7 +137,7 @@
       </section>
     </template>
 
-    <template is="dom-if" if="[[_collaborateVisible(admin)]]">
+    <template is="dom-if" if="[[_collaborateVisible(person, admin, conversations)]]">
       <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
     </template>
   </template>

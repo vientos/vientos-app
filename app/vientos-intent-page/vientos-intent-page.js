@@ -122,8 +122,10 @@ Polymer({
     return admin || conversationCreator
   },
 
-  _collaborateVisible (admin, conversationOfCreator) {
-    return !admin && !conversationOfCreator
+  _collaborateVisible (person, admin, conversations) {
+    return person && !admin && !conversations.some(conversation => {
+      return conversation.creator === person._id
+    })
   },
 
   _getConversationCreatorName (personId, people) {
