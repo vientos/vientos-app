@@ -44,7 +44,8 @@ const collections = {
   messages: { type: 'Message' },
   reviews: { type: 'Review' },
   collaborations: { type: 'Collaboration' },
-  subscriptions: { type: 'Subscription' }
+  subscriptions: { type: 'Subscription' },
+  notifications: { type: 'Notification' }
 }
 
 function dataUrl (actionType) {
@@ -156,6 +157,8 @@ export default function vientos (action) {
       return get(action.id)
     case ActionTypes.FETCH_MY_CONVERSATIONS_REQUESTED:
       return get(action.person._id + '/conversations')
+    case ActionTypes.FETCH_NOTIFICATIONS_REQUESTED:
+      return get(action.person._id + '/notifications')
     case ActionTypes.FETCH_CATEGORIES_REQUESTED:
     case ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED:
     case ActionTypes.FETCH_LABELS_REQUESTED:
@@ -177,6 +180,8 @@ export default function vientos (action) {
       return abortConversation(action.conversation, action.review)
     case ActionTypes.SAVE_COLLABORATION_REQUESTED:
       return put(action.collaboration)
+    case ActionTypes.SAVE_NOTIFICATION_REQUESTED:
+      return put(action.notification)
     case ActionTypes.SAVE_PLACE_REQUESTED:
       return put(action.place)
     default:

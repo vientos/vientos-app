@@ -7,7 +7,8 @@ Polymer({
     addMessage: ActionCreators.addMessage,
     addReview: ActionCreators.addReview,
     saveCollaboration: ActionCreators.saveCollaboration,
-    abortConversation: ActionCreators.abortConversation
+    abortConversation: ActionCreators.abortConversation,
+    saveNotification: ActionCreators.saveNotification
   },
 
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
@@ -24,6 +25,15 @@ Polymer({
     intents: {
       type: Array,
       statePath: 'intents'
+    },
+    notifications: {
+      type: Array,
+      statePath: 'notifications'
+    },
+    conversationNotifications: {
+      type: Array,
+      computed: '_filterNotifications(conversation, notifications)',
+      observer: '_deativateNotifications'
     },
     conversation: {
       type: Object,
@@ -241,5 +251,19 @@ Polymer({
   _saveCollaboration () {
     this.dispatch('saveCollaboration', this.editedCollaboration)
     this._toggleCollaborationEditor()
+  },
+
+  _filterNotifications (conversation, notifications) {
+    if (!conversation) return []
+    return notifications.filter(notification => notification.object === conversation._id)
+  },
+
+  _deativateNotifications (notifications) {
+    console.log('notifications', notifications)
+    notifications.forEach(notification => {
+      notification.active = false
+      console.log('ac', this.actions.saveNotification(notification))
+      this.dispatch('saveNotification', notification)
+    })
   }
 })

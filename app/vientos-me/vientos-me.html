@@ -61,7 +61,7 @@
       </section>
       <section>
         <template is="dom-repeat" items="[[activeIntents]]" as="intent">
-          <intent-preview intent="[[intent]]" show-projects></intent-preview>
+          <intent-preview intent="[[intent]]" show-projects show-notification="[[_showNotification(intent, myConversations, notifications)]]"></intent-preview>
         </template>
       </section>
     </template>

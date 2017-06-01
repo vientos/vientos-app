@@ -30,6 +30,10 @@ Polymer({
       type: Array,
       statePath: 'myConversations'
     },
+    notifications: {
+      type: Array,
+      statePath: 'notifications'
+    },
     projects: {
       type: Array,
       statePath: 'projects'
@@ -59,6 +63,8 @@ Polymer({
       statePath: 'labels'
     }
   },
+
+  _filterActiveIntents: util.filterActiveIntents,
 
   _editProfile () {
     window.history.pushState({}, '', `/edit-my-profile/`)
@@ -99,6 +105,14 @@ Polymer({
     if (person) return projects.filter(project => project.admins.includes(this.person._id))
   },
 
-  _filterActiveIntents: util.filterActiveIntents
+  _showNotification (intent, myConversations, notifications) {
+    return notifications.some(notification => {
+      return myConversations.some(conversation => {
+        return (conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id) &&
+          notification.object === conversation._id
+      })
+    })
+  }
+
 
 })

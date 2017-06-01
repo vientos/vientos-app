@@ -56,6 +56,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-button on-tap="_showProfile">
             <iron-image id="person-avatar" src="[[person.logo]]" sizing="contain"></iron-image>
           </paper-button>
+          <template is="dom-if" if="[[notifications.length]]">
+            <paper-badge label="[[notifications.length]]" for="person-avatar"></paper-badge>
+          </template>
         </template>
         <template is="dom-if" if="[[!person]]">
           <vientos-icon-button

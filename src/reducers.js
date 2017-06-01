@@ -124,6 +124,17 @@ function myConversations (state = [], action) {
   }
 }
 
+function notifications (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_NOTIFICATIONS_SUCCEEDED:
+      return action.json
+    case ActionTypes.SAVE_NOTIFICATION_SUCCEEDED:
+      return removeElement(state, action.json)
+    default:
+      return state
+  }
+}
+
 function filteredCategories (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_CATEGORIES:
@@ -273,6 +284,7 @@ export default combineReducers({
   collaborationTypes,
   person,
   myConversations,
+  notifications,
   session,
   boundingBox,
   language,

@@ -9,6 +9,10 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    notifications: {
+      type: Array,
+      statePath: 'notifications'
+    },
     page: {
       type: String,
       observer: '_pageChanged'

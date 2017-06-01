@@ -182,6 +182,13 @@ export function fetchMyConversations (person) {
   }
 }
 
+export function fetchNotifications (person) {
+  return {
+    type: ActionTypes.FETCH_NOTIFICATIONS_REQUESTED,
+    person
+  }
+}
+
 export function addMessage (message) {
   return {
     type: ActionTypes.ADD_MESSAGE_REQUESTED,
@@ -227,5 +234,12 @@ export function savePlace (place) {
   return {
     type: ActionTypes.SAVE_PLACE_REQUESTED,
     place
+  }
+}
+
+export function saveNotification (notification) {
+  return {
+    type: ActionTypes.SAVE_NOTIFICATION_REQUESTED,
+    notification
   }
 }
