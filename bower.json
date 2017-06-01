@@ -31,8 +31,6 @@
     "paper-fab": "^1.2.1",
     "leaflet": "^1.0.3",
     "iron-icons": "^1.2.0",
-    "iron-input": "PolymerElements/iron-input#^1.0.10",
-    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.15",
     "vaadin-date-picker": "vaadin/vaadin-date-picker#^1.2.3",
     "paper-radio-group": "PolymerElements/paper-radio-group#^1.2.2",
     "google-apis": "GoogleWebComponents/google-apis#^1.1.7",

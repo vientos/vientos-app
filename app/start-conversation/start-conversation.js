@@ -94,10 +94,5 @@ Polymer({
   _cancel () {
     window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
-  ready () {
-    this.$$('iron-autogrow-textarea').focus()
   }
-
 })

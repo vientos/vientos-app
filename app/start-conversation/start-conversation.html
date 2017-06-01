@@ -4,9 +4,8 @@
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/iron-input/iron-input.html">
-<link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
@@ -21,9 +20,11 @@
     <h3>[[localize('label:questions')]]</h3>
     <p>[[intent.question]]</p>
     <div>
-      <label>[[localize('label:intent-answer')]]:
-        <iron-autogrow-textarea value="{{answer.body}}" autofocus></iron-autogrow-textarea>
-      </label>
+        <paper-textarea
+         label="[[localize('label:intent-answer')]]"
+         value="{{answer.body}}"
+         autofocus>
+       </paper-textarea>
     </div>
 
     <template is="dom-if" if="[[potentialMatches.length]]">

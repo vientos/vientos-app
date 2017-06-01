@@ -6,10 +6,9 @@
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
-<link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
@@ -37,15 +36,17 @@
     <section>
     <paper-input value="{{updated.title}}" label="[[localize('label:title')]]"></paper-input>
       <div>
-        <label>[[localize('label:org-description')]]:
-          <iron-autogrow-textarea value="{{updated.description}}" ></iron-autogrow-textarea>
-        </label>
+        <paper-textarea
+         label="[[localize('label:org-description')]]"
+         value="{{updated.description}}">
+       </paper-textarea>
       </div>
 
       <div>
-        <label>[[localize('label:questions')]]:
-          <iron-autogrow-textarea value="{{updated.question}}" ></iron-autogrow-textarea>
-        </label>
+        <paper-textarea
+         label="[[localize('label:questions')]]"
+         value="{{updated.question}}">
+       </paper-textarea>
       </div>
     </section>
 
