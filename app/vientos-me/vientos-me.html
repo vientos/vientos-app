@@ -8,6 +8,7 @@
 
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 
+<link rel="import" href="../open-conversations/open-conversations.html">
 <link rel="import" href="../intent-preview/intent-preview.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
@@ -61,7 +62,10 @@
       </section>
       <section>
         <template is="dom-repeat" items="[[activeIntents]]" as="intent">
-          <intent-preview intent="[[intent]]" show-projects show-notification="[[_showNotification(intent, myConversations, notifications)]]"></intent-preview>
+          <intent-preview intent="[[intent]]" show-projects></intent-preview>
+          <open-conversations
+            conversations="[[_filterIntentConversations(intent, myConversations)]]">
+          </open-conversations>
         </template>
       </section>
     </template>

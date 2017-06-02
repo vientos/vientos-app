@@ -259,10 +259,8 @@ Polymer({
   },
 
   _deativateNotifications (notifications) {
-    console.log('notifications', notifications)
     notifications.forEach(notification => {
       notification.active = false
-      console.log('ac', this.actions.saveNotification(notification))
       this.dispatch('saveNotification', notification)
     })
   }

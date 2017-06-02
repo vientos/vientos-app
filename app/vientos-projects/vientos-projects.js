@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, util */
+/* global Polymer, ReduxBehavior */
 
 Polymer({
   is: 'vientos-projects',

@@ -65,6 +65,7 @@ Polymer({
   },
 
   _filterActiveIntents: util.filterActiveIntents,
+  _filterIntentConversations: util.filterIntentConversations,
 
   _editProfile () {
     window.history.pushState({}, '', `/edit-my-profile/`)
@@ -103,16 +104,6 @@ Polymer({
 
   _filterMyProjects (person, projects) {
     if (person) return projects.filter(project => project.admins.includes(this.person._id))
-  },
-
-  _showNotification (intent, myConversations, notifications) {
-    return notifications.some(notification => {
-      return myConversations.some(conversation => {
-        return (conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id) &&
-          notification.object === conversation._id
-      })
-    })
   }
-
 
 })

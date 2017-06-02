@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../redux-store.html">
+
+<link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="open-conversations-styles.html">
+
+<dom-module id="open-conversations">
+  <style include="open-conversations-styles"></style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="[[conversations]]" as="conversation">
+        <li on-tap="_showConversation">
+          <template is="dom-if" if="[[_getNotificationsCount(conversation, notifications)]]">
+            <paper-badge label="[[_getNotificationsCount(conversation, notifications)]]"></paper-badge>
+          </template>
+          <iron-image
+             src="[[_getConversationCreatorAvatar(conversation.creator, people)]]"
+             sizing="contain">
+          </iron-image>
+          [[_getConversationCreatorName(conversation.creator, people)]]
+        </li>
+      </template>
+    </ul>
+  </template>
+  <script src="open-conversations.js"></script>
+</dom-module>

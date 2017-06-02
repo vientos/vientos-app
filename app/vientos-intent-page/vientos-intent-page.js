@@ -6,8 +6,7 @@ Polymer({
 
   actions: {
     favor: ActionCreators.favor,
-    unfavor: ActionCreators.unfavor,
-    deleteIntent: ActionCreators.deleteIntent
+    unfavor: ActionCreators.unfavor
   },
 
   properties: {
@@ -100,17 +99,8 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _delete () {
-    this.dispatch('deleteIntent', this.intent)
-  },
-
   _projectPageUrl (project) {
     return util.pathFor(project, 'project')
-  },
-
-  _conversationUrl (conversation) {
-    if (!conversation) return
-    return util.pathFor(conversation, 'conversation')
   },
 
   _startConversation () {
@@ -126,10 +116,6 @@ Polymer({
     return person && !admin && !conversations.some(conversation => {
       return conversation.creator === person._id
     })
-  },
-
-  _getConversationCreatorName (personId, people) {
-    return util.getRef(personId, people).name
   },
 
   _reviewsOfCollaboration (collaboration, reviews) {

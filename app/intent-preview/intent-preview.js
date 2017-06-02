@@ -24,10 +24,6 @@ Polymer({
     showProjects: {
       type: Boolean
     },
-    showNotification: {
-      type: Boolean,
-      reflectToAttribute: true
-    },
     language: {
       type: String,
       statePath: 'language'
