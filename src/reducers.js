@@ -64,14 +64,14 @@ function places (state = [], action) {
   }
 }
 
-function collaborations (state = [], action) {
-  switch (action.type) {
-    case ActionTypes.FETCH_COLLABORATIONS_SUCCEEDED:
-      return action.json
-    default:
-      return state
-  }
-}
+// function collaborations (state = [], action) {
+//   switch (action.type) {
+//     case ActionTypes.FETCH_COLLABORATIONS_SUCCEEDED:
+//       return action.json
+//     default:
+//       return state
+//   }
+// }
 
 function reviews (state = [], action) {
   switch (action.type) {
@@ -290,6 +290,6 @@ export default combineReducers({
   language,
   labels,
   intents,
-  collaborations,
+  // collaborations,
   reviews
 })

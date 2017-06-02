@@ -44,9 +44,9 @@ export function fetchPlaces () {
   return { type: ActionTypes.FETCH_PLACES_REQUESTED }
 }
 
-export function fetchCollaborations () {
-  return { type: ActionTypes.FETCH_COLLABORATIONS_REQUESTED }
-}
+// export function fetchCollaborations () {
+//   return { type: ActionTypes.FETCH_COLLABORATIONS_REQUESTED }
+// }
 
 export function fetchReviews () {
   return { type: ActionTypes.FETCH_REVIEWS_REQUESTED }
@@ -211,12 +211,12 @@ export function addReview (review) {
   }
 }
 
-export function saveCollaboration (collaboration) {
-  return {
-    type: ActionTypes.SAVE_COLLABORATION_REQUESTED,
-    collaboration
-  }
-}
+// export function saveCollaboration (collaboration) {
+//   return {
+//     type: ActionTypes.SAVE_COLLABORATION_REQUESTED,
+//     collaboration
+//   }
+// }
 
 export function saveSubscription (details, person) {
   return {

@@ -121,12 +121,13 @@ function uploadAndSave (entity, image) {
 }
 
 function abortConversation (conversation, review) {
-  if (conversation.collaboration) {
-    return del(conversation.collaboration)
-      .then(() => put(review))
-  } else {
-    return put(review)
-  }
+  // if (conversation.collaboration) {
+  //   return del(conversation.collaboration)
+  //     .then(() => put(review))
+  // } else {
+  //   return put(review)
+  // }
+  return put(review)
 }
 
 export default function vientos (action) {

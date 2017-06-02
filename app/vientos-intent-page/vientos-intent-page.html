@@ -97,7 +97,7 @@
         </template>
       </ul>
     </section>
-    <template is="dom-if" if="[[intentCollaborations.length]]">
+    <!-- <template is="dom-if" if="[[intentCollaborations.length]]">
       <section>
         <h3>
           <iron-icon icon="vientos:success"></iron-icon>
@@ -114,12 +114,26 @@
           </template>
         </ul>
       </section>
+    </template> -->
+    <template is="dom-if" if="[[successfulReviewGroups.length]]">
+      <section>
+        <h3>[[localize('label:collaborations')]]</h3>
+        <ul>
+          <template is="dom-repeat" items="[[successfulReviewGroups]]" as="reviewGroup">
+            <li>
+              <template is="dom-repeat" items="[[reviewGroup]]" as="review">
+                <p>[[review.body]]</p>
+              </template>
+            </li>
+          </template>
+        </ul>
+      </section>
     </template>
-    <template is="dom-if" if="[[reviewGroups.length]]">
+    <template is="dom-if" if="[[abortedReviewGroups.length]]">
       <section>
         <h3>[[localize('label:reviews-aborted')]]</h3>
         <ul>
-          <template is="dom-repeat" items="[[reviewGroups]]" as="reviewGroup">
+          <template is="dom-repeat" items="[[abortedReviewGroups]]" as="reviewGroup">
             <li>
               <template is="dom-repeat" items="[[reviewGroup]]" as="review">
                 <p>[[review.body]]</p>

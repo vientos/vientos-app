@@ -18,21 +18,25 @@ Polymer({
       type: Array,
       statePath: 'people'
     },
-    collaborations: {
-      type: Array,
-      statePath: 'collaborations'
-    },
-    intentCollaborations: {
-      type: Array,
-      computed: '_getCollaborations(intent, collaborations)'
-    },
+    // collaborations: {
+    //   type: Array,
+    //   statePath: 'collaborations'
+    // },
+    // intentCollaborations: {
+    //   type: Array,
+    //   computed: '_getCollaborations(intent, collaborations)'
+    // },
     reviews: {
       type: Array,
       statePath: 'reviews'
     },
-    reviewGroups: {
+    abortedReviewGroups: {
       type: Array,
       computed: '_reviewsOfAbortedConversations(intent, reviews)'
+    },
+    successfulReviewGroups: {
+      type: Array,
+      computed: '_reviewsOfSuccessfulConversations(intent, reviews)'
     },
     intent: {
       type: Object
@@ -89,10 +93,10 @@ Polymer({
 
   _getPlaceAddress: util.getPlaceAddress,
 
-  _getCollaborations (intent, collaborations) {
-    if (!intent || !intent.collaborations || !collaborations) return
-    return util.getRef(intent.collaborations, collaborations)
-  },
+  // _getCollaborations (intent, collaborations) {
+  //   if (!intent || !intent.collaborations || !collaborations) return
+  //   return util.getRef(intent.collaborations, collaborations)
+  // },
 
   _editIntent () {
     window.history.pushState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
@@ -118,13 +122,20 @@ Polymer({
     })
   },
 
-  _reviewsOfCollaboration (collaboration, reviews) {
-    return reviews.filter(review => review.collaboration === collaboration._id)
-  },
+  // _reviewsOfCollaboration (collaboration, reviews) {
+  //   return reviews.filter(review => review.collaboration === collaboration._id)
+  // },
 
   _reviewsOfAbortedConversations (intent, reviews) {
     if (!intent) return []
     return intent.abortedConversations.map(conversationId => {
+      return reviews.filter(review => review.conversation === conversationId)
+    })
+  },
+
+  _reviewsOfSuccessfulConversations (intent, reviews) {
+    if (!intent) return []
+    return intent.successfulConversations.map(conversationId => {
       return reviews.filter(review => review.conversation === conversationId)
     })
   },

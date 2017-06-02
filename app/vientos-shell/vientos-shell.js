@@ -370,7 +370,7 @@ Polymer({
     this.dispatch('fetchPlaces')
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
-    this.dispatch('fetchCollaborations')
+    // this.dispatch('fetchCollaborations')
     this.dispatch('fetchReviews')
   }
 

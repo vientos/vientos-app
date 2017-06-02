@@ -50,24 +50,7 @@
         <div><paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button></div>
       </template>
     </section>
-    <section>
-      <h3>[[localize('label:collaboration')]]</h3>
-      <template is="dom-if" if="[[!_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
-        <template is="dom-if" if="[[_showCollaborationBody(reviewing, success)]]">
-          <p>[[conversation.collaboration.body]]</p>
-        </template>
-        <template is="dom-if" if="[[_showCollaborationEditButton(conversation, reviewing)]]">
-          <paper-button raised on-tap="_toggleCollaborationEditor">[[localize('button:edit-collaboration')]]</paper-button>
-        </template>
-      </template>
-      <template is="dom-if" if="[[_showCollaborationEditor(conversation, reviewing, editingCollaboration)]]">
-        <paper-textarea
-          value="{{editedCollaboration.body}}">
-        </paper-textarea>
-        <paper-button raised on-tap="_saveCollaboration" disabled="[[_disableSaveCollaboration(conversation.collaboration, editedCollaboration.body)]]">[[localize('button:save')]]</paper-button>
-        <paper-button raised on-tap="_cancelCollaborationEditing">[[localize('button:cancel')]]</paper-button>
-      </template>
-    </section>
+    <!-- TODO EDIT COLLABORATION SECTION PENDING https://github.com/vientos/vientos-pwa/blob/fd4de78d88f0427b770b890cd2102e7ee469f77b/app/conversation-page/conversation-page.html#L53-L71-->
     <section>
       <h3>[[localize('label:reviews')]]</h3>
       <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
@@ -84,9 +67,9 @@
       <template is="dom-if" if="[[_showReviewButton(person, conversation, reviewing, editingCollaboration)]]">
         <div>
           <paper-button raised on-tap="_abort">[[localize('button:abort')]]</paper-button>
-          <template is="dom-if" if="[[conversation.collaboration.body]]">
-            <paper-button raised on-tap="_succeed">[[localize('button:succeed')]]</paper-button>
-          </template>
+          <!-- <template is="dom-if" if="[[conversation.collaboration.body]]"> -->
+          <paper-button raised on-tap="_succeed">[[localize('button:succeed')]]</paper-button>
+          <!-- </template> -->
         </div>
       </template>
     </section>

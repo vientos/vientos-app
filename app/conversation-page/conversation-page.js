@@ -6,7 +6,7 @@ Polymer({
   actions: {
     addMessage: ActionCreators.addMessage,
     addReview: ActionCreators.addReview,
-    saveCollaboration: ActionCreators.saveCollaboration,
+    // saveCollaboration: ActionCreators.saveCollaboration,
     abortConversation: ActionCreators.abortConversation,
     saveNotification: ActionCreators.saveNotification
   },
@@ -189,7 +189,8 @@ Polymer({
       conversation: this.conversation._id
     }
     if (this.success) {
-      review.collaboration = this.conversation.collaboration._id
+      // review.collaboration = this.conversation.collaboration._id
+      review.success = true
       this.dispatch('addReview', review)
     } else {
       this.dispatch('abortConversation', this.conversation, review)
@@ -209,6 +210,8 @@ Polymer({
   _reset () {
     this.set('newMessage', '')
     this.set('newReview', '')
+    this.set('reviewing', false)
+    this.set('editingCollaboration', false)
   },
 
   _showCollaborationBody (reviewing, success) {
@@ -219,13 +222,13 @@ Polymer({
     return conversation && this._bothMessaged(conversation) && conversation.reviews.length === 0 && !reviewing && editingCollaboration
   },
 
-  _disableSaveCollaboration (oldCollaboration, editedCollaborationBody) {
-    if (!oldCollaboration) {
-      return editedCollaborationBody === ''
-    } else {
-      return !editedCollaborationBody || editedCollaborationBody === oldCollaboration.body
-    }
-  },
+  // _disableSaveCollaboration (oldCollaboration, editedCollaborationBody) {
+  //   if (!oldCollaboration) {
+  //     return editedCollaborationBody === ''
+  //   } else {
+  //     return !editedCollaborationBody || editedCollaborationBody === oldCollaboration.body
+  //   }
+  // },
 
   _toggleCollaborationEditor () {
     this.set('editingCollaboration', !this.editingCollaboration)
@@ -248,10 +251,10 @@ Polymer({
     return conversation && this._bothMessaged(conversation) && !reviewing && conversation.reviews.length === 0
   },
 
-  _saveCollaboration () {
-    this.dispatch('saveCollaboration', this.editedCollaboration)
-    this._toggleCollaborationEditor()
-  },
+  // _saveCollaboration () {
+    // this.dispatch('saveCollaboration', this.editedCollaboration)
+  //   this._toggleCollaborationEditor()
+  // },
 
   _filterNotifications (conversation, notifications) {
     if (!conversation) return []
