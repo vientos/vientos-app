@@ -63,9 +63,11 @@
       <section>
         <template is="dom-repeat" items="[[activeIntents]]" as="intent">
           <intent-preview intent="[[intent]]" show-projects></intent-preview>
-          <open-conversations
-            conversations="[[_filterIntentConversations(intent, myConversations)]]">
-          </open-conversations>
+          <div class="conversations">
+            <open-conversations
+              conversations="[[_filterIntentConversations(intent, myConversations)]]">
+            </open-conversations>
+          </div>
         </template>
       </section>
     </template>
