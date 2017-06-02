@@ -24,7 +24,7 @@ Polymer({
     },
     activeIntents: {
       type: Array,
-      computed: '_filterActiveIntents(person, intents, myConversations)'
+      computed: '_filterActiveIntents(person, intents, myConversations, notifications)'
     },
     myConversations: {
       type: Array,

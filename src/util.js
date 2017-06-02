@@ -174,19 +174,34 @@ export function filterVisibleConversations (person, intents, myConversations) {
 }
 
 // TODO reuse for notifications
-export function filterActiveIntents (person, intents, myConversations) {
+export function filterActiveIntents (person, intents, myConversations, notifications) {
   if (person) {
     // conversations which I created
     // and conversation on intens (causing or matching) which I admin
     return intents.filter(intent => {
       return myConversations.some(conversation => {
-        return (conversation.causingIntent === intent._id ||
-                conversation.matchingIntent === intent._id) &&
-               (conversation.creator === person._id ||
-                intent.admins.includes(person._id))
+        return (
+                conversation.causingIntent === intent._id ||
+                conversation.matchingIntent === intent._id
+               ) &&
+               (
+                 conversationNeedsAttention(person, conversation, notifications)) &&
+                 (
+                   conversation.creator === person._id ||
+                   intent.admins.includes(person._id
+                 )
+               )
       })
     })
   }
+}
+
+export function conversationNeedsAttention (person, conversation, notifications) {
+  return notifications.some(notification => notification.object === conversation._id) ||
+    // don't show when both sides reviewed
+    (conversation.reviews.length < 2 &&
+    // don't show when I've reviewed
+    !conversation.reviews.some(review => review.creator === person._id))
 }
 
 export function filterIntentConversations (intent, myConversations) {

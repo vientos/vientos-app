@@ -11,7 +11,7 @@
   <style include="open-conversations-styles"></style>
   <template>
     <ul>
-      <template is="dom-repeat" items="[[conversations]]" as="conversation">
+      <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
         <li on-tap="_showConversation">
           <template is="dom-if" if="[[_getNotificationsCount(conversation, notifications)]]">
             <paper-badge label="[[_getNotificationsCount(conversation, notifications)]]"></paper-badge>

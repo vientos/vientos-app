@@ -118,7 +118,15 @@ Polymer({
 
   _collaborateVisible (person, admin, conversations) {
     return person && !admin && !conversations.some(conversation => {
-      return conversation.creator === person._id
+      return conversation.creator === person._id &&
+        conversation.reviews.length < 2
+    })
+  },
+
+  _continueConversationVisible (person, admin, conversations) {
+    return person && !admin && conversations.some(conversation => {
+      return conversation.creator === person._id &&
+        conversation.reviews.length < 2
     })
   },
 

@@ -90,11 +90,11 @@ Polymer({
     }
   },
 
-  _getMessageCreatorName (creator) {
+  _getCreatorName (creator) {
     return util.getRef(creator, this.people).name
   },
 
-  _getMessageCreatorAvatar (creator) {
+  _getCreatorAvatar (creator) {
     return util.getRef(creator, this.people).logo
   },
 
@@ -204,7 +204,7 @@ Polymer({
   },
 
   _showNewReview (conversation, canReview, reviewing) {
-    return canReview && (reviewing || conversation.reviews.length > 0)
+    return canReview && (reviewing || conversation.reviews.length === 1)
   },
 
   _reset () {
@@ -240,7 +240,7 @@ Polymer({
   },
 
   _showReviewButton (person, conversation, reviewing, editingCollaboration) {
-    return this._canReview(person, conversation) && !reviewing && !editingCollaboration
+    return this._canReview(person, conversation) && !reviewing && !editingCollaboration && conversation.reviews.length === 0
   },
 
   _bothMessaged (conversation) {

@@ -35,8 +35,8 @@
         <template is="dom-repeat" items="[[conversation.messages]]" as="message">
           <li>
             <p>
-              <iron-image src="[[_getMessageCreatorAvatar(message.creator)]]" sizing="contain"></iron-image>
-              [[_getMessageCreatorName(message.creator)]]
+              <iron-image src="[[_getCreatorAvatar(message.creator)]]" sizing="contain"></iron-image>
+              [[_getCreatorName(message.creator)]]
             </p>
             <p>[[message.body]]</p>
           </li>
@@ -54,6 +54,10 @@
     <section>
       <h3>[[localize('label:reviews')]]</h3>
       <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
+        <div>
+          <iron-image src="[[_getCreatorAvatar(review.creator)]]" sizing="contain"></iron-image>
+          [[_getCreatorName(review.creator)]]
+        </div>
         <div>[[review.body]]</div>
       </template>
       <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
