@@ -372,6 +372,8 @@ Polymer({
     this.dispatch('fetchIntents')
     // this.dispatch('fetchCollaborations')
     this.dispatch('fetchReviews')
+    // fetch reviews and update every 60s
+    setInterval(() => { this.dispatch('fetchReviews') }, 60000)
   }
 
 })
