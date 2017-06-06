@@ -227,6 +227,8 @@ export function sameTeam (myId, otherPersonId, conversation, intents) {
 
 export function ourTurn (person, conversation, intents) {
   if (!person || !conversation || intents.length === 0) return false
+  if (conversation.reviews.length === 2) return false
+  if (conversation.reviews.length === 1) return !sameTeam(person._id, conversation.reviews[0].creator, conversation, intents)
   let lastMessage = conversation.messages[conversation.messages.length - 1]
   return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
 }

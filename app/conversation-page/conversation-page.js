@@ -138,7 +138,7 @@ Polymer({
   },
 
   _sendMessage () {
-    let ourTurn = this._ourTurn(this.person, this.conversation, this.intents)
+    let ourTurn = util.ourTurn(this.person, this.conversation, this.intents)
     this.dispatch('addMessage', {
       type: 'Message',
       creator: this.person._id,
