@@ -9,6 +9,10 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    intents: {
+      type: Array,
+      statePath: 'intents'
+    },
     // passed from parent
     conversations: {
       type: Array
@@ -30,6 +34,8 @@ Polymer({
       statePath: 'people'
     }
   },
+
+  _ourTurn: util.ourTurn,
 
   _getNotificationsCount (conversation, notifications) {
     return notifications.filter(notification => {

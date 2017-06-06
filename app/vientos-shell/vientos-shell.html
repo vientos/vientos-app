@@ -77,9 +77,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <app-drawer-layout fullbleed force-narrow>
 
     <app-drawer>
-      <div>
+      <div id="language-toggle">
         <span>ES</span>
-        <paper-toggle-button on-tap="_toggleLanguage">EN</paper-toggle-button>
+        <paper-toggle-button on-tap="_toggleLanguage"></paper-toggle-button>
+        <span>EN</span>
       </div>
       <template is="dom-if" if="[[session]]">
         <div>

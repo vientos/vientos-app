@@ -47,7 +47,14 @@
           value="{{newMessage}}"
           autofocus>
         </paper-textarea>
-        <div><paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button></div>
+        <div>
+          <div id="turn-toggle">
+            <span>[[localize('label:our-turn')]]</span>
+            <paper-toggle-button toggles checked="[[turnToggleChecked]]" on-tap="_toggleTurn"></paper-toggle-button>
+            <span>[[localize('label:their-turn')]]</span>
+          </div>
+          <paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button>
+        </div>
       </template>
     </section>
     <!-- TODO EDIT COLLABORATION SECTION PENDING https://github.com/vientos/vientos-pwa/blob/fd4de78d88f0427b770b890cd2102e7ee469f77b/app/conversation-page/conversation-page.html#L53-L71-->

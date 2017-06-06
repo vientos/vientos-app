@@ -54,6 +54,14 @@ Polymer({
       type: Object,
       computed: '_getMatchingIntent(conversation, intents)'
     },
+    changeTurn: {
+      type: Boolean,
+      value: false
+    },
+    turnToggleChecked: {
+      type: Boolean,
+      computed: '_turnToggleChecked(person, conversation, intents, changeTurn)'
+    },
     newMessage: {
       type: String,
       value: ''
@@ -120,12 +128,23 @@ Polymer({
     }
   },
 
+  _toggleTurn () {
+    this.set('changeTurn', !this.changeTurn)
+  },
+
+  _turnToggleChecked (person, conversation, intents, changeTurn) {
+    let ourTurn = util.ourTurn(person, conversation, intents)
+    return this.changeTurn ? ourTurn : !ourTurn
+  },
+
   _sendMessage () {
+    let ourTurn = this._ourTurn(this.person, this.conversation, this.intents)
     this.dispatch('addMessage', {
       type: 'Message',
       creator: this.person._id,
       body: this.newMessage,
-      conversation: this.conversation._id
+      conversation: this.conversation._id,
+      ourTurn: this.changeTurn ? !ourTurn : ourTurn
     })
     this._reset()
   },
@@ -212,6 +231,7 @@ Polymer({
     this.set('newReview', '')
     this.set('reviewing', false)
     this.set('editingCollaboration', false)
+    this.set('changeTurn', false)
   },
 
   _showCollaborationBody (reviewing, success) {

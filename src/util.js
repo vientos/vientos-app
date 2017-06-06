@@ -212,3 +212,21 @@ export function filterIntentConversations (intent, myConversations) {
     })
   }
 }
+
+export function canAdminIntent (personId, intent) {
+  return !!intent && intent.admins.includes(personId)
+}
+
+export function sameTeam (myId, otherPersonId, conversation, intents) {
+  let causingIntent = intents.find(intent => intent._id === conversation.causingIntent)
+  let matchingIntent = intents.find(intent => intent._id === conversation.matchingIntent)
+  return (canAdminIntent(myId, causingIntent) && canAdminIntent(otherPersonId, causingIntent)) ||
+        ((myId === conversation.creator || canAdminIntent(myId, matchingIntent)) &&
+        (otherPersonId === conversation.creator || canAdminIntent(otherPersonId, matchingIntent)))
+}
+
+export function ourTurn (person, conversation, intents) {
+  if (!person || !conversation || intents.length === 0) return false
+  let lastMessage = conversation.messages[conversation.messages.length - 1]
+  return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
+}

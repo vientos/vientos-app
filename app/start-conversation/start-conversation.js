@@ -87,7 +87,8 @@ Polymer({
     return {
       type: 'Message',
       body: '',
-      creator: this.person._id
+      creator: this.person._id,
+      ourTurn: false
     }
   },
 

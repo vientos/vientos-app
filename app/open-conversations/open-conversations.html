@@ -21,6 +21,9 @@
              sizing="contain">
           </iron-image>
           [[_getConversationCreatorName(conversation.creator, people)]]
+          <template is="dom-if" if="[[_ourTurn(person, conversation, intents)]]">
+            <span>!!!</span>
+          </template>
         </li>
       </template>
     </ul>
