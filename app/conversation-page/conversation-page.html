@@ -73,7 +73,9 @@
           value="{{newReview}}">
         </paper-textarea>
         <paper-button raised on-tap="_sendReview" disabled="[[!newReview]]">[[localize('button:review')]]</paper-button>
-        <paper-button raised on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
+        <template is="dom-if" if="[[!conversation.reviews.length]]">
+          <paper-button raised on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
+        </template>
       </template>
       <template is="dom-if" if="[[_showReviewButton(person, conversation, reviewing, editingCollaboration)]]">
         <div>

@@ -86,7 +86,7 @@ Polymer({
     canReview: {
       type: Boolean,
       value: false,
-      computed: '_canReview(person, conversation)'
+      computed: '_canReview(person, conversation, intents)'
     },
     language: {
       type: String,
@@ -149,23 +149,13 @@ Polymer({
     this._reset()
   },
 
-  _canReview (person, conversation) {
-    if (!conversation) return
+  _canReview (person, conversation, intents) {
+    if (!conversation || !intents) return false
     // no reviews
     if (conversation.reviews.length === 0) return true
-    // you created conversation and didn't review yet
-    if (conversation.creator === person._id &&
-        !conversation.reviews.find(review => review.as === 'creatorOrMatchingIntentAdmin')) return true
-    if (!conversation.matchingIntent) {
-      // you admin the causingIntent, and no review yet
-      if (conversation.creator !== person._id &&
-          !conversation.reviews.find(review => review.as === 'causingIntentAdmin')) return true
-    } else {
-      // TODO
-      // you team member created conversation with matching intent, no review yet
-      // you created conversation with matching intent, but already reviewed by your team member
-      // you are admion of projects from both intents
-    }
+    // if only one review was made, but not from my team (includes me)
+    if (conversation.reviews.length === 1) return !util.sameTeam(person._id, conversation.reviews[0].creator, conversation, intents)
+    // TODO handle when project memeber, but not intent admin already reviewed (sameTeam() only checks intent admins)
     return false
   },
 
