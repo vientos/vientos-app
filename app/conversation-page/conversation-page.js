@@ -249,8 +249,8 @@ Polymer({
     this.set('editedCollaboration.body', this.conversation.collaboration.body)
   },
 
-  _showReviewButton (person, conversation, reviewing, editingCollaboration) {
-    return this._canReview(person, conversation) && !reviewing && !editingCollaboration && conversation.reviews.length === 0
+  _showReviewButton (person, conversation, intents, reviewing, editingCollaboration) {
+    return this._canReview(person, conversation, intents) && !reviewing && !editingCollaboration && conversation.reviews.length === 0
   },
 
   _bothMessaged (conversation) {
