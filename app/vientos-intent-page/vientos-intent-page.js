@@ -54,6 +54,10 @@ Polymer({
       type: Array,
       statePath: 'myConversations'
     },
+    currentConversation: {
+      type: Object,
+      computed: '_currentConversation(person, admin, conversations)'
+    },
     projects: {
       type: Array,
       statePath: 'projects'
@@ -112,22 +116,22 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _continueConversation () {
+    window.history.pushState({}, '', `/conversation/${this.currentConversation._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _conversationsVisible (admin, conversationCreator) {
     return admin || conversationCreator
   },
 
-  _collaborateVisible (person, admin, conversations) {
-    return person && !admin && !conversations.some(conversation => {
-      return conversation.creator === person._id &&
-        conversation.reviews.length < 2
-    })
-  },
-
-  _continueConversationVisible (person, admin, conversations) {
-    return person && !admin && conversations.some(conversation => {
-      return conversation.creator === person._id &&
-        conversation.reviews.length < 2
-    })
+  _currentConversation (person, admin, conversations) {
+    if (person && !admin) {
+      return conversations.find(conversation => {
+        return conversation.creator === person._id &&
+          conversation.reviews.length < 2
+      })
+    }
   },
 
   // _reviewsOfCollaboration (collaboration, reviews) {
