@@ -72,6 +72,11 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _showProjectProfile (e) {
+    window.history.pushState({}, '', util.pathFor(e.model.project, 'project'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _projectUrl (project) {
     return util.pathFor(project, 'project')
   },
