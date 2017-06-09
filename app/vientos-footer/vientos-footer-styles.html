@@ -25,24 +25,28 @@
 
        }
 
-      vientos-icon-button {
+      paper-button {
         @apply --layout-flex;
-        --vientos-button-color: var(--vientos-primary-dark);
+        color: var(--vientos-primary-dark);
       }
 
-      vientos-icon-button {
-        --button-badge-background: var(--vientos-secondary-1);
-        --button-badge-text-color: #fff;
+      paper-button.iron-selected {
+        border-bottom: 3px solid var(--vientos-primary-light);
       }
 
-      vientos-icon-button.filtered {
-        --button-badge-background: var(--vientos-complementary-2);
-        --button-badge-text-color: #000;
+      paper-button paper-badge {
+        --paper-badge-background: var(--vientos-secondary-1);
+        --paper-badge-text-color: #fff;
       }
 
-      vientos-icon-button[active] {
-        color: var(--vientos-complementary-2)
+      paper-button.filtered paper-badge {
+        --paper-badge-background: var(--vientos-complementary-2);
+        --paper-badge-text-color: #000;
       }
+
+      paper-button[active] iron-icon {
+       color: var(--vientos-complementary-2)
+     }
     </style>
 
   </template>

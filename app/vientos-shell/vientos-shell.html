@@ -94,9 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
       <app-header id="header" fixed>
-        <app-toolbar>
-          <vientos-header page="[[page]]" on-toggle="_toggleDrawer"></vientos-header>
-        </app-toolbar>
+        <vientos-header page="[[page]]" on-toggle="_toggleDrawer"></vientos-header>
       </app-header>
 
       <iron-pages
@@ -164,9 +162,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is="dom-if" if="[[mapButtonVisible]]">
       <paper-button id="map-button" name="map" on-tap="_showMap">
         <iron-icon icon="vientos:map"></iron-icon>
-        <span>
-        [[localize('button:map')]]
-        </span>
       </paper-button>
     </template>
 

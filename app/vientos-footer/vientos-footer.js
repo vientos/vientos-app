@@ -38,9 +38,9 @@ Polymer({
   },
 
   _highlightBadges (newVal) {
-    console.log(this.$$('vientos-icon-button[name=projects]').className)
-    let projectsBtn = this.$$('vientos-icon-button[name=projects]')
-    let intentsBtn = this.$$('vientos-icon-button[name=intents]')
+    console.log(this.$$('paper-button[name=projects]').className)
+    let projectsBtn = this.$$('paper-button[name=projects]')
+    let intentsBtn = this.$$('paper-button[name=intents]')
     if ((newVal && !projectsBtn.className.includes('filtered')) || (!newVal && projectsBtn.className.includes('filtered'))) {
       projectsBtn.toggleClass('filtered')
       intentsBtn.toggleClass('filtered')
