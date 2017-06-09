@@ -66,13 +66,13 @@ Polymer({
     this.markers = L.layerGroup().addTo(this.map)
     this.me = L.layerGroup().addTo(this.map)
     this.map
-      .locate()
       .on('locationfound', e => {
         L.marker([e.latitude, e.longitude], { icon: this.meIcon })
           .addTo(this.me)
         this.myLatitude = e.latitude
         this.myLongitude = e.longitude
         this.myAccuracy = e.accuracy
+        this._showMyLocation()
       })
       .on('zoomend', e => {
         this.zoom = this.map.getZoom()
@@ -122,11 +122,15 @@ Polymer({
   },
 
   _showMyLocation () {
-    this.set('view', {
-      latitude: this.myLatitude,
-      longitude: this.myLongitude,
-      zoom: 15 // FIXME move magic number to config
-    })
+    if (this.myLatitude && this.myLongitude) {
+      this.set('view', {
+        latitude: this.myLatitude,
+        longitude: this.myLongitude,
+        zoom: 15 // FIXME move magic number to config
+      })
+    } else {
+      this.map.locate()
+    }
   },
 
   _viewChanged (view) {
