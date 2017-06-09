@@ -43,10 +43,10 @@
         <header id="project-title">
           <h4>
             [[project.name]]
-            <template is="dom-if" if="[[following]]">
-              <iron-icon icon="vientos:follow"></iron-icon>
-            </template>
           </h4>
+          <template is="dom-if" if="[[following]]">
+            <iron-icon icon="vientos:follow"></iron-icon>
+          </template>
         </header>
         <main>
 
@@ -64,12 +64,10 @@
             </template>
             </ul>
           </div>
-          <div>
-            <paper-item>
-              [[item.territory]]
-            </paper-item>
+          <div class="description">
+            [[project.description]]
           </div>
-          </main>
+        </main>
 
     </vientos-card>
 

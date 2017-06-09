@@ -11,8 +11,16 @@
         padding-top: 0;
       }
 
-      h4 {
+      header#project-title h4 {
+        display: inline-block;
         font-size: 20px;
+        padding: 25px 5px;
+        flex: 1;
+      }
+
+      header#project-title iron-icon{
+        margin-top: 25px;
+        opacity: 0.6;
       }
 
       h5 {
@@ -20,9 +28,8 @@
       }
 
       header#project-title {
-        height: 5em;
-        @apply --center-y;
         text-align: center;
+        display: flex;
       }
 
 
@@ -42,21 +49,30 @@
         width: 20%;
         @apply --layout-vertical;
         @apply --layout-start-justified;
-        text-align: right;
+        text-align: center;
 
       }
       main ul li {
-        padding-bottom: var(--spacing-1);
+        padding-bottom: 8px;
       }
 
-      main ul li iron-icon,
-      #project-collaborations iron-icon  {
-        color: var(--vientos-color-button-light)
+      main ul li iron-icon  {
+        background-color: var(--vientos-primary-ligth);
+        padding: 7px;
+        border-radius: 50%;
+        color: white;
+        opacity: 0.7;
       }
 
       main ul li iron-icon {
         width: var(--spacing-1);
         height: var(--spacing-1);
+      }
+
+      main .description {
+        margin: 15px 0;
+        height: 4em;
+        overflow: hidden;
       }
 
       footer  {
