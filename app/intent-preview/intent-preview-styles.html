@@ -5,7 +5,7 @@
   <template>
 
     <style include="vientos-styles">
-      iron-image {
+      #projects iron-image {
         width: 26px;
         height: 26px;
         padding-left: 5px;
@@ -14,6 +14,32 @@
       vientos-card {
         width: 80vw;
         padding-top: 0;
+      }
+
+      header {
+        display: flex;
+      }
+
+      div.info {
+        flex: 2;
+      }
+
+      div.info h3 {
+        font-weight:bolder;
+      }
+
+      div.logo {
+        flex: 1;
+      }
+
+      div.logo iron-image {
+        height: 80px;
+        width: 80px;
+        margin-top: 20px;
+      }
+
+      #stats {
+        padding-bottom: 1em;
       }
 
       #stats span {

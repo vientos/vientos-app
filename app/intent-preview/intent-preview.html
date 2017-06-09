@@ -12,21 +12,31 @@
     <style include="intent-preview-styles"></style>
 
     <vientos-card on-tap="_showIntentDetails">
-      <p>
-        [[localize(intent.direction)]]
-        [[localize(intent.collaborationType)]]
-      </p>
-      <div>[[intent.title]]</div>
-      <template is="dom-if" if="[[showProjects]]">
-        <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
+      <header>
+        <div class="info">
           <p>
-            <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
-            [[project.name]]
+          <template is="dom-if" if="[[favoring]]">
+            <iron-icon icon="vientos:favor"></iron-icon>
+          </template>
+            [[localize(intent.direction)]]
           </p>
+          <h3>[[intent.title]]</h3>
+        </div>
+        <template is="dom-if" if="[[intent.logo]]">
+          <div class="logo">
+            <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
+          </div>
         </template>
-      </template>
-      <template is="dom-if" if="[[favoring]]">
-        <iron-icon icon="vientos:favor"></iron-icon>
+      </header>
+      <template is="dom-if" if="[[showProjects]]">
+        <div id="projects">
+          <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
+            <p>
+              <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
+              [[project.name]]
+            </p>
+          </template>
+        </div>
       </template>
       <div id="stats">
         <span>
