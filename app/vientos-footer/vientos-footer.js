@@ -14,6 +14,19 @@ Polymer({
       type: Array,
       value: ['filter', 'projects', 'intents']
     },
+    projects: {
+      type: Array,
+      statePath: 'projects'
+    },
+    intents: {
+      type: Array,
+      statePath: 'intents'
+    },
+    filterActive: {
+      type: Boolean,
+      computed: '_activeFilter(projects, intents, visibleProjectsCount, visibleIntentsCount)',
+      observer: '_highlightBadges'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -22,6 +35,21 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
+  },
+
+  _highlightBadges (newVal) {
+    console.log(this.$$('vientos-icon-button[name=projects]').className)
+    let projectsBtn = this.$$('vientos-icon-button[name=projects]')
+    let intentsBtn = this.$$('vientos-icon-button[name=intents]')
+    if ((newVal && !projectsBtn.className.includes('filtered')) || (!newVal && projectsBtn.className.includes('filtered'))) {
+      projectsBtn.toggleClass('filtered')
+      intentsBtn.toggleClass('filtered')
+      this.updateStyles()
+    }
+  },
+
+  _activeFilter (projects, intents, visibleProjectsCount, visibleIntentsCount) {
+    return projects.length !== visibleProjectsCount || intents.length !== visibleIntentsCount
   },
 
   _pageChanged (page) {

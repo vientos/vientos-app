@@ -10,6 +10,10 @@ Polymer({
     icon: {
       type: String
     },
+    active: {
+      type: Boolean,
+      reflectToAttribute: true
+    },
     raised: Boolean
   }
 

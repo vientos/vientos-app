@@ -30,11 +30,19 @@
         --vientos-button-color: var(--vientos-primary-dark);
       }
 
-      paper-badge {
-        --paper-badge-background: #70c08b;
-        --paper-badge-text-color: #000000;
+      vientos-icon-button {
+        --button-badge-background: var(--vientos-secondary-1);
+        --button-badge-text-color: #fff;
       }
 
+      vientos-icon-button.filtered {
+        --button-badge-background: var(--vientos-complementary-2);
+        --button-badge-text-color: #000;
+      }
+
+      vientos-icon-button[active] {
+        color: var(--vientos-complementary-2)
+      }
     </style>
 
   </template>
