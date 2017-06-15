@@ -4,12 +4,12 @@
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="../open-conversations/open-conversations.html">
 
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-intent-page-styles.html">
 
@@ -46,7 +46,7 @@
       </template>
     </section>
 
-    <template is="dom-if" if="[[conversations.length]]">
+    <template is="dom-if" if="[[_showConversations(admin, conversations)]]">
       <h3>
         <iron-icon icon="vientos:conversation"></iron-icon>
         [[localize('label:open-conversations')]]
@@ -91,9 +91,15 @@
         <iron-icon icon="vientos:organization"></iron-icon>
         [[localize('label:projects')]]
       </h3>
-      <ul>
+      <ul id="projects">
         <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
-          <li><a href="[[_projectPageUrl(project)]]">[[project.name]]</a></li>
+          <li on-tap="_showProjectProfile">
+            <iron-image
+               src="[[project.logo]]"
+               sizing="contain">
+            </iron-image>
+            [[project.name]]
+          </li>
         </template>
       </ul>
     </section>
@@ -143,12 +149,13 @@
         </ul>
       </section>
     </template>
-
-    <template is="dom-if" if="[[!currentConversation]]">
-      <paper-fab icon="vientos:collaboration" on-tap="_startConversation"></paper-fab>
-    </template>
-    <template is="dom-if" if="[[currentConversation]]">
-      <paper-fab icon="vientos:conversation" on-tap="_continueConversation"></paper-fab>
+    <template is="dom-if" if="[[_showFab(person, admin)]]">
+      <template is="dom-if" if="[[!currentConversation]]">
+        <paper-fab id="start" icon="vientos:conversation" on-tap="_startConversation"></paper-fab>
+      </template>
+      <template is="dom-if" if="[[currentConversation]]">
+        <paper-fab id="continue" icon="vientos:conversation" on-tap="_continueConversation"></paper-fab>
+      </template>
     </template>
   </template>
 

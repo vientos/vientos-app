@@ -18,14 +18,6 @@ Polymer({
       type: Array,
       statePath: 'people'
     },
-    // collaborations: {
-    //   type: Array,
-    //   statePath: 'collaborations'
-    // },
-    // intentCollaborations: {
-    //   type: Array,
-    //   computed: '_getCollaborations(intent, collaborations)'
-    // },
     reviews: {
       type: Array,
       statePath: 'reviews'
@@ -121,17 +113,23 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _conversationsVisible (admin, conversationCreator) {
-    return admin || conversationCreator
+  _showConversations (admin, conversations) {
+    return admin && conversations.length
   },
 
   _currentConversation (person, admin, conversations) {
-    if (person && !admin) {
+    if (person && !admin && conversations.length) {
       return conversations.find(conversation => {
         return conversation.creator === person._id &&
           conversation.reviews.length < 2
       })
+    } else {
+      return false
     }
+  },
+
+  _showFab (person, admin) {
+    return person && !admin
   },
 
   // _reviewsOfCollaboration (collaboration, reviews) {
@@ -162,6 +160,11 @@ Polymer({
 
   _unfavor () {
     this.dispatch('unfavor', this.favoring)
+  },
+
+  _showProjectProfile (e) {
+    window.history.pushState({}, '', util.pathFor(e.model.project, 'project'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _showLocationOnMap (e) {

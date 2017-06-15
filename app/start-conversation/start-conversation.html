@@ -10,12 +10,14 @@
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="start-conversation-styles.html">
+<link rel="import" href="../intent-preview/intent-preview.html">
 
 <dom-module id="start-conversation">
   <template>
 
     <style include="start-conversation-styles"></style>
 
+    <intent-preview intent="[[intent]]" show-projects></intent-preview>
 
     <h3>[[localize('label:questions')]]</h3>
     <p>[[intent.question]]</p>
