@@ -11,6 +11,11 @@
     box-sizing: border-box;
   }
 
+  app-header-layout {
+    height: 100vh;
+    background-color: var(--vientos-background);
+  }
+
   app-header {
     background-color: var(--vientos-secondary-ligth);
   }
@@ -18,21 +23,23 @@
   vientos-header {
     @apply --layout-horizontal;
     @apply --vientos-toolbar;
-    @apply --h-100;
+    box-shadow: 0px 0px 8px #888;
     /*background-color: var(--vientos-color-header) !important;*/
   }
 
   vientos-footer {
-    @apply --fixed-bottom;
     @apply --vientos-toolbar;
     @apply --layout-horizontal;
-    @apply --layout-flex;
     @apply --w-100;
     @apply --spaced-x;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0px 0px 8px #888;
     background-color: var(--vientos-secondary-ligth);
   }
 
   iron-pages {
+    background-color: var(--vientos-background);
     padding-bottom: 3em;
   }
 
@@ -76,29 +83,8 @@
     background-color: #fff !important;
   }
 
-
-  iron-pages {
-    background-color: var(--vientos-color-app-background-light);
-  }
-
   app-header {
     @apply --vientos-toolbar;
-  }
-
-  app-header-layout {
-    position: relative;
-  }
-
-  app-header-layout,
-  app-header-layout app-header,
-  app-header-layout footer {
-    @apply --layout-horizontal;
-  }
-
-
-  app-header-layout > main {
-    height: calc(100vh-128px);
-    overflow-y: auto;
   }
 
   #vientos-footer,

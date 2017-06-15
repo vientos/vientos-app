@@ -10,18 +10,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
-<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
-<link rel="import" href="../redux-store.html">
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-header-styles.html">
@@ -30,8 +24,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <template>
 
    <style include="vientos-header-styles"></style>
-
-   <!-- <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation"> -->
 
       <div id="menu-button-holder-left">
         <a href="/">
@@ -52,22 +44,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </template>
         </template>
         <template is="dom-if" if="[[!person]]">
-          <vientos-icon-button
-             id="button-account"
-             text="[[localize('button:login')]]"
-             icon="vientos:user"
-             small
-             on-tap="_showProfile"
-
-          ></vientos-icon-button>
+          <paper-icon-button
+            id="login-button"          
+            on-tap="_showProfile"
+            icon="vientos:user"
+          ></paper-icon-button>
         </template>
         <paper-icon-button
            icon="vientos:menu"
            on-tap="_fireToggleDrawer"
         ></paper-icon-button>
       </div>
-
-   <!-- </iron-selector> -->
 
 </template>
 
