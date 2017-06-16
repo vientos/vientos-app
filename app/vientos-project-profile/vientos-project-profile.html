@@ -82,7 +82,9 @@
 
 
     <header>
-      <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
+      <template is="dom-if" if="[[project.logo]]">
+        <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
+      </template>
       <div>
         <h2>
           [[project.name]]

@@ -24,8 +24,10 @@
 
     <section id="logo">
       <form id="new-image-form">
-        <!-- FIXME not showing preview when creating intent, but do when editing  -->
-        <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
+        <label for="new-image">[[localize('label:image')]]</label>
+        <template is="dom-if" if="[[imagePreviewSrc]]">
+          <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
+        </template>
         <div>
           <input id="new-image"
             type="file"
