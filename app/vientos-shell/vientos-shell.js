@@ -85,6 +85,9 @@ Polymer({
       type: String,
       statePath: 'locationFilter'
     },
+    mapOf: {
+      type: String
+    },
     collaborationTypes: {
       type: Array,
       statePath: 'collaborationTypes'
@@ -322,8 +325,10 @@ Polymer({
   _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
     if (page === 'map') return this.visiblePlaces
     if (page === 'intents' || page === 'intent') {
+      this.set('mapOf', 'intents')
       return visibleIntentLocations
     } else {
+      this.set('mapOf', 'projects')
       return visibleProjectLocations
     }
   },

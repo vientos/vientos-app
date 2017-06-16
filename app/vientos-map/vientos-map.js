@@ -84,6 +84,15 @@ Polymer({
     this._drawMarkers()
   },
 
+  _showList () {
+    if (this.of === 'intents') {
+      window.history.pushState({}, '', '/intents')
+    } else {
+      window.history.pushState({}, '', '/projects')
+    }
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
   _drawMarkers () {
     this.markers.clearLayers()
     this.locations.forEach(place => {
