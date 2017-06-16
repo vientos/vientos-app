@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent */
+/* global Polymer, ReduxBehavior, CustomEvent, util */
 
 Polymer({
   is: 'vientos-header',

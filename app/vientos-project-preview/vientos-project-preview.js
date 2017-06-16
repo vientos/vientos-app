@@ -28,6 +28,7 @@ Polymer({
   },
 
   _checkIfFollows: util.checkIfFollows,
+  _getThumbnailUrl: util.getThumbnailUrl,
 
   _showFullProfile () {
     window.history.pushState({}, '', util.pathFor(this.project, 'project'))

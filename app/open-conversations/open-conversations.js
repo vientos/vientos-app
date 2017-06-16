@@ -48,7 +48,7 @@ Polymer({
   },
 
   _getConversationCreatorAvatar (personId, people) {
-    return util.getRef(personId, people).logo
+    return util.getThumbnailUrl(util.getRef(personId, people).logo, 26)
   },
 
   _showConversation (e) {

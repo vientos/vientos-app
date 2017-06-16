@@ -232,3 +232,11 @@ export function ourTurn (person, conversation, intents) {
   let lastMessage = conversation.messages[conversation.messages.length - 1]
   return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
 }
+
+export function getThumbnailUrl (imageUrl, width) {
+  if (imageUrl) {
+    let urlArray = imageUrl.split('/')
+    urlArray[6] = 'w_' + width
+    return urlArray.join('/')
+  }
+}

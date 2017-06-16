@@ -43,7 +43,7 @@
             <template is="dom-repeat" items="[[myProjects]]" as="project">
               <li on-tap="_showProjectProfile">
                 <iron-image
-                   src="[[project.logo]]"
+                   src="[[_getThumbnailUrl(project.logo, 26)]]"
                    sizing="contain">
                 </iron-image>
                 [[project.name]]

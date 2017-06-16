@@ -61,7 +61,7 @@
       <h3>[[localize('label:description')]]</h3>
       <p>[[intent.description]]</p>
       <template is="dom-if" if="[[intent.logo]]">
-        <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
+        <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
       </template>
       <template is="dom-if" if="[[intent.locations.length]]">
         <h3>[[localize('label:address')]]</h3>
@@ -97,7 +97,7 @@
         <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
           <li on-tap="_showProjectProfile">
             <iron-image
-               src="[[project.logo]]"
+               src="[[_getThumbnailUrl(project.logo, 26)]]"
                sizing="contain">
             </iron-image>
             [[project.name]]

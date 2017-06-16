@@ -24,7 +24,7 @@
         </div>
         <template is="dom-if" if="[[intent.logo]]">
           <div class="logo">
-            <iron-image src="[[intent.logo]]" sizing="contain"></iron-image>
+            <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
           </div>
         </template>
       </header>
@@ -32,7 +32,7 @@
         <div id="projects">
           <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
             <p>
-              <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
+              <iron-image src="[[_getThumbnailUrl(project.logo, 26)]]" sizing="contain"></iron-image>
               [[project.name]]
             </p>
           </template>

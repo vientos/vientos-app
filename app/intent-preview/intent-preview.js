@@ -36,6 +36,7 @@ Polymer({
 
   _getRef: util.getRef,
   _checkIfFavors: util.checkIfFavors,
+  _getThumbnailUrl: util.getThumbnailUrl,
 
   _showIntentDetails () {
     window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))

@@ -78,16 +78,12 @@ Polymer({
   },
 
   _checkIfAdmin: util.checkIfAdmin,
-
   _checkIfFavors: util.checkIfFavors,
-
   _getIntentProjects: util.getIntentProjects,
-
   _filterIntentConversations: util.filterIntentConversations,
-
   _getRef: util.getRef,
-
   _getPlaceAddress: util.getPlaceAddress,
+  _getThumbnailUrl: util.getThumbnailUrl,
 
   // _getCollaborations (intent, collaborations) {
   //   if (!intent || !intent.collaborations || !collaborations) return

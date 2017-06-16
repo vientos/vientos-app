@@ -66,6 +66,7 @@ Polymer({
 
   _filterActiveIntents: util.filterActiveIntents,
   _filterIntentConversations: util.filterIntentConversations,
+  _getThumbnailUrl: util.getThumbnailUrl,
 
   _editProfile () {
     window.history.pushState({}, '', `/edit-my-profile/`)
