@@ -12,6 +12,7 @@ Polymer({
   properties: {
     intent: {
       type: Object,
+      value: null,
       observer: '_intentChanged'
     },
     person: {
