@@ -140,7 +140,7 @@ Polymer({
   },
 
   _reviewsOfSuccessfulConversations (intent, reviews) {
-    if (!intent) return []
+    if (!intent || !intent.successfulConversations) return []
     return intent.successfulConversations.map(conversationId => {
       return reviews.filter(review => review.conversation === conversationId)
     })
