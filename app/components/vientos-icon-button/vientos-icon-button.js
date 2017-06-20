@@ -11,7 +11,11 @@ Polymer({
       type: String
     },
     raised: Boolean,
-    toggle: Boolean
+    toggles: Boolean,
+    active: {
+      type: Boolean,
+      reflectToAttribute: true
+    }
   }
 
 })

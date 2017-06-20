@@ -21,12 +21,16 @@
 
            <paper-button name="projects">
              <iron-icon id="projects-icon" icon="vientos:organization"></iron-icon>
-             <paper-badge label="[[visibleProjectsCount]]" for="projects-icon"></paper-badge>
+             <template is="dom-if" if="[[filterActive]]">
+               <paper-badge label="[[visibleProjectsCount]]" for="projects-icon"></paper-badge>
+             </template>
            </paper-button>
 
            <paper-button name="intents">
              <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
-             <paper-badge label="[[visibleIntentsCount]]" for="intents-icon"></paper-badge>
+             <template is="dom-if" if="[[filterActive]]">
+               <paper-badge label="[[visibleIntentsCount]]" for="intents-icon"></paper-badge>
+             </template>
            </paper-button>
 
            <paper-button name="filter" active="[[filterActive]]">

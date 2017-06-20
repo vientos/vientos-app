@@ -42,6 +42,18 @@ Polymer({
       type: Array,
       statePath: 'filteredCollaborationTypes'
     },
+    filteredFollowings: {
+      type: Boolean,
+      statePath: 'filteredFollowings'
+    },
+    filteredFavorings: {
+      type: Boolean,
+      statePath: 'filteredFavorings'
+    },
+    myActiveFiltersCount: {
+      type: Number,
+      computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -60,10 +72,22 @@ Polymer({
 
   _clearCategoriesFilter () {
     this.dispatch('updateFilteredCategories', [])
+    this.updateStyles()
   },
 
   _selectMyCategories () {
     this.dispatch('updateFilteredCategories', this.person.categories)
+    this.updateStyles()
+  },
+
+  _collapseSection (e) {
+    let section = Polymer.dom(e).path.find(element => element.localName === 'section')
+    let collapser = section.getElementsByClassName('collapser')[0]
+    let ironCollapse = section.getElementsByTagName('iron-collapse')[0]
+    let icon = collapser.getElementsByTagName('iron-icon')[0]
+    if (icon.icon === 'expand-more') icon.set('icon', 'expand-less')
+    else icon.set('icon', 'expand-more')
+    ironCollapse.toggle()
   },
 
   _toggleCollaborationType (e) {
@@ -73,6 +97,7 @@ Polymer({
       this.set('filteredCollaborationTypes', [...this.filteredCollaborationTypes, e.model.item.id])
     }
     this.dispatch('updateFilteredCollaborationTypes', this.filteredCollaborationTypes)
+    this.updateStyles()
   },
 
   _clearCollaborationTypesFilter () {
@@ -83,20 +108,32 @@ Polymer({
     return filteredCollaborationTypes.includes(collaborationType.id)
   },
 
-  _filterFollowings () {
+  _filterFollowings (e) {
+    e.target.active = !e.target.active
     this.dispatch('toggleFilterFollowings')
+    this.updateStyles()
   },
 
-  _filterFavorings () {
+  _filterFavorings (e) {
+    e.target.active = !e.target.active
     this.dispatch('toggleFilterFavorings')
+    this.updateStyles()
+  },
+
+  _calculateMyActiveFiltersCount (filteredFavorings, filteredFollowings) {
+    return Number(filteredFavorings) + Number(filteredFollowings)
   },
 
   _locationFilterChanged (e, detail) {
     if (this.locationFilter !== detail.item.name) this.dispatch('setLocationFilter', detail.item.name)
   },
 
-  _boundingBoxButtonDisabled () {
-    return this.locationFilter === 'city'
+  _boundingBoxButtonVisible (locationFilter) {
+    return locationFilter === 'specific'
+  },
+
+  _locationFilterActive (locationFilter) {
+    return Number(locationFilter !== 'all')
   },
 
   _toggleBoundingBoxFilter () {

@@ -30,11 +30,8 @@ Polymer({
   },
 
   _toggleCategory (e) {
-    if (e.target.className.includes('selected')) {
-      e.target.toggleClass('selected')
-    } else {
-      e.target.className = 'selected'
-    }
+    e.target.active = !e.target.active
+    e.target.updateStyles()
     if (this.selection.includes(e.model.item.id)) {
       this.set('selection', this.selection.filter(s => s !== e.model.item.id))
     } else {

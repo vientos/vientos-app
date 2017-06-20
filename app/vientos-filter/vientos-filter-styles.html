@@ -5,7 +5,49 @@
   <template>
 
     <style include="vientos-styles">
+      paper-button.collapser {
+        width: 90%;
+        display: flex;
+      }
 
+      paper-button.collapser h3 {
+        flex:1
+      }
+
+      paper-button.collapser paper-badge {
+        --paper-badge-margin-left: -50px;
+        --paper-badge-margin-bottom: -10px;
+      }
+
+      section {
+        border: 1px solid #eee;
+        border-radius: 5px;
+        box-shadow: 1px 3px 5px grey;
+      }
+
+      iron-collapse {
+        padding: 1em;
+      }
+
+      paper-radio-button {
+        display: block
+      }
+
+      paper-badge {
+        --paper-badge-background: var(--vientos-secondary-1);
+        --paper-badge-text-color: black
+      }
+
+      .filter-buttons vientos-icon-button,
+      .filter-buttons paper-button {
+        @apply --vientos-filter-button
+      }
+
+      .filter-buttons vientos-icon-button[active],
+      .filter-buttons paper-button[active] {
+        background-color: var(--vientos-secondary-1);
+        --vientos-icon-button-bg-color: var(--vientos-secondary-1);
+      }
     </style>
 
   </template>

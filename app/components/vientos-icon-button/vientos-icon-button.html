@@ -7,43 +7,28 @@
     <style include="vientos-styles">
     :host{
       /*@apply --vientos-button;*/
-      @apply --layout-vertical;
+      /*@apply --layout-vertical;
       @apply --layout-center-justified;
-      padding: 0.25em;
+      padding: 0.25em;*/
       display: inline-block;
+
       /* define default color */
-      background-color: var(--vientos-icon-button-bg-color);
       /*background-color: blue;*/
-    }
-
-    :host[mini] {
-      width: auto;
-      @apply --p-0;
-    }
-
-    :host[standard] {
-      width: auto;
-      @apply --p-2;
-    }
-
-    :host[large] {
-      width: auto;
-      @apply --p-4;
-    }
-
-    :host.selected {
-      background-color: green;
     }
 
     paper-button {
       min-width: 0;
-      padding: 0 !important;
+      padding: 5px !important;
       margin: 0 !important;
       @apply --p-0;
       @apply --center-y;
-
+      background-color: var(--vientos-icon-button-bg-color);
+      height: inherit;
+      text-align: center;
       /*text-align: center !important;*/
     }
+
+
 
 
 
@@ -87,14 +72,10 @@
 
   </style>
 
-  <paper-button raised="[[raised]]">
-       <span style="padding: 0 10px">
-         <iron-icon icon="[[icon]]"></iron-icon>
-       </span>
-       <span>
-         [[text]]
-       </span>
-    </paper-button>
+  <paper-button raised="[[raised]]" active="[[active]]">
+       <iron-icon icon="[[icon]]"></iron-icon>
+       [[text]]
+  </paper-button>
 
   </template>
   <script src="vientos-icon-button.js"></script>

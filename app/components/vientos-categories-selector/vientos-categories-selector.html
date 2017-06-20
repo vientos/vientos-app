@@ -14,25 +14,29 @@
   <template>
     <style include="vientos-styles">
       vientos-icon-button {
-        width: 100px;
-        height: 50px;
+        @apply --vientos-filter-button
+      }
+
+      vientos-icon-button[active] {
+        --vientos-icon-button-bg-color: var(--vientos-secondary-1);
       }
 
 
     </style>
 
-    <template is="dom-repeat" items="[[categories]]">
-      <vientos-icon-button
-        toggles
-        raised
-        checked="[[_isInSelected(item, selection)]]"
-        on-tap="_toggleCategory"
-        icon="[[_iconFor(item)]]"
-        text="[[localize(item.id)]]"
-        large
-        >
-      </vientos-icon-button>
-    </template>
+    <div>
+      <template is="dom-repeat" items="[[categories]]">
+        <vientos-icon-button
+          toggles
+          active="[[_isInSelected(item, selection)]]"
+          on-tap="_toggleCategory"
+          icon="[[_iconFor(item)]]"
+          text="[[localize(item.id)]]"
+          large
+          >
+        </vientos-icon-button>
+      </template>
+    </div>
 
   </template>
   <script src="vientos-categories-selector.js"></script>

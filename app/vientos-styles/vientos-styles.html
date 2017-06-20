@@ -84,6 +84,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     };
 
+    --vientos-filter-button: {
+        width: 100px;
+        height: 70px;
+        margin: 5px;
+        text-align: center;
+        border: 1px solid grey;
+        border-radius: 5px;
+    };
+
 
   }
 
@@ -161,16 +170,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply --center-x;
   }*/
 
-  paper-fab[color] {
-    background-color: var(--vientos-color-button-bg);
-    color: var(--vientos-color-button);
-  }
-
-  paper-fab[neutral] {
-    background-color: var(--vientos-color-button-bg);
-    color: var(--vientos-color-button);
-  }
-
   paper-fab {
     position: fixed;
     right: 2em;
@@ -191,7 +190,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   section {
-    padding-bottom: 1.5em;
+    margin-bottom: 1.5em;
   }
 
 
