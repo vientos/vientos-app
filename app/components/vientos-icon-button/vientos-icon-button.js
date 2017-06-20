@@ -10,7 +10,8 @@ Polymer({
     icon: {
       type: String
     },
-    raised: Boolean
+    raised: Boolean,
+    toggle: Boolean
   }
 
 })

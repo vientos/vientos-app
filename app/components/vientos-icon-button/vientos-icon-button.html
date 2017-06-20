@@ -10,10 +10,10 @@
       @apply --layout-vertical;
       @apply --layout-center-justified;
       padding: 0.25em;
-
+      display: inline-block;
       /* define default color */
-      --vientos-button-color: black;
-      color: var(--vientos-button-color);
+      background-color: var(--vientos-icon-button-bg-color);
+      /*background-color: blue;*/
     }
 
     :host[mini] {
@@ -31,13 +31,17 @@
       @apply --p-4;
     }
 
+    :host.selected {
+      background-color: green;
+    }
+
     paper-button {
       min-width: 0;
       padding: 0 !important;
       margin: 0 !important;
-      @apply --w-100;
       @apply --p-0;
       @apply --center-y;
+
       /*text-align: center !important;*/
     }
 
@@ -81,9 +85,9 @@
       @apply --vientos-typography-button;
     }
 
-    </style>
+  </style>
 
-    <paper-button raised="[[raised]]">
+  <paper-button raised="[[raised]]">
        <span style="padding: 0 10px">
          <iron-icon icon="[[icon]]"></iron-icon>
        </span>

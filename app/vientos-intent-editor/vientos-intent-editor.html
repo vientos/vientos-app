@@ -111,17 +111,19 @@
       <paper-button raised on-tap="_addLocation" disabled="[[!newPlace]]">[[localize('button:add-location')]]</paper-button>
     </section>
 
+    <footer>
 
-    <paper-button raised
-      id="button-save-intent"
-      on-tap="_save"
-    >[[localize('button:save')]]</paper-button>
+          <paper-button
+            id="button-save-intent"
+            on-tap="_save"
+          >[[localize('button:save')]]</paper-button>
 
-    <paper-button raised
-      id="button-cancel"
-      on-tap="_cancel"
-    >[[localize('button:cancel')]]</paper-button>
+          <paper-button 
+            id="button-cancel"
+            on-tap="_cancel"
+          >[[localize('button:cancel')]]</paper-button>
 
+    </footer>
   </template>
 
   <script src="vientos-intent-editor.js"></script>

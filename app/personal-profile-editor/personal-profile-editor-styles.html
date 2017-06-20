@@ -9,6 +9,34 @@
       width: 200px;
       height: 200px;
     }
+
+
+
+    footer {
+      @apply --vientos-toolbar;
+      @apply --layout-horizontal;
+      @apply --spaced-x;
+      position: fixed;
+      bottom: 0;
+      left: 32px;
+      right: 32px;
+    }
+
+    footer paper-button#button-save-profile {
+      background-color: var(--vientos-primary-dark);
+      color: white
+      --paper-button: {
+        flex: 1;
+      }
+    }
+
+    footer paper-button#button-cancel {
+      background-color: var(--vientos-complementary-3);
+      color: white;
+      --paper-button: {
+        flex: 1;
+      }
+    }
     </style>
 
   </template>

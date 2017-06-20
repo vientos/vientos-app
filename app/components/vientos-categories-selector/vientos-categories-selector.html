@@ -13,14 +13,25 @@
 <dom-module id="vientos-categories-selector">
   <template>
     <style include="vientos-styles">
+      vientos-icon-button {
+        width: 100px;
+        height: 50px;
+      }
+
 
     </style>
 
     <template is="dom-repeat" items="[[categories]]">
-      <paper-toggle-button toggles checked="[[_isInSelected(item, selection)]]" on-tap="_toggleCategory">
-        <iron-icon icon="[[_iconFor(item)]]"></iron-icon>
-        [[localize(item.id)]]
-      </paper-toggle-button>
+      <vientos-icon-button
+        toggles
+        raised
+        checked="[[_isInSelected(item, selection)]]"
+        on-tap="_toggleCategory"
+        icon="[[_iconFor(item)]]"
+        text="[[localize(item.id)]]"
+        large
+        >
+      </vientos-icon-button>
     </template>
 
   </template>
