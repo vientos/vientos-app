@@ -15,6 +15,7 @@
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="vientos-intent-editor-styles.html">
 
 <dom-module id="vientos-intent-editor">
@@ -75,7 +76,7 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-dropdown-menu label="[[localize('label:collaboration-condition')]]">
+      <!-- <paper-dropdown-menu label="[[localize('label:collaboration-condition')]]">
         <paper-listbox
           class="dropdown-content"
           attr-for-selected="name"
@@ -85,7 +86,20 @@
             <paper-item name="[[item]]">[[localize(item)]]</paper-item>
           </template>
         </paper-listbox>
-      </paper-dropdown-menu>
+      </paper-dropdown-menu> -->
+
+      <section>
+        <h3>[[localize('label:reciprocity')]]</h3>
+        <div>
+          <vientos-icon-button id="gift" text="[[localize('gift')]]" icon=""></vientos-icon-button>
+        </div>
+        <div>
+          <vientos-icon-button text="[[localize('barter')]]" icon="" disabled></vientos-icon-button>
+          <vientos-icon-button text="[[localize('time-exchange')]]" icon="" disabled></vientos-icon-button>
+          <vientos-icon-button text="[[localize('trade')]]" icon="" disabled></vientos-icon-button>
+        </div>
+        <div class="support-feature">[[localize('label:support-feature')]]</div>
+      </section>
 
       <vaadin-date-picker
         id="datepicker"
@@ -118,7 +132,7 @@
             on-tap="_save"
           >[[localize('button:save')]]</paper-button>
 
-          <paper-button 
+          <paper-button
             id="button-cancel"
             on-tap="_cancel"
           >[[localize('button:cancel')]]</paper-button>

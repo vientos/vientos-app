@@ -8,54 +8,24 @@
 
 
       #intent-direction-toggle {
-
+        display: flex;
         margin: 8px 0;
-
       }
+
       #intent-direction-toggle iron-icon {
-
         color: grey;
-
         margin-top: 2px;
         width: 16px;
         height: 16px;
-
       }
-
-      input,
-      div,
-      paper-dropdown-menu,
-      paper-menu-button {
-        @apply --layout-horizontal;
-        width: 100% !important;
-
-      }
-
-      #menuButton,
-      .paper-dropdown-menu-0,
-      paper-listbox,
-      paper-dropdown-menu paper-menu-button {
-        width: 100% !important;
-        max-width: none;
-      }
-
-
 
       input {
-        border-radius: 0 !important;
-        border: none !important;
-        padding: 6px;
-        margin-bottom: 4px;
-
+        width: 100%;
       }
 
       iron-image {
         width: 200px;
         height: 200px;
-      }
-
-      #button-save-intent {
-        color: #4aba7a;
       }
 
       footer {
@@ -82,6 +52,14 @@
         --paper-button: {
           flex: 1;
         }
+      }
+
+      vientos-icon-button {
+        @apply --vientos-filter-button
+      }
+
+      vientos-icon-button#gift {
+        --vientos-icon-button-bg-color: var(--vientos-secondary-1);
       }
 
 
