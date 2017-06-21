@@ -25,7 +25,6 @@ if (typeof window !== 'undefined') {
 const hello = service + '/auth/hello'
 const data = {
   categories: '/node_modules/vientos-data/categories.json',
-  'collaboration-types': '/node_modules/vientos-data/collaborationTypes.json',
   labels: '/node_modules/vientos-data/labels.json'
 }
 const fixtures = {
@@ -161,7 +160,6 @@ export default function vientos (action) {
     case ActionTypes.FETCH_NOTIFICATIONS_REQUESTED:
       return get(action.person._id + '/notifications')
     case ActionTypes.FETCH_CATEGORIES_REQUESTED:
-    case ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED:
     case ActionTypes.FETCH_LABELS_REQUESTED:
       return get(dataUrl(action.type))
     case ActionTypes.FETCH_PROJECTS_REQUESTED:

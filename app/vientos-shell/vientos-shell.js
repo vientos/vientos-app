@@ -19,7 +19,6 @@ Polymer({
     fetchPlaces: ActionCreators.fetchPlaces,
     fetchLabels: ActionCreators.fetchLabels,
     fetchCategories: ActionCreators.fetchCategories,
-    fetchCollaborationTypes: ActionCreators.fetchCollaborationTypes,
     fetchProjects: ActionCreators.fetchProjects,
     fetchIntents: ActionCreators.fetchIntents,
     fetchCollaborations: ActionCreators.fetchCollaborations,
@@ -87,10 +86,6 @@ Polymer({
     },
     mapOf: {
       type: String
-    },
-    collaborationTypes: {
-      type: Array,
-      statePath: 'collaborationTypes'
     },
     boundingBox: {
       type: Object,
@@ -370,7 +365,6 @@ Polymer({
     this.dispatch('hello')
     this.dispatch('fetchLabels')
     this.dispatch('fetchCategories')
-    this.dispatch('fetchCollaborationTypes')
     this.dispatch('fetchProjects')
     this.dispatch('fetchPlaces')
     this.dispatch('fetchPeople')

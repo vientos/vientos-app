@@ -64,10 +64,6 @@ export function fetchCategories () {
   return { type: ActionTypes.FETCH_CATEGORIES_REQUESTED }
 }
 
-export function fetchCollaborationTypes () {
-  return { type: ActionTypes.FETCH_COLLABORATION_TYPES_REQUESTED }
-}
-
 export function fetchProjects () {
   return { type: ActionTypes.FETCH_PROJECTS_REQUESTED }
 }

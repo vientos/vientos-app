@@ -23,19 +23,12 @@
 
     <style include="vientos-intent-editor-styles"></style>
 
-    <section id="logo">
-      <form id="new-image-form">
-        <label for="new-image">[[localize('label:image')]]</label>
-        <template is="dom-if" if="[[imagePreviewSrc]]">
-          <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
-        </template>
-        <div>
-          <input id="new-image"
-            type="file"
-            accept="image/*"
-            on-change="_imageInputChanged">
-        </div>
-      </form>
+    <section id="intent-direction-toggle">
+      <iron-icon icon="arrow-forward"></iron-icon>
+      <span>[[localize('offer')]]</span>
+      <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
+      <iron-icon icon="arrow-back"></iron-icon>
+      <span>[[localize('request')]]</span>
     </section>
 
     <section>
@@ -55,52 +48,67 @@
       </div>
     </section>
 
-    <div id="intent-direction-toggle">
-      <iron-icon icon="arrow-forward"></iron-icon>
-      <span>[[localize('offer')]]</span>
-      <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
-      <iron-icon icon="arrow-back"></iron-icon>
-      <span>[[localize('request')]]</span>
-    </div>
+    <section id="logo">
+      <form id="new-image-form">
+        <label for="new-image">[[localize('label:image')]]</label>
+        <template is="dom-if" if="[[imagePreviewSrc]]">
+          <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
+        </template>
+        <div>
+          <input id="new-image"
+            type="file"
+            accept="image/*"
+            on-change="_imageInputChanged">
+        </div>
+      </form>
+    </section>
 
     <section>
-      <paper-dropdown-menu label="[[localize('label:collaboration-type')]]">
-        <paper-listbox
-          class="dropdown-content"
-          attr-for-selected="name"
-          on-iron-select="_setCollaborationType"
-          selected="[[updated.collaborationType]]">
-          <template is="dom-repeat" items="[[collaborationTypes]]">
-            <paper-item name="[[item.id]]">[[localize(item.id)]]</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
+      <h3>[[localize('label:collaboration-type')]]</h3>
+      <div>
+        <iron-selector selected="{{collaborationType}}" attr-for-selected="name">
+          <vientos-icon-button
+            name="work"
+            text="[[localize('work')]]"
+            icon="" 
+            toggles
+          ></vientos-icon-button>
+          <vientos-icon-button
+            name="usage"
+            text="[[localize('usage')]]"
+            icon="" 
+            toggles
+          ></vientos-icon-button>
+          <vientos-icon-button
+            name="consumption"
+            text="[[localize('consumption')]]"
+            icon="" 
+            toggles
+          ></vientos-icon-button>
+          <vientos-icon-button
+            name="ownership"
+            text="[[localize('ownership')]]"
+            icon="" 
+            toggles
+          ></vientos-icon-button>
+        </iron-selector>
+      </div>
+    </section>
 
-      <!-- <paper-dropdown-menu label="[[localize('label:collaboration-condition')]]">
-        <paper-listbox
-          class="dropdown-content"
-          attr-for-selected="name"
-          on-iron-select="_setCollaborationCondition"
-          selected="[[updated.condition]]">
-          <template is="dom-repeat" items="[[conditions]]">
-            <paper-item name="[[item]]">[[localize(item)]]</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu> -->
+    <section>
+      <h3>[[localize('label:reciprocity')]]</h3>
+      <div>
+        <vientos-icon-button id="gift" text="[[localize('gift')]]" icon=""></vientos-icon-button>
+      </div>
+      <div>
+        <vientos-icon-button text="[[localize('barter')]]" icon="" disabled></vientos-icon-button>
+        <vientos-icon-button text="[[localize('time-exchange')]]" icon="" disabled></vientos-icon-button>
+        <vientos-icon-button text="[[localize('trade')]]" icon="" disabled></vientos-icon-button>
+      </div>
+      <div class="support-feature">[[localize('label:support-feature')]]</div>
+    </section>
 
-      <section>
-        <h3>[[localize('label:reciprocity')]]</h3>
-        <div>
-          <vientos-icon-button id="gift" text="[[localize('gift')]]" icon=""></vientos-icon-button>
-        </div>
-        <div>
-          <vientos-icon-button text="[[localize('barter')]]" icon="" disabled></vientos-icon-button>
-          <vientos-icon-button text="[[localize('time-exchange')]]" icon="" disabled></vientos-icon-button>
-          <vientos-icon-button text="[[localize('trade')]]" icon="" disabled></vientos-icon-button>
-        </div>
-        <div class="support-feature">[[localize('label:support-feature')]]</div>
-      </section>
-
+    <section>
       <vaadin-date-picker
         id="datepicker"
         value="{{expiryDate}}"

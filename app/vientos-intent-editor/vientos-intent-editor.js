@@ -50,18 +50,8 @@ Polymer({
       value: window.vientos.config.map.googleApiKey
     },
     collaborationType: {
-      type: String
-    },
-    collaborationTypes: {
-      type: Array,
-      statePath: 'collaborationTypes'
-    },
-    conditions: {
-      type: Array,
-      value: [
-        'gift',
-        'share'
-      ]
+      type: String,
+      observer: '_collaborationTypeChanged'
     },
     expiryDate: {
       type: String,
@@ -92,6 +82,7 @@ Polymer({
   _intentChanged () {
     this._reset()
     this._makeClone()
+    if (this.intent) this.set('collaborationType', this.intent.collaborationType)
   },
 
   _makeClone () {
@@ -108,9 +99,7 @@ Polymer({
 
   _save () {
     this.updated.collaborationType = this.collaborationType
-    this.updated.condition = this.condition
     this.updated.expiryDate = this.expiryDate
-
     if (this.newPlace) {
       this._addToCollection(this.newPlace, 'updated.locations')
       let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
@@ -118,8 +107,8 @@ Polymer({
         this.dispatch('savePlace', this.newPlace)
       }
     }
-
     this.dispatch('saveIntent', this.updated, this.newImage)
+    this._reset()
     window.history.pushState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
@@ -128,6 +117,8 @@ Polymer({
     this.set('newImage', null)
     this.$['new-image-form'].reset()
     this.$['place-input'].value = ''
+    if (this.collaborationType) this.$$(`vientos-icon-button[name=${this.collaborationType}]`).set('active', false)
+    this.updateStyles()
   },
 
   _cancel () {
@@ -149,8 +140,11 @@ Polymer({
     this.set('updated.direction', this.updated.direction === 'offer' ? 'request' : 'offer')
   },
 
-  _setCollaborationType (e, detail) {
-    this.collaborationType = detail.item.name
+  _collaborationTypeChanged (newC, oldC) {
+    console.log(newC, oldC)
+    if (oldC) this.$$(`vientos-icon-button[name=${oldC}]`).set('active', false)
+    if (newC) this.$$(`vientos-icon-button[name=${newC}]`).set('active', true)
+    this.updateStyles()
   },
 
   _setCollaborationCondition (e, detail) {
@@ -164,7 +158,7 @@ Polymer({
         _id: util.mintUrl({ type: 'Intent' }),
         type: 'Intent',
         direction: 'offer',
-        condition: 'gift',
+        reciprocity: 'gift',
         creator: person._id,
         admins: [person._id],
         projects: [ project._id ]

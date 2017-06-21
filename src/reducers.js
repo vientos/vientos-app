@@ -189,15 +189,6 @@ function locationFilter (state = 'all', action) {
   }
 }
 
-function collaborationTypes (state = [], action) {
-  switch (action.type) {
-    case ActionTypes.FETCH_COLLABORATION_TYPES_SUCCEEDED:
-      return action.json
-    default:
-      return state
-  }
-}
-
 function person (state = null, action) {
   switch (action.type) {
     case ActionTypes.FETCH_PERSON_SUCCEEDED:
@@ -281,7 +272,6 @@ export default combineReducers({
   filteredFavorings,
   locationFilter,
   boundingBoxFilter,
-  collaborationTypes,
   person,
   myConversations,
   notifications,
