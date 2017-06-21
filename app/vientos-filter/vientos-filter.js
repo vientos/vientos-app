@@ -34,10 +34,6 @@ Polymer({
       type: Array,
       statePath: 'filteredCategories'
     },
-    collaborationTypes: {
-      type: Array,
-      statePath: 'collaborationTypes'
-    },
     filteredCollaborationTypes: {
       type: Array,
       statePath: 'filteredCollaborationTypes'
@@ -91,17 +87,23 @@ Polymer({
   },
 
   _toggleCollaborationType (e) {
-    if (this.filteredCollaborationTypes.includes(e.model.item.id)) {
-      this.set('filteredCollaborationTypes', this.filteredCollaborationTypes.filter(colType => colType !== e.model.item.id))
+    let button = Polymer.dom(e).path.find(element => element.localName === 'vientos-icon-button')
+    let collaborationType = button.getAttribute('name')
+    button.active = !button.active
+    if (this.filteredCollaborationTypes.includes(collaborationType)) {
+      this.set('filteredCollaborationTypes', this.filteredCollaborationTypes.filter(colType => colType !== collaborationType))
     } else {
-      this.set('filteredCollaborationTypes', [...this.filteredCollaborationTypes, e.model.item.id])
+      this.set('filteredCollaborationTypes', [...this.filteredCollaborationTypes, collaborationType])
     }
     this.dispatch('updateFilteredCollaborationTypes', this.filteredCollaborationTypes)
     this.updateStyles()
   },
 
-  _clearCollaborationTypesFilter () {
+  _clearCollaborationTypesFilter (e) {
     this.dispatch('updateFilteredCollaborationTypes', [])
+    let ironCollapse = Polymer.dom(e).path.find(element => element.localName === 'iron-collapse')
+    ironCollapse.querySelectorAll('vientos-icon-button').forEach(button => button.set('active', false))
+    this.updateStyles()
   },
 
   _isCollaborationTypeSelected (collaborationType, filteredCollaborationTypes) {

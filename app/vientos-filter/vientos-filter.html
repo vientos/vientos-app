@@ -119,14 +119,34 @@
           [[localize('button:clear')]]
         </paper-button>
         <div class="filter-buttons">
-          <template is="dom-repeat" items="[[collaborationTypes]]">
-            <paper-button
-              toggles
-              active="[[_isCollaborationTypeSelected(item, filteredCollaborationTypes)]]"
-              on-tap="_toggleCollaborationType">
-              [[localize(item.id)]]
-            </paper-button>
-          </template>
+          <vientos-icon-button
+            name="work"
+            text="[[localize('work')]]"
+            icon=""
+            toggles
+            on-tap="_toggleCollaborationType"            
+          ></vientos-icon-button>
+          <vientos-icon-button
+            name="usage"
+            text="[[localize('usage')]]"
+            icon=""
+            toggles
+            on-tap="_toggleCollaborationType"            
+          ></vientos-icon-button>
+          <vientos-icon-button
+            name="consumption"
+            text="[[localize('consumption')]]"
+            icon=""
+            toggles
+            on-tap="_toggleCollaborationType"            
+          ></vientos-icon-button>
+          <vientos-icon-button
+            name="ownership"
+            text="[[localize('ownership')]]"
+            icon=""
+            toggles
+            on-tap="_toggleCollaborationType"            
+          ></vientos-icon-button>
         </div>
       </iron-collapse>
     </section>
