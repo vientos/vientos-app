@@ -24,10 +24,10 @@
     <style include="vientos-intent-editor-styles"></style>
 
     <section id="intent-direction-toggle">
-      <iron-icon icon="arrow-forward"></iron-icon>
+      <iron-icon icon="vientos:offer"></iron-icon>
       <span>[[localize('offer')]]</span>
       <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
-      <iron-icon icon="arrow-back"></iron-icon>
+      <iron-icon icon="vientos:request"></iron-icon>
       <span>[[localize('request')]]</span>
     </section>
 
@@ -70,25 +70,25 @@
           <vientos-icon-button
             name="work"
             text="[[localize('work')]]"
-            icon="" 
+            icon="vientos:work"
             toggles
           ></vientos-icon-button>
           <vientos-icon-button
             name="usage"
             text="[[localize('usage')]]"
-            icon="" 
+            icon="vientos:usage"
             toggles
           ></vientos-icon-button>
           <vientos-icon-button
             name="consumption"
             text="[[localize('consumption')]]"
-            icon="" 
+            icon="vientos:consumption"
             toggles
           ></vientos-icon-button>
           <vientos-icon-button
             name="ownership"
             text="[[localize('ownership')]]"
-            icon="" 
+            icon="vientos:ownership"
             toggles
           ></vientos-icon-button>
         </iron-selector>
@@ -98,7 +98,7 @@
     <section>
       <h3>[[localize('label:reciprocity')]]</h3>
       <div>
-        <vientos-icon-button id="gift" text="[[localize('gift')]]" icon=""></vientos-icon-button>
+        <vientos-icon-button id="gift" text="[[localize('gift')]]" icon="vientos:gift"></vientos-icon-button>
       </div>
       <div>
         <vientos-icon-button text="[[localize('barter')]]" icon="" disabled></vientos-icon-button>
