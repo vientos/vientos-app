@@ -12,5 +12,6 @@
   "cloudinary": {
     "cloud": "get it from https://cloudinary.com/console",
     "preset": "get it from https://cloudinary.com/console/settings/upload"
-  }
+  },
+  "sentry": null
 }

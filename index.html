@@ -49,6 +49,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       window.vientos = {}
     </script>
     <script src="/bundle.js"></script>
+    <script src="https://cdn.ravenjs.com/3.16.0/raven.min.js" crossorigin="anonymous"></script>
+    <script>
+      if (window.vientos.config.sentry) Raven.config(window.vientos.config.sentry).install()
+    </script>
     <script>
       // Setup Polymer options
       window.Polymer = {
