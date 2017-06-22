@@ -16,7 +16,20 @@
     <style include="personal-profile-editor-styles"></style>
 
     <paper-input value="{{updated.name}}" label="[[localize('label:name')]]"></paper-input>
-
+    <section>
+      <div id="language-toggle">
+        <h4>[[localize('label:language')]]</h4>
+        <div>
+          <span>ES</span>
+          <paper-toggle-button on-tap="_toggleLanguage" checked="[[_checkedLanguageInput(updated.language)]]"></paper-toggle-button>
+          <span>EN</span>
+        </div>
+      </div>
+      <div>
+        <h4>[[localize('label:email-notifications')]]</h4>
+        <paper-toggle-button on-tap="_toggleEmailNotifications" checked="[[updated.emailNotifications]]"></paper-toggle-button>
+      </div>
+    </section>
     <section id="logo">
       <form id="new-image-form">
         <label for="new-image">[[localize('label:image')]]</label>

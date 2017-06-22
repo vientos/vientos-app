@@ -88,5 +88,21 @@ Polymer({
     } else if (person) {
       return person.logo
     }
+  },
+
+  _toggleLanguage (e) {
+    if (this.updated.language === 'en') {
+      this.set('updated.language', 'es')
+    } else {
+      this.set('updated.language', 'en')
+    }
+  },
+
+  _checkedLanguageInput (language) {
+    return language === 'en'
+  },
+
+  _toggleEmailNotifications (e) {
+    this.set('updated.emailNotifications', !this.updated.emailNotifications)
   }
 })
