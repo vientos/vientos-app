@@ -49,7 +49,7 @@ Polymer({
     },
     currentConversation: {
       type: Object,
-      computed: '_currentConversation(person, admin, conversations)'
+      computed: '_currentConversation(person, projectAdmin, conversations)'
     },
     projects: {
       type: Array,
@@ -115,23 +115,24 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _showConversations (admin, conversations) {
-    return admin && conversations.length
+  _showConversations (projectAdmin, conversations) {
+    return projectAdmin && conversations.length
   },
 
-  _currentConversation (person, admin, conversations) {
-    if (person && !admin && conversations.length) {
+  _currentConversation (person, projectAdmin, conversations) {
+    console.log(person, !projectAdmin, conversations.length)
+    if (person && !projectAdmin && conversations.length) {
       return conversations.find(conversation => {
         return conversation.creator === person._id &&
           conversation.reviews.length < 2
-      })
+      }) || null
     } else {
-      return false
+      return null
     }
   },
 
-  _showFab (person, admin) {
-    return person && !admin
+  _showFab (person, projectAdmin) {
+    return person && !projectAdmin
   },
 
   // _reviewsOfCollaboration (collaboration, reviews) {
@@ -152,8 +153,8 @@ Polymer({
     })
   },
 
-  _canFavor (person, admin) {
-    return person && !admin
+  _canFavor (person, projectAdmin) {
+    return person && !projectAdmin
   },
 
   _favor () {
@@ -176,6 +177,7 @@ Polymer({
   },
 
   _canLeaveAdmin (intent, intentAdmin) {
+    if (!intent) return false
     return intentAdmin && intent.admins.length > 1
   },
 

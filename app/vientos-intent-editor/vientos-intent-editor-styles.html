@@ -15,8 +15,9 @@
       #intent-direction-toggle iron-icon {
         color: grey;
         margin-top: 2px;
-        width: 16px;
+        width: 24px;
         height: 16px;
+        padding-right: 5px;
       }
 
       input {
@@ -36,6 +37,14 @@
         bottom: 0;
         left: 32px;
         right: 32px;
+      }
+
+      footer paper-button {
+        font-weight: bold;
+      }
+
+      footer paper-button[disabled]{
+        opacity: 0.4;
       }
 
       footer paper-button#button-save-intent {

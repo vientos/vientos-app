@@ -86,7 +86,10 @@
     </template>
 
     <h2>[[intent.title]]</h2>
-    <p>[[localize(intent.direction)]]</p>
+    <p>
+      <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
+      [[localize(intent.direction)]]
+    </p>
 
     <section>
       <h3>[[localize('label:description')]]</h3>
@@ -112,9 +115,15 @@
         </p>
       </template>
       <h3>[[localize('label:collaboration-type')]]</h3>
-      <p>[[localize(intent.collaborationType)]]</p>
+      <p>
+        <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
+        [[localize(intent.collaborationType)]]
+      </p>
       <h3>[[localize('label:reciprocity')]]</h3>
-      <p>[[localize(intent.reciprocity)]]</p>
+      <p>
+        <iron-icon icon="vientos:[[intent.reciprocity]]"></iron-icon>
+        [[localize(intent.reciprocity)]]
+      </p>
       <h3>[[localize('label:expiry-date')]]</h3>
       <p>[[intent.expiryDate]]</p>
     </section>

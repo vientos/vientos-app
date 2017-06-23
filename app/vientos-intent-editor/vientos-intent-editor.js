@@ -51,6 +51,7 @@ Polymer({
     },
     collaborationType: {
       type: String,
+      value: null,
       observer: '_collaborationTypeChanged'
     },
     expiryDate: {

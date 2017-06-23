@@ -16,38 +16,49 @@
         padding-top: 0;
       }
 
-      header {
+      div#info {
+        display: flex;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+
+      div#info > div {
+        flex: 1;
+        text-align: center;
+      }
+
+      div#main {
         display: flex;
       }
 
-      div.info {
+      div#main h3 {
         flex: 2;
-      }
-
-      div.info h3 {
         font-weight:bolder;
+        line-height: 1.5em;
       }
 
-      div.logo {
+      div#main .logo {
         flex: 1;
       }
 
-      div.logo iron-image {
+      div#main .logo iron-image {
         height: 80px;
         width: 80px;
-        margin-top: 20px;
       }
 
       #stats {
         padding-bottom: 1em;
+        display: flex;
       }
 
       #stats span {
-        margin-right: 1em
+        margin-right: 1em;
+        flex: 1;
+        text-align: center;
       }
 
       iron-icon {
-        width: 18px;
+        width: 30px;
         height: 18px;
         opacity: 0.5;
         vertical-align: bottom;
