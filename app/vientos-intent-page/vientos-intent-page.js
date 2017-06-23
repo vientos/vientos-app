@@ -6,7 +6,8 @@ Polymer({
 
   actions: {
     favor: ActionCreators.favor,
-    unfavor: ActionCreators.unfavor
+    unfavor: ActionCreators.unfavor,
+    saveIntent: ActionCreators.saveIntent
   },
 
   properties: {
@@ -62,10 +63,15 @@ Polymer({
       type: Array,
       computed: '_getIntentProjects(intent, projects)'
     },
-    admin: {
+    projectAdmin: {
       type: Boolean,
       value: false,
       computed: '_checkIfAdmin(person, intentProjects)'
+    },
+    intentAdmin: {
+      type: Boolean,
+      value: false,
+      computed: '_checkIfAdmin(person, intent)'
     },
     language: {
       type: String,
@@ -167,5 +173,19 @@ Polymer({
     let place = util.getRef(e.model.placeId, this.places)
     window.history.pushState({}, '', `/map?latitude=${place.latitude}&longitude=${place.longitude}&zoom=15`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _canLeaveAdmin (intent, intentAdmin) {
+    return intentAdmin && intent.admins.length > 1
+  },
+
+  _leaveAdmin () {
+    this.set('intent.admins', this.intent.admins.filter(adminId => adminId !== this.person._id))
+    this.dispatch('saveIntent', this.intent)
+  },
+
+  _becomeAdmin () {
+    this.set('intent.admins', [...this.intent.admins, this.person._id])
+    this.dispatch('saveIntent', this.intent)
   }
 })

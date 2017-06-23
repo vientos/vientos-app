@@ -16,7 +16,7 @@
       <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
         <li on-tap="_showConversation">
           <template is="dom-if" if="[[_ourTurn(person, conversation, intents)]]">
-            <span class="our-turn"><iron-icon icon="assignment"></iron-icon></span>
+            <span class="our-turn"><iron-icon icon="vientos:ball"></iron-icon></span>
           </template>
           <template is="dom-if" if="[[_getNotificationsCount(conversation, notifications)]]">
             <paper-badge label="[[_getNotificationsCount(conversation, notifications)]]"></paper-badge>

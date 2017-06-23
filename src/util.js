@@ -109,10 +109,10 @@ export function getIntentProjects (intent, projects) {
   return projects.filter(project => intent.projects.includes(project._id))
 }
 
-export function checkIfAdmin (person, projects) {
-  if (!projects) return false
-  if (!Array.isArray(projects)) projects = [ projects ]
-  return person && projects.some(project => project.admins && project.admins.includes(person._id))
+export function checkIfAdmin (person, entities) {
+  if (!entities) return false
+  if (!Array.isArray(entities)) entities = [ entities ]
+  return person && entities.some(entity => entity.admins && entity.admins.includes(person._id))
 }
 
 export function checkIfFollows (person, project) {
