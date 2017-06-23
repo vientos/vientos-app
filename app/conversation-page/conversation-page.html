@@ -33,7 +33,7 @@
           <p>[[causingIntent.question]]</p>
         </li>
         <template is="dom-repeat" items="[[conversation.messages]]" as="message">
-          <li>
+          <li class="_classForSameTeam(person, message.creator, conversation, intents)">
             <p>
               <iron-image src="[[_getCreatorAvatar(message.creator)]]" sizing="contain"></iron-image>
               [[_getCreatorName(message.creator)]]
@@ -43,10 +43,7 @@
         </template>
       </ul>
       <template is="dom-if" if="[[showNewMessage]]">
-        <paper-textarea
-          value="{{newMessage}}"
-          autofocus>
-        </paper-textarea>
+        <paper-textarea value="{{newMessage}}"></paper-textarea>
         <div>
           <div id="turn-toggle">
             <span>[[localize('label:our-turn')]]</span>
@@ -104,7 +101,7 @@
             ></vientos-icon-button>
           <!-- <template is="dom-if" if="[[conversation.collaboration.body]]"> -->
           <vientos-icon-button
-            id="button-success"          
+            id="button-success"
             raised
             on-tap="_succeed"
             text="[[localize('button:succeed')]]"

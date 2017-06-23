@@ -212,6 +212,10 @@ Polymer({
     return conversation.reviews.length === 0 && !reviewing && !editingCollaboration
   },
 
+  _classForSameTeam (person, creator, conversation, intents) {
+    return util.sameTeam(person, creator, conversation, intents) ? 'us' : 'others'
+  },
+
   _showNewReview (conversation, canReview, reviewing) {
     return canReview && (reviewing || conversation.reviews.length === 1)
   },

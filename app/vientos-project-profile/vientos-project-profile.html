@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
@@ -43,16 +44,22 @@
       </section>
     </template>
     <template is="dom-if" if="[[admin]]">
-      <paper-button raised on-tap="_editDetails">[[localize('button:edit')]]</paper-button>
+      <div class="action-buttons">
+        <vientos-icon-button
+          raised
+          on-tap="_editDetails"
+          icon="settings"
+          text="[[localize('button:edit')]]">
+        </vientos-icon-button>
+        <vientos-icon-button
+          raised
+          on-tap="_startAddingAdmin"
+          icon="vientos:add-person"
+          text="[[localize('button:add-admin')]]"
+          disabled="[[addingNewAdmin]]">
+        </vientos-icon-button>
+      </div>
       <h3>[[localize('label:admins')]]</h3>
-      <ul id="admin-list">
-        <template is="dom-repeat" items="[[_getRef(project.admins, people)]]">
-          <li>
-            <iron-image src="[[item.logo]]" sizing="contain"></iron-image>
-            [[item.name]]
-          </li>
-        </template>
-      </ul>
       <template is="dom-if" if="[[addingNewAdmin]]">
         <div>
           <paper-dropdown-menu label="[[localize('label:select-new-admin')]]">
@@ -69,15 +76,14 @@
           <paper-button raised on-tap="_cancelAddingAdmin">[[localize('button:cancel')]]</paper-button>
         </div>
       </template>
-      <template is="dom-if" if="[[!addingNewAdmin]]">
-        <vientos-icon-button
-          raised
-          on-tap="_startAddingAdmin"
-          icon="vientos:add-person"
-          text="[[localize('button:add-admin')]]">
-        </vientos-icon-button>
-      </template>
-
+      <ul id="admin-list">
+        <template is="dom-repeat" items="[[_getRef(project.admins, people)]]">
+          <li>
+            <iron-image src="[[item.logo]]" sizing="contain"></iron-image>
+            [[item.name]]
+          </li>
+        </template>
+      </ul>
     </template>
 
 
@@ -106,6 +112,18 @@
         </template>
       </ul>
     </section>
+    <template is="dom-if" if="[[project.categories]]">
+      <section id="categories">
+        <ul>
+          <template is="dom-repeat" items="[[project.categories]]" as="category">
+            <li>
+              <iron-icon icon="vientos:[[category]]"></iron-icon>
+              [[localize(category)]]
+            </li>
+          </template>
+        </ul>
+      </section>
+    </template>
 
     <section id="project-description">
 

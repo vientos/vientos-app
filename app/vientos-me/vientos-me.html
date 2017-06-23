@@ -21,6 +21,12 @@
     <style include="vientos-me-styles"></style>
 
     <template is="dom-if" if="[[person]]">
+
+      <div class="action-buttons">
+        <vientos-icon-button raised icon="settings" on-tap="_editProfile" text="[[localize('button:edit-profile')]]"></vientos-icon-button>
+        <vientos-icon-button raised icon="vientos:organization" on-tap="_startAddingProject" text="[[localize('button:add-project')]]" disabled="[[addingNewProject]]"></vientos-icon-button>
+        <vientos-icon-button raised icon="vientos:user" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
+      </div>
       <h2 id="title">
         <span>[[person.name]]</span>
         <span id="categories">
@@ -29,10 +35,17 @@
           </template>
         </span>
       </h2>
-      <app-toolbar>
-        <vientos-icon-button raised on-tap="_editProfile" text="[[localize('button:edit-profile')]]"></vientos-icon-button>
-        <vientos-icon-button raised icon="vientos:user" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
-      </app-toolbar>
+      <template is="dom-if" if="[[addingNewProject]]">
+        <section>
+          <div>
+            <paper-input value="{{newProjectName}}" label="[[localize('label:org-name')]]"></paper-input>
+            <section>
+              <paper-button raised on-tap="_crateProject" disabled="[[!newProjectName]]">[[localize('button:save')]]</paper-button>
+              <paper-button raised on-tap="_cancelAddingProject">[[localize('button:cancel')]]</paper-button>
+            </section>
+          </div>
+        </section>
+      </template>
       <template is="dom-if" if="[[myProjects.length]]">
         <section id="my-projects">
           <h3>
@@ -52,20 +65,7 @@
           </ul>
         </section>
       </template>
-      <section>
-        <template is="dom-if" if="[[addingNewProject]]">
-          <div>
-            <paper-input value="{{newProjectName}}" label="[[localize('label:org-name')]]"></paper-input>
-            <section>
-              <paper-button raised on-tap="_crateProject" disabled="[[!newProjectName]]">[[localize('button:save')]]</paper-button>
-              <paper-button raised on-tap="_cancelAddingProject">[[localize('button:cancel')]]</paper-button>
-            </section>
-          </div>
-        </template>
-        <template is="dom-if" if="[[!addingNewProject]]">
-          <paper-button raised on-tap="_startAddingProject">[[localize('button:add-project')]]</paper-button>
-        </template>
-      </section>
+
       <section>
         <h3>
           <iron-icon icon="vientos:conversation"></iron-icon>
