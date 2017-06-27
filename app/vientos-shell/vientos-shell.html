@@ -77,19 +77,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <app-drawer-layout fullbleed force-narrow>
 
-    <app-drawer>
-      <div id="language-toggle">
-        <span>ES</span>
-        <paper-toggle-button on-tap="_toggleLanguage"></paper-toggle-button>
-        <span>EN</span>
-      </div>
-      <template is="dom-if" if="[[session]]">
-        <div>
-          <vientos-icon-button raised icon="vientos:user" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
-        </div>
-      </template>
-    </app-drawer>
-
     <!-- Main content -->
     <app-header-layout>
 

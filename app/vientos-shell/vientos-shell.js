@@ -269,6 +269,7 @@ Polymer({
 
   _personChanged (person) {
     if (person) {
+      this.dispatch('setLanguage', person.language)
       // fetch conversations and update every 60s
       this.dispatch('fetchMyConversations', person)
       setInterval(() => { this.dispatch('fetchMyConversations', person) }, 60000)

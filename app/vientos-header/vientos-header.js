@@ -9,9 +9,21 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    intents: {
+      type: Array,
+      statePath: 'intents'
+    },
     notifications: {
       type: Array,
       statePath: 'notifications'
+    },
+    myConversations: {
+      type: Array,
+      statePath: 'myConversations'
+    },
+    ourTurnCount: {
+      type: Number,
+      computed: '_calcOurTurnCount(person, myConversations, intents)'
     },
     page: {
       type: String,
@@ -38,8 +50,10 @@ Polymer({
     }
   },
 
-  _fireToggleDrawer () {
-    this.fire('toggle')
+  _calcOurTurnCount (person, myConversations, intents) {
+    return myConversations.reduce((count, conversation) => {
+      return util.ourTurn(person, conversation, intents) ? ++count : count
+    }, 0)
   },
 
   _showProfile () {

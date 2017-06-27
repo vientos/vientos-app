@@ -37,11 +37,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <template is="dom-if" if="[[person]]">
           <paper-button on-tap="_showProfile">
+            <template is="dom-if" if="[[notifications.length]]">
+              <span id="notifications">[[notifications.length]]</span>
+            </template>
+            <template is="dom-if" if="[[ourTurnCount]]">
+              <span id="our-turn">[[ourTurnCount]]</span>
+            </template>
             <iron-image id="person-avatar" src="[[person.logo]]" sizing="contain"></iron-image>
           </paper-button>
-          <template is="dom-if" if="[[notifications.length]]">
-            <paper-badge label="[[notifications.length]]" for="person-avatar"></paper-badge>
-          </template>
         </template>
         <template is="dom-if" if="[[!person]]">
           <paper-icon-button
@@ -50,10 +53,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             icon="vientos:user"
           ></paper-icon-button>
         </template>
-        <paper-icon-button
-           icon="vientos:menu"
-           on-tap="_fireToggleDrawer"
-        ></paper-icon-button>
       </div>
 
 </template>
