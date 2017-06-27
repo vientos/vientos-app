@@ -43,14 +43,17 @@
         </template>
       </ul>
       <template is="dom-if" if="[[showNewMessage]]">
-        <paper-textarea value="{{newMessage}}" placeholder="[[localize('type-message')]]"></paper-textarea>
+        <div id="turn-toggle">
+          <span>[[localize('label:their-turn')]]</span>
+          <paper-toggle-button toggles checked="[[turnToggleChecked]]" on-tap="_toggleTurn"></paper-toggle-button>
+          <span>[[localize('label:our-turn')]]</span>
+        </div>
+        <template is="dom-if" if="[[_toggleRequiresMessageHint(changeTurn, newMessage)]]">
+          <div id="hint-change-turn">[[localize('hint:change-turn-needs-message')]]</div>
+        </template>
         <div id="message-controls">
-          <div id="turn-toggle">
-            <span>[[localize('label:our-turn')]]</span>
-            <paper-toggle-button toggles checked="[[turnToggleChecked]]" on-tap="_toggleTurn"></paper-toggle-button>
-            <span>[[localize('label:their-turn')]]</span>
-          </div>
-          <div><paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button></div>
+          <paper-textarea value="{{newMessage}}" placeholder="[[localize('type-message')]]"></paper-textarea>
+          <paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button>
         </div>
       </template>
     </section>

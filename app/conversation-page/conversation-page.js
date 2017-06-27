@@ -134,7 +134,11 @@ Polymer({
 
   _turnToggleChecked (person, conversation, intents, changeTurn) {
     let ourTurn = util.ourTurn(person, conversation, intents)
-    return this.changeTurn ? ourTurn : !ourTurn
+    return this.changeTurn ? !ourTurn : ourTurn
+  },
+
+  _toggleRequiresMessageHint (changeTurn, newMessage) {
+    return changeTurn && !newMessage
   },
 
   _sendMessage () {
