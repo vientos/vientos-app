@@ -18,6 +18,13 @@
   <template>
     <style include="vientos-intent-page-styles"></style>
 
+    <header>
+      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+      <h2>
+        [[intent.title]]
+      </h2>
+    </header>
+
     <template is="dom-if" if="[[projectAdmin]]">
       <section>
         <div class="action-buttons">
@@ -86,7 +93,6 @@
       <open-conversations conversations="[[conversations]]"></open-conversations>
     </template>
 
-    <h2>[[intent.title]]</h2>
     <p>
       <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
       [[localize(intent.direction)]]

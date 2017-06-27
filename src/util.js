@@ -1,3 +1,5 @@
+/* global CustomEvent */
+
 import { mintUrl } from './vientos'
 const service = require('../config.json').service
 
@@ -239,5 +241,14 @@ export function getThumbnailUrl (imageUrl, width) {
     let urlArray = imageUrl.split('/')
     urlArray[6] = 'w_' + width
     return urlArray.join('/')
+  }
+}
+
+export function back (fallbackPath) {
+  let referrer = document.referrer.split('/')[2]
+  if (referrer === document.location.host) window.history.back()
+  else {
+    window.history.pushState({}, '', fallbackPath)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }

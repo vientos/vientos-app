@@ -20,8 +20,14 @@
 <dom-module id="vientos-project-profile">
   <template>
 
-
     <style include="vientos-project-profile-styles"></style>
+
+    <header>
+      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+      <h2>
+        [[project.name]]
+      </h2>
+    </header>
 
     <template is="dom-if" if="[[_canFollow(person, admin)]]">
       <section>
@@ -86,17 +92,11 @@
       </ul>
     </template>
 
-
-    <header>
+    <section>
       <template is="dom-if" if="[[project.logo]]">
         <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
       </template>
-      <div>
-        <h2>
-          [[project.name]]
-        </h2>
-      </div>
-    </header>
+    </section>
 
     <section id="project-location">
       <ul>

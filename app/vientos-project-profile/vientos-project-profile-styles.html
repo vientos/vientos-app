@@ -11,16 +11,25 @@
       }
 
 
-      header iron-image {
+      section iron-image {
         @apply --layout-horizontal;
         width: 10em;
         margin-left: 0.5em;
         height: 100%;
       }
 
+      header {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
       header div {
-        @apply --center-y;
-        padding: var(--spacing-1);
+        display: flex;
+        align-items: center;
+      }
+
+      header paper-icon-button {
+        @apply --back-button
       }
 
       vientos-project-profile > section {
@@ -50,7 +59,7 @@
 
       iron-icon {
         opacity: 0.7;
-        padding-right: 10px; 
+        padding-right: 10px;
       }
 
     </style>

@@ -93,6 +93,10 @@ Polymer({
     return util.pathFor(intent, 'intent')
   },
 
+  _back () {
+    util.back('/projects')
+  },
+
   _canFollow (person, admin) {
     return person && !admin
   },
