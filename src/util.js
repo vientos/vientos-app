@@ -218,6 +218,7 @@ export function canAdminIntent (personId, intent) {
 }
 
 export function sameTeam (myId, otherPersonId, conversation, intents) {
+  if (myId === otherPersonId) return true
   let causingIntent = intents.find(intent => intent._id === conversation.causingIntent)
   let matchingIntent = intents.find(intent => intent._id === conversation.matchingIntent)
   return (canAdminIntent(myId, causingIntent) && canAdminIntent(otherPersonId, causingIntent)) ||

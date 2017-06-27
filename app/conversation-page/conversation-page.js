@@ -213,7 +213,7 @@ Polymer({
   },
 
   _classForSameTeam (person, creator, conversation, intents) {
-    return util.sameTeam(person, creator, conversation, intents) ? 'us' : 'others'
+    return util.sameTeam(person._id, creator, conversation, intents) ? 'us' : 'others'
   },
 
   _showNewReview (conversation, canReview, reviewing) {

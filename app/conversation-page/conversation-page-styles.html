@@ -11,10 +11,6 @@
       height: 26px;
     }
 
-    #turn-toggle {
-      display: flex;
-    }
-
     vientos-icon-button#button-success,
     vientos-icon-button#button-abort {
       width: 100px ;
@@ -26,9 +22,53 @@
     /*vientos-icon-button#button-abort {
       --vientos-icon-button-bg-color: var(--vientos-complementary-3);
     }*/
+    li {
+      background-color: white;
+      border-radius: 20px;
+      padding: 10px;
+      margin-bottom: 5px;
+      box-shadow: 1px 1px 1px #aaa;
+    }
+
+    li > div.name {
+      opacity: 0.8;
+    }
+
+    li > div.message {
+      font-weight: bolder;
+    }
 
     li.us {
       text-align: right;
+      margin-left: 3em;
+    }
+
+    li.others {
+      margin-right: 3em;
+    }
+
+    div#message-controls {
+      display: flex;
+    }
+
+    div#message-controls div#turn-toggle {
+      display: flex;
+      flex: 1;
+    }
+
+    paper-toggle-button {
+      margin-left: 10px;
+      margin-bottom: 5px;
+      --paper-toggle-button-unchecked-button-color: var(--vientos-complementary-3);
+      --paper-toggle-button-unchecked-bar: {
+        background-color: var(--vientos-complementary-3);
+        opacity: 0.5;
+      };
+      --paper-toggle-button-checked-button-color: var(--vientos-tertiary-2);
+      --paper-toggle-button-checked-bar: {
+        background-color: var(--vientos-tertiary-2);
+        opacity: 0.5;
+      };
     }
 
 

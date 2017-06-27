@@ -33,24 +33,24 @@
           <p>[[causingIntent.question]]</p>
         </li>
         <template is="dom-repeat" items="[[conversation.messages]]" as="message">
-          <li class="_classForSameTeam(person, message.creator, conversation, intents)">
-            <p>
+          <li class$="[[_classForSameTeam(person, message.creator, conversation, intents)]]">
+            <div class="name">
               <iron-image src="[[_getCreatorAvatar(message.creator)]]" sizing="contain"></iron-image>
               [[_getCreatorName(message.creator)]]
-            </p>
-            <p>[[message.body]]</p>
+            </div>
+            <div class="message">[[message.body]]</div>
           </li>
         </template>
       </ul>
       <template is="dom-if" if="[[showNewMessage]]">
-        <paper-textarea value="{{newMessage}}"></paper-textarea>
-        <div>
+        <paper-textarea value="{{newMessage}}" placeholder="[[localize('type-message')]]"></paper-textarea>
+        <div id="message-controls">
           <div id="turn-toggle">
             <span>[[localize('label:our-turn')]]</span>
             <paper-toggle-button toggles checked="[[turnToggleChecked]]" on-tap="_toggleTurn"></paper-toggle-button>
             <span>[[localize('label:their-turn')]]</span>
           </div>
-          <paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button>
+          <div><paper-button raised on-tap="_sendMessage" disabled="[[!newMessage]]">[[localize('button:send')]]</paper-button></div>
         </div>
       </template>
     </section>

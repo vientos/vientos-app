@@ -120,7 +120,6 @@ Polymer({
   },
 
   _currentConversation (person, projectAdmin, conversations) {
-    console.log(person, !projectAdmin, conversations.length)
     if (person && !projectAdmin && conversations.length) {
       return conversations.find(conversation => {
         return conversation.creator === person._id &&
