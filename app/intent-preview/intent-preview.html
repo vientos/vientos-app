@@ -13,13 +13,13 @@
 
     <vientos-card on-tap="_showIntentDetails">
       <div id="info">
-        <div>
+        <!-- <div> -->
           <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
-          <!-- [[localize(intent.direction)]] -->
-        </div>
+          [[localize(intent.direction)]]
+        <!-- </div>
         <div>
           <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
-          <!-- [[localize(intent.collaborationType)]] -->
+          [[localize(intent.collaborationType)]]
         </div>
         <div>
           <iron-icon icon="vientos:[[intent.reciprocity]]"></iron-icon>
@@ -28,7 +28,7 @@
           <template is="dom-if" if="[[favoring]]">
             <iron-icon icon="vientos:favor"></iron-icon>
           </template>
-        </div>
+        </div> -->
       </div>
       <div id="main">
         <h3>[[intent.title]]</h3>
@@ -40,29 +40,31 @@
       </div>
       <template is="dom-if" if="[[showProjects]]">
         <div id="projects">
-          <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
-            <p>
-              <iron-image src="[[_getThumbnailUrl(project.logo, 26)]]" sizing="contain"></iron-image>
-              [[project.name]]
-            </p>
-          </template>
+          <ul>
+            <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
+              <li>
+                <iron-image src="[[_getThumbnailUrl(project.logo, 36)]]" sizing="contain"></iron-image>
+                <div>[[project.name]]</div>
+              </li>
+            </template>
+          </ul>
         </div>
       </template>
-      <div id="stats">
+      <!-- <div id="stats">
         <span>
           <iron-icon icon="vientos:conversation"></iron-icon>
           [[intent.openConversations.length]]
         </span>
         <span>
           <iron-icon icon="vientos:success"></iron-icon>
-          <!-- [[intent.collaborations.length]] -->
+          [[intent.collaborations.length]]
           [[intent.successfulConversations.length]]
         </span>
         <span>
           <iron-icon icon="vientos:aborted"></iron-icon>
         [[intent.abortedConversations.length]]
         </span>
-      </div>
+      </div> -->
     </vientos-card>
   </template>
   <script src="intent-preview.js"></script>

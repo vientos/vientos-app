@@ -14,6 +14,8 @@
 
       /* define default color */
       /*background-color: blue;*/
+      font-size: 17px !important;
+      font-weight: 300;
     }
 
     paper-button {
@@ -26,6 +28,9 @@
       height: inherit;
       text-align: center;
       /*text-align: center !important;*/
+      /*--paper-button: {
+        text-transform: none;
+      }*/
     }
 
 
@@ -67,13 +72,13 @@
     }
 
     span {
-      @apply --vientos-typography-button;
+      /*@apply --vientos-typography-button;*/
     }
 
   </style>
 
   <paper-button raised="[[raised]]" active="[[active]]" disabled="[[disabled]]" toggles="[[toggles]]">
-       <iron-icon icon="[[icon]]"></iron-icon>
+       <!-- <iron-icon icon="[[icon]]"></iron-icon> -->
        [[text]]
   </paper-button>
 
