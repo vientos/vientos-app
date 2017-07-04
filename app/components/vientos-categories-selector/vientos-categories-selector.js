@@ -31,12 +31,12 @@ Polymer({
 
   _toggleCategory (e) {
     e.target.active = !e.target.active
-    e.target.updateStyles()
     if (this.selection.includes(e.model.item.id)) {
       this.set('selection', this.selection.filter(s => s !== e.model.item.id))
     } else {
       this.set('selection', [...this.selection, e.model.item.id])
     }
     this.fire('selection-changed', this.selection)
+    this.updateStyles()
   }
 })
