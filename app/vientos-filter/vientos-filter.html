@@ -37,12 +37,14 @@
               toggles
               on-tap="_filterFollowings"
               icon="vientos:follow"
+              small
               text="[[localize('button:filter-followings')]]">
             </vientos-icon-button>
             <vientos-icon-button
               toggles
               on-tap="_filterFavorings"
               icon="vientos:favor"
+              small
               text="[[localize('button:filter-favorings')]]">
             </vientos-icon-button>
           </div>
@@ -88,14 +90,16 @@
         </paper-button>
       </div>
       <iron-collapse>
-        <template is="dom-if" if="[[person]]">
-          <paper-button on-tap="_selectMyCategories" raised>
-            [[localize('button:my-categories')]]
+        <div class="buttons">
+          <template is="dom-if" if="[[person]]">
+            <paper-button on-tap="_selectMyCategories" raised>
+              [[localize('button:my-categories')]]
+            </paper-button>
+          </template>
+          <paper-button id="clear-categories" on-tap="_clearCategoriesFilter" raised>
+            [[localize('button:clear')]]
           </paper-button>
-        </template>
-        <paper-button id="clear-categories" on-tap="_clearCategoriesFilter" raised>
-          [[localize('button:clear')]]
-        </paper-button>
+        </div>
         <vientos-categories-selector
         categories="[[categories]]"
         selection="[[filteredCategories]]"
@@ -115,9 +119,11 @@
         </paper-button>
       </div>
       <iron-collapse>
-        <paper-button id="clear-collaboration-types" on-tap="_clearCollaborationTypesFilter" raised>
-          [[localize('button:clear')]]
-        </paper-button>
+        <div class="buttons">
+          <paper-button id="clear-collaboration-types" on-tap="_clearCollaborationTypesFilter" raised>
+            [[localize('button:clear')]]
+          </paper-button>
+        </div>
         <div class="filter-buttons">
           <vientos-icon-button
             name="work"
@@ -125,6 +131,7 @@
             icon="vientos:work"
             toggles
             on-tap="_toggleCollaborationType"
+            small
           ></vientos-icon-button>
           <vientos-icon-button
             name="usage"
@@ -132,6 +139,7 @@
             icon="vientos:usage"
             toggles
             on-tap="_toggleCollaborationType"
+            small
           ></vientos-icon-button>
           <vientos-icon-button
             name="consumption"
@@ -139,6 +147,7 @@
             icon="vientos:consumption"
             toggles
             on-tap="_toggleCollaborationType"
+            small
           ></vientos-icon-button>
           <vientos-icon-button
             name="ownership"
@@ -146,6 +155,7 @@
             icon="vientos:ownership"
             toggles
             on-tap="_toggleCollaborationType"
+            small
           ></vientos-icon-button>
         </div>
       </iron-collapse>

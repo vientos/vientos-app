@@ -171,7 +171,7 @@ function filteredFavorings (state = false, action) {
   }
 }
 
-function boundingBoxFilter (state = true, action) {
+function boundingBoxFilter (state = false, action) {
   switch (action.type) {
     case ActionTypes.TOGGLE_BOUNDINBOX_FILTER:
       return !state

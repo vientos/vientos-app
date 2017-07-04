@@ -37,6 +37,11 @@
             <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
           </div>
         </template>
+        <template is="dom-if" if="[[!intent.logo]]">
+          <div class="logo">
+            <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
+          </div>
+        </template>
       </div>
       <template is="dom-if" if="[[showProjects]]">
         <div id="projects">

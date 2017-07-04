@@ -105,6 +105,7 @@ Polymer({
 
   _addLink () {
     // TODO validate URLs
+    if (this.newLink && !this.newLink.match(/https*:\/\//)) this.set('newLink', 'http://' + this.newLink)
     this._addToCollection(this.newLink, 'updated.links')
     this.set('newLink', '')
   },
@@ -128,9 +129,8 @@ Polymer({
 
   _save () {
     // in case person didn't click 'Add'
-    this._addToCollection(this.newContact, 'updated.contacts')
-    this._addToCollection(this.newLink, 'updated.links')
-
+    this._addContact()
+    this._addLink()
     if (this.newPlace) {
       this._addToCollection(this.newPlace, 'updated.locations')
       let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)

@@ -6,16 +6,10 @@
   <template>
     <style include="vientos-styles">
     :host{
-      /*@apply --vientos-button;*/
-      /*@apply --layout-vertical;
-      @apply --layout-center-justified;
-      padding: 0.25em;*/
       display: inline-block;
-
-      /* define default color */
-      /*background-color: blue;*/
-      font-size: 17px !important;
       font-weight: 300;
+      --vientos-icon-button-font-size: 16px;
+      --vientos-icon-button-w: 100%;
     }
 
     paper-button {
@@ -27,59 +21,32 @@
       background-color: var(--vientos-icon-button-bg-color);
       height: inherit;
       text-align: center;
-      /*text-align: center !important;*/
-      /*--paper-button: {
-        text-transform: none;
-      }*/
+      font-size: var(--vientos-icon-button-font-size);
     }
-
-
-
-
 
     iron-icon {
       --iron-icon-fill-color: var(--vientos-icon-color);
     }
 
-
-    iron-icon,
-    span {
-      /*@apply --center-x;
-
-      @apply --p-0;
-      @apply --force-center;*/
-
-
-    }
-
-    iron-icon,
-    :host[standard] iron-icon {
-      @apply
-       --font-m;
-    }
-
-    :host[small] iron-icon {
-      @apply --font-s;
-    }
-    :host[large] iron-icon {
-      @apply --font-l;
-    }
-
     iron-icon {
-      width: 1em;
-      height: 1em;
-      margin-bottom: 0.25em;
+      width: 32px;
+      height: 20px;
+      margin-bottom: 5px;
     }
 
-    span {
-      /*@apply --vientos-typography-button;*/
+    div {
+      font-size: var(--vientos-icon-button-font-size);
+      @apply --vientos-icon-button-text;
+      width: var(--vientos-icon-button-w)
     }
 
   </style>
 
   <paper-button raised="[[raised]]" active="[[active]]" disabled="[[disabled]]" toggles="[[toggles]]">
-       <!-- <iron-icon icon="[[icon]]"></iron-icon> -->
-       [[text]]
+       <template is="dom-if" if="[[icon]]">
+         <iron-icon icon="[[icon]]"></iron-icon>
+       </template>
+       <div>[[text]]</div>
   </paper-button>
 
   </template>

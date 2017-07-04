@@ -10,12 +10,13 @@
         @apply --layout-horizontal;
       }
 
+      #logo {
+        text-align: center;
+      }
 
-      section iron-image {
-        @apply --layout-horizontal;
-        width: 10em;
-        margin-left: 0.5em;
-        height: 100%;
+      #logo iron-image {
+        width: 150px;
+        height: 150px;
       }
 
       header {
@@ -47,8 +48,11 @@
         @apply --font-xs;
       }
 
+      #project-location vientos-icon-button {
+        --vientos-icon-button-w: 90vw;
+      }
+
       #project-description {
-        font-size: 14px;
         line-height: 1.5;
         padding: var(--spacing-1);
       }
@@ -60,7 +64,10 @@
       iron-icon {
         opacity: 0.7;
         padding-right: 10px;
+        width: 42px;
       }
+
+
 
     </style>
 

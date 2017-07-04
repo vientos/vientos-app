@@ -26,32 +26,29 @@
     </header>
 
     <template is="dom-if" if="[[projectAdmin]]">
-      <section>
-        <div class="action-buttons">
-          <template is="dom-if" if="[[intentAdmin]]">
-            <vientos-icon-button
-              raised
-              icon="settings"
-              on-tap="_editIntent"
-              text="[[localize('button:edit')]]">
-            </vientos-icon-button>
-            <vientos-icon-button
-              raised
-              icon="alarm-off"
-              text="[[localize('button:leave-admin')]]"
-              on-tap="_leaveAdmin"
-              disabled="[[!_canLeaveAdmin(intent, intentAdmin)]]"
-            ></vientos-icon-button>
-          </template>
-          <template is="dom-if" if="[[!intentAdmin]]">
-            <vientos-icon-button
+      <section class="action-buttons">
+        <template is="dom-if" if="[[intentAdmin]]">
+          <vientos-icon-button
             raised
-            icon="alarm-add"
-            text="[[localize('button:become-admin')]]"
-            on-tap="_becomeAdmin"
-            ></vientos-icon-button>
-          </template>
-        </div>
+            on-tap="_editIntent"
+            text="[[localize('button:edit')]]">
+          </vientos-icon-button>
+          <vientos-icon-button
+            raised
+            text="[[localize('button:leave-admin')]]"
+            on-tap="_leaveAdmin"
+            disabled="[[!_canLeaveAdmin(intent, intentAdmin)]]"
+          ></vientos-icon-button>
+        </template>
+        <template is="dom-if" if="[[!intentAdmin]]">
+          <vientos-icon-button
+          raised
+          text="[[localize('button:become-admin')]]"
+          on-tap="_becomeAdmin"
+          ></vientos-icon-button>
+        </template>
+      </section>
+      <section>
         <h3>[[localize('label:admins')]]</h3>
         <ul id="admin-list">
           <template is="dom-repeat" items="[[_getRef(intent.admins, people)]]">
@@ -64,8 +61,8 @@
       </section>
     </template>
 
-    <section>
-      <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
+    <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
+      <section class="action-buttons">
         <template is="dom-if" if="[[!favoring]]">
           <vientos-icon-button
           raised
@@ -82,31 +79,36 @@
           on-tap="_unfavor"
           ></vientos-icon-button>
         </template>
-      </template>
-    </section>
-
-    <template is="dom-if" if="[[_showConversations(projectAdmin, conversations)]]">
-      <h3>
-        <iron-icon icon="vientos:conversation"></iron-icon>
-        [[localize('label:open-conversations')]]
-      </h3>
-      <open-conversations conversations="[[conversations]]"></open-conversations>
+      </section>
     </template>
 
-    <p>
-      <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
-      [[localize(intent.direction)]]
-    </p>
+    <template is="dom-if" if="[[_showConversations(projectAdmin, conversations)]]">
+      <section>
+        <h3>
+          [[localize('label:open-conversations')]]
+        </h3>
+        <open-conversations conversations="[[conversations]]"></open-conversations>
+      </section>
+    </template>
 
     <section>
+      <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
+      [[localize(intent.direction)]]
+    </section>
+
+    <section id="description">
       <h3>[[localize('label:description')]]</h3>
-      <p>[[intent.description]]</p>
+      <div>[[intent.description]]</div>
       <template is="dom-if" if="[[intent.logo]]">
-        <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
+        <div id="logo">
+          <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
+        </div>
       </template>
+    </section>
+    <section>
       <template is="dom-if" if="[[intent.locations.length]]">
         <h3>[[localize('label:address')]]</h3>
-        <p>
+        <div>
           <ul>
             <template is="dom-repeat" items="[[intent.locations]]" as="placeId">
               <li>
@@ -119,25 +121,30 @@
               </li>
             </template>
           </ul>
-        </p>
+        </div>
       </template>
+    </section>
+    <section>
       <h3>[[localize('label:collaboration-type')]]</h3>
-      <p>
+      <div>
         <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
         [[localize(intent.collaborationType)]]
-      </p>
+      </div>
+    </section>
+    <section>
       <h3>[[localize('label:reciprocity')]]</h3>
-      <p>
+      <div>
         <iron-icon icon="vientos:[[intent.reciprocity]]"></iron-icon>
         [[localize(intent.reciprocity)]]
-      </p>
+      </div>
+    </section>
+    <section>
       <h3>[[localize('label:expiry-date')]]</h3>
-      <p>[[intent.expiryDate]]</p>
+      <div>[[intent.expiryDate]]</div>
     </section>
 
     <section>
       <h3>
-        <iron-icon icon="vientos:organization"></iron-icon>
         [[localize('label:projects')]]
       </h3>
       <ul id="projects">
@@ -163,7 +170,7 @@
             <li>
               <div>[[collaboration.body]]</div>
               <template is="dom-repeat" items="[[_reviewsOfCollaboration(collaboration, reviews)]]" as="review">
-                <p>[[review.body]]</p>
+                <div>[[review.body]]</div>
               </template>
             </li>
           </template>
@@ -177,7 +184,7 @@
           <template is="dom-repeat" items="[[successfulReviewGroups]]" as="reviewGroup">
             <li>
               <template is="dom-repeat" items="[[reviewGroup]]" as="review">
-                <p>[[review.body]]</p>
+                <div>[[review.body]]</div>
               </template>
             </li>
           </template>
@@ -191,7 +198,7 @@
           <template is="dom-repeat" items="[[abortedReviewGroups]]" as="reviewGroup">
             <li>
               <template is="dom-repeat" items="[[reviewGroup]]" as="review">
-                <p>[[review.body]]</p>
+                <div>[[review.body]]</div>
               </template>
             </li>
           </template>

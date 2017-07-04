@@ -108,12 +108,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   * {
     font-family: 'Source Sans Pro', sans-serif;
-    /*font-weight: 300;*/
+    font-size: 18px;
   }
 
   a {
-    color: var(--vientos-color-link);
-    text-decoration: none;
+    color: var(--vientos-tertiary-2);
   }
 
   body {
@@ -129,6 +128,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     margin: 0;
   }
 
+  h2 {
+    font-size: 1.25em;
+  }
+
+  h2, h4 {
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 0.85em;
+    font-weight: 400;
+    margin-bottom: 15px;
+    opacity: 0.9;
+  }
 
   paper-textarea {
     width: 100%;
@@ -173,10 +186,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     /*margin: 8px;*/
   }
 
-  /*vientos-icon-button {
-    @apply --layout-flex;
-    @apply --center-x;
-  }*/
+  vientos-icon-button[small] {
+    --vientos-icon-button-font-size: 12px;
+  }
+
+  vientos-icon-button[large] {
+    --vientos-icon-button-font-size: 20px;
+  }
+
+  vientos-icon-button[ellipsis] {
+    --vientos-icon-button-text: {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    };
+  }
 
   paper-fab {
     position: fixed;
@@ -198,7 +222,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   section {
-    margin-bottom: 1.5em;
+    margin-bottom: 35px;
   }
 
   #admin-list iron-image {
@@ -214,7 +238,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   .action-buttons {
     display: flex;
-    margin-bottom: 10px;
   }
 
   .action-buttons vientos-icon-button {

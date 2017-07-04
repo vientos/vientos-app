@@ -16,6 +16,13 @@
         padding-bottom: 10px;
       }
 
+      #projects div {
+        line-height: 36px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
       #projects iron-image {
         width: 36px;
         height: 36px;
@@ -52,18 +59,24 @@
 
       div#main h3 {
         flex: 2;
-        font-weight: 500;
         line-height: 1.5em;
       }
 
       div#main .logo {
         flex: 1;
         margin-left: 16px;
+        text-align: center;
       }
 
       div#main .logo iron-image {
         height: 80px;
         width: 80px;
+      }
+
+      div#main .logo iron-icon {
+        height: 50px;
+        width: 50px;
+        opacity: 0.3;
       }
 
       #stats {

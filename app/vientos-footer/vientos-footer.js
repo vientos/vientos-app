@@ -40,9 +40,13 @@ Polymer({
   _highlightBadges (newVal) {
     let projectsBtn = this.$$('paper-button[name=projects]')
     let intentsBtn = this.$$('paper-button[name=intents]')
+    let projectsBadge = projectsBtn.getElementsByTagName('paper-badge')[0]
+    let intentsBadge = intentsBtn.getElementsByTagName('paper-badge')[0]
     if ((newVal && !projectsBtn.className.includes('filtered')) || (!newVal && projectsBtn.className.includes('filtered'))) {
       projectsBtn.toggleClass('filtered')
       intentsBtn.toggleClass('filtered')
+      if (projectsBadge) projectsBadge.notifyResize()
+      if (intentsBadge) intentsBadge.notifyResize()
       this.updateStyles()
     }
   },
