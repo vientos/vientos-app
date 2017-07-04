@@ -33,6 +33,10 @@ Polymer({
       type: Object,
       computed: '_setAnswer(conversation)'
     },
+    selectingMatch: {
+      type: Boolean,
+      value: false
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -64,6 +68,7 @@ Polymer({
 
   _reset () {
     this.set('answer.body', '')
+    this.set('selectingMatch', false)
     // set inputs to empty
   },
 
@@ -92,7 +97,12 @@ Polymer({
     }
   },
 
+  _toggleSelectingMatch () {
+    this.set('selectingMatch', !this.selectingMatch)
+  },
+
   _cancel () {
+    this._reset()
     window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }

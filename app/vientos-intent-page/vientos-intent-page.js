@@ -7,7 +7,9 @@ Polymer({
   actions: {
     favor: ActionCreators.favor,
     unfavor: ActionCreators.unfavor,
-    saveIntent: ActionCreators.saveIntent
+    saveIntent: ActionCreators.saveIntent,
+    fetchMyConversations: ActionCreators.fetchMyConversations,
+    fetchNotifications: ActionCreators.fetchNotifications
   },
 
   properties: {
@@ -71,7 +73,8 @@ Polymer({
     intentAdmin: {
       type: Boolean,
       value: false,
-      computed: '_checkIfAdmin(person, intent)'
+      computed: '_checkIfAdmin(person, intent)',
+      observer: '_intentAdminChanged'
     },
     language: {
       type: String,
@@ -192,5 +195,11 @@ Polymer({
   _becomeAdmin () {
     this.set('intent.admins', [...this.intent.admins, this.person._id])
     this.dispatch('saveIntent', this.intent)
+  },
+
+  _intentAdminChanged (newValue, oldValue) {
+    if (oldValue === undefined) return
+    this.dispatch('fetchMyConversations', this.person)
+    this.dispatch('fetchNotifications', this.person)
   }
 })

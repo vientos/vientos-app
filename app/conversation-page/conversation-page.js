@@ -103,7 +103,7 @@ Polymer({
   },
 
   _getCreatorAvatar (creator) {
-    return util.getThumbnailUrl(util.getRef(creator, this.people).logo, 26)
+    return util.getThumbnailUrl(util.getRef(creator, this.people), 26)
   },
 
   _getCausingIntent (conversation, intents) {

@@ -182,28 +182,29 @@ export function filterActiveIntents (person, intents, myConversations, notificat
     // and conversation on intens (causing or matching) which I admin
     return intents.filter(intent => {
       return myConversations.some(conversation => {
-        return (
-                conversation.causingIntent === intent._id ||
-                conversation.matchingIntent === intent._id
-               ) &&
-               (
-                 conversationNeedsAttention(person, conversation, notifications)) &&
-                 (
-                   conversation.creator === person._id ||
-                   intent.admins.includes(person._id
-                 )
-               )
+        return foo(person, conversation, intent, notifications, intents)
       })
     })
   }
 }
 
-export function conversationNeedsAttention (person, conversation, notifications) {
+export function foo (person, conversation, intent, notifications, intents) {
+  if (!intent) return false
+  return (
+          // show causing intent unless im admin of matching intent
+          (!conversation.matchingIntent && conversation.causingIntent === intent._id) ||
+          (conversation.matchingIntent && conversation.causingIntent === intent._id && intent.admins.includes(person._id)) ||
+          (conversation.matchingIntent === intent._id && intent.admins.includes(person._id))
+         ) &&
+         conversationNeedsAttention(person, conversation, notifications, intents)
+}
+
+export function conversationNeedsAttention (person, conversation, notifications, intents) {
   return notifications.some(notification => notification.object === conversation._id) ||
     // don't show when both sides reviewed
-    (conversation.reviews.length < 2 &&
+    conversation.reviews.length === 0 ||
     // don't show when I've reviewed
-    !conversation.reviews.some(review => review.creator === person._id))
+    ourTurn(person, conversation, intents)
 }
 
 export function filterIntentConversations (intent, myConversations) {
@@ -220,6 +221,7 @@ export function canAdminIntent (personId, intent) {
 }
 
 export function sameTeam (myId, otherPersonId, conversation, intents) {
+  if (!conversation) return
   if (myId === otherPersonId) return true
   let causingIntent = intents.find(intent => intent._id === conversation.causingIntent)
   let matchingIntent = intents.find(intent => intent._id === conversation.matchingIntent)
@@ -236,9 +238,9 @@ export function ourTurn (person, conversation, intents) {
   return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
 }
 
-export function getThumbnailUrl (imageUrl, width) {
-  if (imageUrl) {
-    let urlArray = imageUrl.split('/')
+export function getThumbnailUrl (entity, width) {
+  if (entity && entity.logo) {
+    let urlArray = entity.logo.split('/')
     urlArray[6] = 'w_' + width
     return urlArray.join('/')
   }

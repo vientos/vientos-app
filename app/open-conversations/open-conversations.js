@@ -17,9 +17,13 @@ Polymer({
     conversations: {
       type: Array
     },
+    // passed from parent
+    intent: {
+      type: Object
+    },
     visibleConversations: {
       type: Array,
-      computed: '_filterConversations(person, conversations, notifications)'
+      computed: '_filterConversations(person, conversations, intent, notifications, intents)'
     },
     notifications: {
       type: Array,
@@ -48,7 +52,7 @@ Polymer({
   },
 
   _getConversationCreatorAvatar (personId, people) {
-    return util.getThumbnailUrl(util.getRef(personId, people).logo, 26)
+    return util.getThumbnailUrl(util.getRef(personId, people), 26)
   },
 
   _showConversation (e) {
@@ -56,10 +60,10 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _filterConversations (person, conversations, notifications) {
+  _filterConversations (person, conversations, intent, notifications, intents) {
     return conversations.filter(conversation => {
       // show if has notification
-      return util.conversationNeedsAttention(person, conversation, notifications)
+      return util.foo(person, conversation, intent, notifications, intents)
     })
   }
 })

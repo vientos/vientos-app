@@ -28,7 +28,7 @@
         <vientos-icon-button raised icon="" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
       </section>
       <h2 id="title">
-        <span>[[person.name]]</span>
+        [[person.name]]
       </h2>
       <template is="dom-if" if="[[addingNewProject]]">
         <section>
@@ -47,7 +47,7 @@
             <template is="dom-repeat" items="[[myProjects]]" as="project">
               <li on-tap="_showProjectProfile">
                 <iron-image
-                   src="[[_getThumbnailUrl(project.logo, 92)]]"
+                   src="[[_getThumbnailUrl(project, 92)]]"
                    sizing="contain">
                 </iron-image>
               </li>
@@ -64,7 +64,8 @@
           <intent-preview intent="[[intent]]" show-projects></intent-preview>
           <div class="conversations">
             <open-conversations
-              conversations="[[_filterIntentConversations(intent, myConversations)]]">
+              conversations="[[_filterIntentConversations(intent, myConversations)]]"
+              intent="[[intent]]">
             </open-conversations>
           </div>
         </template>

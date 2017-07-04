@@ -26,8 +26,8 @@ function removeElement (array, element) {
 
 function replaceOrAddElement (array, element) {
   return [
-    ...removeElement(array, element),
-    Object.assign({}, element)
+    Object.assign({}, element),
+    ...removeElement(array, element)
   ]
 }
 

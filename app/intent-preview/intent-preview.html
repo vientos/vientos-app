@@ -34,7 +34,7 @@
         <h3>[[intent.title]]</h3>
         <template is="dom-if" if="[[intent.logo]]">
           <div class="logo">
-            <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
+            <iron-image src="[[_getThumbnailUrl(intent, 200)]]" sizing="contain"></iron-image>
           </div>
         </template>
         <template is="dom-if" if="[[!intent.logo]]">
@@ -48,7 +48,7 @@
           <ul>
             <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
               <li>
-                <iron-image src="[[_getThumbnailUrl(project.logo, 36)]]" sizing="contain"></iron-image>
+                <iron-image src="[[_getThumbnailUrl(project, 36)]]" sizing="contain"></iron-image>
                 <div>[[project.name]]</div>
               </li>
             </template>

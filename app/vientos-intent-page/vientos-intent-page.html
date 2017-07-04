@@ -82,12 +82,12 @@
       </section>
     </template>
 
-    <template is="dom-if" if="[[_showConversations(projectAdmin, conversations)]]">
+    <template is="dom-if" if="[[_showConversations(intentAdmin, conversations)]]">
       <section>
         <h3>
           [[localize('label:open-conversations')]]
         </h3>
-        <open-conversations conversations="[[conversations]]"></open-conversations>
+        <open-conversations conversations="[[conversations]]" intent="[[intent]]"></open-conversations>
       </section>
     </template>
 
@@ -101,7 +101,7 @@
       <div>[[intent.description]]</div>
       <template is="dom-if" if="[[intent.logo]]">
         <div id="logo">
-          <iron-image src="[[_getThumbnailUrl(intent.logo, 200)]]" sizing="contain"></iron-image>
+          <iron-image src="[[_getThumbnailUrl(intent, 200)]]" sizing="contain"></iron-image>
         </div>
       </template>
     </section>
@@ -151,7 +151,7 @@
         <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
           <li on-tap="_showProjectProfile">
             <iron-image
-               src="[[_getThumbnailUrl(project.logo, 26)]]"
+               src="[[_getThumbnailUrl(project, 26)]]"
                sizing="contain">
             </iron-image>
             [[project.name]]
