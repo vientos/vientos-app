@@ -32,7 +32,12 @@
     </section>
 
     <section>
-    <paper-input value="{{updated.title}}" label="[[localize('label:title')]]"></paper-input>
+    <paper-input
+      value="{{updated.title}}"
+      label="[[localize('label:title')]]"
+      char-counter
+      maxlength="60"        
+    ></paper-input>
       <div>
         <paper-textarea
          label="[[localize('label:org-description')]]"

@@ -35,48 +35,51 @@
         padding-top: 0;
       }
 
-      div#info {
+      div#main {
         display: flex;
+      }
+
+      div#main div#info {
+        flex: 1;
+      }
+
+      div#main div#image {
+        width: 100px;
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      div#main div#info div#direction {
         opacity: 0.8;
         padding-bottom: 10px;
         padding-top: 10px;
       }
 
-      div#info iron-icon {
+      div#main h2 {
+        line-height: 1.5em;
+        font-size: 1.15em;
+      }
+
+      div#main div#info div#direction iron-icon {
         margin-left: -7px; /* accomodate for the icon svg padding */
         margin-right: 5px;
       }
 
-      div#info > div {
-        flex: 1;
+
+      div#image {
         text-align: center;
       }
 
-      div#main {
-        display: flex;
-        margin: 10px 0;
-      }
-
-      div#main h3 {
-        flex: 2;
-        line-height: 1.5em;
-      }
-
-      div#main .logo {
-        flex: 1;
-        margin-left: 16px;
-        text-align: center;
-      }
-
-      div#main .logo iron-image {
+      div#image iron-image {
         height: 80px;
         width: 80px;
       }
 
-      div#main .logo iron-icon {
+      div#image iron-icon {
         height: 50px;
         width: 50px;
         opacity: 0.3;
+        padding-top: 15px;
       }
 
       #stats {

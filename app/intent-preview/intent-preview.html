@@ -12,36 +12,22 @@
     <style include="intent-preview-styles"></style>
 
     <vientos-card on-tap="_showIntentDetails">
-      <div id="info">
-        <!-- <div> -->
-          <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
-          [[localize(intent.direction)]]
-        <!-- </div>
-        <div>
-          <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
-          [[localize(intent.collaborationType)]]
-        </div>
-        <div>
-          <iron-icon icon="vientos:[[intent.reciprocity]]"></iron-icon>
-        </div>
-        <div>
-          <template is="dom-if" if="[[favoring]]">
-            <iron-icon icon="vientos:favor"></iron-icon>
-          </template>
-        </div> -->
-      </div>
       <div id="main">
-        <h3>[[intent.title]]</h3>
-        <template is="dom-if" if="[[intent.logo]]">
-          <div class="logo">
+        <div id="info">
+          <div id="direction">
+            <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
+            [[localize(intent.direction)]]
+          </div>
+          <h2>[[intent.title]]</h2>
+        </div>
+        <div id="image">
+          <template is="dom-if" if="[[intent.logo]]">
             <iron-image src="[[_getThumbnailUrl(intent, 200)]]" sizing="contain"></iron-image>
-          </div>
-        </template>
-        <template is="dom-if" if="[[!intent.logo]]">
-          <div class="logo">
+          </template>
+          <template is="dom-if" if="[[!intent.logo]]">
             <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
       <template is="dom-if" if="[[showProjects]]">
         <div id="projects">
