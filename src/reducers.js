@@ -14,7 +14,7 @@ function projects (state = [], action) {
         return project
       })
     case ActionTypes.SAVE_PROJECT_SUCCEEDED:
-      return replaceOrAddElement(state, action.json)
+      return replaceOrAddElement(state, action.json, true)
     default:
       return state
   }
@@ -24,11 +24,18 @@ function removeElement (array, element) {
   return array.filter(el => el._id !== element._id)
 }
 
-function replaceOrAddElement (array, element) {
-  return [
-    Object.assign({}, element),
-    ...removeElement(array, element)
-  ]
+function replaceOrAddElement (array, element, prepend = false) {
+  if (prepend) {
+    return [
+      Object.assign({}, element),
+      ...removeElement(array, element)
+    ]
+  } else {
+    return [
+      ...removeElement(array, element),
+      Object.assign({}, element)
+    ]
+  }
 }
 
 function intents (state = [], action) {
@@ -36,7 +43,7 @@ function intents (state = [], action) {
     case ActionTypes.FETCH_INTENTS_SUCCEEDED:
       return action.json
     case ActionTypes.SAVE_INTENT_SUCCEEDED:
-      return replaceOrAddElement(state, action.json)
+      return replaceOrAddElement(state, action.json, true)
     case ActionTypes.DELETE_INTENT_SUCCEEDED:
       return removeElement(state, action.requestedAction.intent)
     default:
