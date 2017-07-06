@@ -110,7 +110,8 @@ Polymer({
     }
     this.dispatch('saveIntent', this.updated, this.newImage)
     this._reset()
-    window.history.pushState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
+    // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
+    window.history.replaceState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
@@ -124,13 +125,15 @@ Polymer({
 
   _cancel () {
     this._reset()
+    // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
     if (this.project) {
-      window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+      window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
     } else {
-      window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
+      window.history.replaceState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
     }
+
   },
 
   _checkIfToggled (updated) {

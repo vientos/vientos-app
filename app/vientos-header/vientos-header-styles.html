@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../vientos-styles/vientos-styles.html">
 
 <dom-module id="vientos-header-styles">
 
@@ -14,6 +15,10 @@
   #menu-button-holder-right #login-button {
     color: var(--vientos-complementary-3);
     opacity: 0.8;
+  }
+
+  #menu-button-holder-right.selected {
+    @apply --vientos-nav-button-selected;
   }
 
   #page-title {

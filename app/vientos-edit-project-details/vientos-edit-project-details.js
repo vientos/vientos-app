@@ -141,13 +141,14 @@ Polymer({
 
     this.dispatch('saveProject', this.updated, this.newImage)
     this._reset()
-    window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+    // we use replaceState to avoid when edting and going to project page, that back button take you to edit again
+    window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _cancel () {
     this._reset()
-    window.history.pushState({}, '', `/project/${this.project._id.split('/').pop()}`)
+    window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

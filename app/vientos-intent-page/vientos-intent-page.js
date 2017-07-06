@@ -100,7 +100,8 @@ Polymer({
   // },
 
   _editIntent () {
-    window.history.pushState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
+    // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
+    window.history.replaceState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

@@ -110,7 +110,8 @@ Polymer({
   },
 
   _editDetails () {
-    window.history.pushState({}, '', `/edit-project-details/${this.project._id.split('/').pop()}`)
+    // we use replaceState to avoid when edting and going to project page, that back button take you to edit again
+    window.history.replaceState({}, '', `/edit-project-details/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

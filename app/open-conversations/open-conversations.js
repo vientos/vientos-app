@@ -61,6 +61,7 @@ Polymer({
   },
 
   _filterConversations (person, conversations, intent, notifications, intents) {
+    if (!person) return []
     return conversations.filter(conversation => {
       // show if has notification
       return util.foo(person, conversation, intent, notifications, intents)

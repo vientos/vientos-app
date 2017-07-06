@@ -44,6 +44,7 @@ Polymer({
   },
 
   _pageChanged (page) {
+    this._decorateMeButton(page)
     if (this.buttons.includes(page)) {
       window.history.pushState({}, '', `/${page}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
@@ -54,6 +55,11 @@ Polymer({
     return myConversations.reduce((count, conversation) => {
       return util.ourTurn(person, conversation, intents) ? ++count : count
     }, 0)
+  },
+
+  _decorateMeButton (page) {
+    if (page === 'me') this.$['menu-button-holder-right'].className = 'selected'
+    else this.$['menu-button-holder-right'].className = ''
   },
 
   _showProfile () {
