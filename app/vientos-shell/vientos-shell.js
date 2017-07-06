@@ -222,6 +222,10 @@ Polymer({
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
 
+      case 'new-project':
+        viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
+        break
+
       case 'edit-my-profile':
         viewUrl = '../personal-profile-editor/personal-profile-editor'
         break
@@ -248,6 +252,7 @@ Polymer({
   _hasFooter (page) {
     return ![
       'edit-project-details',
+      'new-project',
       'edit-my-profile',
       'new-intent',
       'edit-intent',

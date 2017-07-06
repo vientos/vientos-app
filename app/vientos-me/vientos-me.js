@@ -5,8 +5,7 @@ Polymer({
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
-    bye: ActionCreators.bye,
-    saveProject: ActionCreators.saveProject
+    bye: ActionCreators.bye
   },
 
   properties: {
@@ -37,14 +36,6 @@ Polymer({
     projects: {
       type: Array,
       statePath: 'projects'
-    },
-    newProjectName: {
-      type: String,
-      value: ''
-    },
-    addingNewProject: {
-      type: Boolean,
-      value: false
     },
     login: {
       type: String,
@@ -88,24 +79,9 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _startAddingProject () {
-    this.set('addingNewProject', true)
-  },
-
-  _cancelAddingProject () {
-    this.set('newProjectName', '')
-    this.set('addingNewProject', false)
-  },
-
-  _crateProject () {
-    this.dispatch('saveProject', {
-      _id: util.mintUrl({ type: 'Project' }),
-      name: this.newProjectName,
-      type: 'Project',
-      admins: [this.person._id]
-    })
-    this.set('newProjectName', '')
-    this.set('addingNewProject', false)
+  _addProject () {
+    window.history.pushState({}, '', `/new-project`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _filterMyProjects (person, projects) {

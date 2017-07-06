@@ -145,7 +145,6 @@ Polymer({
   },
 
   _collaborationTypeChanged (newC, oldC) {
-    console.log(newC, oldC)
     if (oldC) this.$$(`vientos-icon-button[name=${oldC}]`).set('active', false)
     if (newC) this.$$(`vientos-icon-button[name=${newC}]`).set('active', true)
     this.updateStyles()

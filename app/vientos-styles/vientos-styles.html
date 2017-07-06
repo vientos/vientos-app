@@ -149,8 +149,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   paper-textarea {
     width: 100%;
   }
+
   paper-input {
     width: 100%;
+  }
+
+
+  paper-textarea[required],
+  paper-input[required] {
+    --paper-input-container-color: var(--vientos-complementary-3);
+  }
+
+  paper-textarea[value],
+  paper-input[value] {
+    --paper-input-container-color: var(--primary-color);
   }
 
   app-toolbar {
@@ -246,6 +258,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   .action-buttons vientos-icon-button {
     flex: 1;
     margin: 0 5px;
+  }
+
+  footer {
+    @apply --vientos-toolbar;
+    @apply --layout-horizontal;
+    @apply --spaced-x;
+    position: fixed;
+    bottom: 0;
+    left: 32px;
+    right: 32px;
+  }
+
+  footer.simple paper-button {
+    font-weight: bold;
+  }
+
+  footer.simple paper-button[disabled]{
+    opacity: 0.4;
+  }
+
+  footer.simple paper-button#button-save {
+    background-color: var(--vientos-primary-dark);
+    color: white
+    --paper-button: {
+      flex: 1;
+    }
+  }
+
+  footer.simple paper-button#button-cancel {
+    background-color: var(--vientos-complementary-3);
+    color: white;
+    --paper-button: {
+      flex: 1;
+    }
   }
 
 

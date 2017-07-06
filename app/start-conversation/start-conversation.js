@@ -58,7 +58,7 @@ Polymer({
     // this._createConversation()
   },
 
-  _save () {
+  _send () {
     this.conversation.messages.push(this.answer)
     this.dispatch('startConversation', this.conversation)
     this._reset()

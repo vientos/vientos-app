@@ -16,6 +16,11 @@ Polymer({
       type: Object,
       observer: '_projectChanged'
     },
+    creator: {
+      // passed from parent just when creating new project
+      type: Object,
+      observer: '_createNewProject'
+    },
     updated: {
       type: Object
     },
@@ -50,6 +55,10 @@ Polymer({
     googleMapsApiKey: {
       type: String,
       value: window.vientos.config.map.googleApiKey
+    },
+    readyToSave: {
+      type: Boolean,
+      computed: '_readyToSave(updated.name, updated.description, updated.logo, newImage)'
     },
     language: {
       type: String,
@@ -138,18 +147,37 @@ Polymer({
         this.dispatch('savePlace', this.newPlace)
       }
     }
-
     this.dispatch('saveProject', this.updated, this.newImage)
     this._reset()
     // we use replaceState to avoid when edting and going to project page, that back button take you to edit again
-    window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)
+    window.history.replaceState({}, '', `/project/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _readyToSave (name, description, logo, newImage) {
+    return !!name && !!description && (!!logo || newImage)
+  },
+
+  _createNewProject (creator) {
+    if (creator) {
+      this._reset()
+      this.set('updated', {
+        _id: util.mintUrl({ type: 'Project' }),
+        type: 'Project',
+        admins: [creator._id]
+      })
+    }
   },
 
   _cancel () {
     this._reset()
-    window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)
-    window.dispatchEvent(new CustomEvent('location-changed'))
+    if (this.creator) {
+      window.history.replaceState({}, '', `/me`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    } else {
+      window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   },
 
   _onGoogleMapsApiLoad () {

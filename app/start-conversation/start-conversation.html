@@ -48,12 +48,10 @@
     </template>
     <section>
           <paper-button raised
-            id="button-save-intent"
-            on-tap="_save"
+            on-tap="_send"
             disabled="[[!answer.body]]"
           >[[localize('button:send')]]</paper-button>
           <paper-button raised
-            id="button-cancel"
             on-tap="_cancel"
           >[[localize('button:cancel')]]</paper-button>
     </section>

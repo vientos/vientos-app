@@ -29,40 +29,6 @@
         height: 200px;
       }
 
-      footer {
-        @apply --vientos-toolbar;
-        @apply --layout-horizontal;
-        @apply --spaced-x;
-        position: fixed;
-        bottom: 0;
-        left: 32px;
-        right: 32px;
-      }
-
-      footer paper-button {
-        font-weight: bold;
-      }
-
-      footer paper-button[disabled]{
-        opacity: 0.4;
-      }
-
-      footer paper-button#button-save-intent {
-        background-color: var(--vientos-primary-dark);
-        color: white
-        --paper-button: {
-          flex: 1;
-        }
-      }
-
-      footer paper-button#button-cancel {
-        background-color: var(--vientos-complementary-3);
-        color: white;
-        --paper-button: {
-          flex: 1;
-        }
-      }
-
       vientos-icon-button {
         @apply --vientos-filter-button
       }
