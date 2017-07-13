@@ -88,9 +88,12 @@
       }
 
       #stats span {
-        margin-right: 1em;
         flex: 1;
         text-align: center;
+      }
+
+      #stats span:first-child {
+        flex: 3;
       }
 
       iron-icon {
@@ -98,6 +101,23 @@
         height: 18px;
         opacity: 0.5;
         vertical-align: bottom;
+      }
+
+      #stats span > span {
+        padding: 3px 8px;
+        border-radius: 50%;
+        color: white;
+        font-weight: bolder;
+        margin-left: 5px;
+        font-size: 14px;
+      }
+
+      span#notifications {
+        background-color: var(--accent-color);
+      }
+
+      span#our-turn {
+        background-color: var(--vientos-complementary-2);
       }
 
     </style>

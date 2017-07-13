@@ -41,21 +41,29 @@
           </ul>
         </div>
       </template>
-      <!-- <div id="stats">
-        <span>
-          <iron-icon icon="vientos:conversation"></iron-icon>
-          [[intent.openConversations.length]]
-        </span>
-        <span>
-          <iron-icon icon="vientos:success"></iron-icon>
-          [[intent.collaborations.length]]
-          [[intent.successfulConversations.length]]
-        </span>
-        <span>
-          <iron-icon icon="vientos:aborted"></iron-icon>
-        [[intent.abortedConversations.length]]
-        </span>
-      </div> -->
+      <template is="dom-if" if="[[projectAdmin]]">
+        <div id="stats">
+          <span>
+            <iron-icon icon="vientos:conversation"></iron-icon>
+            [[intent.openConversations.length]]
+            <template is="dom-if" if="[[notificationCount]]">
+              <span id="notifications">[[notificationCount]]</span>
+            </template>
+            <template is="dom-if" if="[[ourTurnCount]]">
+              <span id="our-turn">[[ourTurnCount]]</span>
+            </template>
+          </span>
+          <span>
+            <iron-icon icon="vientos:success"></iron-icon>
+            [[intent.collaborations.length]]
+            [[intent.successfulConversations.length]]
+          </span>
+          <span>
+            <iron-icon icon="vientos:aborted"></iron-icon>
+          [[intent.abortedConversations.length]]
+          </span>
+        </div>
+      </template>
     </vientos-card>
   </template>
   <script src="intent-preview.js"></script>

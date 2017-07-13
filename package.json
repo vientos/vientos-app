@@ -10,7 +10,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.0",
     "redux-saga": "^0.14.3",
-    "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.0",
+    "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.1",
     "vientos-fixtures": "https://github.com/vientos/vientos-fixtures.git#0.0.5"
   },
   "devDependencies": {
