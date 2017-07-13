@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="../vientos-styles/vientos-styles.html">
+
+
+<dom-module id="review-card">
+  <template>
+    <style include="vientos-styles">
+
+    :host > div {
+      padding: 10px;
+      background-color: white;
+    }
+
+    :host > div > div:first-child {
+      display: flex;
+    }
+
+    :host > div > div:first-child span {
+      flex: 1;
+      line-height: 36px;
+      opacity: 0.8;
+    }
+
+    iron-image {
+      width: 26px;
+      height: 26px;
+      margin-right: 5px;
+    }
+
+    </style>
+
+    <div>
+      <div>
+        <iron-image src="[[_getImage(review.creator, people, 26)]]" sizing="contain"></iron-image>
+        <span>[[_getName(review.creator, people)]]</span>
+        <iron-icon icon="social:sentiment-[[review.rating]]"></iron-icon>
+      </div>
+      <div>
+        [[review.body]]
+      </div>
+    </div>
+
+  </template>
+  <script src="review-card.js"></script>
+</dom-module>

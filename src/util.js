@@ -254,3 +254,11 @@ export function back (fallbackPath) {
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }
+
+export function getName (entity, collection) {
+  return getRef(entity, collection).name
+}
+
+export function getImage (entity, collection, size) {
+  return getThumbnailUrl(getRef(entity, collection), size)
+}

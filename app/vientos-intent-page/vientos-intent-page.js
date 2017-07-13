@@ -93,6 +93,8 @@ Polymer({
   _getRef: util.getRef,
   _getPlaceAddress: util.getPlaceAddress,
   _getThumbnailUrl: util.getThumbnailUrl,
+  _getName: util.getName,
+  _getImage: util.getImage,
 
   // _getCollaborations (intent, collaborations) {
   //   if (!intent || !intent.collaborations || !collaborations) return

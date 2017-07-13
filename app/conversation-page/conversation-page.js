@@ -75,6 +75,10 @@ Polymer({
       type: String,
       value: ''
     },
+    rating: {
+      type: String,
+      value: null
+    },
     success: {
       type: Boolean,
       value: false
@@ -98,13 +102,8 @@ Polymer({
     }
   },
 
-  _getCreatorName (creator) {
-    return util.getRef(creator, this.people).name
-  },
-
-  _getCreatorAvatar (creator) {
-    return util.getThumbnailUrl(util.getRef(creator, this.people), 26)
-  },
+  _getName: util.getName,
+  _getImage: util.getImage,
 
   _getCausingIntent (conversation, intents) {
     if (conversation) return util.getRef(conversation.causingIntent, intents)
@@ -177,8 +176,7 @@ Polymer({
     this.set('reviewing', true)
   },
   _abortReview () {
-    this.set('success', false)
-    this.set('reviewing', false)
+    this._reset()
   },
 
   _whoReviews () {
@@ -199,7 +197,8 @@ Polymer({
       creator: this.person._id,
       as: this._whoReviews(),
       body: this.newReview,
-      conversation: this.conversation._id
+      conversation: this.conversation._id,
+      rating: this.rating
     }
     if (this.success) {
       // review.collaboration = this.conversation.collaboration._id
@@ -227,6 +226,7 @@ Polymer({
   _reset () {
     this.set('newMessage', '')
     this.set('newReview', '')
+    this.set('rating', null)
     this.set('reviewing', false)
     this.set('editingCollaboration', false)
     this.set('changeTurn', false)

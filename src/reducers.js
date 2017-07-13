@@ -41,7 +41,11 @@ function replaceOrAddElement (array, element, prepend = false) {
 function intents (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_INTENTS_SUCCEEDED:
-      return action.json
+      return action.json.map(intent => {
+        if (!intent.abortedConversations) intent.abortedConversations = []
+        if (!intent.successfulConversations) intent.successfulConversations = []
+        return intent
+      })
     case ActionTypes.SAVE_INTENT_SUCCEEDED:
       return replaceOrAddElement(state, action.json, true)
     case ActionTypes.DELETE_INTENT_SUCCEEDED:
