@@ -114,7 +114,7 @@ Polymer({
 
   _addLink () {
     // TODO validate URLs
-    if (this.newLink && !this.newLink.match(/https*:\/\//)) this.set('newLink', 'http://' + this.newLink)
+    if (this.newLink && !this.newLink.match(/https?:\/\//)) this.set('newLink', 'http://' + this.newLink)
     this._addToCollection(this.newLink, 'updated.links')
     this.set('newLink', '')
   },

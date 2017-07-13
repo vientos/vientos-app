@@ -103,7 +103,7 @@
               <iron-image src="[[_getImage(message.creator, people, 26)]]" sizing="contain"></iron-image>
               [[_getName(message.creator, people)]]
             </div>
-            <div class="message">[[message.body]]</div>
+            <div class="message" inner-h-t-m-l="[[_addHyperLinks(message.body)]]"></div>
           </li>
         </template>
       </ul>

@@ -1,6 +1,7 @@
 /* global CustomEvent */
 
 import { mintUrl } from './vientos'
+import { escape } from 'escape-goat'
 const service = require('../config.json').service
 
 export { mintUrl }
@@ -261,4 +262,16 @@ export function getName (entity, collection) {
 
 export function getImage (entity, collection, size) {
   return getThumbnailUrl(getRef(entity, collection), size)
+}
+
+export function addHyperLinks (text) {
+  text = escape(text)
+  let matches = text.match(/https?:\/\/[^\s]*/g)
+
+  if (matches) {
+    matches.forEach(link => {
+      text = text.replace(link, `<a href="${link}" target="_blank">${link}</a>`)
+    })
+  }
+  return text
 }

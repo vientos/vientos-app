@@ -104,6 +104,7 @@ Polymer({
 
   _getName: util.getName,
   _getImage: util.getImage,
+  _addHyperLinks: util.addHyperLinks,
 
   _getCausingIntent (conversation, intents) {
     if (conversation) return util.getRef(conversation.causingIntent, intents)
