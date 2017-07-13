@@ -185,66 +185,53 @@ Polymer({
       case 'intents':
         viewUrl = '../intents-list/intents-list'
         break
-
       case 'projects':
         viewUrl = '../vientos-projects/vientos-projects'
         break
-
       case 'map':
         viewUrl = '../vientos-map/vientos-map'
         break
-
       case 'filter':
         viewUrl = '../vientos-filter/vientos-filter'
         break
-
       case 'me':
         viewUrl = '../vientos-me/vientos-me'
         break
-
       case 'project':
         viewUrl = '../vientos-project-profile/vientos-project-profile'
         break
-
       case 'intent':
         viewUrl = '../vientos-intent-page/vientos-intent-page'
         break
-
       case 'edit-intent':
         viewUrl = '../vientos-intent-editor/vientos-intent-editor'
         break
-
       case 'new-intent':
         viewUrl = '../vientos-intent-editor/vientos-intent-editor'
         break
-
       case 'edit-project-details':
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
-
       case 'new-project':
         viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
         break
-
       case 'edit-my-profile':
         viewUrl = '../personal-profile-editor/personal-profile-editor'
         break
-
       case 'new-conversation':
         viewUrl = '../start-conversation/start-conversation'
         break
-
       case 'conversation':
         viewUrl = '../conversation-page/conversation-page'
         break
-
       case 'place':
         viewUrl = '../place-page/place-page'
         break
     }
 
     viewUrl += '.html'
-
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
     var resolvedPageUrl = this.resolveUrl(viewUrl)
     this.importHref(resolvedPageUrl, null, this._showPage404, true)
   },
