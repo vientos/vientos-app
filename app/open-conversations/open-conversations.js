@@ -59,6 +59,30 @@ Polymer({
     return conversations.filter(conversation => {
       // show if has notification
       return util.foo(person, conversation, intent, notifications, intents)
+    }).sort((a, b) => {
+      let aNotifications = notifications.filter(notification => notification.object === a._id)
+      let bNotifications = notifications.filter(notification => notification.object === b._id)
+
+      // prioritize most recent notification
+      if (aNotifications.length && bNotifications.length) {
+        return new Date(bNotifications.pop().createdAt) - new Date(aNotifications.pop().createdAt)
+      } else if (aNotifications.length) {
+        return -1
+      } else if (bNotifications.length) {
+        return 1
+      } else {
+        let aOurTurn = util.ourTurn(person, a, intents)
+        let bOurTurn = util.ourTurn(person, b, intents)
+        if (aOurTurn && bOurTurn) {
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        } else if (aOurTurn) {
+          return -1
+        } else if (bOurTurn) {
+          return 1
+        } else {
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        }
+      }
     })
   }
 })

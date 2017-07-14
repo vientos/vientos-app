@@ -111,7 +111,7 @@ Polymer({
   },
 
   _getMatchingIntent (conversation, intents) {
-    if (conversation && intents.length) return util.getRef(conversation.matchingIntent, intents)
+    if (conversation && conversation.matchingIntent && intents.length) return util.getRef(conversation.matchingIntent, intents)
   },
 
   _setEditedCollaboration (conversation) {

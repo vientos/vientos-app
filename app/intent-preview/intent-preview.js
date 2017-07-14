@@ -85,11 +85,13 @@ Polymer({
   },
 
   _calcOurTurnCount (person, myConversations, intent) {
-    if (person) return myConversations.filter(conversation => {
-      return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
-    }).reduce((count, conversation) => {
-      return util.ourTurn(person, conversation, [intent]) ? ++count : count
-    }, 0)
+    if (person) {
+      return myConversations.filter(conversation => {
+        return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
+      }).reduce((count, conversation) => {
+        return util.ourTurn(person, conversation, [intent]) ? ++count : count
+      }, 0)
+    }
   }
 
 })
