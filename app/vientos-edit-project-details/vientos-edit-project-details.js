@@ -22,7 +22,8 @@ Polymer({
       observer: '_createNewProject'
     },
     updated: {
-      type: Object
+      type: Object,
+      value: null
     },
     places: {
       type: Array,
@@ -46,7 +47,7 @@ Polymer({
     },
     imagePreviewSrc: {
       type: String,
-      computed: '_getImagePreviewSrc(project, newImage)'
+      computed: '_getImagePreviewSrc(updated, newImage)'
     },
     categories: {
       type: Array,
@@ -58,7 +59,8 @@ Polymer({
     },
     readyToSave: {
       type: Boolean,
-      computed: '_readyToSave(updated.name, updated.description, updated.logo, newImage)'
+      computed: '_readyToSave(updated.name, updated.description, updated.logo, newImage)',
+      value: false
     },
     language: {
       type: String,
@@ -155,6 +157,7 @@ Polymer({
   },
 
   _readyToSave (name, description, logo, newImage) {
+    console.log('readyToSave')
     return !!name && !!description && (!!logo || newImage)
   },
 
@@ -164,7 +167,12 @@ Polymer({
       this.set('updated', {
         _id: util.mintUrl({ type: 'Project' }),
         type: 'Project',
-        admins: [creator._id]
+        admins: [creator._id],
+        categories: [],
+        links: [],
+        contacts: [],
+        locations: [],
+        logo: null
       })
     }
   },
