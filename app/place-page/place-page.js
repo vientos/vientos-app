@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior */
+/* global Polymer, ReduxBehavior, util */
 
 Polymer({
   is: 'place-page',
@@ -44,6 +44,10 @@ Polymer({
   _filterProjects (place, projects) {
     if (!place) return []
     return projects.filter(project => project.locations.includes(place._id))
+  },
+
+  _back () {
+    util.back('/map')
   }
 
 })

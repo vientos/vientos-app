@@ -14,9 +14,12 @@
   <template>
 
     <style include="place-page-styles"></style>
-    <h3>
-      [[place.address]]
-    </h3>
+    <header>
+      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+      <h2>
+        [[place.address]]
+      </h2>
+    </header>
     <section>
       <template is="dom-repeat" items="[[placeProjects]]" as="project">
         <vientos-project-preview project="[[project]]"></vientos-project-preview>

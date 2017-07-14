@@ -85,7 +85,8 @@ Polymer({
       statePath: 'locationFilter'
     },
     mapOf: {
-      type: String
+      type: String,
+      value: 'projects'
     },
     boundingBox: {
       type: Object,
@@ -311,7 +312,10 @@ Polymer({
   _filterPlaces: util.filterPlaces,
 
   _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
-    if (page === 'map') return this.visiblePlaces
+    if (page === 'map' || page === 'place') {
+      if (!this.visiblePlaces.length) return visibleProjectLocations
+      return this.visiblePlaces
+    }
     if (page === 'intents' || page === 'intent') {
       this.set('mapOf', 'intents')
       return visibleIntentLocations
