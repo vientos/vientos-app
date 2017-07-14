@@ -34,11 +34,13 @@ Polymer({
     },
     projectAdmin: {
       type: Boolean,
-      computed: '_checkIfProjectAdmin(person, intent, projects)'
+      computed: '_checkIfProjectAdmin(person, intent, projects)',
+      value: false
     },
     intentAdmin: {
       type: Boolean,
-      computed: '_canAdminIntent(person, intent)'
+      computed: '_canAdminIntent(person, intent)',
+      value: false
     },
     favoring: {
       type: Object,
@@ -69,6 +71,7 @@ Polymer({
   },
 
   _checkIfProjectAdmin (person, intent, projects) {
+    if (!person) return false
     return intent.projects.reduce((acc, projectId) => {
       return acc.concat(util.getRef(projectId, projects).admins)
     }, []).includes(person._id)
@@ -82,7 +85,7 @@ Polymer({
   },
 
   _calcOurTurnCount (person, myConversations, intent) {
-    return myConversations.filter(conversation => {
+    if (person) return myConversations.filter(conversation => {
       return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
     }).reduce((count, conversation) => {
       return util.ourTurn(person, conversation, [intent]) ? ++count : count

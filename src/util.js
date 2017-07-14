@@ -189,6 +189,7 @@ export function filterActiveIntents (person, intents, myConversations, notificat
   }
 }
 
+// TODO fix name foo
 export function foo (person, conversation, intent, notifications, intents) {
   if (!intent) return false
   return (
@@ -218,6 +219,7 @@ export function filterIntentConversations (intent, myConversations) {
 }
 
 export function canAdminIntent (person, intent) {
+  if (!person) return false
   let personId = person
   if (typeof person === 'object') personId = person._id
   return !!intent && intent.admins.includes(personId)
