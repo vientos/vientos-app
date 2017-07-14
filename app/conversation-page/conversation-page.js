@@ -107,11 +107,11 @@ Polymer({
   _addHyperLinks: util.addHyperLinks,
 
   _getCausingIntent (conversation, intents) {
-    if (conversation) return util.getRef(conversation.causingIntent, intents)
+    if (conversation && intents.length) return util.getRef(conversation.causingIntent, intents)
   },
 
   _getMatchingIntent (conversation, intents) {
-    if (conversation) return util.getRef(conversation.matchingIntent, intents)
+    if (conversation && intents.length) return util.getRef(conversation.matchingIntent, intents)
   },
 
   _setEditedCollaboration (conversation) {

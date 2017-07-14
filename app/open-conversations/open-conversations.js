@@ -40,19 +40,13 @@ Polymer({
   },
 
   _ourTurn: util.ourTurn,
+  _getName: util.getName,
+  _getImage: util.getImage,
 
   _getNotificationsCount (conversation, notifications) {
     return notifications.filter(notification => {
       return notification.object === conversation._id
     }).length
-  },
-
-  _getConversationCreatorName (personId, people) {
-    return util.getRef(personId, people).name
-  },
-
-  _getConversationCreatorAvatar (personId, people) {
-    return util.getThumbnailUrl(util.getRef(personId, people), 26)
   },
 
   _showConversation (e) {

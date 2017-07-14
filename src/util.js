@@ -150,9 +150,13 @@ export function iconFor (item) {
 
 export function getRef (entityIds, collection) {
   if (!Array.isArray(entityIds)) {
-    return collection.find(entity => entityIds === entity._id)
+    let entity = collection.find(entity => entityIds === entity._id)
+    if (entity) return entity
+    else throw new Error('entity not found in the collection')
   } else {
-    return collection.filter(entity => entityIds.includes(entity._id))
+    let entities = collection.filter(entity => entityIds.includes(entity._id))
+    if (entityIds.length === entities.length) return entities
+    else throw new Error('entities not found in the collection')
   }
 }
 
@@ -261,10 +265,12 @@ export function back (fallbackPath) {
 }
 
 export function getName (entity, collection) {
+  if (!collection.length) return undefined
   return getRef(entity, collection).name
 }
 
 export function getImage (entity, collection, size) {
+  if (!collection.length) return undefined
   return getThumbnailUrl(getRef(entity, collection), size)
 }
 

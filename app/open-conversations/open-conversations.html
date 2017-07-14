@@ -22,10 +22,10 @@
             <paper-badge label="[[_getNotificationsCount(conversation, notifications)]]"></paper-badge>
           </template>
           <iron-image
-             src="[[_getConversationCreatorAvatar(conversation.creator, people)]]"
+             src="[[_getImage(conversation.creator, people, 26)]]"
              sizing="contain">
           </iron-image>
-          [[_getConversationCreatorName(conversation.creator, people)]]
+          [[_getName(conversation.creator, people)]]
         </li>
       </template>
     </ul>
