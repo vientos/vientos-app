@@ -177,7 +177,18 @@ export function findPotentialMatches (person, projects, intents, matchedIntent) 
   }
 }
 
-export function filterVisibleConversations (person, intents, myConversations) {
+function onThisIntent (conversation, intent) {
+  return conversation.causingIntent === intent._id ||
+    conversation.matchingIntent === intent._id
+}
+
+function onThisIntentConversation (intent, notification, conversations) {
+  let conversation = getRef(notification.object, conversations)
+  return onThisIntent(conversation, intent)
+}
+
+function onThisIntentAndOurTurn (person, conversation, intent) {
+  return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent])
 }
 
 // TODO reuse for notifications
@@ -189,6 +200,44 @@ export function filterActiveIntents (person, intents, myConversations, notificat
       return myConversations.some(conversation => {
         return foo(person, conversation, intent, notifications, intents)
       })
+    }).sort((a, b) => {
+      let aNotifications = notifications.filter(notification => {
+        return onThisIntentConversation(a, notification, myConversations)
+      })
+      let bNotifications = notifications.filter(notification => {
+        return onThisIntentConversation(b, notification, myConversations)
+      })
+      if (aNotifications.length && bNotifications.length) {
+        return new Date(bNotifications.pop().createdAt) - new Date(aNotifications.pop().createdAt)
+      } else if (aNotifications.length) {
+        return -1
+      } else if (bNotifications.length) {
+        return 1
+      } else {
+        let aOurTurnConversations = myConversations.filter(conversation => {
+          return onThisIntentAndOurTurn(person, conversation, a)
+        })
+        let bOurTurnConversations = myConversations.filter(conversation => {
+          return onThisIntentAndOurTurn(person, conversation, b)
+        })
+        if (aOurTurnConversations.length && bOurTurnConversations.length) {
+          let aLastConversationCreatedAt = new Date(aOurTurnConversations.pop().createdAt)
+          let bLastConversationCreatedAt = new Date(bOurTurnConversations.pop().createdAt)
+          return bLastConversationCreatedAt - aLastConversationCreatedAt
+        } else if (aOurTurnConversations.length) {
+          return -1
+        } else if (bOurTurnConversations.length) {
+          return 1
+        } else {
+          let aConversations = myConversations.filter(conversation => {
+            return onThisIntent(conversation, a)
+          })
+          let bConversations = myConversations.filter(conversation => {
+            return onThisIntent(conversation, b)
+          })
+          return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
+        }
+      }
     })
   }
 }
