@@ -80,6 +80,10 @@ Polymer({
       type: Boolean,
       computed: '_checkIfActive(intent)'
     },
+    expired: {
+      type: Boolean,
+      computed: '_checkIfExpired(intent)'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -92,6 +96,7 @@ Polymer({
 
   _checkIfAdmin: util.checkIfAdmin,
   _checkIfFavors: util.checkIfFavors,
+  _checkIfExpired: util.checkIfExpired,
   _getIntentProjects: util.getIntentProjects,
   _filterIntentConversations: util.filterIntentConversations,
   _getRef: util.getRef,

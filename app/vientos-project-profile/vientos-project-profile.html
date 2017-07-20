@@ -163,6 +163,16 @@
 
 </section>
 <template is="dom-if" if="[[admin]]">
+  <section id="expired-intents">
+    <h3>
+      [[localize('label:expired-intents')]]
+    </h3>
+    <div>
+      <template is="dom-repeat" items="[[expiredIntents]]">
+        <intent-preview intent="[[item]]"></intent-preview>
+      </template>
+    </div>
+  </section>
   <section id="inactive-intents">
     <h3>
       [[localize('label:inactive-intents')]]

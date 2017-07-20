@@ -27,7 +27,13 @@
       </h2>
     </header>
     <template is="dom-if" if="[[!active]]">
-      <div id="banner">[[localize('hint:inactive')]]</div>
+      <div class="banner">[[localize('hint:inactive')]]</div>
+    </template>
+    <template is="dom-if" if="[[expired]]">
+      <div class="banner">[[localize('hint:expired')]]</div>
+      <template is="dom-if" if="[[!active]]">
+        <div class="hint">[[localize('hint:to-activate-expired')]]</div>
+      </template>
     </template>
     <template is="dom-if" if="[[projectAdmin]]">
       <section class="action-buttons">
@@ -48,8 +54,9 @@
             <vientos-icon-button
               raised
               on-tap="_activate"
-              text="[[localize('button:activate')]]">
-            </vientos-icon-button>
+              text="[[localize('button:activate')]]"
+              disabled="[[expired]]"
+            ></vientos-icon-button>
           </template>
           <vientos-icon-button
             raised

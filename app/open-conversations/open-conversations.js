@@ -58,7 +58,7 @@ Polymer({
     if (!person) return []
     return conversations.filter(conversation => {
       // show if has notification
-      return util.foo(person, conversation, intent, notifications, intents)
+      return util.intentPrimaryForMyConversation(person, conversation, intent, notifications, intents)
     }).sort((a, b) => {
       let aNotifications = notifications.filter(notification => notification.object === a._id)
       let bNotifications = notifications.filter(notification => notification.object === b._id)

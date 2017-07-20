@@ -81,8 +81,12 @@ export function filterProjects (person, projects, places, intents, filteredCateg
   return filtered
 }
 
+export function checkIfExpired (intent) {
+  if (intent) return Date.now() - new Date(intent.expiryDate) > 0
+}
+
 export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
-  let filtered = intents.filter(intent => intent.status === 'active')
+  let filtered = intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
   filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
   if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
@@ -98,14 +102,22 @@ export function filterIntents (person, intents, visibleProjects, filteredCollabo
   return filtered
 }
 
-export function filterActiveProjectIntents (project, intents) {
+export function filterActiveProjectIntents (person, project, intents, myConversations, notifications) {
   if (!project) return []
-  return intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active')
+  let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active' && !checkIfExpired(intent))
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
-export function filterInactiveProjectIntents (project, intents) {
+export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications) {
   if (!project) return []
-  return intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive')
+  let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive' && !checkIfExpired(intent))
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+}
+
+export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications) {
+  if (!project) return []
+  let filtered = intents.filter(intent => intent.projects.includes(project._id) && checkIfExpired(intent))
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
 export function getIntentProjects (intent, projects) {
@@ -192,59 +204,64 @@ function onThisIntentAndOurTurn (person, conversation, intent) {
   return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent])
 }
 
+function orderIntents (intents, person, myConversations, notifications) {
+  return intents.sort((a, b) => {
+    let aNotifications = notifications.filter(notification => {
+      return onThisIntentConversation(a, notification, myConversations)
+    })
+    let bNotifications = notifications.filter(notification => {
+      return onThisIntentConversation(b, notification, myConversations)
+    })
+    if (aNotifications.length && bNotifications.length) {
+      return new Date(bNotifications.pop().createdAt) - new Date(aNotifications.pop().createdAt)
+    } else if (aNotifications.length) {
+      return -1
+    } else if (bNotifications.length) {
+      return 1
+    } else {
+      let aOurTurnConversations = myConversations.filter(conversation => {
+        return onThisIntentAndOurTurn(person, conversation, a)
+      })
+      let bOurTurnConversations = myConversations.filter(conversation => {
+        return onThisIntentAndOurTurn(person, conversation, b)
+      })
+      if (aOurTurnConversations.length && bOurTurnConversations.length) {
+        let aLastConversationCreatedAt = new Date(aOurTurnConversations.pop().createdAt)
+        let bLastConversationCreatedAt = new Date(bOurTurnConversations.pop().createdAt)
+        return bLastConversationCreatedAt - aLastConversationCreatedAt
+      } else if (aOurTurnConversations.length) {
+        return -1
+      } else if (bOurTurnConversations.length) {
+        return 1
+      } else {
+        let aConversations = myConversations.filter(conversation => {
+          return onThisIntent(conversation, a)
+        })
+        let bConversations = myConversations.filter(conversation => {
+          return onThisIntent(conversation, b)
+        })
+        return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
+      }
+    }
+  })
+}
+
 // TODO reuse for notifications
 export function filterActiveIntents (person, intents, myConversations, notifications) {
   if (person) {
     // conversations which I created
     // and conversation on intens (causing or matching) which I admin
-    return intents.filter(intent => {
+    let activeIntents = intents.filter(intent => {
       return myConversations.some(conversation => {
-        return foo(person, conversation, intent, notifications, intents)
+        return intentPrimaryForMyConversation(person, conversation, intent, notifications, intents)
       })
-    }).sort((a, b) => {
-      let aNotifications = notifications.filter(notification => {
-        return onThisIntentConversation(a, notification, myConversations)
-      })
-      let bNotifications = notifications.filter(notification => {
-        return onThisIntentConversation(b, notification, myConversations)
-      })
-      if (aNotifications.length && bNotifications.length) {
-        return new Date(bNotifications.pop().createdAt) - new Date(aNotifications.pop().createdAt)
-      } else if (aNotifications.length) {
-        return -1
-      } else if (bNotifications.length) {
-        return 1
-      } else {
-        let aOurTurnConversations = myConversations.filter(conversation => {
-          return onThisIntentAndOurTurn(person, conversation, a)
-        })
-        let bOurTurnConversations = myConversations.filter(conversation => {
-          return onThisIntentAndOurTurn(person, conversation, b)
-        })
-        if (aOurTurnConversations.length && bOurTurnConversations.length) {
-          let aLastConversationCreatedAt = new Date(aOurTurnConversations.pop().createdAt)
-          let bLastConversationCreatedAt = new Date(bOurTurnConversations.pop().createdAt)
-          return bLastConversationCreatedAt - aLastConversationCreatedAt
-        } else if (aOurTurnConversations.length) {
-          return -1
-        } else if (bOurTurnConversations.length) {
-          return 1
-        } else {
-          let aConversations = myConversations.filter(conversation => {
-            return onThisIntent(conversation, a)
-          })
-          let bConversations = myConversations.filter(conversation => {
-            return onThisIntent(conversation, b)
-          })
-          return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
-        }
-      }
     })
+    return orderIntents(activeIntents, person, myConversations, notifications)
   }
 }
 
 // TODO fix name foo
-export function foo (person, conversation, intent, notifications, intents) {
+export function intentPrimaryForMyConversation (person, conversation, intent, notifications, intents) {
   if (!intent) return false
   return (
           // show causing intent unless im admin of matching intent

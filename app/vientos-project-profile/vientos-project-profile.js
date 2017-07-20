@@ -15,6 +15,14 @@ Polymer({
       type: Object,
       statePath: 'person'
     },
+    notifications: {
+      type: Array,
+      statePath: 'notifications'
+    },
+    myConversations: {
+      type: Array,
+      statePath: 'myConversations'
+    },
     admin: {
       type: Boolean,
       value: false,
@@ -60,12 +68,17 @@ Polymer({
     activeIntents: {
       type: Array,
       value: [],
-      computed: '_filterActiveIntents(project, intents)'
+      computed: '_filterActiveIntents(person, project, intents, myConversations, notifications)'
     },
     inactiveIntents: {
       type: Array,
       value: [],
-      computed: '_filterInactiveIntents(project, intents)'
+      computed: '_filterInactiveIntents(person, project, intents, myConversations, notifications)'
+    },
+    expiredIntents: {
+      type: Array,
+      value: [],
+      computed: '_filterExpiredIntents(person, project, intents, myConversations, notifications)'
     },
     language: {
       type: String,
@@ -78,15 +91,11 @@ Polymer({
   },
 
   _checkIfFollows: util.checkIfFollows,
-
   _checkIfAdmin: util.checkIfAdmin,
-
   _filterActiveIntents: util.filterActiveProjectIntents,
-
+  _filterExpiredIntents: util.filterExpiredProjectIntents,
   _filterInactiveIntents: util.filterInactiveProjectIntents,
-
   _getRef: util.getRef,
-
   _getPlaceAddress: util.getPlaceAddress,
 
   _intentPageUrl (intent) {
