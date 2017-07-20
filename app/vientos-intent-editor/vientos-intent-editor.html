@@ -36,19 +36,22 @@
       value="{{updated.title}}"
       label="[[localize('label:title')]]"
       char-counter
-      maxlength="60"        
+      maxlength="60"
+      required
     ></paper-input>
       <div>
         <paper-textarea
          label="[[localize('label:org-description')]]"
-         value="{{updated.description}}">
+         value="{{updated.description}}"
+         required>
        </paper-textarea>
       </div>
 
       <div>
         <paper-textarea
          label="[[localize('label:questions')]]"
-         value="{{updated.question}}">
+         value="{{updated.question}}"
+         required>
        </paper-textarea>
       </div>
     </section>
@@ -71,7 +74,7 @@
     <section>
       <h3>[[localize('label:collaboration-type')]]</h3>
       <div>
-        <iron-selector selected="{{collaborationType}}" attr-for-selected="name">
+        <iron-selector selected="{{updated.collaborationType}}" attr-for-selected="name">
           <vientos-icon-button
             name="work"
             text="[[localize('work')]]"
@@ -116,7 +119,7 @@
     <section>
       <vaadin-date-picker
         id="datepicker"
-        value="{{expiryDate}}"
+        value="{{updated.expiryDate}}"
         min="[[expiryMinDate]]"
         label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
     </section>
@@ -143,7 +146,7 @@
           <paper-button
             id="button-save"
             on-tap="_save"
-            disabled="[[!collaborationType]]"
+            disabled="[[!readyToSave]]"
           >[[localize('button:save')]]</paper-button>
 
           <paper-button

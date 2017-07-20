@@ -14,7 +14,8 @@ Polymer({
     project: {
       // passed from parent
       type: Object,
-      observer: '_projectChanged'
+      observer: '_projectChanged',
+      value: null
     },
     creator: {
       // passed from parent just when creating new project
@@ -28,10 +29,6 @@ Polymer({
     places: {
       type: Array,
       statePath: 'places'
-    },
-    newPlace: {
-      type: Object,
-      value: null
     },
     newLink: {
       type: String,
@@ -59,7 +56,12 @@ Polymer({
     },
     readyToSave: {
       type: Boolean,
-      computed: '_readyToSave(updated.name, updated.description, updated.logo, newImage)',
+      computed: '_readyToSave(hasChages, updated.name, updated.description, updated.logo, newImage)',
+      value: false
+    },
+    hasChages: {
+      type: Boolean,
+      computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.name, updated.description, updated.categories, updated.locations, updated.contacts, updated.links)',
       value: false
     },
     language: {
@@ -91,13 +93,12 @@ Polymer({
     this.set(collectionPath, [...this.get(collectionPath), element])
   },
 
-  _addLocation () {
-    let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
+  _addLocation (place) {
+    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
     if (!existingPlace) {
-      this.dispatch('savePlace', this.newPlace)
+      this.dispatch('savePlace', place)
     }
-    this._addToCollection(this.newPlace._id, 'updated.locations')
-    this.set('newPlace', null)
+    this._addToCollection(place._id, 'updated.locations')
     this.$['place-input'].value = ''
   },
 
@@ -131,7 +132,6 @@ Polymer({
 
   _reset () {
     this.set('newImage', null)
-    this.set('newPlace', null)
     this.set('newContact', '')
     this.set('newLink', '')
     this.$['place-input'].value = ''
@@ -142,13 +142,6 @@ Polymer({
     // in case person didn't click 'Add'
     this._addContact()
     this._addLink()
-    if (this.newPlace) {
-      this._addToCollection(this.newPlace, 'updated.locations')
-      let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
-      if (!existingPlace) {
-        this.dispatch('savePlace', this.newPlace)
-      }
-    }
     this.dispatch('saveProject', this.updated, this.newImage)
     this._reset()
     // we use replaceState to avoid when edting and going to project page, that back button take you to edit again
@@ -156,9 +149,13 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  _readyToSave (name, description, logo, newImage) {
-    console.log('readyToSave')
-    return !!name && !!description && (!!logo || newImage)
+  _readyToSave (hasChages, name, description, logo, newImage) {
+    return !!name && !!description && (!!logo || newImage) && hasChages
+  },
+
+  _hasChanges (project, updated, newImage, newLink, newContact) {
+    if (!project) return true
+    return !util.deepEqual(project, updated) || newImage || newLink || newContact
   },
 
   _createNewProject (creator) {
@@ -207,7 +204,7 @@ Polymer({
     } else {
       place._id = util.mintUrl({ type: 'Place' })
     }
-    this.set('newPlace', place)
+    this._addLocation(place)
   },
 
   _imageInputChanged (e) {

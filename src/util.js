@@ -2,9 +2,11 @@
 
 import { mintUrl } from './vientos'
 import { escape } from 'escape-goat'
+import deepEqual from 'deep-equal'
 const service = require('../config.json').service
 
 export { mintUrl }
+export { deepEqual }
 
 export function locationsInBoundingBox (entity, places, boundingBox) {
   return places.filter(place => {
@@ -174,8 +176,10 @@ export function getRef (entityIds, collection) {
 }
 
 export function getPlaceAddress (placeId, places) {
-  let place = getRef(placeId, places)
-  if (place) return place.address
+  try {
+    return getRef(placeId, places).address
+  } catch (e) {
+  }
 }
 
 export function findPotentialMatches (person, projects, intents, matchedIntent) {

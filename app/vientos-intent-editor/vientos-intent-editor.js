@@ -10,6 +10,10 @@ Polymer({
   },
 
   properties: {
+    collaborationTypes: {
+      type: Array,
+      value: ['work', 'usage', 'consumption', 'ownership']
+    },
     intent: {
       type: Object,
       value: null,
@@ -37,10 +41,6 @@ Polymer({
       type: Object,
       value: null
     },
-    newPlace: {
-      type: Object,
-      value: null
-    },
     toggled: {
       type: Boolean,
       computed: '_checkIfToggled(updated)'
@@ -49,22 +49,21 @@ Polymer({
       type: String,
       value: window.vientos.config.map.googleApiKey
     },
-    collaborationType: {
-      type: String,
-      value: null,
-      observer: '_collaborationTypeChanged'
-    },
-    expiryDate: {
-      type: String,
-      value: () => {
-        return new Date(Date.now() + 32 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-      }
-    },
     expiryMinDate: {
       type: String,
       value: () => {
         return new Date().toISOString().split('T')[0]
       }
+    },
+    readyToSave: {
+      type: Boolean,
+      computed: '_readyToSave(hasChanges, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
+      value: false
+    },
+    hasChanges: {
+      type: Boolean,
+      computed: '_hasChanges(intent, updated, newImage, updated.direction, updated.locations, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
+      value: false
     },
     language: {
       type: String,
@@ -76,7 +75,10 @@ Polymer({
     }
   },
 
-  observers: ['_createNewIntent(person, project)'],
+  observers: [
+    '_createNewIntent(person, project)',
+    '_collaborationTypeChanged(updated.collaborationType)'
+  ],
 
   _getPlaceAddress: util.getPlaceAddress,
 
@@ -99,15 +101,6 @@ Polymer({
   },
 
   _save () {
-    this.updated.collaborationType = this.collaborationType
-    this.updated.expiryDate = this.expiryDate
-    if (this.newPlace) {
-      this._addToCollection(this.newPlace, 'updated.locations')
-      let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
-      if (!existingPlace) {
-        this.dispatch('savePlace', this.newPlace)
-      }
-    }
     this.dispatch('saveIntent', this.updated, this.newImage)
     this._reset()
     // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
@@ -115,11 +108,20 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _readyToSave (hasChanges, title, description, question, collaborationType, reciprocity, expiryDate) {
+    return !!title && !!description && !!question && !!collaborationType && !!reciprocity && !!expiryDate && !!hasChanges
+  },
+
+  _hasChanges (intent, updated, newImage) {
+    if (!intent) return true
+    return !util.deepEqual(intent, updated) || newImage
+  },
+
   _reset () {
     this.set('newImage', null)
     this.$['new-image-form'].reset()
     this.$['place-input'].value = ''
-    if (this.collaborationType) this.$$(`vientos-icon-button[name=${this.collaborationType}]`).set('active', false)
+    if (this.updated && this.updated.collaborationType) this.$$(`vientos-icon-button[name=${this.updated.collaborationType}]`).set('active', false)
     this.updateStyles()
   },
 
@@ -133,7 +135,6 @@ Polymer({
       window.history.replaceState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
     }
-
   },
 
   _checkIfToggled (updated) {
@@ -144,9 +145,11 @@ Polymer({
     this.set('updated.direction', this.updated.direction === 'offer' ? 'request' : 'offer')
   },
 
-  _collaborationTypeChanged (newC, oldC) {
-    if (oldC) this.$$(`vientos-icon-button[name=${oldC}]`).set('active', false)
-    if (newC) this.$$(`vientos-icon-button[name=${newC}]`).set('active', true)
+  _collaborationTypeChanged (updated) {
+    this.collaborationTypes.forEach(colType => {
+      this.$$(`vientos-icon-button[name=${colType}]`).set('active', false)
+    })
+    if (updated) this.$$(`vientos-icon-button[name=${updated}]`).set('active', true)
     this.updateStyles()
   },
 
@@ -159,12 +162,18 @@ Polymer({
       this._reset()
       this.set('updated', {
         _id: util.mintUrl({ type: 'Intent' }),
+        title: '',
+        description: '',
+        question: '',
+        collaborationType: null,
         type: 'Intent',
         direction: 'offer',
         reciprocity: 'gift',
+        expiryDate: new Date(Date.now() + 32 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         creator: person._id,
         admins: [person._id],
-        projects: [ project._id ]
+        projects: [ project._id ],
+        locations: []
       })
     }
   },
@@ -174,13 +183,12 @@ Polymer({
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
   },
 
-  _addLocation () {
-    let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
+  _addLocation (place) {
+    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
     if (!existingPlace) {
-      this.dispatch('savePlace', this.newPlace)
+      this.dispatch('savePlace', place)
     }
-    this._addToCollection(this.newPlace._id, 'updated.locations')
-    this.set('newPlace', null)
+    this._addToCollection(place._id, 'updated.locations')
     this.$['place-input'].value = ''
   },
 
@@ -202,7 +210,7 @@ Polymer({
     } else {
       place._id = util.mintUrl({ type: 'Place' })
     }
-    this.set('newPlace', place)
+    this._addLocation(place)
   },
 
   _imageInputChanged (e) {
