@@ -68,8 +68,8 @@ function places (state = [], action) {
   switch (action.type) {
     case ActionTypes.FETCH_PLACES_SUCCEEDED:
       return action.json
-    case ActionTypes.SAVE_PLACE_SUCCEEDED:
-      return replaceOrAddElement(state, action.json)
+    case ActionTypes.SAVE_PLACE_REQUESTED:
+      return replaceOrAddElement(state, action.place)
     default:
       return state
   }

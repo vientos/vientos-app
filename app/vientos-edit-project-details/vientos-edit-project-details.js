@@ -92,11 +92,11 @@ Polymer({
   },
 
   _addLocation () {
-    this._addToCollection(this.newPlace._id, 'updated.locations')
     let existingPlace = this.places.find(place => place.googlePlaceId === this.newPlace.googlePlaceId)
     if (!existingPlace) {
       this.dispatch('savePlace', this.newPlace)
     }
+    this._addToCollection(this.newPlace._id, 'updated.locations')
     this.set('newPlace', null)
     this.$['place-input'].value = ''
   },
