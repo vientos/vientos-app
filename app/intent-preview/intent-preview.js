@@ -78,6 +78,7 @@ Polymer({
   },
 
   _notificationCount (intent, myConversations, notifications) {
+    if (!myConversations.length) return 0
     return notifications.filter(notification => {
       let conversation = util.getRef(notification.object, myConversations)
       return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id

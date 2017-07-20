@@ -151,22 +151,29 @@
   <paper-fab icon="vientos:add-intent" on-tap="_newIntent"></paper-fab>
 </template>
 
-<section id="project-collaborations">
+<section id="active-intents">
   <h3>
     [[localize('intents')]]
   </h3>
   <div>
-    <template is="dom-repeat" items="[[requests]]">
-      <intent-preview intent="[[item]]"></intent-preview>
-    </template>
-  </div>
-  <div>
-    <template is="dom-repeat" items="[[offers]]">
+    <template is="dom-repeat" items="[[activeIntents]]">
       <intent-preview intent="[[item]]"></intent-preview>
     </template>
   </div>
 
 </section>
+<template is="dom-if" if="[[admin]]">
+  <section id="inactive-intents">
+    <h3>
+      [[localize('label:inactive-intents')]]
+    </h3>
+    <div>
+      <template is="dom-repeat" items="[[inactiveIntents]]">
+        <intent-preview intent="[[item]]"></intent-preview>
+      </template>
+    </div>
+  </section>
+</template>
 
   </template>
 

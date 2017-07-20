@@ -76,6 +76,10 @@ Polymer({
       computed: '_checkIfAdmin(person, intent)',
       observer: '_intentAdminChanged'
     },
+    active: {
+      type: Boolean,
+      computed: '_checkIfActive(intent)'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -101,10 +105,26 @@ Polymer({
   //   return util.getRef(intent.collaborations, collaborations)
   // },
 
-  _editIntent () {
+  _checkIfActive (intent) {
+    if (intent) return intent.status === 'active'
+  },
+
+  _edit () {
     // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
     window.history.replaceState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+  },
+
+  _deactivate () {
+    let updated = Object.assign({}, this.intent)
+    updated.status = 'inactive'
+    this.dispatch('saveIntent', updated)
+  },
+
+  _activate () {
+    let updated = Object.assign({}, this.intent)
+    updated.status = 'active'
+    this.dispatch('saveIntent', updated)
   },
 
   _projectPageUrl (project) {
@@ -191,13 +211,15 @@ Polymer({
   },
 
   _leaveAdmin () {
-    this.set('intent.admins', this.intent.admins.filter(adminId => adminId !== this.person._id))
-    this.dispatch('saveIntent', this.intent)
+    let updated = Object.assign({}, this.intent)
+    updated.admins = this.intent.admins.filter(adminId => adminId !== this.person._id)
+    this.dispatch('saveIntent', updated)
   },
 
   _becomeAdmin () {
-    this.set('intent.admins', [...this.intent.admins, this.person._id])
-    this.dispatch('saveIntent', this.intent)
+    let updated = Object.assign({}, this.intent)
+    updated.admins = [...this.intent.admins, this.person._id]
+    this.dispatch('saveIntent', updated)
   },
 
   _intentAdminChanged (newValue, oldValue) {

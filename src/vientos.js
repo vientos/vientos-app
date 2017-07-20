@@ -151,8 +151,6 @@ export default function vientos (action) {
       return uploadAndSave(action.person, action.image)
     case ActionTypes.SAVE_SUBSCRIPTION_REQUESTED:
       return put(action.subscription)
-    case ActionTypes.DELETE_INTENT_REQUESTED:
-      return del(action.intent)
     case ActionTypes.FETCH_PERSON_REQUESTED:
       return get(action.id)
     case ActionTypes.FETCH_MY_CONVERSATIONS_REQUESTED:

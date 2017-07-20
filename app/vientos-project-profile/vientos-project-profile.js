@@ -57,15 +57,15 @@ Polymer({
       type: Array,
       statePath: 'intents'
     },
-    offers: {
+    activeIntents: {
       type: Array,
       value: [],
-      computed: '_filterOffers(project, intents)'
+      computed: '_filterActiveIntents(project, intents)'
     },
-    requests: {
+    inactiveIntents: {
       type: Array,
       value: [],
-      computed: '_filterRequests(project, intents)'
+      computed: '_filterInactiveIntents(project, intents)'
     },
     language: {
       type: String,
@@ -81,9 +81,9 @@ Polymer({
 
   _checkIfAdmin: util.checkIfAdmin,
 
-  _filterOffers: util.filterProjectOffers,
+  _filterActiveIntents: util.filterActiveProjectIntents,
 
-  _filterRequests: util.filterProjectRequests,
+  _filterInactiveIntents: util.filterInactiveProjectIntents,
 
   _getRef: util.getRef,
 

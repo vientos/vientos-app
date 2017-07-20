@@ -82,7 +82,8 @@ export function filterProjects (person, projects, places, intents, filteredCateg
 }
 
 export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
-  let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
+  let filtered = intents.filter(intent => intent.status === 'active')
+  filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
   if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
   }
@@ -97,14 +98,14 @@ export function filterIntents (person, intents, visibleProjects, filteredCollabo
   return filtered
 }
 
-export function filterProjectOffers (project, intents) {
+export function filterActiveProjectIntents (project, intents) {
   if (!project) return []
-  return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'offer')
+  return intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active')
 }
 
-export function filterProjectRequests (project, intents) {
+export function filterInactiveProjectIntents (project, intents) {
   if (!project) return []
-  return intents.filter(intent => intent.projects.includes(project._id) && intent.direction === 'request')
+  return intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive')
 }
 
 export function getIntentProjects (intent, projects) {

@@ -48,8 +48,6 @@ function intents (state = [], action) {
       })
     case ActionTypes.SAVE_INTENT_SUCCEEDED:
       return replaceOrAddElement(state, action.json, true)
-    case ActionTypes.DELETE_INTENT_SUCCEEDED:
-      return removeElement(state, action.requestedAction.intent)
     default:
       return state
   }

@@ -26,15 +26,31 @@
         [[intent.title]]
       </h2>
     </header>
-
+    <template is="dom-if" if="[[!active]]">
+      <div id="banner">[[localize('hint:inactive')]]</div>
+    </template>
     <template is="dom-if" if="[[projectAdmin]]">
       <section class="action-buttons">
         <template is="dom-if" if="[[intentAdmin]]">
           <vientos-icon-button
             raised
-            on-tap="_editIntent"
+            on-tap="_edit"
             text="[[localize('button:edit')]]">
           </vientos-icon-button>
+          <template is="dom-if" if="[[active]]">
+            <vientos-icon-button
+              raised
+              on-tap="_deactivate"
+              text="[[localize('button:deactivate')]]">
+            </vientos-icon-button>
+          </template>
+          <template is="dom-if" if="[[!active]]">
+            <vientos-icon-button
+              raised
+              on-tap="_activate"
+              text="[[localize('button:activate')]]">
+            </vientos-icon-button>
+          </template>
           <vientos-icon-button
             raised
             text="[[localize('button:leave-admin')]]"
