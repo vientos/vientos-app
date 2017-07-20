@@ -150,13 +150,13 @@ export function iconFor (item) {
 
 export function getRef (entityIds, collection) {
   if (!Array.isArray(entityIds)) {
-    let entity = collection.find(entity => entityIds === entity._id)
+    let entity = collection.find(element => entityIds === element._id)
     if (entity) return entity
-    else throw new Error('entity not found in the collection')
+    else throw new Error('entity not found in the collection: ' + entityIds)
   } else {
     let entities = collection.filter(entity => entityIds.includes(entity._id))
     if (entityIds.length === entities.length) return entities
-    else throw new Error('entities not found in the collection')
+    else throw new Error('entities not found in the collection: ' + JSON.stringify(entityIds))
   }
 }
 
