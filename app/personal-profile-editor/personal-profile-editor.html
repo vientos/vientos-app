@@ -49,11 +49,11 @@
       <h3>[[localize('label:categories')]]</h3>
       <vientos-categories-selector
         categories="[[categories]]"
-        selection="[[person.categories]]"
+        selection="[[updated.categories]]"
         on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
     </section>
     <footer class="simple">
-      <paper-button id="button-save" raised on-tap="_save">[[localize('button:save')]]</paper-button>
+      <paper-button id="button-save" raised on-tap="_save" disabled="[[!readyToSave]]">[[localize('button:save')]]</paper-button>
       <paper-button id="button-cancel" raised on-tap="_cancel">[[localize('button:cancel')]]</paper-button>
     </footer>
 

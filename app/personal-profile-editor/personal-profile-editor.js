@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent */
+/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util */
 
 Polymer({
   is: 'personal-profile-editor',
@@ -29,6 +29,16 @@ Polymer({
       type: String,
       computed: '_getImagePreviewSrc(person, newImage)'
     },
+    readyToSave: {
+      type: Boolean,
+      computed: '_readyToSave(hasChanges, updated.name)',
+      value: false
+    },
+    hasChanges: {
+      type: Boolean,
+      computed: '_hasChanges(person, updated, newImage, updated.name, updated.language, updated.emailNotifications, updated.categories)',
+      value: false
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -58,6 +68,14 @@ Polymer({
   _reset () {
     this.set('newImage', null)
     this.$['new-image-form'].reset()
+  },
+
+  _readyToSave (hasChanges, name) {
+    return !!name && !!hasChanges
+  },
+
+  _hasChanges (person, updated, newImage) {
+    return !util.deepEqual(person, updated) || !!newImage
   },
 
   _save () {
