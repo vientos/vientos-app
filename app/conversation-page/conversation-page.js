@@ -285,5 +285,9 @@ Polymer({
       notification.active = false
       this.dispatch('saveNotification', notification)
     })
+  },
+
+  _back () {
+    util.back('/me')
   }
 })

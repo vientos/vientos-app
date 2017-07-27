@@ -38,11 +38,14 @@
 
     </style>
 
-    <div>
+    <div on-tap="_handleTap">
       <div>
         <iron-image src="[[_getImage(review.creator, people, 26)]]" sizing="contain"></iron-image>
         <span>[[_getName(review.creator, people)]]</span>
         <iron-icon icon="social:sentiment-[[review.rating]]"></iron-icon>
+        <template is="dom-if" if="[[linksToConversation]]">
+          <iron-icon icon="arrow-forward"></iron-icon>
+        </template>
       </div>
       <div>
         [[review.body]]

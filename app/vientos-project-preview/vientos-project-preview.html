@@ -40,14 +40,14 @@
     <style include="vientos-project-preview-styles"></style>
 
     <vientos-card on-tap="_showFullProfile">
-        <header id="project-title">
+        <div id="project-title">
           <h4>
             [[project.name]]
           </h4>
           <template is="dom-if" if="[[following]]">
             <iron-icon icon="vientos:follow"></iron-icon>
           </template>
-        </header>
+        </div>
         <main>
 
           <div>

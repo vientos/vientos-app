@@ -22,7 +22,9 @@
 <dom-module id="conversation-page">
   <template>
     <style include="conversation-page-styles"></style>
-
+    <header>
+      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+    </header>
     <!-- TODO EDIT COLLABORATION SECTION PENDING https://github.com/vientos/vientos-pwa/blob/fd4de78d88f0427b770b890cd2102e7ee469f77b/app/conversation-page/conversation-page.html#L53-L71-->
     <section id="review">
       <template is="dom-if" if="[[conversation.reviews.length]]">
@@ -34,7 +36,7 @@
         </template>
         <h4>[[localize('label:reviews')]]</h4>
         <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
-          <review-card review="[[review]]"></review-card>
+          <review-card review="[[review]]" skip-link></review-card>
         </template>
       </template>
       <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
