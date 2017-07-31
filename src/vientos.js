@@ -27,10 +27,6 @@ const data = {
   categories: '/node_modules/vientos-data/categories.json',
   labels: '/node_modules/vientos-data/labels.json'
 }
-const fixtures = {
-  projects: '/node_modules/vientos-fixtures/projects.json',
-  intents: '/node_modules/vientos-fixtures/intents.json'
-}
 const collections = {
   people: { type: 'Person' },
   projects: { type: 'Project' },
@@ -54,11 +50,7 @@ function dataUrl (actionType) {
 
 function collectionUrl (actionType) {
   let key = actionType.replace('FETCH_', '').replace('_REQUESTED', '').toLowerCase()
-  if (service) {
-    return service + '/' + key
-  } else {
-    return pwa + fixtures[key]
-  }
+  return service + '/' + key
 }
 
 export function mintUrl (resource) {
