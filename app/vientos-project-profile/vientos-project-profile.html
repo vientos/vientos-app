@@ -29,7 +29,7 @@
       </h2>
     </header>
 
-    <template is="dom-if" if="[[_canFollow(person, admin)]]">
+    <template is="dom-if" if="[[canFollow]]">
       <section class="action-buttons">
         <template is="dom-if" if="[[!following]]">
           <vientos-icon-button

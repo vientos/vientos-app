@@ -49,6 +49,10 @@ Polymer({
       type: Array,
       computed: '_getPotentialAdmins(project, people)'
     },
+    canFollow: {
+      type: Boolean,
+      computed: '_canFollow(person, admin, project)'
+    },
     newAdmin: {
       type: String,
       value: null
@@ -106,7 +110,7 @@ Polymer({
     util.back('/projects')
   },
 
-  _canFollow (person, admin) {
+  _canFollow (person, admin, project) {
     return person && !admin
   },
 
