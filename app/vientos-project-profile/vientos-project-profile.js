@@ -111,7 +111,7 @@ Polymer({
   },
 
   _canFollow (person, admin, project) {
-    return person && !admin
+    return person && !admin && project
   },
 
   _follow () {
