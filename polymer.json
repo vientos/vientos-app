@@ -2,9 +2,6 @@
   "entrypoint": "index.html",
   "shell": "app/vientos-shell/vientos-shell.html",
   "fragments": [
-    "app/vientos-projects/vientos-projects.html",
-    "app/vientos-map/vientos-map.html",
-    "app/intents-list/intents-list.html",
     "app/vientos-project-profile/vientos-project-profile.html",
     "app/vientos-filter/vientos-filter.html",
     "app/vientos-me/vientos-me.html",

@@ -195,11 +195,19 @@ Polymer({
     // Load page import on demand. Show 404 page if fails
     var viewUrl
     switch (page) {
-      case 'intents':
-        viewUrl = '../intents-list/intents-list'
-        break
       case 'projects':
-        viewUrl = '../vientos-projects/vientos-projects'
+        setTimeout(() => {
+          let projectsIronList = this.$$('div[name=projects] iron-list')
+          if (projectsIronList.fire) projectsIronList.fire('iron-resize')
+        }, 1000)
+        viewUrl = '../vientos-project-preview/vientos-project-preview'
+        break
+      case 'intents':
+        setTimeout(() => {
+          let intentsIronList = this.$$('div[name=intents] iron-list')
+          if (intentsIronList.fire) intentsIronList.fire('iron-resize')
+        }, 1000)
+        viewUrl = '../intent-preview/intent-preview'
         break
       case 'filter':
         viewUrl = '../vientos-filter/vientos-filter'
@@ -238,7 +246,6 @@ Polymer({
         viewUrl = '../place-page/place-page'
         break
     }
-
     viewUrl += '.html'
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
@@ -414,6 +421,12 @@ Polymer({
     mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
     // fetch reviews and update every 60s
     setInterval(() => { this.dispatch('fetchReviews') }, 60000)
+    setTimeout(() => {
+      let projectsIronList = this.$$('div[name=projects] iron-list')
+      if (projectsIronList.fire) projectsIronList.fire('iron-resize')
+      let intentsIronList = this.$$('div[name=intents] iron-list')
+      if (intentsIronList.fire) intentsIronList.fire('iron-resize')
+    }, 2000)
   }
 
 })
