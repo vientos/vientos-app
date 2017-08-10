@@ -80,15 +80,6 @@ Polymer({
     this._drawMarkers()
   },
 
-  _showList () {
-    if (this.of === 'intents') {
-      window.history.pushState({}, '', '/intents')
-    } else {
-      window.history.pushState({}, '', '/projects')
-    }
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  },
-
   _drawMarkers () {
     let icon = this.of === 'projects' ? 'organization' : 'intent'
     this.icon = L.divIcon({

@@ -84,81 +84,101 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-header id="header" fixed>
         <vientos-header page="[[page]]" on-toggle="_toggleDrawer"></vientos-header>
       </app-header>
+      <div id="app-container">
+        <iron-pages
+        selected="{{page}}"
+        attr-for-selected="name"
+        fallback-selection="view404"
+        role="main">
 
-      <iron-pages
-      selected="{{page}}"
-      attr-for-selected="name"
-      fallback-selection="view404"
-      role="main">
-      <!-- <main> -->
+          <vientos-filter name="filter"></vientos-filter>
 
-      <vientos-filter name="filter"></vientos-filter>
+          <div name="projects">
+            <iron-list
+              id="list"
+              items="[[visibleProjects]]"
+              as="project">
+              <template>
+                <vientos-project-preview project="[[project]]"></vientos-project-preview>
+              </template>
+            </iron-list>
+          </div>
 
-      <vientos-projects
-      name="projects"
-      projects="[[visibleProjects]]"></vientos-projects>
+          <div name="intents">
+            <iron-list
+              id="intents"
+              items="[[intents]]"
+              as="intent">
+              <template>
+                <intent-preview intent="[[intent]]" show-projects></intent-preview>
+              </template>
+            </iron-list>
+          </div>
 
-      <intents-list name="intents" intents="[[visibleIntents]]">
-      </intents-list>
 
-      <vientos-map
-      name="map"
-      view="[[mapView]]"
-      locations="[[visiblePlaces]]"
-      of="[[mapOf]]"
-      on-bbox="_updateBoundingBox"></vientos-map>
+          <vientos-project-profile
+          name="project"
+          project="[[currentProject]]"></vientos-project-profile>
 
-      <vientos-project-profile
-      name="project"
-      project="[[currentProject]]"></vientos-project-profile>
+          <vientos-edit-project-details
+          name="edit-project-details"
+          project="[[currentProject]]"></vientos-edit-project-details>
 
-      <vientos-edit-project-details
-      name="edit-project-details"
-      project="[[currentProject]]"></vientos-edit-project-details>
+          <vientos-edit-project-details
+          name="new-project"
+          creator="[[person]]"></vientos-edit-project-details>
 
-      <vientos-edit-project-details
-      name="new-project"
-      creator="[[person]]"></vientos-edit-project-details>
+          <vientos-intent-page
+          name="intent"
+          intent="[[currentIntent]]"></vientos-intent-page>
 
-      <vientos-intent-page
-      name="intent"
-      intent="[[currentIntent]]"></vientos-intent-page>
+          <vientos-intent-editor
+          name="edit-intent"
+          intent="[[currentIntent]]"></vientos-intent-editor>
 
-      <vientos-intent-editor
-      name="edit-intent"
-      intent="[[currentIntent]]"></vientos-intent-editor>
+          <vientos-intent-editor
+          name="new-intent"
+          project="[[currentProject]]"></vientos-intent-editor>
 
-      <vientos-intent-editor
-      name="new-intent"
-      project="[[currentProject]]"></vientos-intent-editor>
+          <vientos-me name="me"></vientos-me>
+          <personal-profile-editor name="edit-my-profile"></personal-profile-editor>
 
-      <vientos-me name="me"></vientos-me>
-      <personal-profile-editor name="edit-my-profile"></personal-profile-editor>
+          <start-conversation
+          name="new-conversation"
+          intent="[[currentIntent]]"></start-conversation>
 
-      <start-conversation
-      name="new-conversation"
-      intent="[[currentIntent]]"></start-conversation>
+          <conversation-page
+          name="conversation"
+          conversation="[[currentConversation]]"></conversation-page>
 
-      <conversation-page
-      name="conversation"
-      conversation="[[currentConversation]]"></conversation-page>
+          <place-page
+          name="place"
+          place="[[currentPlace]]"></place-page>
 
-      <place-page
-      name="place"
-      place="[[currentPlace]]"></place-page>
+          <my-view404 name="view404"></my-view404>
 
-      <my-view404 name="view404"></my-view404>
+          <!-- </main> -->
+        </iron-pages>
+        <vientos-map
+          view="[[mapView]]"
+          locations="[[visiblePlaces]]"
+          of="[[mapOf]]"
+          on-bbox="_updateBoundingBox"></vientos-map>
+      </div>
 
-      <!-- </main> -->
-    </iron-pages>
-    <template is="dom-if" if="[[mapButtonVisible]]">
-      <paper-fab on-tap="_showMap" icon="vientos:map">
-      </paper-fab>
-    </template>
 
-    <template is="dom-if" if="[[_hasFooter(page)]]">
-      <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
-    </template>
+      <template is="dom-if" if="[[mapButtonVisible]]">
+        <paper-fab on-tap="_showMap" icon="vientos:map">
+        </paper-fab>
+      </template>
+      <template is="dom-if" if="[[listButtonVisible]]">
+        <paper-fab on-tap="_showList" icon="vientos:list">
+        </paper-fab>
+      </template>
+
+      <template is="dom-if" if="[[_hasFooter(page)]]">
+        <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
+      </template>
 
   </app-header-layout>
 </app-drawer-layout>

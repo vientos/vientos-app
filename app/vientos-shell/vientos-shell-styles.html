@@ -68,18 +68,35 @@
     margin-bottom: 96px;
   }
 
-
   vientos-map {
-    display: block;
-    width: 100vw;
+    display: none;
     height: 85vh;
   }
 
+  /* when screen is wider than 800px */
+  @media screen and (min-width: 800px) {
+    #app-container {
+      display: flex;
+      max-height: 100vh;
+    }
 
-  vientos-project-preview {
-    height: auto;
-    width: 292px !important;
+    #app-container iron-pages div[name=projects],
+    #app-container iron-pages div[name=intents] {
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    iron-pages {
+      flex: 1;
+    }
+
+    vientos-map {
+      display: block;
+      flex: 2;
+    }
   }
+
 
   app-header {
     @apply --vientos-toolbar;

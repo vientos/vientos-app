@@ -99,9 +99,17 @@ Polymer({
     mapView: {
       type: Object
     },
+    showingMap: {
+      type: Boolean,
+      value: false
+    },
     mapButtonVisible: {
       type: Boolean,
-      computed: '_mapButtonVisibility(page, locationFilter)'
+      computed: '_mapButtonVisibility(page, wideScreen, showingMap)'
+    },
+    listButtonVisible: {
+      type: Boolean,
+      computed: '_listButtonVisibility(page, wideScreen, showingMap)'
     },
     currentProject: {
       type: Object,
@@ -148,6 +156,9 @@ Polymer({
       value: [],
       computed: '_filterPlaces(visibleIntents, places, boundingBox)'
     },
+    wideScreen: {
+      type: Boolean
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -160,7 +171,8 @@ Polymer({
 
   observers: [
     '_routePageChanged(routeData.page)',
-    '_queryChanged(query)'
+    '_queryChanged(query)',
+    '_handleMapVisibility(page, wideScreen, showingMap)'
   ],
 
   _routePageChanged (page) {
@@ -188,9 +200,6 @@ Polymer({
         break
       case 'projects':
         viewUrl = '../vientos-projects/vientos-projects'
-        break
-      case 'map':
-        viewUrl = '../vientos-map/vientos-map'
         break
       case 'filter':
         viewUrl = '../vientos-filter/vientos-filter'
@@ -312,7 +321,7 @@ Polymer({
   _filterPlaces: util.filterPlaces,
 
   _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
-    if (page === 'map' || page === 'place') {
+    if (page === 'place') {
       if (!this.visiblePlaces.length) return visibleProjectLocations
       return this.visiblePlaces
     }
@@ -326,7 +335,7 @@ Polymer({
   },
 
   _updateBoundingBox (e, detail) {
-    if (this.page === 'map') {
+    if (this.page === 'projects' || this.page === 'intents') {
       this.dispatch('setBoundingBox', detail)
     }
   },
@@ -336,13 +345,20 @@ Polymer({
   },
 
   _showMap () {
-    window.history.pushState({}, '', '/map')
-    window.dispatchEvent(new CustomEvent('location-changed'))
+    this.set('showingMap', true)
   },
 
-  _mapButtonVisibility (page, locationFilter) {
-    return (page === 'projects' && locationFilter !== 'city') ||
-            page === 'intents'
+  _showList () {
+    this.set('showingMap', false)
+  },
+
+  _mapButtonVisibility (page, wideScreen, showingMap) {
+    return !wideScreen && !showingMap &&
+      (page === 'projects' || page === 'intents')
+  },
+
+  _listButtonVisibility (page, wideScreen, showingMap) {
+    return !wideScreen && showingMap && (page === 'projects' || page === 'intents')
   },
 
   _sessionChanged (session) {
@@ -358,6 +374,31 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
+  _viewPortWidenessChanged (mediaQueryList) {
+    this.set('wideScreen', mediaQueryList.matches)
+  },
+
+  _handleMapVisibility (page, wideScreen, showingMap) {
+    let vientosMapElement = this.$$('vientos-map')
+    let ironPagesElement = this.$$('iron-pages')
+
+    if (wideScreen) {
+      ironPagesElement.style.display = 'block'
+      if (page === 'intents' || page === 'projects') {
+        vientosMapElement.style.display = 'block'
+      } else {
+        vientosMapElement.style.display = 'none'
+      }
+    } else {
+      if (page === 'intents' || page === 'projects') {
+        vientosMapElement.style.display = showingMap ? 'block' : 'none'
+        ironPagesElement.style.display = showingMap ? 'none' : 'block'
+      } else {
+        ironPagesElement.style.display = 'block'
+      }
+    }
+  },
+
   ready () {
     this.dispatch('hello')
     this.dispatch('fetchLabels')
@@ -368,6 +409,9 @@ Polymer({
     this.dispatch('fetchIntents')
     // this.dispatch('fetchCollaborations')
     this.dispatch('fetchReviews')
+    let mqWideScreen = window.matchMedia('(min-width: 800px)')
+    this.set('wideScreen', mqWideScreen.matches)
+    mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
     // fetch reviews and update every 60s
     setInterval(() => { this.dispatch('fetchReviews') }, 60000)
   }
