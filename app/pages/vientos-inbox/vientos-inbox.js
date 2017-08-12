@@ -37,9 +37,9 @@ Polymer({
       type: Array,
       statePath: 'projects'
     },
-    login: {
+    loginProviders: {
       type: String,
-      value: () => { return window.vientos.login }
+      statePath: 'loginProviders'
     },
     session: {
       type: Object,

@@ -1,11 +1,9 @@
 /* global CustomEvent */
 
-import { mintUrl } from './vientos'
 import { escape } from 'escape-goat'
 import deepEqual from 'deep-equal'
 const service = require('../config.json').service
 
-export { mintUrl }
 export { deepEqual }
 
 export function locationsInBoundingBox (entity, places, boundingBox) {

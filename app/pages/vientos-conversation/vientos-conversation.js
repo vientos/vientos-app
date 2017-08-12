@@ -6,8 +6,6 @@ Polymer({
   actions: {
     addMessage: ActionCreators.addMessage,
     addReview: ActionCreators.addReview,
-    // saveCollaboration: ActionCreators.saveCollaboration,
-    abortConversation: ActionCreators.abortConversation,
     saveNotification: ActionCreators.saveNotification
   },
 
@@ -176,6 +174,7 @@ Polymer({
   _startReview () {
     this.set('reviewing', true)
   },
+
   _abortReview () {
     this._reset()
   },
@@ -199,15 +198,10 @@ Polymer({
       as: this._whoReviews(),
       body: this.newReview,
       conversation: this.conversation._id,
-      rating: this.rating
+      rating: this.rating,
+      success: this.success
     }
-    if (this.success) {
-      // review.collaboration = this.conversation.collaboration._id
-      review.success = true
-      this.dispatch('addReview', review)
-    } else {
-      this.dispatch('abortConversation', this.conversation, review)
-    }
+    this.dispatch('addReview', review)
     this._reset()
   },
 
