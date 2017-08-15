@@ -34,7 +34,7 @@
         <section id="my-projects">
           <ul>
             <template is="dom-repeat" items="[[myProjects]]" as="project">
-              <li on-tap="_showProjectProfile">
+              <li on-tap="_showProjectProfile" class="clickable">
                 <iron-image
                    src="[[_getThumbnailUrl(project, 92)]]"
                    sizing="contain">

@@ -20,7 +20,8 @@ Polymer({
     linksToConversation: {
       type: Boolean,
       computed: '_linksToConversation(review, myConversations, skipLink)',
-      value: false
+      value: false,
+      reflectToAttribute: true
     },
     skipLink: {
       type: Boolean,
