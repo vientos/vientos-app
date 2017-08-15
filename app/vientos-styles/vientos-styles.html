@@ -36,6 +36,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       bottom: 0;
     };
 
+    --toolbar-height: 48px;
+
 
 
     /* icons */
@@ -47,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     --vientos-toolbar: {
       /*padding: 1.5em;*/
-      height: 4em;
+      height: var(--toolbar-height);
       @apply --vientos-typography-menu;
       color: var(--vientos-color-icon);
     };
@@ -208,6 +210,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     };
   }
 
+  paper-button.primary-action {
+    position: fixed;
+    right: 0;
+    bottom: var(--toolbar-height);
+    left: 0;
+    z-index: 1000000;
+  }
+
   paper-fab {
     position: fixed;
     right: 2em;
@@ -298,6 +308,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       flex: 1;
     }
   }
+
+
 
 
   </style>

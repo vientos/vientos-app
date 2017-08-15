@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
@@ -148,7 +148,10 @@
 
 
 <template is="dom-if" if="[[admin]]">
-  <paper-fab icon="vientos:add-intent" on-tap="_newIntent"></paper-fab>
+  <paper-button class="primary-action" on-tap="_newIntent">
+    <iron-icon icon="vientos:add-intent"></iron-icon>
+    [[localize('button:add-intent')]]
+  </paper-button>
 </template>
 
 <section id="active-intents">
