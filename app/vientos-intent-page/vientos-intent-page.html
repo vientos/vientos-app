@@ -117,10 +117,25 @@
     </template>
 
     <section>
+      <h3>
+        [[localize('label:projects')]]
+      </h3>
+      <ul id="projects">
+        <template is="dom-repeat" items="[[intentProjects]]" as="project">
+          <li on-tap="_showProjectProfile" class="clickable">
+            <iron-image
+               src="[[_getThumbnailUrl(project, 26)]]"
+               sizing="contain">
+            </iron-image>
+            [[project.name]]
+          </li>
+        </template>
+      </ul>
+    </section>
+    <section>
       <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
       [[localize(intent.direction)]]
     </section>
-
     <section id="description">
       <h3>[[localize('label:description')]]</h3>
       <div>[[intent.description]]</div>
@@ -168,22 +183,6 @@
       <div>[[intent.expiryDate]]</div>
     </section>
 
-    <section>
-      <h3>
-        [[localize('label:projects')]]
-      </h3>
-      <ul id="projects">
-        <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
-          <li on-tap="_showProjectProfile">
-            <iron-image
-               src="[[_getThumbnailUrl(project, 26)]]"
-               sizing="contain">
-            </iron-image>
-            [[project.name]]
-          </li>
-        </template>
-      </ul>
-    </section>
     <section id="stats">
       <h3>[[localize('stats')]]</h3>
       <span>

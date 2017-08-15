@@ -123,7 +123,7 @@ export function filterExpiredProjectIntents (person, project, intents, myConvers
 }
 
 export function getIntentProjects (intent, projects) {
-  if (!intent) return []
+  if (!intent || !projects.length) return []
   return projects.filter(project => intent.projects.includes(project._id))
 }
 
