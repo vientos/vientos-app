@@ -125,6 +125,11 @@
     </section>
 
     <section>
+      <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
+      <label>
+        [[localize('label:address')]]
+        <div><input id="place-input"></div>
+      </label>
       <ul>
         <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
           <li>
@@ -133,12 +138,6 @@
           </li>
         </template>
       </ul>
-      <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
-      <label>
-        [[localize('label:address')]]
-        <div><input id="place-input"></div>
-      </label>
-      <paper-button raised on-tap="_addLocation" disabled="[[!newPlace]]">[[localize('button:add-location')]]</paper-button>
     </section>
 
     <footer class="simple">

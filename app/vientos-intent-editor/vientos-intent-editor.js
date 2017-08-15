@@ -198,19 +198,21 @@ Polymer({
 
   _placeChanged () {
     let googlePlace = this.autocomplete.getPlace()
-    let place = {
-      address: googlePlace.formatted_address,
-      latitude: googlePlace.geometry.location.lat(),
-      longitude: googlePlace.geometry.location.lng(),
-      googlePlaceId: googlePlace.place_id
+    if (googlePlace.place_id) {
+      let place = {
+        address: googlePlace.formatted_address,
+        latitude: googlePlace.geometry.location.lat(),
+        longitude: googlePlace.geometry.location.lng(),
+        googlePlaceId: googlePlace.place_id
+      }
+      let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
+      if (existingPlace) {
+        place = existingPlace
+      } else {
+        place._id = util.mintUrl({ type: 'Place' })
+      }
+      this._addLocation(place)
     }
-    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-    if (existingPlace) {
-      place = existingPlace
-    } else {
-      place._id = util.mintUrl({ type: 'Place' })
-    }
-    this._addLocation(place)
   },
 
   _imageInputChanged (e) {

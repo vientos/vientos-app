@@ -93,18 +93,6 @@ Polymer({
     this.set(collectionPath, [...this.get(collectionPath), element])
   },
 
-  _addLocation (place) {
-    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-    if (!existingPlace) {
-      this.dispatch('savePlace', place)
-    }
-    this._addToCollection(place._id, 'updated.locations')
-    this.$['place-input'].value = ''
-  },
-
-  _removeLocation (e) {
-    this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
-  },
 
   _addContact () {
     this._addToCollection(this.newContact, 'updated.contacts')
@@ -185,6 +173,19 @@ Polymer({
     }
   },
 
+  _addLocation (place) {
+    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
+    if (!existingPlace) {
+      this.dispatch('savePlace', place)
+    }
+    this._addToCollection(place._id, 'updated.locations')
+    this.$['place-input'].value = ''
+  },
+
+  _removeLocation (e) {
+    this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
+  },
+
   _onGoogleMapsApiLoad () {
     this.autocomplete = new google.maps.places.Autocomplete(this.$['place-input'])
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
@@ -192,19 +193,21 @@ Polymer({
 
   _placeChanged () {
     let googlePlace = this.autocomplete.getPlace()
-    let place = {
-      address: googlePlace.formatted_address,
-      latitude: googlePlace.geometry.location.lat(),
-      longitude: googlePlace.geometry.location.lng(),
-      googlePlaceId: googlePlace.place_id
+    if (googlePlace.place_id) {
+      let place = {
+        address: googlePlace.formatted_address,
+        latitude: googlePlace.geometry.location.lat(),
+        longitude: googlePlace.geometry.location.lng(),
+        googlePlaceId: googlePlace.place_id
+      }
+      let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
+      if (existingPlace) {
+        place = existingPlace
+      } else {
+        place._id = util.mintUrl({ type: 'Place' })
+      }
+      this._addLocation(place)
     }
-    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-    if (existingPlace) {
-      place = existingPlace
-    } else {
-      place._id = util.mintUrl({ type: 'Place' })
-    }
-    this._addLocation(place)
   },
 
   _imageInputChanged (e) {
