@@ -6,6 +6,7 @@ Polymer({
 
   properties: {
     intent: {
+      // passed from parent
       type: Object
     },
     myConversations: {
@@ -26,7 +27,7 @@ Polymer({
     },
     ourTurnCount: {
       type: Number,
-      computed: '_calcOurTurnCount(person, myConversations, intent)'
+      computed: '_calcOurTurnCount(person, myConversations, intent, projectAdmin)'
     },
     projects: {
       type: Array,
@@ -71,7 +72,7 @@ Polymer({
   },
 
   _checkIfProjectAdmin (person, intent, projects) {
-    if (!person) return false
+    if (!person || !intent) return false
     return intent.projects.reduce((acc, projectId) => {
       return acc.concat(util.getRef(projectId, projects).admins)
     }, []).includes(person._id)
@@ -85,8 +86,8 @@ Polymer({
     }).length
   },
 
-  _calcOurTurnCount (person, myConversations, intent) {
-    if (person) {
+  _calcOurTurnCount (person, myConversations, intent, projectAdmin) {
+    if (person && projectAdmin && intent) {
       return myConversations.filter(conversation => {
         return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
       }).reduce((count, conversation) => {
