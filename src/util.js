@@ -244,7 +244,13 @@ function orderIntents (intents, person, myConversations, notifications) {
         let bConversations = myConversations.filter(conversation => {
           return onThisIntent(conversation, b)
         })
-        return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
+        if (aConversations.length && bConversations.length) {
+          return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
+        } else if (aConversations.length) {
+          return -1
+        } else if (bConversations.length) {
+          return 1
+        }
       }
     }
   })
