@@ -2,7 +2,7 @@
 
 Polymer({
   is: 'place-page',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+  behaviors: [ ReduxBehavior ],
 
   properties: {
     place: {
@@ -24,14 +24,6 @@ Polymer({
     placeProjects: {
       type: Array,
       computed: '_filterProjects(place, projects)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
     }
   },
 

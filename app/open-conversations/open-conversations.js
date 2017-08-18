@@ -2,7 +2,7 @@
 
 Polymer({
   is: 'open-conversations',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+  behaviors: [ ReduxBehavior ],
 
   properties: {
     person: {

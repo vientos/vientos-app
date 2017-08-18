@@ -2,7 +2,7 @@
 
 Polymer({
   is: 'vientos-project-preview',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+  behaviors: [ ReduxBehavior ],
 
   properties: {
     project: {
@@ -16,14 +16,6 @@ Polymer({
       type: Object,
       value: null,
       computed: '_checkIfFollows(person, project)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
     }
   },
 
