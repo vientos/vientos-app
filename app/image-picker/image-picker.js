@@ -1,0 +1,45 @@
+/* global Polymer */
+
+Polymer({
+  is: 'image-picker',
+
+  properties: {
+    imageUrl: {
+      // passed from parent
+      type: String
+    },
+    label: {
+      // passed from parent
+      type: String
+    },
+    newImage: {
+      type: Object,
+      value: null
+    },
+    imagePreviewSrc: {
+      type: String,
+      computed: '_getImagePreviewSrc(imageUrl, newImage)'
+    }
+  },
+
+  reset () {
+    this.$['new-image-form'].reset()
+  },
+
+  _imageInputChanged (e) {
+    let image = e.target.files[0]
+    if (image) {
+      this.set('newImage', image)
+      this.fire('picked', image)
+    }
+  },
+
+  _getImagePreviewSrc (imageUrl, newImage) {
+    if (newImage) {
+      return window.URL.createObjectURL(newImage)
+    } else if (imageUrl) {
+      return imageUrl
+    }
+  }
+
+})

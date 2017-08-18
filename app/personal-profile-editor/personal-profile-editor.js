@@ -25,10 +25,6 @@ Polymer({
       type: Object,
       value: null
     },
-    imagePreviewSrc: {
-      type: String,
-      computed: '_getImagePreviewSrc(person, newImage)'
-    },
     readyToSave: {
       type: Boolean,
       computed: '_readyToSave(hasChanges, updated.name)',
@@ -67,7 +63,7 @@ Polymer({
 
   _reset () {
     this.set('newImage', null)
-    this.$['new-image-form'].reset()
+    this.$$('image-picker').reset()
   },
 
   _readyToSave (hasChanges, name) {
@@ -91,23 +87,6 @@ Polymer({
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
-  // TODO move to util
-  _imageInputChanged (e) {
-    let image = e.target.files[0]
-    if (image) {
-      this.set('newImage', image)
-    }
-  },
-
-  // TODO move to util
-  _getImagePreviewSrc (person, newImage) {
-    if (newImage) {
-      return window.URL.createObjectURL(newImage)
-    } else if (person) {
-      return person.logo
-    }
-  },
-
   _toggleLanguage (e) {
     if (this.updated.language === 'en') {
       this.set('updated.language', 'es')
@@ -122,5 +101,9 @@ Polymer({
 
   _toggleEmailNotifications (e) {
     this.set('updated.emailNotifications', !this.updated.emailNotifications)
+  },
+
+  _imagePicked (e) {
+    this.set('newImage', e.detail)
   }
 })

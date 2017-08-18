@@ -42,10 +42,6 @@ Polymer({
       type: Object,
       value: null
     },
-    imagePreviewSrc: {
-      type: String,
-      computed: '_getImagePreviewSrc(updated, newImage)'
-    },
     categories: {
       type: Array,
       statePath: 'categories'
@@ -93,7 +89,6 @@ Polymer({
     this.set(collectionPath, [...this.get(collectionPath), element])
   },
 
-
   _addContact () {
     this._addToCollection(this.newContact, 'updated.contacts')
     this.set('newContact', '')
@@ -123,7 +118,7 @@ Polymer({
     this.set('newContact', '')
     this.set('newLink', '')
     this.$['place-input'].value = ''
-    this.$['new-image-form'].reset()
+    this.$$('image-picker').reset()
   },
 
   _save () {
@@ -210,19 +205,8 @@ Polymer({
     }
   },
 
-  _imageInputChanged (e) {
-    let image = e.target.files[0]
-    if (image) {
-      this.set('newImage', image)
-    }
-  },
-
-  _getImagePreviewSrc (project, newImage) {
-    if (newImage) {
-      return window.URL.createObjectURL(newImage)
-    } else if (project) {
-      return project.logo
-    }
+  _imagePicked (e) {
+    this.set('newImage', e.detail)
   }
 
 })

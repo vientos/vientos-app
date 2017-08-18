@@ -1,0 +1,23 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="image-picker-styles.html">
+
+<dom-module id="image-picker">
+  <style include="image-picker-styles"></style>
+  <template>
+    <form id="new-image-form">
+      <label for="new-image">[[label]]</label>
+      <template is="dom-if" if="[[imagePreviewSrc]]">
+        <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
+      </template>
+      <div>
+        <input id="new-image"
+          type="file"
+          accept="image/*"
+          on-change="_imageInputChanged">
+      </div>
+    </form>
+  </template>
+  <script src="image-picker.js"></script>
+</dom-module>

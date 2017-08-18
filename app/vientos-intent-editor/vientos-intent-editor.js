@@ -33,10 +33,6 @@ Polymer({
     project: {
       type: Object
     },
-    imagePreviewSrc: {
-      type: String,
-      computed: '_getImagePreviewSrc(intent, newImage)'
-    },
     newImage: {
       type: Object,
       value: null
@@ -119,7 +115,7 @@ Polymer({
 
   _reset () {
     this.set('newImage', null)
-    this.$['new-image-form'].reset()
+    this.$$('image-picker').reset()
     this.$['place-input'].value = ''
     if (this.updated && this.updated.collaborationType) this.$$(`vientos-icon-button[name=${this.updated.collaborationType}]`).set('active', false)
     this.updateStyles()
@@ -215,19 +211,8 @@ Polymer({
     }
   },
 
-  _imageInputChanged (e) {
-    let image = e.target.files[0]
-    if (image) {
-      this.set('newImage', image)
-    }
-  },
-
-  _getImagePreviewSrc (intent, newImage) {
-    if (newImage) {
-      return window.URL.createObjectURL(newImage)
-    } else if (intent) {
-      return intent.logo
-    }
+  _imagePicked (e) {
+    this.set('newImage', e.detail)
   },
 
   ready () {

@@ -1,11 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 
 <link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
+<link rel="import" href="../image-picker/image-picker.html">
 
 <link rel="import" href="vientos-edit-project-details-styles.html">
 
@@ -16,18 +16,11 @@
     </style>
 
     <section id="logo">
-      <form id="new-image-form">
-        <label for="new-image">[[localize('label:image')]]</label>
-        <template is="dom-if" if="[[imagePreviewSrc]]">
-          <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
-        </template>
-        <div>
-          <input id="new-image"
-            type="file"
-            accept="image/*"
-            on-change="_imageInputChanged">
-        </div>
-      </form>
+      <image-picker
+        image-url="[[updated.logo]]"
+        label="[[localize('label:image')]]"
+        on-picked="_imagePicked"
+        ></image-picker>
     </section>
     <section id="general-info">
       <paper-input value="{{updated.name}}" label="[[localize('label:org-name')]]" required></paper-input>
