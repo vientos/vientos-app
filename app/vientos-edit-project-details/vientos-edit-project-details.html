@@ -2,10 +2,10 @@
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 
 <link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
 <link rel="import" href="../image-picker/image-picker.html">
+<link rel="import" href="../place-picker/place-picker.html">
 
 <link rel="import" href="vientos-edit-project-details-styles.html">
 
@@ -39,10 +39,10 @@
       on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
     </section>
     <section>
-      <label>
-        [[localize('label:address')]]
-        <div><input id="place-input"></div>
-      </label>
+      <h3>[[localize('label:address')]]</h3>
+      <place-picker
+        on-picked="_placePicked"
+      ></place-picker>
       <ul>
         <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
           <li>
@@ -51,7 +51,6 @@
           </li>
         </template>
       </ul>
-      <google-maps-api id="maps" api-key="[[googleMapsApiKey]]" libraries="places" on-api-load="_onGoogleMapsApiLoad"></google-maps-api>
     </section>
     <section id="contact-data">
       <p>[[localize('label:contacts')]]</p>

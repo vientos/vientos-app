@@ -1,4 +1,4 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, google, util */
+/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
 
 Polymer({
   is: 'vientos-edit-project-details',
@@ -45,10 +45,6 @@ Polymer({
     categories: {
       type: Array,
       statePath: 'categories'
-    },
-    googleMapsApiKey: {
-      type: String,
-      value: window.vientos.config.map.googleApiKey
     },
     readyToSave: {
       type: Boolean,
@@ -117,8 +113,9 @@ Polymer({
     this.set('newImage', null)
     this.set('newContact', '')
     this.set('newLink', '')
-    this.$['place-input'].value = ''
+    this.$$('place-picker').reset()
     this.$$('image-picker').reset()
+    this._makeClone()
   },
 
   _save () {
@@ -170,39 +167,21 @@ Polymer({
 
   _addLocation (place) {
     let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-    if (!existingPlace) {
+    if (existingPlace) {
+      place = existingPlace
+    } else {
+      place._id = util.mintUrl({ type: 'Place' })
       this.dispatch('savePlace', place)
     }
     this._addToCollection(place._id, 'updated.locations')
-    this.$['place-input'].value = ''
   },
 
   _removeLocation (e) {
     this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
   },
 
-  _onGoogleMapsApiLoad () {
-    this.autocomplete = new google.maps.places.Autocomplete(this.$['place-input'])
-    google.maps.event.addListener(this.autocomplete, 'place_changed', this._placeChanged.bind(this))
-  },
-
-  _placeChanged () {
-    let googlePlace = this.autocomplete.getPlace()
-    if (googlePlace.place_id) {
-      let place = {
-        address: googlePlace.formatted_address,
-        latitude: googlePlace.geometry.location.lat(),
-        longitude: googlePlace.geometry.location.lng(),
-        googlePlaceId: googlePlace.place_id
-      }
-      let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-      if (existingPlace) {
-        place = existingPlace
-      } else {
-        place._id = util.mintUrl({ type: 'Place' })
-      }
-      this._addLocation(place)
-    }
+  _placePicked (e) {
+    this._addLocation(e.detail)
   },
 
   _imagePicked (e) {
