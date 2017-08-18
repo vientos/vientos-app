@@ -87,9 +87,13 @@ export function checkIfExpired (intent) {
   if (intent) return Date.now() - new Date(intent.expiryDate) > 0
 }
 
+export function availableIntents (intents) {
+  return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
+}
+
 export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
-  let filtered = intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
-  filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
+  let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
+  filtered = availableIntents(filtered)
   if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
   }

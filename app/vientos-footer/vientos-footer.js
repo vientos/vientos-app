@@ -1,4 +1,5 @@
 /* global Polymer, ReduxBehavior, CustomEvent */
+const util = window.vientos.util
 
 Polymer({
   is: 'vientos-footer',
@@ -22,9 +23,14 @@ Polymer({
       type: Array,
       statePath: 'intents'
     },
+    availableIntents: {
+      type: Array,
+      value: [],
+      computed: '_avilableIntents(intents)'
+    },
     filterActive: {
       type: Boolean,
-      computed: '_activeFilter(projects, intents, visibleProjectsCount, visibleIntentsCount)',
+      computed: '_activeFilter(projects, availableIntents, visibleProjectsCount, visibleIntentsCount)',
       observer: '_highlightBadges'
     },
     language: {
@@ -36,6 +42,8 @@ Polymer({
       statePath: 'labels'
     }
   },
+
+  _avilableIntents: util.availableIntents,
 
   _highlightBadges (newVal) {
     let projectsBtn = this.$$('paper-button[name=projects]')
@@ -51,8 +59,8 @@ Polymer({
     }
   },
 
-  _activeFilter (projects, intents, visibleProjectsCount, visibleIntentsCount) {
-    return projects.length !== visibleProjectsCount || intents.length !== visibleIntentsCount
+  _activeFilter (projects, availableIntents, visibleProjectsCount, visibleIntentsCount) {
+    return projects.length !== visibleProjectsCount || availableIntents.length !== visibleIntentsCount
   },
 
   _pageChanged (page) {

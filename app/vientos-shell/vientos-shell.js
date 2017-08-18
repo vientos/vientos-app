@@ -1,7 +1,6 @@
 /* global Polymer, ReduxBehavior, CustomEvent */
 
 const ActionCreators = window.vientos.ActionCreators
-const util = window.vientos.util
 
 Polymer({
 
@@ -175,6 +174,10 @@ Polymer({
     '_handleMapVisibility(page, wideScreen, showingMap)'
   ],
 
+  _filterProjects: util.filterProjects,
+  _filterIntents: util.filterIntents,
+  _filterPlaces: util.filterPlaces,
+
   _routePageChanged (page) {
     let selectedPage = page || 'projects'
     this.set('page', selectedPage)
@@ -320,12 +323,6 @@ Polymer({
     if (page !== 'place') return null
     return places.find(place => place._id === util.urlFromId(placeId, 'places'))
   },
-
-  _filterProjects: util.filterProjects,
-
-  _filterIntents: util.filterIntents,
-
-  _filterPlaces: util.filterPlaces,
 
   _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
     if (page === 'place') {
