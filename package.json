@@ -10,7 +10,7 @@
     "isomorphic-fetch": "^2.2.1",
     "redux": "^3.6.0",
     "redux-saga": "^0.14.3",
-    "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.2",
+    "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.3",
     "vientos-fixtures": "https://github.com/vientos/vientos-fixtures.git#0.0.5"
   },
   "devDependencies": {
