@@ -19,12 +19,7 @@
     background-color: var(--vientos-secondary-light);
   }
 
-  vientos-header {
-    @apply --layout-horizontal;
-    @apply --vientos-toolbar;
-    box-shadow: 0px 0px 8px #888;
-    /*background-color: var(--vientos-color-header) !important;*/
-  }
+
 
 
   iron-pages {
@@ -103,8 +98,67 @@
    };
  }
 
- #language-toggle {
-   display: flex;
+ #header {
+   @apply --layout-horizontal;
+   @apply --vientos-toolbar;
+   box-shadow: 0px 0px 8px #888;
+   /*background-color: var(--vientos-color-header) !important;*/
+ }
+
+ #header #menu-button-holder-right paper-icon-button {
+   vertical-align: super;
+   opacity: 0.5;
+ }
+
+ #header #menu-button-holder-right #login-button {
+   color: var(--vientos-complementary-3);
+   opacity: 0.8;
+ }
+
+ #header #menu-button-holder-right.selected {
+   @apply --vientos-nav-button-selected;
+ }
+
+ #header #page-title {
+   flex: 1;
+   text-align: center;
+   font-size: 2em;
+   line-height: 2em;
+ }
+
+ #header #logo {
+   width: 32px;
+   height: 32px;
+   /*margin: var(--spacing-1);*/
+   margin: 4px;
+ }
+
+ #header #person-avatar {
+   width: 26px;
+   height: 26px;
+   margin-left: 5px;
+ }
+
+ #header span#notifications ,
+ #header span#our-turn {
+   padding: 3px 8px;
+   border-radius: 50%;
+   color: white;
+   font-weight: bolder;
+   margin-left: 5px;
+   font-size: 14px;
+ }
+
+ #header span#notifications {
+   background-color: var(--accent-color);
+ }
+
+ #header span#our-turn {
+   background-color: var(--vientos-complementary-2);
+ }
+
+ #header #login-button iron-icon {
+   margin-left: 5px;
  }
 
  #footer {

@@ -64,6 +64,10 @@ Polymer({
       type: Array,
       statePath: 'myConversations'
     },
+    notifications: {
+      type: Array,
+      statePath: 'notifications'
+    },
     filteredCategories: {
       type: Array,
       statePath: 'filteredCategories'
@@ -159,6 +163,10 @@ Polymer({
     wideScreen: {
       type: Boolean
     },
+    ourTurnCount: {
+      type: Number,
+      computed: '_calcOurTurnCount(person, myConversations, intents)'
+    },
     availableIntents: {
       type: Array,
       value: [],
@@ -168,10 +176,6 @@ Polymer({
       type: Boolean,
       computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
       observer: '_highlightBadges'
-    },
-    footerPage: {
-      type: String,
-      observer: '_footerPageChanged'
     },
     language: {
       type: String,
@@ -186,7 +190,8 @@ Polymer({
   observers: [
     '_routePageChanged(routeData.page)',
     '_queryChanged(query)',
-    '_handleMapVisibility(page, wideScreen, showingMap)'
+    '_handleMapVisibility(page, wideScreen, showingMap)',
+    '_footerPageChanged(page)'
   ],
 
   _filterProjects: util.filterProjects,
@@ -270,6 +275,7 @@ Polymer({
     document.documentElement.scrollTop = 0
     var resolvedPageUrl = this.resolveUrl(viewUrl)
     this.importHref(resolvedPageUrl, null, this._showPage404, true)
+    this._decorateMeButton(page)
   },
 
   _hasFooter (page) {
@@ -413,6 +419,22 @@ Polymer({
         ironPagesElement.style.display = 'block'
       }
     }
+  },
+
+  _calcOurTurnCount (person, myConversations, intents) {
+    return myConversations.reduce((count, conversation) => {
+      return util.ourTurn(person, conversation, intents) ? ++count : count
+    }, 0)
+  },
+
+  _decorateMeButton (page) {
+    if (page === 'me') this.$['menu-button-holder-right'].className = 'selected'
+    else this.$['menu-button-holder-right'].className = ''
+  },
+
+  _showProfile () {
+    window.history.pushState({}, '', '/me')
+    window.dispatchEvent(new CustomEvent('location-changed'))
   },
 
   _highlightBadges (newVal) {
