@@ -3,7 +3,6 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="../components/vientos-card/vientos-card.html">
 
 <link rel="import" href="vientos-project-preview-styles.html">
 
@@ -12,7 +11,7 @@
 
     <style include="vientos-project-preview-styles"></style>
 
-    <vientos-card on-tap="_showFullProfile">
+    <div class="card" on-tap="_showFullProfile">
         <div id="project-title">
           <h4>
             [[project.name]]
@@ -42,7 +41,7 @@
           </div>
         </main>
 
-    </vientos-card>
+    </div>
 
   </template>
 </dom-module>

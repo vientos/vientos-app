@@ -4,7 +4,6 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="../components/vientos-card/vientos-card.html">
 <link rel="import" href="intent-preview-styles.html">
 
 <dom-module id="intent-preview">
@@ -12,7 +11,7 @@
 
     <style include="intent-preview-styles"></style>
 
-    <vientos-card on-tap="_showIntentDetails">
+    <div class="card" on-tap="_showIntentDetails">
       <div id="main">
         <div id="info">
           <div id="direction">
@@ -65,7 +64,7 @@
           </span>
         </div>
       </template>
-    </vientos-card>
+    </div>
   </template>
   <script src="intent-preview.js"></script>
 </dom-module>

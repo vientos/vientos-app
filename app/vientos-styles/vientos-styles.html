@@ -54,20 +54,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: var(--vientos-color-icon);
     };
 
-    /*--vientos-button: {
-      color: var(--vientos-color-button);
-    };*/
-
-    --vientos-card: {
-      @apply --layout-vertical;
-      background-color: var(--vientos-color-card-bg);
-      margin: var(--spacing-1) !important;
-      padding: 0 var(--spacing-1);
-      box-sizing: border-box;
-      -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-      box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-    };
-
     --small-icon: {
 
       @apply --icon-layout;
@@ -140,16 +126,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   .clickable,
-  vientos-card,
+  .card,
   review-card[links-to-conversation] {
     cursor: pointer;
   }
 
   .clickable:hover,
-  vientos-card:hover { 
+  .card:hover {
     box-shadow: 3px 3px 3px var(--vientos-primary-light);
   }
 
+  .card {
+    @apply --layout-vertical;
+    background-color: var(--vientos-color-card-bg);
+    margin: var(--spacing-1) !important;
+    padding: 0 var(--spacing-1);
+    box-sizing: border-box;
+    -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  };
 
   paper-textarea {
     width: 100%;
