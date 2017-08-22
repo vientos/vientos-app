@@ -165,7 +165,7 @@ Polymer({
     }
   },
 
-  _showFab (person, projectAdmin) {
+  _showPrimaryAction (person, projectAdmin) {
     return person && !projectAdmin
   },
 

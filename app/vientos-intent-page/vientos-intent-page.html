@@ -244,7 +244,7 @@
         </ul>
       </section>
     </template>
-    <template is="dom-if" if="[[_showFab(person, projectAdmin)]]">
+    <template is="dom-if" if="[[_showPrimaryAction(person, projectAdmin)]]">
       <template is="dom-if" if="[[!currentConversation]]">
         <paper-button class="primary-action" id="start" on-tap="_startConversation">
           <iron-icon icon="vientos:conversation"></iron-icon>

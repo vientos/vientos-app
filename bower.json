@@ -28,7 +28,6 @@
     "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
     "dom-repeat-n": "^1.0.4",
     "iron-image": "^1.2.5",
-    "paper-fab": "^1.2.1",
     "leaflet": "^1.0.3",
     "iron-icons": "^1.2.0",
     "vaadin-date-picker": "vaadin/vaadin-date-picker#^1.2.3",

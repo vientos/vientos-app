@@ -28,7 +28,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -201,12 +200,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
       <template is="dom-if" if="[[mapButtonVisible]]">
-        <paper-fab on-tap="_showMap" icon="vientos:map">
-        </paper-fab>
+        <paper-button class="primary-action" on-tap="_showMap">
+          <iron-icon icon="vientos:map"></iron-icon>
+          [[localize('button:map')]]
+        </paper-button>
       </template>
       <template is="dom-if" if="[[listButtonVisible]]">
-        <paper-fab on-tap="_showList" icon="vientos:list">
-        </paper-fab>
+        <paper-button class="primary-action" on-tap="_showList">
+          <iron-icon icon="vientos:list"></iron-icon>
+          [[localize('button:list')]]
+        </paper-button>
       </template>
 
       <template is="dom-if" if="[[_hasFooter(page)]]">
