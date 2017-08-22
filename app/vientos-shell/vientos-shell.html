@@ -94,10 +94,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <template is="dom-if" if="[[person]]">
               <paper-button on-tap="_showProfile">
                 <template is="dom-if" if="[[notifications.length]]">
-                  <span id="notifications">[[notifications.length]]</span>
+                  <span id="notifications">
+                    <iron-icon icon="vientos:notification"></iron-icon>
+                    [[notifications.length]]
+                  </span>
                 </template>
                 <template is="dom-if" if="[[ourTurnCount]]">
-                  <span id="our-turn">[[ourTurnCount]]</span>
+                  <span id="our-turn">
+                    <iron-icon icon="vientos:ball"></iron-icon>
+                    [[ourTurnCount]]
+                  </span>
                 </template>
                 <iron-image id="person-avatar" src="[[person.logo]]" sizing="contain"></iron-image>
               </paper-button>
