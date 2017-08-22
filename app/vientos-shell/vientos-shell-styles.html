@@ -26,16 +26,6 @@
     /*background-color: var(--vientos-color-header) !important;*/
   }
 
-  vientos-footer {
-    @apply --vientos-toolbar;
-    @apply --layout-horizontal;
-    @apply --w-100;
-    @apply --spaced-x;
-    position: fixed;
-    bottom: 0;
-    box-shadow: 0px 0px 8px #888;
-    background-color: var(--vientos-secondary-light);
-  }
 
   iron-pages {
     padding-bottom: 3em;
@@ -100,30 +90,9 @@
     @apply --vientos-toolbar;
   }
 
-  #vientos-footer,
-  #vientos-footer app-toolbar,
-  app-header-layout app-toolbar iron-selector {
-    @apply --w-100;
-    @apply --layout-horizontal;
-  }
-
-
-  vientos-footer {
-    z-index: 10000;
-  }
-
-
-  #vientos-header {
-    /*background-color: var(--app-header-background-color);*/
-  }
   app-toolbar {
     @apply --h-100;
   }
-  /*app-header > #contentContainer,
-  app-toolbar {
-  font-size: 22px !important;
-  height: 2.5em !important;
-  }*/
 
   paper-fab {
    --paper-fab-background: var(--vientos-primary);
@@ -137,6 +106,57 @@
  #language-toggle {
    display: flex;
  }
+
+ #footer {
+   @apply --vientos-toolbar;
+   @apply --layout-horizontal;
+   @apply --w-100;
+   @apply --spaced-x;
+   position: fixed;
+   bottom: 0;
+   box-shadow: 0px 0px 8px #888;
+   background-color: var(--vientos-secondary-light);
+   z-index: 10000;
+ }
+
+ #footer app-toolbar {
+   @apply --p-0;
+   @apply --w-100;
+   @apply --h-100;
+ }
+ /*app-toolbar, */
+ #footer iron-selector {
+   /*@apply --fixed-bottom;*/
+   @apply --w-100;
+   @apply --h-100;
+
+   @apply --spaced-x;
+   @apply --vientos-typography-button-x;
+
+ }
+
+#footer paper-button {
+  @apply --layout-flex;
+  color: var(--vientos-primary-dark);
+}
+
+#footer paper-button.iron-selected {
+  @apply --vientos-nav-button-selected;
+}
+
+#footer paper-button.filtered paper-badge {
+  --paper-badge-background: var(--vientos-secondary-1);
+  --paper-badge-text-color: #000;
+}
+
+#footer paper-button[active] iron-icon {
+ background-color: var(--vientos-secondary-1);
+ color: black;
+ border-radius: 50%;
+ padding: 5px 3px 5px 7px;
+ opacity: 0.7;
+ box-sizing: content-box;
+}
 
 
   </style>

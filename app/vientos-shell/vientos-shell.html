@@ -47,7 +47,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
 
 <link rel="import" href="../vientos-header/vientos-header.html">
-<link rel="import" href="../vientos-footer/vientos-footer.html">
 
 <link rel="import" href="../vientos-map/vientos-map.html">
 <!-- <link rel="import" href="../intent-preview/intent-preview.html">
@@ -180,7 +179,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
 
       <template is="dom-if" if="[[_hasFooter(page)]]">
-        <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
+        <div id="footer">
+          <app-toolbar>
+             <iron-selector selected="{{footerPage}}" attr-for-selected="name" role="navigation">
+
+                <paper-button name="projects">
+                  <iron-icon id="projects-icon" icon="vientos:organization"></iron-icon>
+                  <template is="dom-if" if="[[filterActive]]">
+                    <paper-badge label="[[visibleProjects.length]]" for="projects-icon"></paper-badge>
+                  </template>
+                </paper-button>
+                <paper-button name="intents">
+                  <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
+                  <template is="dom-if" if="[[filterActive]]">
+                    <paper-badge label="[[visibleIntents.length]]" for="intents-icon"></paper-badge>
+                  </template>
+                </paper-button>
+                <paper-button name="filter" active="[[filterActive]]">
+                  <iron-icon icon="vientos:filter"></iron-icon>
+                </paper-button>
+             </iron-selector>
+          </app-toolbar>
+        </div>
       </template>
 
   </app-header-layout>

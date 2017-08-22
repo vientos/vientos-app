@@ -1,6 +1,7 @@
 /* global Polymer, ReduxBehavior, CustomEvent */
 
 const ActionCreators = window.vientos.ActionCreators
+const util = window.vientos.util
 
 Polymer({
 
@@ -158,6 +159,20 @@ Polymer({
     wideScreen: {
       type: Boolean
     },
+    availableIntents: {
+      type: Array,
+      value: [],
+      computed: '_avilableIntents(intents)'
+    },
+    filterActive: {
+      type: Boolean,
+      computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
+      observer: '_highlightBadges'
+    },
+    footerPage: {
+      type: String,
+      observer: '_footerPageChanged'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -177,6 +192,7 @@ Polymer({
   _filterProjects: util.filterProjects,
   _filterIntents: util.filterIntents,
   _filterPlaces: util.filterPlaces,
+  _avilableIntents: util.availableIntents,
 
   _routePageChanged (page) {
     let selectedPage = page || 'projects'
@@ -344,10 +360,6 @@ Polymer({
     }
   },
 
-  _toggleDrawer () {
-    this.$$('app-drawer').toggle()
-  },
-
   _showMap () {
     this.set('showingMap', true)
   },
@@ -400,6 +412,37 @@ Polymer({
       } else {
         ironPagesElement.style.display = 'block'
       }
+    }
+  },
+
+  _highlightBadges (newVal) {
+    let projectsBtn = this.$$('paper-button[name=projects]')
+    let intentsBtn = this.$$('paper-button[name=intents]')
+    if (projectsBtn && intentsBtn) {
+      let projectsBadge = projectsBtn.getElementsByTagName('paper-badge')[0]
+      let intentsBadge = intentsBtn.getElementsByTagName('paper-badge')[0]
+      if ((newVal && !projectsBtn.className.includes('filtered')) || (!newVal && projectsBtn.className.includes('filtered'))) {
+        projectsBtn.toggleClass('filtered')
+        intentsBtn.toggleClass('filtered')
+        if (projectsBadge) projectsBadge.notifyResize()
+        if (intentsBadge) intentsBadge.notifyResize()
+        this.updateStyles()
+      }
+    }
+  },
+
+  _activeFilter (projects, availableIntents, visibleProjects, visibleIntents) {
+    return projects.length !== visibleProjects.length || availableIntents.length !== visibleIntents.length
+  },
+
+  _footerPageChanged (page) {
+    if (['filter', 'projects', 'intents'].includes(page)) {
+      if (page === 'projects' && window.location.pathname === '/') return
+      if (page === 'intents' && window.location.pathname === '/intents') return
+      // if (page === 'map' && window.location.search   !== '') return
+      let pathname = page === 'projects' ? '/' : `/${page}`
+      window.history.pushState({}, '', pathname)
+      window.dispatchEvent(new CustomEvent('location-changed'))
     }
   },
 
