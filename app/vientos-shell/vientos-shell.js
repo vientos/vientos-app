@@ -417,6 +417,7 @@ Polymer({
         ironPagesElement.style.display = showingMap ? 'none' : 'block'
       } else {
         ironPagesElement.style.display = 'block'
+        vientosMapElement.style.display = 'none'
       }
     }
   },
