@@ -158,7 +158,7 @@ Polymer({
 
   _showLocationOnMap (e) {
     let place = util.getRef(e.model.placeId, this.places)
-    window.history.pushState({}, '', `/map?latitude=${place.latitude}&longitude=${place.longitude}&zoom=15`)
+    window.history.pushState({}, '', util.pathFor(place, 'place') + '#map')
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
 

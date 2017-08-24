@@ -115,6 +115,10 @@ Polymer({
       type: Boolean,
       computed: '_listButtonVisibility(page, wideScreen, showingMap)'
     },
+    placeInfoButtonVisible: {
+      type: Boolean,
+      computed: '_placeInfoButtonVisibility(page, wideScreen, showingMap)'
+    },
     currentProject: {
       type: Object,
       value: null,
@@ -133,7 +137,8 @@ Polymer({
     currentPlace: {
       type: Object,
       value: null,
-      computed: '_findPlace(routeData.page, subrouteData.id, places)'
+      computed: '_findPlace(routeData.page, subrouteData.id, places)',
+      observer: '_setMapView'
     },
     visibleProjects: {
       type: Array,
@@ -189,7 +194,6 @@ Polymer({
 
   observers: [
     '_routePageChanged(routeData.page)',
-    '_queryChanged(query)',
     '_handleMapVisibility(page, wideScreen, showingMap)',
     '_footerPageChanged(page)'
   ],
@@ -203,16 +207,6 @@ Polymer({
     let selectedPage = page || 'projects'
     this.set('page', selectedPage)
     // if (!['map', 'project'].includes(page)) window.history.replaceState({}, '', `/${page}`)
-  },
-
-  _queryChanged (query) {
-    if (query.zoom) {
-      this.set('mapView', {
-        latitude: Number(query.latitude),
-        longitude: Number(query.longitude),
-        zoom: Number(query.zoom)
-      })
-    }
   },
 
   _pageChanged (page) {
@@ -346,6 +340,16 @@ Polymer({
     return places.find(place => place._id === util.urlFromId(placeId, 'places'))
   },
 
+  _setMapView (place) {
+    if (place) {
+      this.set('mapView', {
+        latitude: place.latitude,
+        longitude: place.longitude,
+        zoom: 14 // FIXME remove magic number
+      })
+    }
+  },
+
   _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
     if (page === 'place') {
       if (!this.visiblePlaces.length) return visibleProjectLocations
@@ -367,20 +371,29 @@ Polymer({
   },
 
   _showMap () {
+    if(this.wideScreen) window.history.replaceState({}, '', window.location.pathname + + '#map')
+    else window.history.pushState({}, '', window.location.pathname + '#map')
     this.set('showingMap', true)
+    if (this.currentPlace) this._setMapView(this.currentPlace)
   },
 
   _showList () {
+    if(this.wideScreen) window.history.replaceState({}, '', window.location.pathname)
+    else window.history.pushState({}, '', window.location.pathname)
     this.set('showingMap', false)
   },
 
   _mapButtonVisibility (page, wideScreen, showingMap) {
     return !wideScreen && !showingMap &&
-      (page === 'projects' || page === 'intents')
+      (page === 'projects' || page === 'intents' || page === 'place')
   },
 
   _listButtonVisibility (page, wideScreen, showingMap) {
     return !wideScreen && showingMap && (page === 'projects' || page === 'intents')
+  },
+
+  _placeInfoButtonVisibility (page, wideScreen, showingMap) {
+    return !wideScreen && showingMap && (page === 'place')
   },
 
   _sessionChanged (session) {
@@ -406,13 +419,13 @@ Polymer({
 
     if (wideScreen) {
       ironPagesElement.style.display = 'block'
-      if (page === 'intents' || page === 'projects') {
+      if (page === 'intents' || page === 'projects' || page === 'place') {
         vientosMapElement.style.display = 'block'
       } else {
         vientosMapElement.style.display = 'none'
       }
     } else {
-      if (page === 'intents' || page === 'projects') {
+      if (page === 'intents' || page === 'projects' || page === 'place') {
         vientosMapElement.style.display = showingMap ? 'block' : 'none'
         ironPagesElement.style.display = showingMap ? 'none' : 'block'
       } else {
@@ -464,9 +477,15 @@ Polymer({
       if (page === 'intents' && window.location.pathname === '/intents') return
       // if (page === 'map' && window.location.search   !== '') return
       let pathname = page === 'projects' ? '/' : `/${page}`
+      if (this.showingMap) pathname += '#map'
       window.history.pushState({}, '', pathname)
       window.dispatchEvent(new CustomEvent('location-changed'))
     }
+  },
+
+  _locationChanged (e) {
+    if (window.location.hash === '#map') this.set('showingMap', true)
+    else this.set('showingMap', false)
   },
 
   ready () {
@@ -490,6 +509,8 @@ Polymer({
       let intentsIronList = this.$$('div[name=intents] iron-list')
       if (intentsIronList.fire) intentsIronList.fire('iron-resize')
     }, 2000)
+    window.addEventListener('location-changed', this._locationChanged.bind(this))
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
 })

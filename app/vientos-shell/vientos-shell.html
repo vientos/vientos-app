@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <style include="vientos-shell-styles"></style>
 
 
-  <app-location route="{{route}}" query-params="{{query}}"></app-location>
+  <app-location route="{{route}}"></app-location>
 
   <app-route
   route="{{route}}"
@@ -195,7 +195,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           view="[[mapView]]"
           locations="[[visiblePlaces]]"
           of="[[mapOf]]"
-          on-bbox="_updateBoundingBox"></vientos-map>
+          on-bbox="_updateBoundingBox"
+          ></vientos-map>
       </div>
 
 
@@ -209,6 +210,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-button class="primary-action" on-tap="_showList">
           <iron-icon icon="vientos:list"></iron-icon>
           [[localize('button:list')]]
+        </paper-button>
+      </template>
+      <template is="dom-if" if="[[placeInfoButtonVisible]]">
+        <paper-button class="primary-action" on-tap="_showList">
+          <iron-icon icon="vientos:address"></iron-icon>
+          [[localize('label:address')]]
         </paper-button>
       </template>
 
