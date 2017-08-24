@@ -246,19 +246,19 @@ Polymer({
         viewUrl = '../vientos-intent-page/vientos-intent-page'
         break
       case 'edit-intent':
-        viewUrl = '../vientos-intent-editor/vientos-intent-editor'
+        viewUrl = '../editors/intent-editor/intent-editor'
         break
       case 'new-intent':
-        viewUrl = '../vientos-intent-editor/vientos-intent-editor'
+        viewUrl = '../editors/intent-editor/intent-editor'
         break
       case 'edit-project-details':
-        viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
+        viewUrl = '../editors/organization-editor/organization-editor'
         break
       case 'new-project':
-        viewUrl = '../vientos-edit-project-details/vientos-edit-project-details'
+        viewUrl = '../editors/organization-editor/organization-editor'
         break
       case 'edit-my-profile':
-        viewUrl = '../personal-profile-editor/personal-profile-editor'
+        viewUrl = '../editors/account-settings/account-settings'
         break
       case 'new-conversation':
         viewUrl = '../start-conversation/start-conversation'

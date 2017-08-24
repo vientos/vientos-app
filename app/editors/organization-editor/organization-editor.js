@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
 
 Polymer({
-  is: 'vientos-edit-project-details',
+  is: 'organization-editor',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {

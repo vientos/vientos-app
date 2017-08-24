@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util */
 
 Polymer({
-  is: 'personal-profile-editor',
+  is: 'account-settings',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {

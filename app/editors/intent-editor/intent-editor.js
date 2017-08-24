@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util */
 
 Polymer({
-  is: 'vientos-intent-editor',
+  is: 'intent-editor',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {
