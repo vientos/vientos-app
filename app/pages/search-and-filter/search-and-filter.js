@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, ActionCreators, util */
 
 Polymer({
-  is: 'vientos-filter',
+  is: 'search-and-filter',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {

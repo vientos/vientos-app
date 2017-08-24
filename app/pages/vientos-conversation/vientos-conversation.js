@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, ActionCreators, util */
 
 Polymer({
-  is: 'conversation-page',
+  is: 'vientos-conversation',
 
   actions: {
     addMessage: ActionCreators.addMessage,

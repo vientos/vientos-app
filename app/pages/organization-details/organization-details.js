@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
 
 Polymer({
-  is: 'vientos-project-profile',
+  is: 'organization-details',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {

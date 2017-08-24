@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, util */
 
 Polymer({
-  is: 'place-page',
+  is: 'place-details',
   behaviors: [ ReduxBehavior ],
 
   properties: {

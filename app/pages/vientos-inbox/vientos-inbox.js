@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util */
 
 Polymer({
-  is: 'vientos-me',
+  is: 'vientos-inbox',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {

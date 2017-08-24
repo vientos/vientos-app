@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, ActionCreators,  CustomEvent, util */
 
 Polymer({
-  is: 'vientos-intent-page',
+  is: 'intent-details',
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 
   actions: {

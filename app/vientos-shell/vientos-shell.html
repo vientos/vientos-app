@@ -123,7 +123,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         fallback-selection="view404"
         role="main">
 
-          <vientos-filter name="filter"></vientos-filter>
+          <search-and-filter name="filter"></search-and-filter>
 
           <div name="projects">
             <iron-list
@@ -148,9 +148,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
 
 
-          <vientos-project-profile
+          <organization-details
           name="project"
-          project="[[currentProject]]"></vientos-project-profile>
+          project="[[currentProject]]"></organization-details>
 
           <organization-editor
           name="edit-project-details"
@@ -160,9 +160,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           name="new-project"
           creator="[[person]]"></organization-editor>
 
-          <vientos-intent-page
+          <intent-details
           name="intent"
-          intent="[[currentIntent]]"></vientos-intent-page>
+          intent="[[currentIntent]]"></intent-details>
 
           <intent-editor
           name="edit-intent"
@@ -172,20 +172,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           name="new-intent"
           project="[[currentProject]]"></intent-editor>
 
-          <vientos-me name="me"></vientos-me>
+          <vientos-inbox name="me"></vientos-inbox>
           <account-settings name="edit-my-profile"></account-settings>
 
           <start-conversation
           name="new-conversation"
           intent="[[currentIntent]]"></start-conversation>
 
-          <conversation-page
+          <vientos-conversation
           name="conversation"
-          conversation="[[currentConversation]]"></conversation-page>
+          conversation="[[currentConversation]]"></vientos-conversation>
 
-          <place-page
+          <place-details
           name="place"
-          place="[[currentPlace]]"></place-page>
+          place="[[currentPlace]]"></place-details>
 
           <my-view404 name="view404"></my-view404>
 

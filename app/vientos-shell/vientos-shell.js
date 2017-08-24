@@ -234,16 +234,16 @@ Polymer({
         viewUrl = '../cards/intent-preview/intent-preview'
         break
       case 'filter':
-        viewUrl = '../vientos-filter/vientos-filter'
+        viewUrl = '../pages/search-and-filter/search-and-filter'
         break
       case 'me':
-        viewUrl = '../vientos-me/vientos-me'
+        viewUrl = '../pages/vientos-inbox/vientos-inbox'
         break
       case 'project':
-        viewUrl = '../vientos-project-profile/vientos-project-profile'
+        viewUrl = '../pages/organization-details/organization-details'
         break
       case 'intent':
-        viewUrl = '../vientos-intent-page/vientos-intent-page'
+        viewUrl = '../pages/intent-details/intent-details'
         break
       case 'edit-intent':
         viewUrl = '../editors/intent-editor/intent-editor'
@@ -261,13 +261,13 @@ Polymer({
         viewUrl = '../editors/account-settings/account-settings'
         break
       case 'new-conversation':
-        viewUrl = '../start-conversation/start-conversation'
+        viewUrl = '../pages/start-conversation/start-conversation'
         break
       case 'conversation':
-        viewUrl = '../conversation-page/conversation-page'
+        viewUrl = '../pages/vientos-conversation/vientos-conversation'
         break
       case 'place':
-        viewUrl = '../place-page/place-page'
+        viewUrl = '../pages/place-details/place-details'
         break
     }
     viewUrl += '.html'
