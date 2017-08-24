@@ -2,10 +2,10 @@
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
-<link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
+<link rel="import" href="../widgets/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
-<link rel="import" href="../open-conversations/open-conversations.html">
+<link rel="import" href="../widgets/conversations-list/conversations-list.html">
 <link rel="import" href="../cards/intent-preview/intent-preview.html">
 
 <link rel="import" href="vientos-me-styles.html">
@@ -42,15 +42,15 @@
 
       <section>
         <h3>
-          [[localize('label:open-conversations')]]
+          [[localize('label:conversations-list')]]
         </h3>
         <template is="dom-repeat" items="[[activeIntents]]" as="intent">
           <intent-preview intent="[[intent]]" show-projects></intent-preview>
           <div class="conversations">
-            <open-conversations
+            <conversations-list
               conversations="[[_filterIntentConversations(intent, myConversations)]]"
               intent="[[intent]]">
-            </open-conversations>
+            </conversations-list>
           </div>
         </template>
       </section>

@@ -8,7 +8,7 @@
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="../components/vientos-categories-selector/vientos-categories-selector.html">
+<link rel="import" href="../widgets/categories-selector/categories-selector.html">
 
 <link rel="import" href="vientos-filter-styles.html">
 
@@ -99,10 +99,10 @@
             [[localize('button:clear')]]
           </paper-button>
         </div>
-        <vientos-categories-selector
+        <categories-selector
         categories="[[categories]]"
         selection="[[filteredCategories]]"
-        on-selection-changed="_selectionChanged"></vientos-categories-selector>
+        on-selection-changed="_selectionChanged"></categories-selector>
       </iron-collapse>
     </section>
     <section>

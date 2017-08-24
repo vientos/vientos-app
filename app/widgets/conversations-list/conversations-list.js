@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, CustomEvent, util */
 
 Polymer({
-  is: 'open-conversations',
+  is: 'conversations-list',
   behaviors: [ ReduxBehavior ],
 
   properties: {

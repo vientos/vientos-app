@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, util */
 
 Polymer({
-  is: 'vientos-categories-selector',
+  is: 'categories-selector',
 
   behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
 

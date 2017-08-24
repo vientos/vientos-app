@@ -1,13 +1,13 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
-<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
-<link rel="import" href="open-conversations-styles.html">
+<link rel="import" href="conversations-list-styles.html">
 
-<dom-module id="open-conversations">
-  <style include="open-conversations-styles"></style>
+<dom-module id="conversations-list">
+  <style include="conversations-list-styles"></style>
   <template>
     <ul>
       <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
@@ -27,5 +27,5 @@
       </template>
     </ul>
   </template>
-  <script src="open-conversations.js"></script>
+  <script src="conversations-list.js"></script>
 </dom-module>

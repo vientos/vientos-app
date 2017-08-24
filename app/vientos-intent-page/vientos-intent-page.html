@@ -9,8 +9,8 @@
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
-<link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
-<link rel="import" href="../open-conversations/open-conversations.html">
+<link rel="import" href="../widgets/vientos-icon-button/vientos-icon-button.html">
+<link rel="import" href="../widgets/conversations-list/conversations-list.html">
 <link rel="import" href="../cards/review-card/review-card.html">
 
 <link rel="import" href="vientos-intent-page-styles.html">
@@ -109,9 +109,9 @@
     <template is="dom-if" if="[[_showConversations(intentAdmin, conversations)]]">
       <section>
         <h3>
-          [[localize('label:open-conversations')]]
+          [[localize('label:conversations-list')]]
         </h3>
-        <open-conversations conversations="[[conversations]]" intent="[[intent]]"></open-conversations>
+        <conversations-list conversations="[[conversations]]" intent="[[intent]]"></conversations-list>
       </section>
     </template>
 

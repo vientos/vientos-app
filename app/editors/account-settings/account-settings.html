@@ -3,8 +3,8 @@
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 
-<link rel="import" href="../../components/vientos-categories-selector/vientos-categories-selector.html">
-<link rel="import" href="../../image-picker/image-picker.html">
+<link rel="import" href="../../widgets/categories-selector/categories-selector.html">
+<link rel="import" href="../../widgets/image-picker/image-picker.html">
 
 <link rel="import" href="account-settings-styles.html">
 
@@ -38,10 +38,10 @@
 
     <section id="categories">
       <h3>[[localize('label:categories')]]</h3>
-      <vientos-categories-selector
+      <categories-selector
         categories="[[categories]]"
         selection="[[updated.categories]]"
-        on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
+        on-selection-changed="_categoriesSelectionChanged"></categories-selector>
     </section>
     <footer class="simple">
       <paper-button id="button-save" raised on-tap="_save" disabled="[[!readyToSave]]">[[localize('button:save')]]</paper-button>

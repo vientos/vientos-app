@@ -3,9 +3,9 @@
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
 
-<link rel="import" href="../../components/vientos-categories-selector/vientos-categories-selector.html">
-<link rel="import" href="../../image-picker/image-picker.html">
-<link rel="import" href="../../place-picker/place-picker.html">
+<link rel="import" href="../../widgets/categories-selector/categories-selector.html">
+<link rel="import" href="../../widgets/image-picker/image-picker.html">
+<link rel="import" href="../../widgets/place-picker/place-picker.html">
 
 <link rel="import" href="organization-editor-styles.html">
 
@@ -33,10 +33,10 @@
       </div>
     </section>
     <section id="categories">
-    <vientos-categories-selector
+    <categories-selector
       categories="[[categories]]"
       selection="[[updated.categories]]"
-      on-selection-changed="_categoriesSelectionChanged"></vientos-categories-selector>
+      on-selection-changed="_categoriesSelectionChanged"></categories-selector>
     </section>
     <section>
       <h3>[[localize('label:address')]]</h3>
