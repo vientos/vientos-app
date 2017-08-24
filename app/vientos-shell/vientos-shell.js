@@ -224,14 +224,14 @@ Polymer({
           let projectsIronList = this.$$('div[name=projects] iron-list')
           if (projectsIronList.fire) projectsIronList.fire('iron-resize')
         }, 1000)
-        viewUrl = '../vientos-project-preview/vientos-project-preview'
+        viewUrl = '../cards/organization-preview/organization-preview'
         break
       case 'intents':
         setTimeout(() => {
           let intentsIronList = this.$$('div[name=intents] iron-list')
           if (intentsIronList.fire) intentsIronList.fire('iron-resize')
         }, 1000)
-        viewUrl = '../intent-preview/intent-preview'
+        viewUrl = '../cards/intent-preview/intent-preview'
         break
       case 'filter':
         viewUrl = '../vientos-filter/vientos-filter'

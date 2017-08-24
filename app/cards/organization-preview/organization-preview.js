@@ -1,7 +1,7 @@
 /* global Polymer, ReduxBehavior, CustomEvent, util */
 
 Polymer({
-  is: 'vientos-project-preview',
+  is: 'organization-preview',
   behaviors: [ ReduxBehavior ],
 
   properties: {

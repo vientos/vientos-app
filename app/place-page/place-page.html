@@ -3,8 +3,8 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 
-<link rel="import" href="../vientos-project-preview/vientos-project-preview.html">
-<link rel="import" href="../intent-preview/intent-preview.html">
+<link rel="import" href="../cards/organization-preview/organization-preview.html">
+<link rel="import" href="../cards/intent-preview/intent-preview.html">
 
 
 <link rel="import" href="place-page-styles.html">
@@ -21,7 +21,7 @@
     </header>
     <section>
       <template is="dom-repeat" items="[[placeProjects]]" as="project">
-        <vientos-project-preview project="[[project]]"></vientos-project-preview>
+        <organization-preview project="[[project]]"></organization-preview>
       </template>
     </section>
     <section>
