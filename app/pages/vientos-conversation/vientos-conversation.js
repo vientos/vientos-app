@@ -118,7 +118,7 @@ Polymer({
       this.set('editedCollaboration', Object.assign({}, conversation.collaboration))
     } else {
       this.set('editedCollaboration', {
-        _id: util.mintUrl({ type: 'Collaboration' }),
+        _id: window.vientos.mintUrl({ type: 'Collaboration' }),
         type: 'Collaboration',
         body: '',
         conversation: conversation._id

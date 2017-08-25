@@ -142,7 +142,7 @@ Polymer({
     if (creator) {
       this._reset()
       this.set('updated', {
-        _id: util.mintUrl({ type: 'Project' }),
+        _id: window.vientos.mintUrl({ type: 'Project' }),
         type: 'Project',
         admins: [creator._id],
         categories: [],
@@ -170,7 +170,7 @@ Polymer({
     if (existingPlace) {
       place = existingPlace
     } else {
-      place._id = util.mintUrl({ type: 'Place' })
+      place._id = window.vientos.mintUrl({ type: 'Place' })
       this.dispatch('savePlace', place)
     }
     this._addToCollection(place._id, 'updated.locations')

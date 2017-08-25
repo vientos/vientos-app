@@ -79,7 +79,7 @@ Polymer({
   _createConversation (person, intent) {
     if (person && intent) {
       this.set('conversation', {
-        _id: util.mintUrl({ type: 'Conversation' }),
+        _id: window.vientos.mintUrl({ type: 'Conversation' }),
         type: 'Conversation',
         creator: person._id,
         causingIntent: intent._id,
