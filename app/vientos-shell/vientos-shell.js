@@ -404,7 +404,6 @@ Polymer({
 
   _bye () {
     this.dispatch('bye', this.session)
-    this.$$('app-drawer').toggle()
     window.history.pushState({}, '', `/`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   },
