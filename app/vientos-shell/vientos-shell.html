@@ -1,14 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
@@ -25,18 +14,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
-<link rel="import" href="../redux-store.html">
-
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,900" rel="stylesheet">
 
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
-<link rel="import" href="../widgets/vientos-icon-button/vientos-icon-button.html">
-<link rel="import" href="../widgets/vientos-map/vientos-map.html">
+<!-- <link rel="import" href="../widgets/vientos-map/vientos-map.html"> -->
+
 <!-- <link rel="import" href="../cards/intent-preview/intent-preview.html">
 <link rel="import" href="../cards/organization-preview/organization-preview.html"> -->
 
 
-<link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-shell-styles.html">
 
 <dom-module id="vientos-shell">
@@ -114,7 +100,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               items="[[visibleProjects]]"
               as="project">
               <template>
-                <organization-preview project="[[project]]"></organization-preview>
+                <!-- <organization-preview project="[[project]]"></organization-preview> -->
+                <div>[[project.name]]</div>
               </template>
             </iron-list>
           </div>
@@ -125,13 +112,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               items="[[visibleIntents]]"
               as="intent">
               <template>
-                <intent-preview intent="[[intent]]" show-projects></intent-preview>
+                <!-- <intent-preview intent="[[intent]]" show-projects></intent-preview> -->
+                <div>[[intent.title]]</div>
               </template>
             </iron-list>
           </div>
 
 
-          <organization-details
+          <!-- <organization-details
           name="project"
           project="[[currentProject]]"></organization-details>
 
@@ -168,18 +156,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <place-details
           name="place"
-          place="[[currentPlace]]"></place-details>
+          place="[[currentPlace]]"></place-details> -->
 
           <my-view404 name="view404"></my-view404>
 
           <!-- </main> -->
         </iron-pages>
-        <vientos-map
+        <!-- <vientos-map
           view="[[mapView]]"
           locations="[[visiblePlaces]]"
           of="[[mapOf]]"
           on-bbox="_updateBoundingBox"
-          ></vientos-map>
+          ></vientos-map> -->
       </div>
 
 

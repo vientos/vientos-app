@@ -5,6 +5,7 @@ import {
   compose,
   combineReducers
 } from 'redux'
+import PolymerRedux from 'polymer-redux'
 import {
   ActionTypes,
   ActionCreators,
@@ -88,7 +89,9 @@ sagaMiddleware.run(saga)
 
 // otherwise unit tests not run in browser will fail
 if (typeof window !== 'undefined') {
+  window.vientos = {}
   window.vientos.store = store
+  window.vientos.ReduxMixin = PolymerRedux(store)
   window.vientos.ActionCreators = Object.assign({}, ActionCreators, AppActionCreators)
   window.vientos.mintUrl = client.mintUrl
   window.vientos.util = util

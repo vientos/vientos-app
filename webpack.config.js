@@ -1,14 +1,37 @@
-const path = require('path')
-// const Uglify = require('uglifyjs-webpack-plugin')
+'use strict';
+/* global __dirname module require*/
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/main.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname)
+  entry: {
+    main: './app/vientos-shell/vientos-shell.html',
+    engine: './src/main.js'
   },
-  // plugins: [
-  //   new Uglify()
-  // ],
-  devtool: 'source-map'
-}
+  output: {
+    // filename: '[name].[chunkhash].bundle.js',
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, './dist'),
+    publicPath: 'dist/'
+  },
+  resolve: {
+    modules: ['node_modules', 'bower_components'],
+    descriptionFiles: ['package.json']
+  },
+  devtool: 'inline-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'polymer-webpack-loader'
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new webpack.NamedChunksPlugin()
+  ]
+};
