@@ -1,11 +1,12 @@
-/* global Polymer, ReduxBehavior, util */
+/* global Polymer */
 
-Polymer({
-  is: 'categories-selector',
+class CategoriesSelector extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(Polymer.Element)) {
 
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+  static get is () { return 'categories-selector' }
 
-  properties: {
+  static get properties () { return {
     categories: {
       // from parent
       type: Array
@@ -21,13 +22,13 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
+  } }
 
-  _iconFor: util.iconFor,
+  _iconFor(...args) { return window.vientos.util.iconFor(...args) }
 
   _isInSelected (category, selection) {
     return selection.includes(category.id)
-  },
+  }
 
   _toggleCategory (e) {
     e.target.active = !e.target.active
@@ -36,7 +37,8 @@ Polymer({
     } else {
       this.set('selection', [...this.selection, e.model.item.id])
     }
-    this.fire('selection-changed', this.selection)
+    this.dispatchEvent(new CustomEvent('selection-changed', { detail: this.selection }))
     this.updateStyles()
   }
-})
+}
+window.customElements.define(CategoriesSelector.is, CategoriesSelector)

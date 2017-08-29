@@ -115,7 +115,7 @@ class VientosMap extends Polymer.Element {
   _updatedBoundingBox () {
     // FIXME gets called 3 times for lat, lon and zoom
     if (this.boundingBox) {
-      this.dispatchEvent(new CustomEvent('bbox', this.boundingBox))
+      this.dispatchEvent(new CustomEvent('bbox', { detail: this.boundingBox }))
     }
   }
 

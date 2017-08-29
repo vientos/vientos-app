@@ -197,6 +197,14 @@ class VientosShell extends Polymer.mixinBehaviors(
     resources: {
       type: Object,
       statePath: 'labels'
+    },
+    lazyPages: {
+      type: Object,
+      value: {
+        'search-and-filter': () => {
+          import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
+        }
+      }
     }
   } }
 
@@ -218,65 +226,28 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _pageChanged (page) {
-    // Load page import on demand. Show 404 page if fails
-    var viewUrl
-    switch (page) {
-      case 'projects':
+      // case 'projects':
         // setTimeout(() => {
         //   let projectsIronList = this.$$('div[name=projects] iron-list')
         //   if (projectsIronList.fire) projectsIronList.fire('iron-resize')
         // }, 1000)
-        viewUrl = '../cards/organization-preview/organization-preview'
-        break
-      case 'intents':
+      //   viewUrl = '../cards/organization-preview/organization-preview'
+      //   break
+      // case 'intents':
         // setTimeout(() => {
         //   let intentsIronList = this.$$('div[name=intents] iron-list')
         //   if (intentsIronList.fire) intentsIronList.fire('iron-resize')
         // }, 1000)
         // viewUrl = '../cards/intent-preview/intent-preview'
-        break
-      case 'filter':
-        viewUrl = '../pages/search-and-filter/search-and-filter'
-        break
-      case 'me':
-        viewUrl = '../pages/vientos-inbox/vientos-inbox'
-        break
-      case 'project':
-        viewUrl = '../pages/organization-details/organization-details'
-        break
-      case 'intent':
-        viewUrl = '../pages/intent-details/intent-details'
-        break
-      case 'edit-intent':
-        viewUrl = '../editors/intent-editor/intent-editor'
-        break
-      case 'new-intent':
-        viewUrl = '../editors/intent-editor/intent-editor'
-        break
-      case 'edit-project-details':
-        viewUrl = '../editors/organization-editor/organization-editor'
-        break
-      case 'new-project':
-        viewUrl = '../editors/organization-editor/organization-editor'
-        break
-      case 'edit-my-profile':
-        viewUrl = '../editors/account-settings/account-settings'
-        break
-      case 'new-conversation':
-        viewUrl = '../pages/start-conversation/start-conversation'
-        break
-      case 'conversation':
-        viewUrl = '../pages/vientos-conversation/vientos-conversation'
-        break
-      case 'place':
-        viewUrl = '../pages/place-details/place-details'
-        break
+        // break
+    // Load page import on demand. Show 404 page if fails
+    if(this.lazyPages[page]){
+      this.lazyPages[page]();
+    } else {
+      // this._showPage404();
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
-    // viewUrl += '.html'
-    // var resolvedPageUrl = this.resolveUrl(viewUrl)
-    // this.importHref(resolvedPageUrl, null, this._showPage404, true)
     this._decorateMeButton(page)
   }
 
@@ -499,7 +470,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     super.ready()
     // this.dispatch('hello')
     this.dispatch('fetchLabels')
-    // this.dispatch('fetchCategories')
+    this.dispatch('fetchCategories')
     this.dispatch('fetchProjects')
     this.dispatch('fetchPlaces')
     // this.dispatch('fetchPeople')
@@ -524,4 +495,4 @@ class VientosShell extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }
-window.customElements.define(VientosShell.is, VientosShell);
+window.customElements.define(VientosShell.is, VientosShell)
