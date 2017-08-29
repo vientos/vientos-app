@@ -24,17 +24,6 @@
     height: 100vh;
   }
 
-  app-header {
-    background-color: var(--vientos-secondary-light);
-  }
-
-
-
-
-  iron-pages {
-    padding-bottom: 3em;
-  }
-
   search-and-filter,
   vientos-inbox,
   organization-details,
@@ -65,6 +54,10 @@
     height: 85vh;
   }
 
+  #app-container {
+    padding: var(--toolbar-height) 0;
+  }
+
   /* when screen is wider than 800px */
   @media screen and (min-width: 800px) {
     #app-container {
@@ -89,11 +82,6 @@
     }
   }
 
-
-  app-header {
-    height: var(--toolbar-height);
-  }
-
   app-toolbar {
     height: 100%;
   }
@@ -105,12 +93,34 @@
 
  #header {
    @apply --layout-horizontal;
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 1000;
    height: var(--toolbar-height);
    box-shadow: 0px 0px 8px #888;
+   background-color: var(--vientos-secondary-light);
+ }
+
+ #header .button-holder {
+   @apply --layout-horizontal;
+ }
+
+ #header #menu-button-holder-left {
+   @apply --layout-fixed-left;
+   @apply --layout-start-justified;
  }
 
  #header #menu-button-holder-left a {
    display: block;
+ }
+
+ #header .button-holder paper-button div,
+ #header .button-holder paper-button iron-icon {
+   @apply --layout-horizontal;
+   @apply --layout-center-justified;
+   width: auto !important;
+   text-align: center !important;
  }
 
  #header #logo {
