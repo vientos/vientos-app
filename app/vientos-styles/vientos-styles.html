@@ -25,12 +25,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       position: fixed;
     };
 
-    --fixed-bottom: {
-      @apply (--fixed);
-      bottom: 0;
-    };
-
-    --toolbar-height: 48px;
 
 
 
@@ -39,13 +33,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --icon-layout: {
       @apply --layout-horizontal;
       @apply --layout-center-justified;
-    };
-
-    --vientos-toolbar: {
-      /*padding: 1.5em;*/
-      height: var(--toolbar-height);
-      @apply --vientos-typography-menu;
-      color: var(--vientos-color-icon);
     };
 
     --small-icon: {
@@ -76,10 +63,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 50%;
       margin-right: 20px;
     };
-
-    --vientos-nav-button-selected: {
-      border-bottom: 4px solid var(--vientos-primary-light);
-    }
 
   * {
     font-family: 'Source Sans Pro', sans-serif;
@@ -272,9 +255,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   footer {
-    @apply --vientos-toolbar;
     @apply --layout-horizontal;
-    @apply --spaced-x;
+    @apply --layout-horizontal;
+    @apply --layout-around-justified;
     position: fixed;
     bottom: 0;
     left: 32px;

@@ -7,6 +7,13 @@
   <template>
   <style include="vientos-styles">
 
+  :host {
+    --toolbar-height: 48px;
+
+    --vientos-nav-button-selected: {
+      border-bottom: 4px solid var(--vientos-primary-light);
+    };
+  }
 
   /* Will be prevented from affecting local DOM of Polymer elements */
   * {
@@ -84,7 +91,7 @@
 
 
   app-header {
-    @apply --vientos-toolbar;
+    height: var(--toolbar-height);
   }
 
   app-toolbar {
@@ -98,11 +105,20 @@
 
  #header {
    @apply --layout-horizontal;
-   @apply --vientos-toolbar;
-   height: 48px;
+   height: var(--toolbar-height);
    box-shadow: 0px 0px 8px #888;
-   /*background-color: var(--vientos-color-header) !important;*/
  }
+
+ #header #menu-button-holder-left a {
+   display: block;
+ }
+
+ #header #logo {
+   width: 32px;
+   height: 32px;
+   margin: calc((var(--toolbar-height) - 32px) / 2);
+ }
+
 
  #header #menu-button-holder-right paper-icon-button {
    vertical-align: super;
@@ -121,15 +137,8 @@
  #header #page-title {
    flex: 1;
    text-align: center;
-   font-size: 2em;
-   line-height: 2em;
- }
-
- #header #logo {
-   width: 32px;
-   height: 32px;
-   /*margin: var(--spacing-1);*/
-   margin: 4px;
+   font-size: calc(var(--toolbar-height) / 2);
+   line-height: var(--toolbar-height);
  }
 
  #header #person-avatar {
@@ -167,11 +176,10 @@
  }
 
  #footer {
-   @apply(--vientos-toolbar);
-   @apply(--layout-horizontal);
+   @apply --layout-horizontal;
+   @apply --layout-around-justified;
    width: 100%;
-   height: 48px;
-   @apply(--spaced-x);
+   height: var(--toolbar-height);
    position: fixed;
    bottom: 0;
    box-shadow: 0px 0px 8px #888;
@@ -185,12 +193,10 @@
  }
  /*app-toolbar, */
  #footer iron-selector {
-   /*@apply --fixed-bottom;*/
    width: 100%;
    height: 100%;
-
-   @apply --spaced-x;
-   @apply --vientos-typography-button-x;
+   @apply --layout-horizontal;
+   @apply --layout-around-justified;
 
  }
 

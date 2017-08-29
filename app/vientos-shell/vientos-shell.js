@@ -269,7 +269,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     // viewUrl += '.html'
     // var resolvedPageUrl = this.resolveUrl(viewUrl)
     // this.importHref(resolvedPageUrl, null, this._showPage404, true)
-    // this._decorateMeButton(page)
+    this._decorateMeButton(page)
   }
 
   _hasFooter (page) {
@@ -490,7 +490,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   ready () {
     super.ready()
     // this.dispatch('hello')
-    // this.dispatch('fetchLabels')
+    this.dispatch('fetchLabels')
     // this.dispatch('fetchCategories')
     this.dispatch('fetchProjects')
     // this.dispatch('fetchPlaces')
