@@ -19,8 +19,8 @@
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <!-- <link rel="import" href="../widgets/vientos-map/vientos-map.html"> -->
 
-<!-- <link rel="import" href="../cards/intent-preview/intent-preview.html">
-<link rel="import" href="../cards/organization-preview/organization-preview.html"> -->
+<!-- <link rel="import" href="../cards/intent-preview/intent-preview.html"> -->
+<link rel="import" href="../cards/organization-preview/organization-preview.html">
 
 
 <link rel="import" href="vientos-shell-styles.html">
@@ -98,10 +98,9 @@
             <iron-list
               id="list"
               items="[[visibleProjects]]"
-              as="project">
+              as="organization">
               <template>
-                <!-- <organization-preview project="[[project]]"></organization-preview> -->
-                <div>[[project.name]]</div>
+                <organization-preview organization="[[organization]]"></organization-preview>
               </template>
             </iron-list>
           </div>

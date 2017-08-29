@@ -140,6 +140,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     //   computed: '_findPlace(routeData.page, subrouteData.id, places)',
     //   observer: '_setMapView'
     // },
+    visibleProjects: {
+      type: Array, // KILL ME
+      statePath: 'projects'
+    },
     // visibleProjects: {
     //   type: Array,
     //   value: [],

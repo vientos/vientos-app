@@ -1,11 +1,13 @@
 /* global Polymer, ReduxBehavior, CustomEvent, util */
 
-Polymer({
-  is: 'organization-preview',
-  behaviors: [ ReduxBehavior ],
+class OrganizationPreview extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(Polymer.Element)) {
 
-  properties: {
-    project: {
+  static get is () { return 'organization-preview' }
+
+  static get properties () { return {
+    organization: {
       type: Object
     },
     person: {
@@ -17,14 +19,15 @@ Polymer({
       value: null,
       computed: '_checkIfFollows(person, project)'
     }
-  },
+  } }
 
-  _checkIfFollows: util.checkIfFollows,
-  _getThumbnailUrl: util.getThumbnailUrl,
+  _checkIfFollows (...args) { return window.vientos.util.checkIfFollows(...args) }
+  _getThumbnailUrl (...args) { return window.vientos.util.getThumbnailUrl(...args) }
 
   _showFullProfile () {
-    window.history.pushState({}, '', util.pathFor(this.project, 'project'))
+    window.history.pushState({}, '', window.vientos.util.pathFor(this.organization, 'project'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
+}
 
-})
+window.customElements.define(OrganizationPreview.is, OrganizationPreview)

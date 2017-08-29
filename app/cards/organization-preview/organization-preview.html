@@ -14,7 +14,7 @@
     <div class="card" on-tap="_showFullProfile">
         <div id="project-title">
           <h4>
-            [[project.name]]
+            [[organization.name]]
           </h4>
           <template is="dom-if" if="[[following]]">
             <iron-icon icon="vientos:follow"></iron-icon>
@@ -24,12 +24,12 @@
 
           <div>
             <iron-image
-               src="[[_getThumbnailUrl(project, 200)]]"
+               src="[[_getThumbnailUrl(organization, 200)]]"
                sizing="contain"
             ></iron-image>
 
             <ul id="project-preview-categories">
-            <template is="dom-repeat" items="[[project.categories]]">
+            <template is="dom-repeat" items="[[organization.categories]]">
               <li>
                 <iron-icon icon="vientos:[[item]]"></iron-icon>
               </li>
@@ -37,7 +37,7 @@
             </ul>
           </div>
           <div class="description">
-            [[project.description]]
+            [[organization.description]]
           </div>
         </main>
 
