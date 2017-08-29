@@ -103,22 +103,25 @@ class VientosShell extends Polymer.mixinBehaviors(
     mapView: {
       type: Object
     },
+    wideScreen: {
+      type: Boolean
+    },
     showingMap: {
       type: Boolean,
       value: false
     },
-    // mapButtonVisible: {
-    //   type: Boolean,
-    //   computed: '_mapButtonVisibility(page, wideScreen, showingMap)'
-    // },
-    // listButtonVisible: {
-    //   type: Boolean,
-    //   computed: '_listButtonVisibility(page, wideScreen, showingMap)'
-    // },
-    // placeInfoButtonVisible: {
-    //   type: Boolean,
-    //   computed: '_placeInfoButtonVisibility(page, wideScreen, showingMap)'
-    // },
+    mapButtonVisible: {
+      type: Boolean,
+      computed: '_mapButtonVisibility(page, wideScreen, showingMap)'
+    },
+    listButtonVisible: {
+      type: Boolean,
+      computed: '_listButtonVisibility(page, wideScreen, showingMap)'
+    },
+    placeInfoButtonVisible: {
+      type: Boolean,
+      computed: '_placeInfoButtonVisibility(page, wideScreen, showingMap)'
+    },
     // currentProject: {
     //   type: Object,
     //   value: null,
@@ -173,9 +176,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     //   value: [],
     //   computed: '_filterPlaces(visibleIntents, places, boundingBox)'
     // },
-    // wideScreen: {
-    //   type: Boolean
-    // },
     // ourTurnCount: {
     //   type: Number,
     //   computed: '_calcOurTurnCount(person, myConversations, intents)'
@@ -202,7 +202,7 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   static get observers () { return [
     '_routePageChanged(routeData.page)',
-    // '_handleMapVisibility(page, wideScreen, showingMap)',
+    '_handleMapVisibility(page, wideScreen, showingMap)',
     '_footerPageChanged(page)'
   ] }
 
@@ -501,14 +501,16 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('fetchLabels')
     // this.dispatch('fetchCategories')
     this.dispatch('fetchProjects')
-    // this.dispatch('fetchPlaces')
+    this.dispatch('fetchPlaces')
     // this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
     // this.dispatch('fetchCollaborations')
     // this.dispatch('fetchReviews')
-    // let mqWideScreen = window.matchMedia('(min-width: 800px)')
-    // this.set('wideScreen', mqWideScreen.matches)
-    // mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
+
+    let mqWideScreen = window.matchMedia('(min-width: 800px)')
+    this.set('wideScreen', mqWideScreen.matches)
+    mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
+
     // fetch reviews and update every 60s
     // setInterval(() => { this.dispatch('fetchReviews') }, 60000)
     // setTimeout(() => {
@@ -517,8 +519,9 @@ class VientosShell extends Polymer.mixinBehaviors(
     //   let intentsIronList = this.$$('div[name=intents] iron-list')
     //   if (intentsIronList.fire) intentsIronList.fire('iron-resize')
     // }, 2000)
-    // window.addEventListener('location-changed', this._locationChanged.bind(this))
-    // window.dispatchEvent(new CustomEvent('location-changed'))
+
+    window.addEventListener('location-changed', this._locationChanged.bind(this))
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }
 window.customElements.define(VientosShell.is, VientosShell);

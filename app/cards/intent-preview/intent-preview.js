@@ -74,7 +74,7 @@ class IntentPreview extends Polymer.mixinBehaviors(
   }
 
   _checkIfProjectAdmin (person, intent, projects) {
-    if (!person || !intent || !projects) return false
+    if (!person || !intent || !projects || !projects.length) return false
     return intent.projects.reduce((acc, projectId) => {
       return acc.concat(window.vientos.util.getRef(projectId, projects).admins)
     }, []).includes(person._id)

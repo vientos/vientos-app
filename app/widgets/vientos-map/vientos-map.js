@@ -1,12 +1,9 @@
-/* global Polymer, L, CustomEvent, util */
+/* global Polymer, L, CustomEvent */
 
-Polymer({
-  is: 'vientos-map',
-  map: undefined,
-  markers: undefined,
-  me: undefined,
+class VientosMap extends Polymer.Element {
+  static get is() { return 'vientos-map' }
 
-  properties: {
+  static get properties() { return {
     locations: {
       type: Array,
       observer: '_updatedLocations'
@@ -48,7 +45,7 @@ Polymer({
       type: String,
       value: () => { return window.vientos.config.map.tilelayer }
     }
-  },
+  } }
 
   _initializeMap () {
     this.map = L.map(this.$.map)
@@ -77,8 +74,8 @@ Polymer({
         this.latitude = this.map.getCenter().lat
         this.longitude = this.map.getCenter().lng
       })
-    this._drawMarkers()
-  },
+    if (this.locations) this._drawMarkers()
+  }
 
   _drawMarkers () {
     let icon = this.of === 'projects' ? 'organization' : 'intent'
@@ -94,13 +91,13 @@ Polymer({
           this._placeSelected(e.target.options.placeId)
         })
     })
-  },
+  }
 
   _updatedLocations () {
-    if (this.map) {
+    if (this.map && this.locations) {
       this._drawMarkers()
     }
-  },
+  }
 
   _getBoundingBox (lat, lon, zoom) {
     if (this.map) {
@@ -108,19 +105,19 @@ Polymer({
       ({ _southWest: sw, _northEast: ne } = this.map.getBounds())
       return { sw, ne }
     }
-  },
+  }
 
   _placeSelected (placeId) {
-    window.history.pushState({}, '', util.pathFor(placeId, 'place'))
+    window.history.pushState({}, '', window.vientos.util.pathFor(placeId, 'place'))
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _updatedBoundingBox () {
     // FIXME gets called 3 times for lat, lon and zoom
     if (this.boundingBox) {
-      this.fire('bbox', this.boundingBox)
+      this.dispatchEvent(new CustomEvent('bbox', this.boundingBox))
     }
-  },
+  }
 
   _showMyLocation () {
     if (this.myLatitude && this.myLongitude) {
@@ -132,17 +129,19 @@ Polymer({
     } else {
       this.map.locate()
     }
-  },
+  }
 
   _viewChanged (view) {
     if (this.map) this.map.setView([view.latitude, view.longitude], view.zoom)
-  },
+  }
 
   ready () {
+    super.ready()
     this._initializeMap()
     // FIXME do only once, after viewing map page.. If not this 100 ms interval, doesn't load some tiles
     setInterval(() => {
       this.map.invalidateSize()
     }, 200)
   }
-})
+}
+window.customElements.define(VientosMap.is, VientosMap)

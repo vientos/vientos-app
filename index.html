@@ -68,13 +68,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
       document.addEventListener('WebComponentsReady', function webcomponentsready() {
         var refScript = document.getElementsByTagName('script')[1];
-        var mainScript = document.createElement('script');
-        mainScript.src = 'dist/main.bundle.js';
-        refScript.parentNode.insertBefore(mainScript, refScript);
         var engineScript = document.createElement('script');
         engineScript.src = 'dist/engine.bundle.js';
         refScript.parentNode.insertBefore(engineScript, refScript);
         document.removeEventListener('WebComponentsReady', webcomponentsready, false);
+        var mainScript = document.createElement('script');
+        mainScript.src = 'dist/main.bundle.js';
+        refScript.parentNode.insertBefore(mainScript, refScript);
       }, false);
     </script>
 

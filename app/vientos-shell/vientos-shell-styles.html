@@ -58,6 +58,10 @@
     padding: var(--toolbar-height) 0;
   }
 
+  iron-list {
+    margin-bottom: var(--toolbar-height);
+  }
+
   /* when screen is wider than 800px */
   @media screen and (min-width: 800px) {
     #app-container {
@@ -74,6 +78,10 @@
 
     iron-pages {
       flex: 1;
+    }
+
+    iron-list {
+      margin-bottom: 0;
     }
 
     vientos-map {
