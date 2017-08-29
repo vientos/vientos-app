@@ -1,8 +1,6 @@
-/* global Polymer, ReduxBehavior, CustomEvent, util */
+/* global Polymer, CustomEvent */
 
-class OrganizationPreview extends Polymer.mixinBehaviors(
-  [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(Polymer.Element)) {
+class OrganizationPreview extends window.vientos.ReduxMixin(Polymer.Element) {
 
   static get is () { return 'organization-preview' }
 

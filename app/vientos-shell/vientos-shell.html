@@ -19,7 +19,7 @@
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <!-- <link rel="import" href="../widgets/vientos-map/vientos-map.html"> -->
 
-<!-- <link rel="import" href="../cards/intent-preview/intent-preview.html"> -->
+<link rel="import" href="../cards/intent-preview/intent-preview.html">
 <link rel="import" href="../cards/organization-preview/organization-preview.html">
 
 
@@ -111,8 +111,7 @@
               items="[[visibleIntents]]"
               as="intent">
               <template>
-                <!-- <intent-preview intent="[[intent]]" show-projects></intent-preview> -->
-                <div>[[intent.title]]</div>
+                <intent-preview intent="[[intent]]" show-projects></intent-preview>
               </template>
             </iron-list>
           </div>

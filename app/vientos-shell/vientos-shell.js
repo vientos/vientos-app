@@ -144,6 +144,10 @@ class VientosShell extends Polymer.mixinBehaviors(
       type: Array, // KILL ME
       statePath: 'projects'
     },
+    visibleIntents: {
+      type: Array,
+      statePath: 'intents'
+    },
     // visibleProjects: {
     //   type: Array,
     //   value: [],

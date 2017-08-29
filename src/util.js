@@ -302,7 +302,7 @@ export function filterIntentConversations (intent, myConversations) {
 }
 
 export function canAdminIntent (person, intent) {
-  if (!person) return false
+  if (!person || !intent) return false
   let personId = person
   if (typeof person === 'object') personId = person._id
   return !!intent && intent.admins.includes(personId)

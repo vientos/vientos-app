@@ -1,10 +1,12 @@
-/* global Polymer, ReduxBehavior, util, CustomEvent */
+/* global Polymer, CustomEvent */
 
-Polymer({
-  is: 'intent-preview',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+class IntentPreview extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(Polymer.Element)) {
 
-  properties: {
+  static get is () { return 'intent-preview' }
+
+  static get properties () { return {
     intent: {
       // passed from parent
       type: Object
@@ -59,41 +61,41 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
+  } }
 
-  _getRef: util.getRef,
-  _checkIfFavors: util.checkIfFavors,
-  _getThumbnailUrl: util.getThumbnailUrl,
-  _canAdminIntent: util.canAdminIntent,
+  _getRef (...args) { return window.vientos.util.getRef(...args) }
+  _checkIfFavors (...args) { return window.vientos.util.checkIfFavors(...args) }
+  _getThumbnailUrl (...args) { return window.vientos.util.getThumbnailUrl(...args) }
+  _canAdminIntent (...args) { return window.vientos.util.canAdminIntent(...args) }
 
   _showIntentDetails () {
-    window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))
+    window.history.pushState({}, '', window.vientos.util.pathFor(this.intent, 'intent'))
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _checkIfProjectAdmin (person, intent, projects) {
-    if (!person || !intent) return false
+    if (!person || !intent || !projects) return false
     return intent.projects.reduce((acc, projectId) => {
-      return acc.concat(util.getRef(projectId, projects).admins)
+      return acc.concat(window.vientos.util.getRef(projectId, projects).admins)
     }, []).includes(person._id)
-  },
+  }
 
   _notificationCount (intent, myConversations, notifications) {
-    if (!intent || !myConversations.length) return 0
+    if (!intent || !myConversations || !myConversations.length || !notifications) return 0
     return notifications.filter(notification => {
-      let conversation = util.getRef(notification.object, myConversations)
+      let conversation = window.vientos.util.getRef(notification.object, myConversations)
       return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
     }).length
-  },
+  }
 
   _calcOurTurnCount (person, myConversations, intent, projectAdmin) {
-    if (person && projectAdmin && intent) {
+    if (person && projectAdmin && intent && myConversations) {
       return myConversations.filter(conversation => {
         return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
       }).reduce((count, conversation) => {
-        return util.ourTurn(person, conversation, [intent]) ? ++count : count
+        return window.vientos.util.ourTurn(person, conversation, [intent]) ? ++count : count
       }, 0)
     }
   }
-
-})
+}
+window.customElements.define(IntentPreview.is, IntentPreview)
