@@ -1,16 +1,23 @@
-/* global Polymer, ReduxBehavior, CustomEvent, ActionCreators, util */
+/* global Polymer, CustomEvent */
 
-Polymer({
-  is: 'organization-details',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+const ActionCreators = window.vientos.ActionCreators
+const util = window.vientos.util
 
-  actions: {
+class OrganizationDetails extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(
+    Polymer.GestureEventListeners(Polymer.Element)
+  )) {
+
+  static get is () { return 'organization-details' }
+
+  static get actions() { return {
     follow: ActionCreators.follow,
     unfollow: ActionCreators.unfollow,
     saveProject: ActionCreators.saveProject
-  },
+  } }
 
-  properties: {
+  static get properties () { return {
     person: {
       type: Object,
       statePath: 'person'
@@ -92,77 +99,78 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
+  } }
 
-  _checkIfFollows: util.checkIfFollows,
-  _checkIfAdmin: util.checkIfAdmin,
-  _filterActiveIntents: util.filterActiveProjectIntents,
-  _filterExpiredIntents: util.filterExpiredProjectIntents,
-  _filterInactiveIntents: util.filterInactiveProjectIntents,
-  _getRef: util.getRef,
-  _getPlaceAddress: util.getPlaceAddress,
+  _checkIfFollows (...args) { return util.checkIfFollows(...args) }
+  _checkIfAdmin (...args) { return util.checkIfAdmin(...args) }
+  _filterActiveIntents (...args) { return util.filterActiveProjectIntents(...args) }
+  _filterExpiredIntents (...args) { return util.filterExpiredProjectIntents(...args) }
+  _filterInactiveIntents (...args) { return util.filterInactiveProjectIntents(...args) }
+  _getRef (...args) { return util.getRef(...args) }
+  _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
 
   _intentPageUrl (intent) {
     return util.pathFor(intent, 'intent')
-  },
+  }
 
   _back () {
     util.back('/projects')
-  },
+  }
 
   _canFollow (person, admin, project) {
     return person && !admin && project
-  },
+  }
 
   _follow () {
     this.dispatch('follow', this.person, this.project)
-  },
+  }
 
   _unfollow () {
     this.dispatch('unfollow', this.following)
-  },
+  }
 
   _editDetails () {
     // we use replaceState to avoid when edting and going to project page, that back button take you to edit again
     window.history.replaceState({}, '', `/edit-project-details/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _newIntent () {
     window.history.pushState({}, '', `/new-intent/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _getPotentialAdmins (project, people) {
-    if (!project) return []
+    if (!project || !people) return []
     return people.filter(person => !project.admins.includes(person._id))
-  },
+  }
 
   _startAddingAdmin () {
     this.set('addingNewAdmin', true)
-  },
+  }
 
   _cancelAddingAdmin () {
     this.set('addingNewAdmin', false)
-  },
+  }
 
   _setNewAdmin (e, detail) {
     this.set('newAdmin', detail.item.name)
-  },
+  }
 
   _addNewAdmin () {
     this.project.admins = [...new Set([...this.project.admins, this.newAdmin])]
     this.dispatch('saveProject', this.project)
     this.set('addingNewAdmin', false)
-  },
+  }
 
   _showLocationOnMap (e) {
     let place = util.getRef(e.model.placeId, this.places)
     window.history.pushState({}, '', util.pathFor(place, 'place') + '#map')
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _showLinksAndContacts (project) {
     return project && (project.links.length || project.contacts.length)
   }
-})
+}
+window.customElements.define(OrganizationDetails.is, OrganizationDetails)

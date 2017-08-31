@@ -111,18 +111,21 @@ export function filterIntents (person, intents, visibleProjects, filteredCollabo
 }
 
 export function filterActiveProjectIntents (person, project, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active' && !checkIfExpired(intent))
   return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
 export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive' && !checkIfExpired(intent))
   return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
 export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && checkIfExpired(intent))
   return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
@@ -134,7 +137,8 @@ export function getIntentProjects (intent, projects) {
 }
 
 export function checkIfAdmin (person, entities) {
-  if (!entities) return false
+  if (Array.from(arguments).includes(undefined)) return false
+  if (entities === null) return false
   if (!Array.isArray(entities)) entities = [ entities ]
   return person && entities.some(entity => entity.admins && entity.admins.includes(person._id))
 }
