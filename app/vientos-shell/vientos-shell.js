@@ -144,23 +144,15 @@ class VientosShell extends Polymer.mixinBehaviors(
     //   observer: '_setMapView'
     // },
     visibleProjects: {
-      type: Array, // KILL ME
-      statePath: 'projects'
+      type: Array,
+      value: [],
+      computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
     },
     visibleIntents: {
       type: Array,
-      statePath: 'intents'
+      value: [],
+      computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
     },
-    // visibleProjects: {
-    //   type: Array,
-    //   value: [],
-    //   computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
-    // },
-    // visibleIntents: {
-    //   type: Array,
-    //   value: [],
-    //   computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
-    // },
     // visiblePlaces: {
     //   type: Array,
     //   value: [],
@@ -180,16 +172,16 @@ class VientosShell extends Polymer.mixinBehaviors(
     //   type: Number,
     //   computed: '_calcOurTurnCount(person, myConversations, intents)'
     // },
-    // availableIntents: {
-    //   type: Array,
-    //   value: [],
-    //   computed: '_avilableIntents(intents)'
-    // },
-    // filterActive: {
-    //   type: Boolean,
-    //   computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
-    //   observer: '_highlightBadges'
-    // },
+    availableIntents: {
+      type: Array,
+      value: [],
+      computed: '_avilableIntents(intents)'
+    },
+    filterActive: {
+      type: Boolean,
+      computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
+      observer: '_highlightBadges'
+    },
     language: {
       type: String,
       statePath: 'language'
@@ -217,7 +209,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _filterProjects (...args) { return window.vientos.util.filterProjects(...args) }
   _filterIntents (...args) { return window.vientos.util.filterIntents(...args) }
   _filterPlaces (...args) { return window.vientos.util.filterPlaces(...args) }
-  _avilableIntents (...args) { return window.vientos.util.availableIntent(...args) }
+  _avilableIntents (...args) { return window.vientos.util.availableIntents(...args) }
 
   _routePageChanged (page) {
     let selectedPage = page || 'projects'
@@ -446,11 +438,13 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _activeFilter (projects, availableIntents, visibleProjects, visibleIntents) {
-    return projects.length !== visibleProjects.length || availableIntents.length !== visibleIntents.length
+    if (projects && availableIntents && visibleProjects && visibleIntents) {
+      return projects.length !== visibleProjects.length || availableIntents.length !== visibleIntents.length
+    } else return false
   }
 
   _footerPageChanged (page) {
-    if (['filter', 'projects', 'intents'].includes(page)) {
+    if (['search-and-filter', 'projects', 'intents'].includes(page)) {
       if (page === 'projects' && window.location.pathname === '/') return
       if (page === 'intents' && window.location.pathname === '/intents') return
       // if (page === 'map' && window.location.search   !== '') return

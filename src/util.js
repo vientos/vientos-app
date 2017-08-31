@@ -23,6 +23,7 @@ export function filterPlaces (entities, places, boundingBox) {
 }
 
 export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
+  if (Array.from(arguments).includes(undefined)) return []
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -86,10 +87,12 @@ export function checkIfExpired (intent) {
 }
 
 export function availableIntents (intents) {
+  if (!intents) return []
   return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
 }
 
 export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
+  if (Array.from(arguments).includes(undefined)) return []
   let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
   filtered = availableIntents(filtered)
   if (filteredCollaborationTypes.length > 0) {
