@@ -153,21 +153,21 @@ class VientosShell extends Polymer.mixinBehaviors(
       value: [],
       computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
     },
-    // visiblePlaces: {
-    //   type: Array,
-    //   value: [],
-    //   computed: '_setVisiblePlaces(page, visibleProjectLocations, visibleIntentLocations)'
-    // },
-    // visibleProjectLocations: {
-    //   type: Array,
-    //   value: [],
-    //   computed: '_filterPlaces(visibleProjects, places, boundingBox)'
-    // },
-    // visibleIntentLocations: {
-    //   type: Array,
-    //   value: [],
-    //   computed: '_filterPlaces(visibleIntents, places, boundingBox)'
-    // },
+    visiblePlaces: {
+      type: Array,
+      value: [],
+      computed: '_setVisiblePlaces(page, visibleProjectLocations, visibleIntentLocations)'
+    },
+    visibleProjectLocations: {
+      type: Array,
+      value: [],
+      computed: '_filterPlaces(visibleProjects, places, boundingBox)'
+    },
+    visibleIntentLocations: {
+      type: Array,
+      value: [],
+      computed: '_filterPlaces(visibleIntents, places, boundingBox)'
+    },
     // ourTurnCount: {
     //   type: Number,
     //   computed: '_calcOurTurnCount(person, myConversations, intents)'

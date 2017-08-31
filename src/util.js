@@ -17,6 +17,7 @@ export function locationsInBoundingBox (entity, places, boundingBox) {
 }
 
 export function filterPlaces (entities, places, boundingBox) {
+  if (Array.from(arguments).includes(undefined)) return []
   return entities.reduce((acc, entity) => {
     return acc.concat(locationsInBoundingBox(entity, places, boundingBox))
   }, [])
