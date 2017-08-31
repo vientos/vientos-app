@@ -1,10 +1,12 @@
-/* global Polymer, ReduxBehavior, util */
+/* global Polymer */
 
-Polymer({
-  is: 'place-details',
-  behaviors: [ ReduxBehavior ],
+class PlaceDetails extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(Polymer.Element)) {
 
-  properties: {
+  static get is () { return 'place-details' }
+
+  static get properties () { return {
     place: {
       type: Object,
       value: null
@@ -13,7 +15,7 @@ Polymer({
       type: Array,
       statePath: 'intents'
     },
-    projects: {
+    organizations: {
       type: Array,
       statePath: 'projects'
     },
@@ -21,25 +23,26 @@ Polymer({
       type: Array,
       computed: '_filterIntents(place, intents)'
     },
-    placeProjects: {
+    placeOrganizations: {
       type: Array,
-      computed: '_filterProjects(place, projects)'
+      computed: '_filterOrganizations(place, organizations)'
     }
-  },
+  } }
 
   // TODO filter visible not all
   _filterIntents (place, intents) {
-    if (!place) return []
+    if (!place || !intents) return []
     return intents.filter(intent => intent.locations.includes(place._id))
-  },
-
-  _filterProjects (place, projects) {
-    if (!place) return []
-    return projects.filter(project => project.locations.includes(place._id))
-  },
-
-  _back () {
-    util.back('/map')
   }
 
-})
+  _filterOrganizations (place, projects) {
+    if (!place || !projects) return []
+    return projects.filter(project => project.locations.includes(place._id))
+  }
+
+  _back () {
+    util.back('/projects')
+  }
+
+}
+window.customElements.define(PlaceDetails.is, PlaceDetails)

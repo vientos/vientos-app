@@ -136,12 +136,12 @@ class VientosShell extends Polymer.mixinBehaviors(
     //   value: null,
     //   computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
     // },
-    // currentPlace: {
-    //   type: Object,
-    //   value: null,
-    //   computed: '_findPlace(routeData.page, subrouteData.id, places)',
-    //   observer: '_setMapView'
-    // },
+    currentPlace: {
+      type: Object,
+      value: null,
+      computed: '_findPlace(routeData.page, subrouteData.id, places)',
+      observer: '_setMapView'
+    },
     visibleProjects: {
       type: Array,
       value: [],
@@ -194,6 +194,9 @@ class VientosShell extends Polymer.mixinBehaviors(
       value: {
         'search-and-filter': () => {
           import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
+        },
+        'place': () => {
+          import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
         }
       }
     }
@@ -292,7 +295,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _findPlace (page, placeId, places) {
-    if (page !== 'place') return null
+    if (page !== 'place' || Array.from(arguments).includes(undefined)) return null
     return places.find(place => place._id === window.vientos.util.urlFromId(placeId, 'places'))
   }
 
