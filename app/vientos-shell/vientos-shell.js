@@ -32,11 +32,11 @@ class VientosShell extends Polymer.mixinBehaviors(
       type: Object,
       value: window.vientos.config
     },
-    // session: {
-    //   type: Object,
-    //   statePath: 'session',
-    //   observer: '_sessionChanged'
-    // },
+    session: {
+      type: Object,
+      statePath: 'session',
+      observer: '_sessionChanged'
+    },
     page: {
       type: String,
       reflectToAttribute: true,
@@ -57,8 +57,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     person: {
       type: Object,
       statePath: 'person',
-      value: false
-      // observer: '_personChanged'
+      observer: '_personChanged'
     },
     myConversations: {
       type: Array,
@@ -168,10 +167,10 @@ class VientosShell extends Polymer.mixinBehaviors(
       value: [],
       computed: '_filterPlaces(visibleIntents, places, boundingBox)'
     },
-    // ourTurnCount: {
-    //   type: Number,
-    //   computed: '_calcOurTurnCount(person, myConversations, intents)'
-    // },
+    ourTurnCount: {
+      type: Number,
+      computed: '_calcOurTurnCount(person, myConversations, intents)'
+    },
     availableIntents: {
       type: Array,
       value: [],
@@ -218,20 +217,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _pageChanged (page) {
-      // case 'projects':
-        // setTimeout(() => {
-        //   let projectsIronList = this.$$('div[name=projects] iron-list')
-        //   if (projectsIronList.fire) projectsIronList.fire('iron-resize')
-        // }, 1000)
-      //   viewUrl = '../cards/organization-preview/organization-preview'
-      //   break
-      // case 'intents':
-        // setTimeout(() => {
-        //   let intentsIronList = this.$$('div[name=intents] iron-list')
-        //   if (intentsIronList.fire) intentsIronList.fire('iron-resize')
-        // }, 1000)
-        // viewUrl = '../cards/intent-preview/intent-preview'
-        // break
     // Load page import on demand. Show 404 page if fails
     if(this.lazyPages[page]){
       this.lazyPages[page]();
@@ -342,16 +327,18 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _showMap () {
+    this.set('showingMap', true)
     if(this.wideScreen) window.history.replaceState({}, '', window.location.pathname + + '#map')
     else window.history.pushState({}, '', window.location.pathname + '#map')
-    this.set('showingMap', true)
+    window.dispatchEvent(new CustomEvent('location-changed'))
     if (this.currentPlace) this._setMapView(this.currentPlace)
   }
 
   _showList () {
+    this.set('showingMap', false)
     if(this.wideScreen) window.history.replaceState({}, '', window.location.pathname)
     else window.history.pushState({}, '', window.location.pathname)
-    this.set('showingMap', false)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _mapButtonVisibility (page, wideScreen, showingMap) {
@@ -406,6 +393,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _calcOurTurnCount (person, myConversations, intents) {
+    if (Array.from(arguments).includes(undefined)) return 0
     return myConversations.reduce((count, conversation) => {
       return window.vientos.util.ourTurn(person, conversation, intents) ? ++count : count
     }, 0)
@@ -447,7 +435,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (['search-and-filter', 'projects', 'intents'].includes(page)) {
       if (page === 'projects' && window.location.pathname === '/') return
       if (page === 'intents' && window.location.pathname === '/intents') return
-      // if (page === 'map' && window.location.search   !== '') return
       let pathname = page === 'projects' ? '/' : `/${page}`
       if (this.showingMap) pathname += '#map'
       window.history.pushState({}, '', pathname)
@@ -458,16 +445,22 @@ class VientosShell extends Polymer.mixinBehaviors(
   _locationChanged (e) {
     if (window.location.hash === '#map') this.set('showingMap', true)
     else this.set('showingMap', false)
+    // workaround for iron-list rendering issues
+    if (this.page === 'projects' || this.page === 'intents') {
+      setTimeout(() => {
+        this.$$(`div[name=${this.page}] iron-list`).dispatchEvent(new CustomEvent('iron-resize'))
+      }, 100)
+    }
   }
 
   ready () {
     super.ready()
-    // this.dispatch('hello')
+    this.dispatch('hello')
     this.dispatch('fetchLabels')
     this.dispatch('fetchCategories')
     this.dispatch('fetchProjects')
     this.dispatch('fetchPlaces')
-    // this.dispatch('fetchPeople')
+    this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
     // this.dispatch('fetchCollaborations')
     // this.dispatch('fetchReviews')
@@ -478,12 +471,6 @@ class VientosShell extends Polymer.mixinBehaviors(
 
     // fetch reviews and update every 60s
     // setInterval(() => { this.dispatch('fetchReviews') }, 60000)
-    // setTimeout(() => {
-    //   let projectsIronList = this.$$('div[name=projects] iron-list')
-    //   if (projectsIronList.fire) projectsIronList.fire('iron-resize')
-    //   let intentsIronList = this.$$('div[name=intents] iron-list')
-    //   if (intentsIronList.fire) intentsIronList.fire('iron-resize')
-    // }, 2000)
 
     window.addEventListener('location-changed', this._locationChanged.bind(this))
     window.dispatchEvent(new CustomEvent('location-changed'))

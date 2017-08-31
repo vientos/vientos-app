@@ -18,7 +18,7 @@ module.exports = {
     modules: ['node_modules', 'bower_components'],
     descriptionFiles: ['package.json']
   },
-  devtool: 'cheep-module-inline-source-map',
+  devtool: 'eval',
   module: {
     rules: [
       {
