@@ -131,11 +131,11 @@ class VientosShell extends Polymer.mixinBehaviors(
       value: null,
       computed: '_findIntent(routeData.page, subrouteData.id, intents)'
     },
-    // currentConversation: {
-    //   type: Object,
-    //   value: null,
-    //   computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
-    // },
+    currentConversation: {
+      type: Object,
+      value: null,
+      computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
+    },
     currentPlace: {
       type: Object,
       value: null,
@@ -209,6 +209,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         },
         'new-conversation': () => {
           import(/* webpackChunkName: "start-conversation" */ '../pages/start-conversation/start-conversation.html')
+        },
+        'conversation': () => {
+          import(/* webpackChunkName: "vientos-conversation" */ '../pages/vientos-conversation/vientos-conversation.html')
         }
       }
     }
@@ -304,6 +307,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _findConversation (page, conversationId, conversations) {
+    if (Array.from(arguments).includes(undefined)) return null
     if (page !== 'conversation') return null
     return conversations.find(conversation => conversation._id === window.vientos.util.urlFromId(conversationId, 'conversations'))
   }

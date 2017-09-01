@@ -11,6 +11,10 @@ class IntentPreview extends Polymer.mixinBehaviors(
       // passed from parent
       type: Object
     },
+    intentProjects: {
+      type: Array,
+      computed: '_getIntentProjects(intent, projects)'
+    },
     myConversations: {
       type: Array,
       statePath: 'myConversations'
@@ -63,10 +67,14 @@ class IntentPreview extends Polymer.mixinBehaviors(
     }
   } }
 
-  _getRef (...args) { return window.vientos.util.getRef(...args) }
   _checkIfFavors (...args) { return window.vientos.util.checkIfFavors(...args) }
   _getThumbnailUrl (...args) { return window.vientos.util.getThumbnailUrl(...args) }
   _canAdminIntent (...args) { return window.vientos.util.canAdminIntent(...args) }
+
+  _getIntentProjects (intent, projects) {
+    if (intent && projects && projects.length)
+      return window.vientos.util.getRef(intent.projects, projects)
+  }
 
   _showIntentDetails () {
     window.history.pushState({}, '', window.vientos.util.pathFor(this.intent, 'intent'))
