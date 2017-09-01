@@ -193,6 +193,7 @@ export function getPlaceAddress (placeId, places) {
 }
 
 export function findPotentialMatches (person, projects, intents, matchedIntent) {
+  if (Array.from(arguments).includes(undefined)) return
   if (matchedIntent && person) {
     return intents.filter(intent => {
       return matchedIntent.direction !== intent.direction && intent.projects.some(projectId => {

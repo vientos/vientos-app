@@ -1,14 +1,21 @@
-/* global Polymer, ReduxBehavior, ActionCreators, util ,CustomEvent */
+/* global Polymer, CustomEvent */
 
-Polymer({
-  is: 'start-conversation',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+const ActionCreators = window.vientos.ActionCreators
+const util = window.vientos.util
 
-  actions: {
+class StartConversation extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(
+    Polymer.GestureEventListeners(Polymer.Element)
+  )) {
+
+  static get is () { return 'start-conversation' }
+
+  static get actions() { return {
     startConversation: ActionCreators.startConversation
-  },
+  } }
 
-  properties: {
+  static get properties () { return {
     intent: {
       type: Object,
       observer: '_intentChanged'
@@ -45,18 +52,18 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
+  } }
 
-  observers: [
+  static get observers () { return [
     '_createConversation(person, intent)'
-  ],
+  ] }
 
-  _findPotentialMatches: util.findPotentialMatches,
+  _findPotentialMatches(...args) { return util.findPotentialMatches(...args) }
 
   _intentChanged () {
     this._reset()
     // this._createConversation()
-  },
+  }
 
   _send () {
     this.conversation.messages.push(this.answer)
@@ -64,17 +71,17 @@ Polymer({
     this._reset()
     window.history.pushState({}, '', `/conversation/${this.conversation._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _reset () {
     this.set('answer.body', '')
     this.set('selectingMatch', false)
     // set inputs to empty
-  },
+  }
 
   _setMatchingIntent (e, detail) {
     this.set('conversation.matchingIntent', detail.item.name)
-  },
+  }
 
   _createConversation (person, intent) {
     if (person && intent) {
@@ -86,7 +93,7 @@ Polymer({
         messages: []
       })
     }
-  },
+  }
 
   _setAnswer (conversation) {
     return {
@@ -95,15 +102,16 @@ Polymer({
       creator: this.person._id,
       ourTurn: false
     }
-  },
+  }
 
   _toggleSelectingMatch () {
     this.set('selectingMatch', !this.selectingMatch)
-  },
+  }
 
   _cancel () {
     this._reset()
     window.history.pushState({}, '', `/intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
-})
+}
+window.customElements.define(StartConversation.is, StartConversation)
