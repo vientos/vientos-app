@@ -268,6 +268,7 @@ function orderIntents (intents, person, myConversations, notifications) {
 
 // TODO reuse for notifications
 export function filterActiveIntents (person, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (person) {
     // conversations which I created
     // and conversation on intens (causing or matching) which I admin
@@ -301,6 +302,7 @@ export function conversationNeedsAttention (person, conversation, notifications,
 }
 
 export function filterIntentConversations (intent, myConversations) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (intent && myConversations) {
     return myConversations.filter(conversation => {
       return conversation.causingIntent === intent._id ||

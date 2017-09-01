@@ -203,6 +203,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         },
         'place': () => {
           import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
+        },
+        'me': () => {
+          import(/* webpackChunkName: "vientos-inbox" */ '../pages/vientos-inbox/vientos-inbox.html')
         }
       }
     }
