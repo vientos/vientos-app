@@ -1,10 +1,16 @@
-/* global Polymer, ReduxBehavior, CustomEvent, util */
+/* global Polymer, CustomEvent */
 
-Polymer({
-  is: 'conversations-list',
-  behaviors: [ ReduxBehavior ],
+const util = window.vientos.util
 
-  properties: {
+class ConversationsList extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(
+    Polymer.GestureEventListeners(Polymer.Element)
+  )) {
+
+  static get is () { return 'conversations-list' }
+
+  static get properties () { return {
     person: {
       type: Object,
       statePath: 'person'
@@ -37,24 +43,26 @@ Polymer({
       type: Array,
       statePath: 'people'
     }
-  },
+  } }
 
-  _ourTurn: util.ourTurn,
-  _getName: util.getName,
-  _getImage: util.getImage,
+  _ourTurn(...args) { return util.ourTurn(...args) }
+  _getName(...args) { return util.getName(...args) }
+  _getImage(...args) { return util.getImage(...args) }
 
   _getNotificationsCount (conversation, notifications) {
+    if (Array.from(arguments).includes(undefined)) return 0
     return notifications.filter(notification => {
       return notification.object === conversation._id
     }).length
-  },
+  }
 
   _showConversation (e) {
     window.history.pushState({}, '', util.pathFor(e.model.conversation, 'conversation'))
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _filterConversations (person, conversations, intent, notifications, intents) {
+    if (Array.from(arguments).includes(undefined)) return []
     if (!person) return []
     return conversations.filter(conversation => {
       // show if has notification
@@ -85,4 +93,5 @@ Polymer({
       }
     })
   }
-})
+}
+window.customElements.define(ConversationsList.is, ConversationsList)

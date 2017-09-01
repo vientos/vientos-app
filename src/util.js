@@ -132,7 +132,7 @@ export function filterExpiredProjectIntents (person, project, intents, myConvers
 }
 
 export function getIntentProjects (intent, projects) {
-  if (!intent || !projects.length) return []
+  if (!intent || !projects) return []
   return projects.filter(project => intent.projects.includes(project._id))
 }
 
@@ -301,7 +301,7 @@ export function conversationNeedsAttention (person, conversation, notifications,
 }
 
 export function filterIntentConversations (intent, myConversations) {
-  if (intent) {
+  if (intent && myConversations) {
     return myConversations.filter(conversation => {
       return conversation.causingIntent === intent._id ||
       conversation.matchingIntent === intent._id
@@ -352,12 +352,12 @@ export function back (fallbackPath) {
 }
 
 export function getName (entity, collection) {
-  if (!collection.length) return undefined
+  if (!collection || !collection.length) return undefined
   return getRef(entity, collection).name
 }
 
 export function getImage (entity, collection, size) {
-  if (!collection.length) return undefined
+  if (!collection || !collection.length) return undefined
   return getThumbnailUrl(getRef(entity, collection), size)
 }
 

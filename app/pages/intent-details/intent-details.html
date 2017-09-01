@@ -1,4 +1,5 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
@@ -198,24 +199,6 @@
         [[intent.abortedConversations.length]]
       </span>
     </section>
-    <!-- <template is="dom-if" if="[[intentCollaborations.length]]">
-      <section>
-        <h3>
-          <iron-icon icon="vientos:success"></iron-icon>
-          [[localize('label:collaborations')]]
-        </h3>
-        <ul>
-          <template is="dom-repeat" items="[[intentCollaborations]]" as="collaboration">
-            <li>
-              <div>[[collaboration.body]]</div>
-              <template is="dom-repeat" items="[[_reviewsOfCollaboration(collaboration, reviews)]]" as="review">
-                <div>[[review.body]]</div>
-              </template>
-            </li>
-          </template>
-        </ul>
-      </section>
-    </template> -->
     <template is="dom-if" if="[[successfulReviewGroups.length]]">
       <section class="reviews">
         <h3>[[localize('label:collaborations')]]</h3>

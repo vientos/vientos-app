@@ -126,11 +126,11 @@ class VientosShell extends Polymer.mixinBehaviors(
       value: null,
       computed: '_findProject(routeData.page, subrouteData.id, projects)'
     },
-    // currentIntent: {
-    //   type: Object,
-    //   value: null,
-    //   computed: '_findIntent(routeData.page, subrouteData.id, intents)'
-    // },
+    currentIntent: {
+      type: Object,
+      value: null,
+      computed: '_findIntent(routeData.page, subrouteData.id, intents)'
+    },
     // currentConversation: {
     //   type: Object,
     //   value: null,
@@ -197,6 +197,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         },
         'project': () => {
           import(/* webpackChunkName: "organization-details" */ '../pages/organization-details/organization-details.html')
+        },
+        'intent': () => {
+          import(/* webpackChunkName: "intent-details" */ '../pages/intent-details/intent-details.html')
         },
         'place': () => {
           import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
@@ -289,7 +292,8 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _findIntent (page, intentId, intents) {
-    if (page !== 'intent' && page !== 'edit-intent' && page !== 'new-conversation') return null
+    if (Array.from(arguments).includes(undefined)) return null
+    if (!['intent', 'edit-intent', 'new-conversation'].includes(page)) return null
     return intents.find(intent => intent._id === window.vientos.util.urlFromId(intentId, 'intents'))
   }
 
@@ -470,8 +474,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('fetchPlaces')
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
-    // this.dispatch('fetchCollaborations')
-    // this.dispatch('fetchReviews')
+    this.dispatch('fetchReviews')
 
     let mqWideScreen = window.matchMedia('(min-width: 800px)')
     this.set('wideScreen', mqWideScreen.matches)
