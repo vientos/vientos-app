@@ -27,7 +27,7 @@ class CategoriesSelector extends Polymer.mixinBehaviors(
   _iconFor(...args) { return window.vientos.util.iconFor(...args) }
 
   _isInSelected (category, selection) {
-    return selection.includes(category.id)
+    return selection && selection.includes(category.id)
   }
 
   _toggleCategory (e) {

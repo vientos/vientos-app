@@ -1,14 +1,21 @@
-/* global Polymer, ReduxBehavior, ActionCreators, CustomEvent, util */
+/* global Polymer, CustomEvent */
 
-Polymer({
-  is: 'account-settings',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+const ActionCreators = window.vientos.ActionCreators
+const util = window.vientos.util
 
-  actions: {
+class AccountSettings extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  window.vientos.ReduxMixin(
+    Polymer.GestureEventListeners(Polymer.Element)
+  )) {
+
+  static get is () { return 'account-settings' }
+
+  static get actions() { return {
     savePerson: ActionCreators.savePerson
-  },
+  } }
 
-  properties: {
+  static get properties () { return {
     person: {
       type: Object,
       statePath: 'person',
@@ -43,49 +50,49 @@ Polymer({
       type: Object,
       statePath: 'labels'
     }
-  },
+  } }
 
   _personChanged () {
     this._reset()
     this._makeClone()
-  },
+  }
 
   _makeClone () {
     if (this.person) {
       let updated = Object.assign({}, this.person)
       this.set('updated', updated)
     }
-  },
+  }
 
   _categoriesSelectionChanged (e, selection) {
     this.set('updated.categories', selection)
-  },
+  }
 
   _reset () {
     this.set('newImage', null)
     this.$$('image-picker').reset()
-  },
+  }
 
   _readyToSave (hasChanges, name) {
     return !!name && !!hasChanges
-  },
+  }
 
   _hasChanges (person, updated, newImage) {
     return !util.deepEqual(person, updated) || !!newImage
-  },
+  }
 
   _save () {
     this.dispatch('savePerson', this.updated, this.newImage)
     this._reset()
     window.history.pushState({}, '', `/me`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _cancel () {
     this._reset()
     window.history.pushState({}, '', `/me`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  },
+  }
 
   _toggleLanguage (e) {
     if (this.updated.language === 'en') {
@@ -93,17 +100,18 @@ Polymer({
     } else {
       this.set('updated.language', 'en')
     }
-  },
+  }
 
   _checkedLanguageInput (language) {
     return language === 'en'
-  },
+  }
 
   _toggleEmailNotifications (e) {
     this.set('updated.emailNotifications', !this.updated.emailNotifications)
-  },
+  }
 
   _imagePicked (e) {
     this.set('newImage', e.detail)
   }
-})
+}
+window.customElements.define(AccountSettings.is, AccountSettings)

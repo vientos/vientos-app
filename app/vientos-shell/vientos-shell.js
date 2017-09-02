@@ -207,6 +207,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         'me': () => {
           import(/* webpackChunkName: "vientos-inbox" */ '../pages/vientos-inbox/vientos-inbox.html')
         },
+        'account': () => {
+          import(/* webpackChunkName: "account-settings" */ '../editors/account-settings/account-settings.html')
+        },
         'new-conversation': () => {
           import(/* webpackChunkName: "start-conversation" */ '../pages/start-conversation/start-conversation.html')
         },
@@ -250,7 +253,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     return ![
       'edit-project-details',
       'new-project',
-      'edit-my-profile',
+      'account',
       'new-intent',
       'edit-intent',
       'new-conversation'

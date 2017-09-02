@@ -67,7 +67,7 @@ class VientosInbox extends Polymer.mixinBehaviors(
   _getThumbnailUrl(...args) { return util.getThumbnailUrl(...args) }
 
   _editProfile () {
-    window.history.pushState({}, '', `/edit-my-profile/`)
+    window.history.pushState({}, '', `/account/`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
