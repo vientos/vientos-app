@@ -1,9 +1,9 @@
 /* global Polymer */
 
-Polymer({
-  is: 'vientos-icon-button',
+class VientosIconButton extends Polymer.Element {
+  static get is () { return 'vientos-icon-button' }
 
-  properties: {
+  static get properties () { return {
     text: {
       type: String
     },
@@ -20,6 +20,6 @@ Polymer({
       type: Boolean,
       reflectToAttribute: true
     }
-  }
-
-})
+  } }
+}
+window.customElements.define(VientosIconButton.is, VientosIconButton)
