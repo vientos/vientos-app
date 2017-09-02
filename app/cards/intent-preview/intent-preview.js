@@ -2,7 +2,9 @@
 
 class IntentPreview extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(Polymer.Element)) {
+  window.vientos.ReduxMixin(
+    Polymer.GestureEventListeners(Polymer.Element)
+  )) {
 
   static get is () { return 'intent-preview' }
 

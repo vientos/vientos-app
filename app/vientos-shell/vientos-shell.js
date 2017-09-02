@@ -239,7 +239,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     if(this.lazyPages[page]){
       this.lazyPages[page]();
     } else {
-      // this._showPage404();
+      // TODO: this._showPage404();
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
@@ -265,9 +265,9 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _showPage404 () {
-    this.page = 'view404'
-  }
+  // _showPage404 () {
+  //   this.page = 'view404'
+  // }
 
   _personChanged (person) {
     if (person) {

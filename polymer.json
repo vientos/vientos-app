@@ -4,8 +4,7 @@
   "fragments": [
     "app/pages/organization-details/organization-details.html",
     "app/pages/search-and-filter/search-and-filter.html",
-    "app/pages/vientos-inbox/vientos-inbox.html",
-    "app/my-view404.html"
+    "app/pages/vientos-inbox/vientos-inbox.html"
   ],
   "sources": [
    "app/**/*",
