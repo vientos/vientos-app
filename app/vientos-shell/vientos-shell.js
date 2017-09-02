@@ -4,6 +4,9 @@ const ActionCreators = window.vientos.ActionCreators
 const importOrganizationEditor = () => {
   import(/* webpackChunkName: "organization-editor" */ '../editors/organization-editor/organization-editor.html')
 }
+const importIntentEditor = () => {
+  import(/* webpackChunkName: "intent-editor" */ '../editors/intent-editor/intent-editor.html')
+}
 
 class VientosShell extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
@@ -206,6 +209,8 @@ class VientosShell extends Polymer.mixinBehaviors(
         'intent': () => {
           import(/* webpackChunkName: "intent-details" */ '../pages/intent-details/intent-details.html')
         },
+        'edit-intent': importIntentEditor,
+        'new-intent': importIntentEditor,
         'place': () => {
           import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
         },
