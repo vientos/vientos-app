@@ -3,24 +3,26 @@
 class ImagePicker extends Polymer.Element {
   static get is () { return 'image-picker' }
 
-  static get properties () { return {
-    imageUrl: {
+  static get properties () {
+    return {
+      imageUrl: {
       // passed from parent
-      type: String
-    },
-    label: {
+        type: String
+      },
+      label: {
       // passed from parent
-      type: String
-    },
-    newImage: {
-      type: Object,
-      value: null
-    },
-    imagePreviewSrc: {
-      type: String,
-      computed: '_getImagePreviewSrc(imageUrl, newImage)'
+        type: String
+      },
+      newImage: {
+        type: Object,
+        value: null
+      },
+      imagePreviewSrc: {
+        type: String,
+        computed: '_getImagePreviewSrc(imageUrl, newImage)'
+      }
     }
-  } }
+  }
 
   reset () {
     this.$['new-image-form'].reset()

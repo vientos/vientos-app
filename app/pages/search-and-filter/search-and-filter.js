@@ -1,70 +1,73 @@
-/* global Polymer, ActionCreators */
+/* global Polymer */
 
 const ActionCreators = window.vientos.ActionCreators
 
 class SearchAndFilter extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
   window.vientos.ReduxMixin(Polymer.Element)) {
-
   static get is () { return 'search-and-filter' }
 
-  static get actions () { return {
-    updateFilteredCategories: ActionCreators.updateFilteredCategories,
-    updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
-    toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
-    toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
-    setLocationFilter: ActionCreators.setLocationFilter,
-    toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
-  } }
-
-  static get properties () { return {
-    categories: {
-      type: Array,
-      statePath: 'categories'
-    },
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    locationFilter: {
-      type: String,
-      statePath: 'locationFilter'
-    },
-    boundingBoxFilter: {
-      type: Boolean,
-      statePath: 'boundingBoxFilter'
-    },
-    filteredCategories: {
-      type: Array,
-      statePath: 'filteredCategories'
-    },
-    filteredCollaborationTypes: {
-      type: Array,
-      statePath: 'filteredCollaborationTypes'
-    },
-    filteredFollowings: {
-      type: Boolean,
-      statePath: 'filteredFollowings'
-    },
-    filteredFavorings: {
-      type: Boolean,
-      statePath: 'filteredFavorings'
-    },
-    myActiveFiltersCount: {
-      type: Number,
-      computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      updateFilteredCategories: ActionCreators.updateFilteredCategories,
+      updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
+      toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
+      toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
+      setLocationFilter: ActionCreators.setLocationFilter,
+      toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
     }
-  } }
+  }
 
-  _iconFor(...args) { return window.vientos.util.iconFor(...args) }
+  static get properties () {
+    return {
+      categories: {
+        type: Array,
+        statePath: 'categories'
+      },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      locationFilter: {
+        type: String,
+        statePath: 'locationFilter'
+      },
+      boundingBoxFilter: {
+        type: Boolean,
+        statePath: 'boundingBoxFilter'
+      },
+      filteredCategories: {
+        type: Array,
+        statePath: 'filteredCategories'
+      },
+      filteredCollaborationTypes: {
+        type: Array,
+        statePath: 'filteredCollaborationTypes'
+      },
+      filteredFollowings: {
+        type: Boolean,
+        statePath: 'filteredFollowings'
+      },
+      filteredFavorings: {
+        type: Boolean,
+        statePath: 'filteredFavorings'
+      },
+      myActiveFiltersCount: {
+        type: Number,
+        computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
+
+  _iconFor (...args) { return window.vientos.util.iconFor(...args) }
 
   _selectionChanged (e, selection) {
     this.dispatch('updateFilteredCategories', selection)
@@ -145,6 +148,5 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
   _toggleBoundingBoxFilter () {
     this.dispatch('toggleBoundingBoxFilter')
   }
-
 }
 window.customElements.define(SearchAndFilter.is, SearchAndFilter)

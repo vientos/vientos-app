@@ -8,72 +8,75 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'organization-editor' }
 
-  static get actions() { return {
-    saveProject: ActionCreators.saveProject,
-    savePlace: ActionCreators.savePlace,
-    uploadImage: ActionCreators.uploadImage
-  } }
-
-  static get properties () { return {
-    project: {
-      // passed from parent
-      type: Object,
-      observer: '_projectChanged',
-      value: null
-    },
-    creator: {
-      // passed from parent just when creating new project
-      type: Object,
-      observer: '_createNewProject'
-    },
-    updated: {
-      type: Object,
-      value: null
-    },
-    places: {
-      type: Array,
-      statePath: 'places'
-    },
-    newLink: {
-      type: String,
-      value: ''
-    },
-    newContact: {
-      type: String,
-      value: ''
-    },
-    newImage: {
-      type: Object,
-      value: null
-    },
-    categories: {
-      type: Array,
-      statePath: 'categories'
-    },
-    readyToSave: {
-      type: Boolean,
-      computed: '_readyToSave(hasChages, updated.name, updated.description, updated.logo, newImage)',
-      value: false
-    },
-    hasChages: {
-      type: Boolean,
-      computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.name, updated.description, updated.categories, updated.locations, updated.contacts, updated.links)',
-      value: false
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      saveProject: ActionCreators.saveProject,
+      savePlace: ActionCreators.savePlace,
+      uploadImage: ActionCreators.uploadImage
     }
-  } }
+  }
 
-  _getPlaceAddress(...args) { return util.getPlaceAddress(...args) }
+  static get properties () {
+    return {
+      project: {
+      // passed from parent
+        type: Object,
+        observer: '_projectChanged',
+        value: null
+      },
+      creator: {
+      // passed from parent just when creating new project
+        type: Object,
+        observer: '_createNewProject'
+      },
+      updated: {
+        type: Object,
+        value: null
+      },
+      places: {
+        type: Array,
+        statePath: 'places'
+      },
+      newLink: {
+        type: String,
+        value: ''
+      },
+      newContact: {
+        type: String,
+        value: ''
+      },
+      newImage: {
+        type: Object,
+        value: null
+      },
+      categories: {
+        type: Array,
+        statePath: 'categories'
+      },
+      readyToSave: {
+        type: Boolean,
+        computed: '_readyToSave(hasChages, updated.name, updated.description, updated.logo, newImage)',
+        value: false
+      },
+      hasChages: {
+        type: Boolean,
+        computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.name, updated.description, updated.categories, updated.locations, updated.contacts, updated.links)',
+        value: false
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
+
+  _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
 
   _projectChanged () {
     this._reset()
@@ -194,6 +197,5 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   _imagePicked (e) {
     this.set('newImage', e.detail)
   }
-
 }
 window.customElements.define(OrganizationEditor.is, OrganizationEditor)

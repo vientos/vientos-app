@@ -8,76 +8,81 @@ class IntentEditor extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'intent-editor' }
 
-  static get actions() { return {
-    saveIntent: ActionCreators.saveIntent,
-    savePlace: ActionCreators.savePlace
-  } }
-
-  static get properties () { return {
-    collaborationTypes: {
-      type: Array,
-      value: ['work', 'usage', 'consumption', 'ownership']
-    },
-    intent: {
-      type: Object,
-      value: null,
-      observer: '_intentChanged'
-    },
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    places: {
-      type: Object,
-      statePath: 'places'
-    },
-    updated: {
-      type: Object
-    },
-    project: {
-      type: Object
-    },
-    newImage: {
-      type: Object,
-      value: null
-    },
-    toggled: {
-      type: Boolean,
-      computed: '_checkIfToggled(updated)'
-    },
-    expiryMinDate: {
-      type: String,
-      value: () => {
-        return new Date().toISOString().split('T')[0]
-      }
-    },
-    readyToSave: {
-      type: Boolean,
-      computed: '_readyToSave(hasChanges, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
-      value: false
-    },
-    hasChanges: {
-      type: Boolean,
-      computed: '_hasChanges(intent, updated, newImage, updated.direction, updated.locations, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
-      value: false
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      saveIntent: ActionCreators.saveIntent,
+      savePlace: ActionCreators.savePlace
     }
-  } }
+  }
 
-  static get observers () { return [
-    '_createNewIntent(person, project)',
-    '_collaborationTypeChanged(updated.collaborationType)'
-  ] }
+  static get properties () {
+    return {
+      collaborationTypes: {
+        type: Array,
+        value: ['work', 'usage', 'consumption', 'ownership']
+      },
+      intent: {
+        type: Object,
+        value: null,
+        observer: '_intentChanged'
+      },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      places: {
+        type: Object,
+        statePath: 'places'
+      },
+      updated: {
+        type: Object
+      },
+      project: {
+        type: Object
+      },
+      newImage: {
+        type: Object,
+        value: null
+      },
+      toggled: {
+        type: Boolean,
+        computed: '_checkIfToggled(updated)'
+      },
+      expiryMinDate: {
+        type: String,
+        value: () => {
+          return new Date().toISOString().split('T')[0]
+        }
+      },
+      readyToSave: {
+        type: Boolean,
+        computed: '_readyToSave(hasChanges, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
+        value: false
+      },
+      hasChanges: {
+        type: Boolean,
+        computed: '_hasChanges(intent, updated, newImage, updated.direction, updated.locations, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
+        value: false
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
+
+  static get observers () {
+    return [
+      '_createNewIntent(person, project)',
+      '_collaborationTypeChanged(updated.collaborationType)'
+    ]
+  }
 
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
 
@@ -206,6 +211,5 @@ class IntentEditor extends Polymer.mixinBehaviors(
     this.$.datepicker.set('i18n.firstDayOfWeek', 1)
     // this.$.datepicker.set('i18n.formatDate', (date) => { return date.toLocaleDateString() })
   }
-
 }
 window.customElements.define(IntentEditor.is, IntentEditor)

@@ -1,7 +1,7 @@
-'use strict';
-/* global __dirname module require*/
-const path = require('path');
-const webpack = require('webpack');
+'use strict'
+/* global __dirname module require */
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -34,4 +34,4 @@ module.exports = {
   plugins: [
     new webpack.NamedChunksPlugin()
   ]
-};
+}

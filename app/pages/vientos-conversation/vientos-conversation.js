@@ -1,4 +1,4 @@
-/* global Polymer, CustomEvent */
+/* global Polymer */
 
 const ActionCreators = window.vientos.ActionCreators
 const util = window.vientos.util
@@ -8,116 +8,117 @@ class VientosConversation extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'vientos-conversation' }
 
-  static get actions() { return {
-    addMessage: ActionCreators.addMessage,
-    addReview: ActionCreators.addReview,
-    saveNotification: ActionCreators.saveNotification
-  } }
-
-  static get properties () { return {
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    people: {
-      type: Array,
-      statePath: 'people'
-    },
-    intents: {
-      type: Array,
-      statePath: 'intents'
-    },
-    notifications: {
-      type: Array,
-      statePath: 'notifications'
-    },
-    conversationNotifications: {
-      type: Array,
-      computed: '_filterNotifications(conversation, notifications)',
-      observer: '_deativateNotifications'
-    },
-    conversation: {
-      type: Object,
-      observer: '_setEditedCollaboration'
-    },
-    editedCollaboration: {
-      type: Object
-    },
-    editingCollaboration: {
-      type: Boolean,
-      value: false
-    },
-    causingIntent: {
-      type: Object,
-      computed: '_getCausingIntent(conversation, intents)'
-    },
-    matchingIntent: {
-      type: Object,
-      computed: '_getMatchingIntent(conversation, intents)'
-    },
-    changeTurn: {
-      type: Boolean,
-      value: false
-    },
-    turnToggleChecked: {
-      type: Boolean,
-      computed: '_turnToggleChecked(person, conversation, intents, changeTurn)'
-    },
-    newMessage: {
-      type: String,
-      value: ''
-    },
-    showNewMessage: {
-      type: Boolean,
-      value: false,
-      computed: '_showNewMessage(conversation, reviewing, editingCollaboration)'
-    },
-    newReview: {
-      type: String,
-      value: ''
-    },
-    rating: {
-      type: String,
-      value: null
-    },
-    success: {
-      type: Boolean,
-      value: false
-    },
-    reviewing: {
-      type: Boolean,
-      value: false
-    },
-    canReview: {
-      type: Boolean,
-      value: false,
-      computed: '_canReview(person, conversation, intents)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      addMessage: ActionCreators.addMessage,
+      addReview: ActionCreators.addReview,
+      saveNotification: ActionCreators.saveNotification
     }
-  } }
+  }
 
-  _getName(...args) { return util.getName(...args) }
-  _getImage(...args) { return util.getImage(...args) }
-  _addHyperLinks(...args) { return util.addHyperLinks(...args) }
+  static get properties () {
+    return {
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      people: {
+        type: Array,
+        statePath: 'people'
+      },
+      intents: {
+        type: Array,
+        statePath: 'intents'
+      },
+      notifications: {
+        type: Array,
+        statePath: 'notifications'
+      },
+      conversationNotifications: {
+        type: Array,
+        computed: '_filterNotifications(conversation, notifications)',
+        observer: '_deativateNotifications'
+      },
+      conversation: {
+        type: Object,
+        observer: '_setEditedCollaboration'
+      },
+      editedCollaboration: {
+        type: Object
+      },
+      editingCollaboration: {
+        type: Boolean,
+        value: false
+      },
+      causingIntent: {
+        type: Object,
+        computed: '_getCausingIntent(conversation, intents)'
+      },
+      matchingIntent: {
+        type: Object,
+        computed: '_getMatchingIntent(conversation, intents)'
+      },
+      changeTurn: {
+        type: Boolean,
+        value: false
+      },
+      turnToggleChecked: {
+        type: Boolean,
+        computed: '_turnToggleChecked(person, conversation, intents, changeTurn)'
+      },
+      newMessage: {
+        type: String,
+        value: ''
+      },
+      showNewMessage: {
+        type: Boolean,
+        value: false,
+        computed: '_showNewMessage(conversation, reviewing, editingCollaboration)'
+      },
+      newReview: {
+        type: String,
+        value: ''
+      },
+      rating: {
+        type: String,
+        value: null
+      },
+      success: {
+        type: Boolean,
+        value: false
+      },
+      reviewing: {
+        type: Boolean,
+        value: false
+      },
+      canReview: {
+        type: Boolean,
+        value: false,
+        computed: '_canReview(person, conversation, intents)'
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
+
+  _getName (...args) { return util.getName(...args) }
+  _getImage (...args) { return util.getImage(...args) }
+  _addHyperLinks (...args) { return util.addHyperLinks(...args) }
 
   _getCausingIntent (conversation, intents) {
-    if (conversation && intents && intents.length)
-      return util.getRef(conversation.causingIntent, intents)
+    if (conversation && intents && intents.length) { return util.getRef(conversation.causingIntent, intents) }
   }
 
   _getMatchingIntent (conversation, intents) {
-    if (conversation && intents && conversation.matchingIntent && intents.length)
-      return util.getRef(conversation.matchingIntent, intents)
+    if (conversation && intents && conversation.matchingIntent && intents.length) { return util.getRef(conversation.matchingIntent, intents) }
   }
 
   _setEditedCollaboration (conversation) {

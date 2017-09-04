@@ -8,49 +8,52 @@ class AccountSettings extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'account-settings' }
 
-  static get actions() { return {
-    savePerson: ActionCreators.savePerson
-  } }
-
-  static get properties () { return {
-    person: {
-      type: Object,
-      statePath: 'person',
-      observer: '_personChanged'
-    },
-    updated: {
-      type: Object
-    },
-    categories: {
-      type: Object,
-      statePath: 'categories'
-    },
-    newImage: {
-      type: Object,
-      value: null
-    },
-    readyToSave: {
-      type: Boolean,
-      computed: '_readyToSave(hasChanges, updated.name)',
-      value: false
-    },
-    hasChanges: {
-      type: Boolean,
-      computed: '_hasChanges(person, updated, newImage, updated.name, updated.language, updated.emailNotifications, updated.categories)',
-      value: false
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      savePerson: ActionCreators.savePerson
     }
-  } }
+  }
+
+  static get properties () {
+    return {
+      person: {
+        type: Object,
+        statePath: 'person',
+        observer: '_personChanged'
+      },
+      updated: {
+        type: Object
+      },
+      categories: {
+        type: Object,
+        statePath: 'categories'
+      },
+      newImage: {
+        type: Object,
+        value: null
+      },
+      readyToSave: {
+        type: Boolean,
+        computed: '_readyToSave(hasChanges, updated.name)',
+        value: false
+      },
+      hasChanges: {
+        type: Boolean,
+        computed: '_hasChanges(person, updated, newImage, updated.name, updated.language, updated.emailNotifications, updated.categories)',
+        value: false
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
 
   _personChanged () {
     this._reset()

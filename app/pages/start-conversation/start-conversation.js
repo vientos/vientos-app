@@ -8,57 +8,62 @@ class StartConversation extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'start-conversation' }
 
-  static get actions() { return {
-    startConversation: ActionCreators.startConversation
-  } }
-
-  static get properties () { return {
-    intent: {
-      type: Object,
-      observer: '_intentChanged'
-    },
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    projects: {
-      type: Object,
-      statePath: 'projects'
-    },
-    intents: {
-      type: Object,
-      statePath: 'intents'
-    },
-    potentialMatches: {
-      type: Array,
-      computed: '_findPotentialMatches(person, projects, intents, intent)'
-    },
-    answer: {
-      type: Object,
-      computed: '_setAnswer(conversation)'
-    },
-    selectingMatch: {
-      type: Boolean,
-      value: false
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      startConversation: ActionCreators.startConversation
     }
-  } }
+  }
 
-  static get observers () { return [
-    '_createConversation(person, intent)'
-  ] }
+  static get properties () {
+    return {
+      intent: {
+        type: Object,
+        observer: '_intentChanged'
+      },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      projects: {
+        type: Object,
+        statePath: 'projects'
+      },
+      intents: {
+        type: Object,
+        statePath: 'intents'
+      },
+      potentialMatches: {
+        type: Array,
+        computed: '_findPotentialMatches(person, projects, intents, intent)'
+      },
+      answer: {
+        type: Object,
+        computed: '_setAnswer(conversation)'
+      },
+      selectingMatch: {
+        type: Boolean,
+        value: false
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
 
-  _findPotentialMatches(...args) { return util.findPotentialMatches(...args) }
+  static get observers () {
+    return [
+      '_createConversation(person, intent)'
+    ]
+  }
+
+  _findPotentialMatches (...args) { return util.findPotentialMatches(...args) }
 
   _intentChanged () {
     this._reset()

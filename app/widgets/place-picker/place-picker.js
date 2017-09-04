@@ -3,12 +3,14 @@
 class PlacePicker extends Polymer.Element {
   static get is () { return 'place-picker' }
 
-  static get properties () { return {
-    googleMapsApiKey: {
-      type: String,
-      value: window.vientos.config.map.googleApiKey
+  static get properties () {
+    return {
+      googleMapsApiKey: {
+        type: String,
+        value: window.vientos.config.map.googleApiKey
+      }
     }
-  } }
+  }
 
   reset () {
     this.$['place-input'].value = ''

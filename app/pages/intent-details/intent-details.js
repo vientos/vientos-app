@@ -8,109 +8,112 @@ class IntentDetails extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'intent-details' }
 
-  static get actions() { return {
-    favor: ActionCreators.favor,
-    unfavor: ActionCreators.unfavor,
-    saveIntent: ActionCreators.saveIntent,
-    fetchMyConversations: ActionCreators.fetchMyConversations,
-    fetchNotifications: ActionCreators.fetchNotifications
-  } }
-
-  static get properties () { return {
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    people: {
-      type: Array,
-      statePath: 'people'
-    },
-    reviews: {
-      type: Array,
-      statePath: 'reviews'
-    },
-    abortedReviewGroups: {
-      type: Array,
-      computed: '_reviewsOfAbortedConversations(intent, reviews)'
-    },
-    successfulReviewGroups: {
-      type: Array,
-      computed: '_reviewsOfSuccessfulConversations(intent, reviews)'
-    },
-    intent: {
-      type: Object
-    },
-    favoring: {
-      type: Object,
-      value: null,
-      computed: '_checkIfFavors(person, intent)'
-    },
-    conversations: {
-      type: Array,
-      computed: '_filterIntentConversations(intent, myConversations)'
-    },
-    myConversations: {
-      type: Array,
-      statePath: 'myConversations'
-    },
-    currentConversation: {
-      type: Object,
-      computed: '_currentConversation(person, projectAdmin, conversations)'
-    },
-    projects: {
-      type: Array,
-      statePath: 'projects'
-    },
-    places: {
-      type: Array,
-      statePath: 'places'
-    },
-    intentProjects: {
-      type: Array,
-      computed: '_getIntentProjects(intent, projects)'
-    },
-    projectAdmin: {
-      type: Boolean,
-      value: false,
-      computed: '_checkIfAdmin(person, intentProjects)'
-    },
-    intentAdmin: {
-      type: Boolean,
-      value: false,
-      computed: '_checkIfAdmin(person, intent)',
-      observer: '_intentAdminChanged'
-    },
-    active: {
-      type: Boolean,
-      computed: '_checkIfActive(intent)'
-    },
-    expired: {
-      type: Boolean,
-      computed: '_checkIfExpired(intent)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      favor: ActionCreators.favor,
+      unfavor: ActionCreators.unfavor,
+      saveIntent: ActionCreators.saveIntent,
+      fetchMyConversations: ActionCreators.fetchMyConversations,
+      fetchNotifications: ActionCreators.fetchNotifications
     }
-  } }
+  }
 
-  _checkIfAdmin(...args) { return util.checkIfAdmin(...args) }
-  _checkIfFavors(...args) { return util.checkIfFavors(...args) }
-  _checkIfExpired(...args) { return util.checkIfExpired(...args) }
-  _getIntentProjects(...args) { return util.getIntentProjects(...args) }
-  _filterIntentConversations(...args) { return util.filterIntentConversations(...args) }
-  _getRef(...args) { return util.getRef(...args) }
-  _getPlaceAddress(...args) { return util.getPlaceAddress(...args) }
-  _getThumbnailUrl(...args) { return util.getThumbnailUrl(...args) }
-  _getName(...args) { return util.getName(...args) }
-  _getImage(...args) { return util.getImage(...args) }
+  static get properties () {
+    return {
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      people: {
+        type: Array,
+        statePath: 'people'
+      },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
+      },
+      abortedReviewGroups: {
+        type: Array,
+        computed: '_reviewsOfAbortedConversations(intent, reviews)'
+      },
+      successfulReviewGroups: {
+        type: Array,
+        computed: '_reviewsOfSuccessfulConversations(intent, reviews)'
+      },
+      intent: {
+        type: Object
+      },
+      favoring: {
+        type: Object,
+        value: null,
+        computed: '_checkIfFavors(person, intent)'
+      },
+      conversations: {
+        type: Array,
+        computed: '_filterIntentConversations(intent, myConversations)'
+      },
+      myConversations: {
+        type: Array,
+        statePath: 'myConversations'
+      },
+      currentConversation: {
+        type: Object,
+        computed: '_currentConversation(person, projectAdmin, conversations)'
+      },
+      projects: {
+        type: Array,
+        statePath: 'projects'
+      },
+      places: {
+        type: Array,
+        statePath: 'places'
+      },
+      intentProjects: {
+        type: Array,
+        computed: '_getIntentProjects(intent, projects)'
+      },
+      projectAdmin: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfAdmin(person, intentProjects)'
+      },
+      intentAdmin: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfAdmin(person, intent)',
+        observer: '_intentAdminChanged'
+      },
+      active: {
+        type: Boolean,
+        computed: '_checkIfActive(intent)'
+      },
+      expired: {
+        type: Boolean,
+        computed: '_checkIfExpired(intent)'
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
+
+  _checkIfAdmin (...args) { return util.checkIfAdmin(...args) }
+  _checkIfFavors (...args) { return util.checkIfFavors(...args) }
+  _checkIfExpired (...args) { return util.checkIfExpired(...args) }
+  _getIntentProjects (...args) { return util.getIntentProjects(...args) }
+  _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
+  _getRef (...args) { return util.getRef(...args) }
+  _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
+  _getName (...args) { return util.getName(...args) }
+  _getImage (...args) { return util.getImage(...args) }
 
   _checkIfActive (intent) {
     if (intent) return intent.status === 'active'

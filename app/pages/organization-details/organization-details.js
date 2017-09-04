@@ -8,98 +8,101 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'organization-details' }
 
-  static get actions() { return {
-    follow: ActionCreators.follow,
-    unfollow: ActionCreators.unfollow,
-    saveProject: ActionCreators.saveProject
-  } }
-
-  static get properties () { return {
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    notifications: {
-      type: Array,
-      statePath: 'notifications'
-    },
-    myConversations: {
-      type: Array,
-      statePath: 'myConversations'
-    },
-    admin: {
-      type: Boolean,
-      value: false,
-      computed: '_checkIfAdmin(person, project)'
-    },
-    following: {
-      type: Boolean,
-      value: false,
-      computed: '_checkIfFollows(person, project)'
-    },
-    projects: {
-      type: Array,
-      statePath: 'projects'
-    },
-    people: {
-      type: Array,
-      statePath: 'people'
-    },
-    places: {
-      type: Array,
-      statePath: 'places'
-    },
-    potentialAdmins: {
-      type: Array,
-      computed: '_getPotentialAdmins(project, people)'
-    },
-    canFollow: {
-      type: Boolean,
-      computed: '_canFollow(person, admin, project)'
-    },
-    newAdmin: {
-      type: String,
-      value: null
-    },
-    addingNewAdmin: {
-      type: Boolean,
-      value: false
-    },
-    project: {
-      // passed from parent
-      type: Object
-    },
-    intents: {
-      type: Array,
-      statePath: 'intents'
-    },
-    activeIntents: {
-      type: Array,
-      value: [],
-      computed: '_filterActiveIntents(person, project, intents, myConversations, notifications)'
-    },
-    inactiveIntents: {
-      type: Array,
-      value: [],
-      computed: '_filterInactiveIntents(person, project, intents, myConversations, notifications)'
-    },
-    expiredIntents: {
-      type: Array,
-      value: [],
-      computed: '_filterExpiredIntents(person, project, intents, myConversations, notifications)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      follow: ActionCreators.follow,
+      unfollow: ActionCreators.unfollow,
+      saveProject: ActionCreators.saveProject
     }
-  } }
+  }
+
+  static get properties () {
+    return {
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      notifications: {
+        type: Array,
+        statePath: 'notifications'
+      },
+      myConversations: {
+        type: Array,
+        statePath: 'myConversations'
+      },
+      admin: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfAdmin(person, project)'
+      },
+      following: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfFollows(person, project)'
+      },
+      projects: {
+        type: Array,
+        statePath: 'projects'
+      },
+      people: {
+        type: Array,
+        statePath: 'people'
+      },
+      places: {
+        type: Array,
+        statePath: 'places'
+      },
+      potentialAdmins: {
+        type: Array,
+        computed: '_getPotentialAdmins(project, people)'
+      },
+      canFollow: {
+        type: Boolean,
+        computed: '_canFollow(person, admin, project)'
+      },
+      newAdmin: {
+        type: String,
+        value: null
+      },
+      addingNewAdmin: {
+        type: Boolean,
+        value: false
+      },
+      project: {
+      // passed from parent
+        type: Object
+      },
+      intents: {
+        type: Array,
+        statePath: 'intents'
+      },
+      activeIntents: {
+        type: Array,
+        value: [],
+        computed: '_filterActiveIntents(person, project, intents, myConversations, notifications)'
+      },
+      inactiveIntents: {
+        type: Array,
+        value: [],
+        computed: '_filterInactiveIntents(person, project, intents, myConversations, notifications)'
+      },
+      expiredIntents: {
+        type: Array,
+        value: [],
+        computed: '_filterExpiredIntents(person, project, intents, myConversations, notifications)'
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
 
   _checkIfFollows (...args) { return util.checkIfFollows(...args) }
   _checkIfAdmin (...args) { return util.checkIfAdmin(...args) }

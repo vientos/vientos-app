@@ -7,47 +7,48 @@ class ConversationsList extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'conversations-list' }
 
-  static get properties () { return {
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    intents: {
-      type: Array,
-      statePath: 'intents'
-    },
+  static get properties () {
+    return {
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      intents: {
+        type: Array,
+        statePath: 'intents'
+      },
     // passed from parent
-    conversations: {
-      type: Array
-    },
+      conversations: {
+        type: Array
+      },
     // passed from parent
-    intent: {
-      type: Object
-    },
-    visibleConversations: {
-      type: Array,
-      computed: '_filterConversations(person, conversations, intent, notifications, intents)'
-    },
-    notifications: {
-      type: Array,
-      statePath: 'notifications'
-    },
-    showNotification: {
-      type: Boolean,
-      reflectToAttribute: true
-    },
-    people: {
-      type: Array,
-      statePath: 'people'
+      intent: {
+        type: Object
+      },
+      visibleConversations: {
+        type: Array,
+        computed: '_filterConversations(person, conversations, intent, notifications, intents)'
+      },
+      notifications: {
+        type: Array,
+        statePath: 'notifications'
+      },
+      showNotification: {
+        type: Boolean,
+        reflectToAttribute: true
+      },
+      people: {
+        type: Array,
+        statePath: 'people'
+      }
     }
-  } }
+  }
 
-  _ourTurn(...args) { return util.ourTurn(...args) }
-  _getName(...args) { return util.getName(...args) }
-  _getImage(...args) { return util.getImage(...args) }
+  _ourTurn (...args) { return util.ourTurn(...args) }
+  _getName (...args) { return util.getName(...args) }
+  _getImage (...args) { return util.getImage(...args) }
 
   _getNotificationsCount (conversation, notifications) {
     if (Array.from(arguments).includes(undefined)) return 0

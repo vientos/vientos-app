@@ -12,11 +12,12 @@
     "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.3"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
     "dirty-chai": "^1.2.2",
     "mocha": "^3.2.0",
     "polymer-webpack-loader": "^2.0.0",
-    "standard": "^9.0.2",
+    "standard": "^10.0.3",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "webpack": "^3.5.3"
   },
@@ -26,6 +27,9 @@
   },
   "author": "",
   "license": "Unlicense",
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "eslintConfig": {
     "ecmaVersion": 2015,
     "parserOptions": {

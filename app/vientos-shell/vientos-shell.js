@@ -11,230 +11,235 @@ const importIntentEditor = () => {
 class VientosShell extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
   window.vientos.ReduxMixin(Polymer.Element)) {
-
   static get is () { return 'vientos-shell' }
 
-  static get actions () { return {
-    setLanguage: ActionCreators.setLanguage,
-    setBoundingBox: ActionCreators.setBoundingBox,
-    hello: ActionCreators.hello,
-    bye: ActionCreators.bye,
-    fetchPerson: ActionCreators.fetchPerson,
-    fetchPeople: ActionCreators.fetchPeople,
-    fetchPlaces: ActionCreators.fetchPlaces,
-    fetchLabels: ActionCreators.fetchLabels,
-    fetchCategories: ActionCreators.fetchCategories,
-    fetchProjects: ActionCreators.fetchProjects,
-    fetchIntents: ActionCreators.fetchIntents,
-    fetchCollaborations: ActionCreators.fetchCollaborations,
-    fetchReviews: ActionCreators.fetchReviews,
-    fetchMyConversations: ActionCreators.fetchMyConversations,
-    fetchNotifications: ActionCreators.fetchNotifications,
-    saveSubscription: ActionCreators.saveSubscription
-  } }
+  static get actions () {
+    return {
+      setLanguage: ActionCreators.setLanguage,
+      setBoundingBox: ActionCreators.setBoundingBox,
+      hello: ActionCreators.hello,
+      bye: ActionCreators.bye,
+      fetchPerson: ActionCreators.fetchPerson,
+      fetchPeople: ActionCreators.fetchPeople,
+      fetchPlaces: ActionCreators.fetchPlaces,
+      fetchLabels: ActionCreators.fetchLabels,
+      fetchCategories: ActionCreators.fetchCategories,
+      fetchProjects: ActionCreators.fetchProjects,
+      fetchIntents: ActionCreators.fetchIntents,
+      fetchCollaborations: ActionCreators.fetchCollaborations,
+      fetchReviews: ActionCreators.fetchReviews,
+      fetchMyConversations: ActionCreators.fetchMyConversations,
+      fetchNotifications: ActionCreators.fetchNotifications,
+      saveSubscription: ActionCreators.saveSubscription
+    }
+  }
 
-  static get properties () { return {
-    config: {
-      type: Object,
-      value: window.vientos.config
-    },
-    session: {
-      type: Object,
-      statePath: 'session',
-      observer: '_sessionChanged'
-    },
-    page: {
-      type: String,
-      reflectToAttribute: true,
-      observer: '_pageChanged'
-    },
-    projects: {
-      type: Array,
-      statePath: 'projects'
-    },
-    places: {
-      type: Array,
-      statePath: 'places'
-    },
-    intents: {
-      type: Array,
-      statePath: 'intents'
-    },
-    person: {
-      type: Object,
-      statePath: 'person',
-      observer: '_personChanged'
-    },
-    myConversations: {
-      type: Array,
-      statePath: 'myConversations'
-    },
-    notifications: {
-      type: Array,
-      statePath: 'notifications'
-    },
-    filteredCategories: {
-      type: Array,
-      statePath: 'filteredCategories'
-    },
-    filteredCollaborationTypes: {
-      type: Array,
-      statePath: 'filteredCollaborationTypes'
-    },
-    filteredFollowings: {
-      type: Boolean,
-      statePath: 'filteredFollowings'
-    },
-    filteredFavorings: {
-      type: Boolean,
-      statePath: 'filteredFavorings'
-    },
-    locationFilter: {
-      type: String,
-      statePath: 'locationFilter'
-    },
-    mapOf: {
-      type: String,
-      value: 'projects'
-    },
-    boundingBox: {
-      type: Object,
-      statePath: 'boundingBox'
-    },
-    boundingBoxFilter: {
-      type: Boolean,
-      statePath: 'boundingBoxFilter'
-    },
-    mapView: {
-      type: Object
-    },
-    wideScreen: {
-      type: Boolean
-    },
-    showingMap: {
-      type: Boolean,
-      value: false
-    },
-    mapButtonVisible: {
-      type: Boolean,
-      computed: '_mapButtonVisibility(page, wideScreen, showingMap)'
-    },
-    listButtonVisible: {
-      type: Boolean,
-      computed: '_listButtonVisibility(page, wideScreen, showingMap)'
-    },
-    placeInfoButtonVisible: {
-      type: Boolean,
-      computed: '_placeInfoButtonVisibility(page, wideScreen, showingMap)'
-    },
-    currentProject: {
-      type: Object,
-      value: null,
-      computed: '_findProject(routeData.page, subrouteData.id, projects)'
-    },
-    currentIntent: {
-      type: Object,
-      value: null,
-      computed: '_findIntent(routeData.page, subrouteData.id, intents)'
-    },
-    currentConversation: {
-      type: Object,
-      value: null,
-      computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
-    },
-    currentPlace: {
-      type: Object,
-      value: null,
-      computed: '_findPlace(routeData.page, subrouteData.id, places)',
-      observer: '_setMapView'
-    },
-    visibleProjects: {
-      type: Array,
-      value: [],
-      computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
-    },
-    visibleIntents: {
-      type: Array,
-      value: [],
-      computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
-    },
-    visiblePlaces: {
-      type: Array,
-      value: [],
-      computed: '_setVisiblePlaces(page, visibleProjectLocations, visibleIntentLocations)'
-    },
-    visibleProjectLocations: {
-      type: Array,
-      value: [],
-      computed: '_filterPlaces(visibleProjects, places, boundingBox)'
-    },
-    visibleIntentLocations: {
-      type: Array,
-      value: [],
-      computed: '_filterPlaces(visibleIntents, places, boundingBox)'
-    },
-    ourTurnCount: {
-      type: Number,
-      computed: '_calcOurTurnCount(person, myConversations, intents)'
-    },
-    availableIntents: {
-      type: Array,
-      value: [],
-      computed: '_avilableIntents(intents)'
-    },
-    filterActive: {
-      type: Boolean,
-      computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
-      observer: '_highlightBadges'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
-    },
-    lazyPages: {
-      type: Object,
-      value: {
-        'search-and-filter': () => {
-          import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
-        },
-        'project': () => {
-          import(/* webpackChunkName: "organization-details" */ '../pages/organization-details/organization-details.html')
-        },
-        'edit-project-details': importOrganizationEditor,
-        'new-project': importOrganizationEditor,
-        'intent': () => {
-          import(/* webpackChunkName: "intent-details" */ '../pages/intent-details/intent-details.html')
-        },
-        'edit-intent': importIntentEditor,
-        'new-intent': importIntentEditor,
-        'place': () => {
-          import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
-        },
-        'me': () => {
-          import(/* webpackChunkName: "vientos-inbox" */ '../pages/vientos-inbox/vientos-inbox.html')
-        },
-        'account': () => {
-          import(/* webpackChunkName: "account-settings" */ '../editors/account-settings/account-settings.html')
-        },
-        'new-conversation': () => {
-          import(/* webpackChunkName: "start-conversation" */ '../pages/start-conversation/start-conversation.html')
-        },
-        'conversation': () => {
-          import(/* webpackChunkName: "vientos-conversation" */ '../pages/vientos-conversation/vientos-conversation.html')
+  static get properties () {
+    return {
+      config: {
+        type: Object,
+        value: window.vientos.config
+      },
+      session: {
+        type: Object,
+        statePath: 'session',
+        observer: '_sessionChanged'
+      },
+      page: {
+        type: String,
+        reflectToAttribute: true,
+        observer: '_pageChanged'
+      },
+      projects: {
+        type: Array,
+        statePath: 'projects'
+      },
+      places: {
+        type: Array,
+        statePath: 'places'
+      },
+      intents: {
+        type: Array,
+        statePath: 'intents'
+      },
+      person: {
+        type: Object,
+        statePath: 'person',
+        observer: '_personChanged'
+      },
+      myConversations: {
+        type: Array,
+        statePath: 'myConversations'
+      },
+      notifications: {
+        type: Array,
+        statePath: 'notifications'
+      },
+      filteredCategories: {
+        type: Array,
+        statePath: 'filteredCategories'
+      },
+      filteredCollaborationTypes: {
+        type: Array,
+        statePath: 'filteredCollaborationTypes'
+      },
+      filteredFollowings: {
+        type: Boolean,
+        statePath: 'filteredFollowings'
+      },
+      filteredFavorings: {
+        type: Boolean,
+        statePath: 'filteredFavorings'
+      },
+      locationFilter: {
+        type: String,
+        statePath: 'locationFilter'
+      },
+      mapOf: {
+        type: String,
+        value: 'projects'
+      },
+      boundingBox: {
+        type: Object,
+        statePath: 'boundingBox'
+      },
+      boundingBoxFilter: {
+        type: Boolean,
+        statePath: 'boundingBoxFilter'
+      },
+      mapView: {
+        type: Object
+      },
+      wideScreen: {
+        type: Boolean
+      },
+      showingMap: {
+        type: Boolean,
+        value: false
+      },
+      mapButtonVisible: {
+        type: Boolean,
+        computed: '_mapButtonVisibility(page, wideScreen, showingMap)'
+      },
+      listButtonVisible: {
+        type: Boolean,
+        computed: '_listButtonVisibility(page, wideScreen, showingMap)'
+      },
+      placeInfoButtonVisible: {
+        type: Boolean,
+        computed: '_placeInfoButtonVisibility(page, wideScreen, showingMap)'
+      },
+      currentProject: {
+        type: Object,
+        value: null,
+        computed: '_findProject(routeData.page, subrouteData.id, projects)'
+      },
+      currentIntent: {
+        type: Object,
+        value: null,
+        computed: '_findIntent(routeData.page, subrouteData.id, intents)'
+      },
+      currentConversation: {
+        type: Object,
+        value: null,
+        computed: '_findConversation(routeData.page, subrouteData.id, myConversations)'
+      },
+      currentPlace: {
+        type: Object,
+        value: null,
+        computed: '_findPlace(routeData.page, subrouteData.id, places)',
+        observer: '_setMapView'
+      },
+      visibleProjects: {
+        type: Array,
+        value: [],
+        computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
+      },
+      visibleIntents: {
+        type: Array,
+        value: [],
+        computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
+      },
+      visiblePlaces: {
+        type: Array,
+        value: [],
+        computed: '_setVisiblePlaces(page, visibleProjectLocations, visibleIntentLocations)'
+      },
+      visibleProjectLocations: {
+        type: Array,
+        value: [],
+        computed: '_filterPlaces(visibleProjects, places, boundingBox)'
+      },
+      visibleIntentLocations: {
+        type: Array,
+        value: [],
+        computed: '_filterPlaces(visibleIntents, places, boundingBox)'
+      },
+      ourTurnCount: {
+        type: Number,
+        computed: '_calcOurTurnCount(person, myConversations, intents)'
+      },
+      availableIntents: {
+        type: Array,
+        value: [],
+        computed: '_avilableIntents(intents)'
+      },
+      filterActive: {
+        type: Boolean,
+        computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
+        observer: '_highlightBadges'
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      },
+      lazyPages: {
+        type: Object,
+        value: {
+          'search-and-filter': () => {
+            import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
+          },
+          'project': () => {
+            import(/* webpackChunkName: "organization-details" */ '../pages/organization-details/organization-details.html')
+          },
+          'edit-project-details': importOrganizationEditor,
+          'new-project': importOrganizationEditor,
+          'intent': () => {
+            import(/* webpackChunkName: "intent-details" */ '../pages/intent-details/intent-details.html')
+          },
+          'edit-intent': importIntentEditor,
+          'new-intent': importIntentEditor,
+          'place': () => {
+            import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
+          },
+          'me': () => {
+            import(/* webpackChunkName: "vientos-inbox" */ '../pages/vientos-inbox/vientos-inbox.html')
+          },
+          'account': () => {
+            import(/* webpackChunkName: "account-settings" */ '../editors/account-settings/account-settings.html')
+          },
+          'new-conversation': () => {
+            import(/* webpackChunkName: "start-conversation" */ '../pages/start-conversation/start-conversation.html')
+          },
+          'conversation': () => {
+            import(/* webpackChunkName: "vientos-conversation" */ '../pages/vientos-conversation/vientos-conversation.html')
+          }
         }
       }
     }
-  } }
+  }
 
-  static get observers () { return [
-    '_routePageChanged(routeData.page)',
-    '_handleMapVisibility(page, wideScreen, showingMap)',
-    '_footerPageChanged(page)'
-  ] }
+  static get observers () {
+    return [
+      '_routePageChanged(routeData.page)',
+      '_handleMapVisibility(page, wideScreen, showingMap)',
+      '_footerPageChanged(page)'
+    ]
+  }
 
   _filterProjects (...args) { return window.vientos.util.filterProjects(...args) }
   _filterIntents (...args) { return window.vientos.util.filterIntents(...args) }
@@ -249,8 +254,8 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _pageChanged (page) {
     // Load page import on demand. Show 404 page if fails
-    if(this.lazyPages[page]){
-      this.lazyPages[page]();
+    if (this.lazyPages[page]) {
+      this.lazyPages[page]()
     } else {
       // TODO: this._showPage404();
     }
@@ -363,7 +368,7 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _showMap () {
     this.set('showingMap', true)
-    if(this.wideScreen) window.history.replaceState({}, '', window.location.pathname + + '#map')
+    if (this.wideScreen) window.history.replaceState({}, '', window.location.pathname + +'#map')
     else window.history.pushState({}, '', window.location.pathname + '#map')
     window.dispatchEvent(new CustomEvent('location-changed'))
     if (this.currentPlace) this._setMapView(this.currentPlace)
@@ -371,7 +376,7 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _showList () {
     this.set('showingMap', false)
-    if(this.wideScreen) window.history.replaceState({}, '', window.location.pathname)
+    if (this.wideScreen) window.history.replaceState({}, '', window.location.pathname)
     else window.history.pushState({}, '', window.location.pathname)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }

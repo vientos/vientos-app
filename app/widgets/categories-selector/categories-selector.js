@@ -1,30 +1,31 @@
-/* global Polymer */
+/* global Polymer, CustomEvent */
 
 class CategoriesSelector extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
   window.vientos.ReduxMixin(Polymer.Element)) {
-
   static get is () { return 'categories-selector' }
 
-  static get properties () { return {
-    categories: {
+  static get properties () {
+    return {
+      categories: {
       // from parent
-      type: Array
-    },
-    selection: {
-      type: Array
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+        type: Array
+      },
+      selection: {
+        type: Array
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
     }
-  } }
+  }
 
-  _iconFor(...args) { return window.vientos.util.iconFor(...args) }
+  _iconFor (...args) { return window.vientos.util.iconFor(...args) }
 
   _isInSelected (category, selection) {
     return selection && selection.includes(category.id)

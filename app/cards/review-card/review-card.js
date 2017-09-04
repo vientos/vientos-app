@@ -7,36 +7,37 @@ class ReviewCard extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'review-card' }
 
-  static get properties () { return {
-    review: {
+  static get properties () {
+    return {
+      review: {
       // passed from parent
-      type: Object
-    },
-    people: {
-      type: Array,
-      statePath: 'people'
-    },
-    myConversations: {
-      type: Array,
-      statePath: 'myConversations'
-    },
-    linksToConversation: {
-      type: Boolean,
-      computed: '_linksToConversation(review, myConversations, skipLink)',
-      value: false,
-      reflectToAttribute: true
-    },
-    skipLink: {
-      type: Boolean,
-      value: false
+        type: Object
+      },
+      people: {
+        type: Array,
+        statePath: 'people'
+      },
+      myConversations: {
+        type: Array,
+        statePath: 'myConversations'
+      },
+      linksToConversation: {
+        type: Boolean,
+        computed: '_linksToConversation(review, myConversations, skipLink)',
+        value: false,
+        reflectToAttribute: true
+      },
+      skipLink: {
+        type: Boolean,
+        value: false
+      }
     }
-  } }
+  }
 
-  _getName(...args) { return util.getName(...args) }
-  _getImage(...args) { return util.getImage(...args) }
+  _getName (...args) { return util.getName(...args) }
+  _getImage (...args) { return util.getImage(...args) }
 
   _linksToConversation (review, myConversations, skipLink) {
     if (Array.from(arguments).includes(undefined)) return false

@@ -1,51 +1,53 @@
 /* global Polymer, L, CustomEvent */
 
 class VientosMap extends Polymer.Element {
-  static get is() { return 'vientos-map' }
+  static get is () { return 'vientos-map' }
 
-  static get properties() { return {
-    locations: {
-      type: Array,
-      observer: '_updatedLocations'
-    },
-    map: {
-      type: Object
-    },
-    latitude: {
-      type: Number,
-      value: window.vientos.config.map.latitude
-    },
-    longitude: {
-      type: Number,
-      value: window.vientos.config.map.longitude
-    },
-    zoom: {
-      type: Number,
-      value: window.vientos.config.map.zoom
-    },
-    view: {
-      type: Object,
-      observer: '_viewChanged'
-    },
-    boundingBox: {
-      type: Object,
-      computed: '_getBoundingBox(latitude, longitude, zoom)',
-      observer: '_updatedBoundingBox'
-    },
-    myLatitude: {
-      type: Number
-    },
-    myLongitude: {
-      type: Number
-    },
-    myAccuracy: {
-      type: Number
-    },
-    tilelayer: {
-      type: String,
-      value: () => { return window.vientos.config.map.tilelayer }
+  static get properties () {
+    return {
+      locations: {
+        type: Array,
+        observer: '_updatedLocations'
+      },
+      map: {
+        type: Object
+      },
+      latitude: {
+        type: Number,
+        value: window.vientos.config.map.latitude
+      },
+      longitude: {
+        type: Number,
+        value: window.vientos.config.map.longitude
+      },
+      zoom: {
+        type: Number,
+        value: window.vientos.config.map.zoom
+      },
+      view: {
+        type: Object,
+        observer: '_viewChanged'
+      },
+      boundingBox: {
+        type: Object,
+        computed: '_getBoundingBox(latitude, longitude, zoom)',
+        observer: '_updatedBoundingBox'
+      },
+      myLatitude: {
+        type: Number
+      },
+      myLongitude: {
+        type: Number
+      },
+      myAccuracy: {
+        type: Number
+      },
+      tilelayer: {
+        type: String,
+        value: () => { return window.vientos.config.map.tilelayer }
+      }
     }
-  } }
+  }
 
   _initializeMap () {
     this.map = L.map(this.$.map)

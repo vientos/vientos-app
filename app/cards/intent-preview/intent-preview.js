@@ -5,77 +5,77 @@ class IntentPreview extends Polymer.mixinBehaviors(
   window.vientos.ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-
   static get is () { return 'intent-preview' }
 
-  static get properties () { return {
-    intent: {
+  static get properties () {
+    return {
+      intent: {
       // passed from parent
-      type: Object
-    },
-    intentProjects: {
-      type: Array,
-      computed: '_getIntentProjects(intent, projects)'
-    },
-    myConversations: {
-      type: Array,
-      statePath: 'myConversations'
-    },
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    notifications: {
-      type: Array,
-      statePath: 'notifications'
-    },
-    notificationCount: {
-      type: Number,
-      computed: '_notificationCount(intent, myConversations, notifications)'
-    },
-    ourTurnCount: {
-      type: Number,
-      computed: '_calcOurTurnCount(person, myConversations, intent, projectAdmin)'
-    },
-    projects: {
-      type: Array,
-      statePath: 'projects'
-    },
-    projectAdmin: {
-      type: Boolean,
-      computed: '_checkIfProjectAdmin(person, intent, projects)',
-      value: false
-    },
-    intentAdmin: {
-      type: Boolean,
-      computed: '_canAdminIntent(person, intent)',
-      value: false
-    },
-    favoring: {
-      type: Object,
-      value: null,
-      computed: '_checkIfFavors(person, intent)'
-    },
-    showProjects: {
-      type: Boolean
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+        type: Object
+      },
+      intentProjects: {
+        type: Array,
+        computed: '_getIntentProjects(intent, projects)'
+      },
+      myConversations: {
+        type: Array,
+        statePath: 'myConversations'
+      },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      notifications: {
+        type: Array,
+        statePath: 'notifications'
+      },
+      notificationCount: {
+        type: Number,
+        computed: '_notificationCount(intent, myConversations, notifications)'
+      },
+      ourTurnCount: {
+        type: Number,
+        computed: '_calcOurTurnCount(person, myConversations, intent, projectAdmin)'
+      },
+      projects: {
+        type: Array,
+        statePath: 'projects'
+      },
+      projectAdmin: {
+        type: Boolean,
+        computed: '_checkIfProjectAdmin(person, intent, projects)',
+        value: false
+      },
+      intentAdmin: {
+        type: Boolean,
+        computed: '_canAdminIntent(person, intent)',
+        value: false
+      },
+      favoring: {
+        type: Object,
+        value: null,
+        computed: '_checkIfFavors(person, intent)'
+      },
+      showProjects: {
+        type: Boolean
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
     }
-  } }
+  }
 
   _checkIfFavors (...args) { return window.vientos.util.checkIfFavors(...args) }
   _getThumbnailUrl (...args) { return window.vientos.util.getThumbnailUrl(...args) }
   _canAdminIntent (...args) { return window.vientos.util.canAdminIntent(...args) }
 
   _getIntentProjects (intent, projects) {
-    if (intent && projects && projects.length)
-      return window.vientos.util.getRef(intent.projects, projects)
+    if (intent && projects && projects.length) { return window.vientos.util.getRef(intent.projects, projects) }
   }
 
   _showIntentDetails () {
