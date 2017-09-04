@@ -1,5 +1,3 @@
-/* global Polymer */
-
 const ActionCreators = window.vientos.ActionCreators
 
 class SearchAndFilter extends Polymer.mixinBehaviors(

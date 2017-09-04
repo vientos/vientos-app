@@ -1,5 +1,3 @@
-/* global Polymer, CustomEvent */
-
 const ActionCreators = window.vientos.ActionCreators
 const importOrganizationEditor = () => {
   import(/* webpackChunkName: "organization-editor" */ '../editors/organization-editor/organization-editor.html')

@@ -1,4 +1,4 @@
-/* global Polymer, L, CustomEvent */
+/* global L */
 
 class VientosMap extends Polymer.Element {
   static get is () { return 'vientos-map' }

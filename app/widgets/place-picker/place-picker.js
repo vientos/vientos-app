@@ -1,4 +1,4 @@
-/* global Polymer, CustomEvent, google */
+/* global google */
 
 class PlacePicker extends Polymer.Element {
   static get is () { return 'place-picker' }

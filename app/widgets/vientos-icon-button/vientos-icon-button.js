@@ -1,5 +1,3 @@
-/* global Polymer */
-
 class VientosIconButton extends Polymer.Element {
   static get is () { return 'vientos-icon-button' }
 

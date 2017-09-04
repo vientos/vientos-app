@@ -1,5 +1,3 @@
-/* global CustomEvent */
-
 import { escape } from 'escape-goat'
 import deepEqual from 'deep-equal'
 const service = require('../config.json').service

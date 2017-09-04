@@ -1,5 +1,3 @@
-/* global Polymer, CustomEvent */
-
 class IntentPreview extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
   window.vientos.ReduxMixin(

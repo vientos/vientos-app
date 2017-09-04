@@ -1,5 +1,3 @@
-/* global Polymer, CustomEvent */
-
 class OrganizationPreview extends window.vientos.ReduxMixin(
   Polymer.GestureEventListeners(Polymer.Element)
 ) {

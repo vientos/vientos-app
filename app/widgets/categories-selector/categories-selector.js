@@ -1,5 +1,3 @@
-/* global Polymer, CustomEvent */
-
 class CategoriesSelector extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
   window.vientos.ReduxMixin(Polymer.Element)) {

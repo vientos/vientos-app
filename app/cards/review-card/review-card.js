@@ -1,5 +1,3 @@
-/* global Polymer, CustomEvent */
-
 const util = window.vientos.util
 
 class ReviewCard extends Polymer.mixinBehaviors(

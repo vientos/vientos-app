@@ -28,7 +28,8 @@
   "author": "",
   "license": "Unlicense",
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "globals": ["Polymer", "CustomEvent"]
   },
   "eslintConfig": {
     "ecmaVersion": 2015,

@@ -1,5 +1,3 @@
-/* global Polymer, CustomEvent */
-
 class ImagePicker extends Polymer.Element {
   static get is () { return 'image-picker' }
 

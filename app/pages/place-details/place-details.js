@@ -1,5 +1,3 @@
-/* global Polymer */
-
 const util = window.vientos.util
 
 class PlaceDetails extends Polymer.mixinBehaviors(
