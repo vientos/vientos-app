@@ -1,13 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="vientos-layout.html">
@@ -20,48 +10,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
   <style include="vientos-layout vientos-colors vientos-spacing vientos-reset">
 
-    --fixed: {
-      position: fixed;
-    };
-
-
-
-
-    /* icons */
-
-    --icon-layout: {
-      @apply --layout-horizontal;
-      @apply --layout-center-justified;
-    };
-
-    --small-icon: {
-
-      @apply --icon-layout;
-
-      --iron-icon-height: 10px;
-      --iron-icon-width: 10px;
-
-      padding: 0 !important;
-      margin: 0 !important;
-
-    };
-
+  :host {
     --search-and-filter-button: {
-        width: 100px;
-        height: 70px;
+        width: 140px;
+        height: 48px;
         margin: 5px;
-        text-align: center;
         border: 1px solid grey;
         border-radius: 5px;
     };
-
-    --back-button: {
-      width: 35px;
-      height: 35px;
-      background-color: #ccc;
-      border-radius: 50%;
-      margin-right: 20px;
-    };
+  }
 
   * {
     font-family: 'Source Sans Pro', sans-serif;
@@ -231,11 +188,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   header paper-icon-button {
-    @apply --back-button
+      width: 35px;
+      height: 35px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin-right: 20px;
   }
 
   footer {
-    @apply --layout-horizontal;
     @apply --layout-horizontal;
     @apply --layout-around-justified;
     position: fixed;
@@ -254,7 +214,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   footer.simple paper-button#button-save {
     background-color: var(--vientos-primary-dark);
-    color: white
+    color: white;
     --paper-button: {
       flex: 1;
     }

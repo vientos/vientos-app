@@ -87,7 +87,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
   _intentChanged () {
     this._reset()
     this._makeClone()
-    if (this.intent) this.set('collaborationType', this.intent.collaborationType)
+    if (this.intent) { this.set('collaborationType', this.intent.collaborationType) }
   }
 
   _makeClone () {
