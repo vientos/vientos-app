@@ -86,8 +86,8 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
     let collapser = section.getElementsByClassName('collapser')[0]
     let ironCollapse = section.getElementsByTagName('iron-collapse')[0]
     let icon = collapser.getElementsByTagName('iron-icon')[0]
-    if (icon.icon === 'expand-more') icon.set('icon', 'expand-less')
-    else icon.set('icon', 'expand-more')
+    if (icon.icon === 'vientos:expand-more') icon.set('icon', 'vientos:expand-less')
+    else icon.set('icon', 'vientos:expand-more')
     ironCollapse.toggle()
   }
 

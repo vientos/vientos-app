@@ -8,8 +8,6 @@
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
 
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../widgets/vientos-icon-button/vientos-icon-button.html">
 
@@ -22,7 +20,7 @@
   <template>
     <style include="vientos-conversation-styles"></style>
     <header>
-      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+      <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
     </header>
     <section id="review">
       <template is="dom-if" if="[[conversation.reviews.length]]">
@@ -51,9 +49,9 @@
             <div class="hint">[[localize('hint:rating-required')]]</div>
           </template>
           <iron-selector selected="{{rating}}" attr-for-selected="name">
-            <paper-icon-button icon="social:sentiment-dissatisfied" name="dissatisfied"></paper-icon-button>
-            <paper-icon-button icon="social:sentiment-neutral" name="neutral"></paper-icon-button>
-            <paper-icon-button icon="social:sentiment-satisfied" name="satisfied"></paper-icon-button>
+            <paper-icon-button icon="vientos:dissatisfied" name="dissatisfied"></paper-icon-button>
+            <paper-icon-button icon="vientos:neutral" name="neutral"></paper-icon-button>
+            <paper-icon-button icon="vientos:satisfied" name="satisfied"></paper-icon-button>
           </iron-selector>
         </div>
         <paper-textarea
