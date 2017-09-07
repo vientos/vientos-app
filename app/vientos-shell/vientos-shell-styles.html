@@ -9,10 +9,7 @@
 
   :host {
     --toolbar-height: 48px;
-
-    --vientos-nav-button-selected: {
-      border-bottom: 4px solid var(--vientos-primary-light);
-    };
+    --vientos-nav-selected-border-bottom: 4px solid var(--vientos-primary-light);
   }
 
   /* Will be prevented from affecting local DOM of Polymer elements */
@@ -43,9 +40,7 @@
     margin: 0 auto;
     max-width: 600px;
     display: block;
-    padding: 10px;
     padding: var(--spacing-2);
-    @apply --center-y;
     margin-bottom: 96px;
   }
 
@@ -100,7 +95,7 @@
  }
 
  #header {
-   @apply --layout-horizontal;
+   display: flex;
    position: fixed;
    top: 0;
    width: 100%;
@@ -110,26 +105,13 @@
    background-color: var(--vientos-secondary-light);
  }
 
- #header .button-holder {
-   @apply --layout-horizontal;
- }
-
  #header #menu-button-holder-left {
-   @apply --layout-fixed-left;
-   @apply --layout-start-justified;
+   width: var(--toolbar-height);
    height: var(--toolbar-height);
  }
 
  #header #menu-button-holder-left a {
    display: block;
- }
-
- #header .button-holder paper-button div,
- #header .button-holder paper-button iron-icon {
-   @apply --layout-horizontal;
-   @apply --layout-center-justified;
-   width: auto !important;
-   text-align: center !important;
  }
 
  #header #logo {
@@ -150,7 +132,7 @@
  }
 
  #header #menu-button-holder-right.selected {
-   @apply --vientos-nav-button-selected;
+   border-bottom: var(--vientos-nav-selected-border-bottom);
  }
 
  #header #page-title {
@@ -196,8 +178,6 @@
  }
 
  #footer {
-   @apply --layout-horizontal;
-   @apply --layout-around-justified;
    width: 100%;
    height: var(--toolbar-height);
    position: fixed;
@@ -213,20 +193,18 @@
  }
  /*app-toolbar, */
  #footer iron-selector {
+   display: flex;
    width: 100%;
    height: 100%;
-   @apply --layout-horizontal;
-   @apply --layout-around-justified;
-
  }
 
 #footer paper-button {
-  @apply --layout-flex;
+  flex: 1;
   color: var(--vientos-primary-dark);
 }
 
 #footer paper-button.iron-selected {
-  @apply --vientos-nav-button-selected;
+  border-bottom: var(--vientos-nav-selected-border-bottom);
 }
 
 #footer paper-button.filtered paper-badge {

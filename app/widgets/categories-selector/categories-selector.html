@@ -9,10 +9,6 @@
 <dom-module id="categories-selector">
   <template>
     <style include="vientos-styles">
-      vientos-icon-button {
-        @apply --search-and-filter-button
-      }
-
       vientos-icon-button[active] {
         --vientos-icon-button-bg-color: var(--vientos-secondary-1);
       }
@@ -20,7 +16,7 @@
 
     </style>
 
-    <div>
+    <div class="select-buttons">
       <template is="dom-repeat" items="[[categories]]">
         <vientos-icon-button
           toggles

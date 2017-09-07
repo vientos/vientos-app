@@ -10,14 +10,13 @@
   <template>
   <style include="vientos-layout vientos-colors vientos-spacing vientos-reset">
 
-  :host {
-    --search-and-filter-button: {
-        width: 140px;
-        height: 48px;
-        margin: 5px;
-        border: 1px solid grey;
-        border-radius: 5px;
-    };
+  .select-buttons vientos-icon-button,
+  .select-buttons paper-button {
+    width: 140px;
+    height: 48px;
+    margin: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
   }
 
   * {
@@ -66,12 +65,10 @@
   }
 
   .card {
-    @apply --layout-vertical;
     background-color: var(--vientos-color-card-bg);
     margin: var(--spacing-3);
     padding: 0 var(--spacing-4);
     box-sizing: border-box;
-    -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
     box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
   };
 
@@ -94,37 +91,12 @@
     --paper-input-container-color: var(--primary-color);
   }
 
-  app-toolbar {
-    padding: 0 !important;
-    @apply --layout-horizontal;
-  }
-
-  app-toolbar iron-selector {
-    /*margin: 0 !important;
-    padding: 0 !important;*/
-    @apply --layout-fit;
-  }
-
-  paper-button span {
-
-    /*@apply --padding-2;*/
-    /*margin: 8px;*/
-  }
-
   vientos-icon-button[small] {
     --vientos-icon-button-font-size: 12px;
   }
 
   vientos-icon-button[large] {
     --vientos-icon-button-font-size: 20px;
-  }
-
-  vientos-icon-button[ellipsis] {
-    --vientos-icon-button-text: {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    };
   }
 
   paper-button.primary-action {
@@ -196,8 +168,7 @@
   }
 
   footer {
-    @apply --layout-horizontal;
-    @apply --layout-around-justified;
+    display: flex;
     position: fixed;
     bottom: 0;
     left: 32px;
