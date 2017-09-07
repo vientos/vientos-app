@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../vientos-styles/vientos-styles.html">
 
 <dom-module id="vientos-shell-styles">
@@ -24,13 +23,7 @@
   search-and-filter,
   vientos-inbox,
   organization-details,
-  place-details {
-    margin: 0 auto;
-    max-width: 600px;
-    display: block;
-    padding: 10px;
-  }
-
+  place-details,
   organization-editor,
   intent-details,
   start-conversation,
@@ -40,7 +33,13 @@
     margin: 0 auto;
     max-width: 600px;
     display: block;
-    padding: var(--spacing-2);
+    padding: calc(3 * var(--spacing));
+  }
+
+  intent-details,
+  organization-editor,
+  account-settings,
+  intent-editor {
     margin-bottom: 96px;
   }
 

@@ -1,14 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="vientos-layout.html">
 <link rel="import" href="vientos-colors.html">
-<link rel="import" href="vientos-spacing.html">
-<link rel="import" href="vientos-reset.html">
 
 <dom-module id="vientos-styles">
 
   <template>
-  <style include="vientos-layout vientos-colors vientos-spacing vientos-reset">
+  <style include="vientos-colors">
+
+  :host {
+    --spacing: 4px;
+  }
 
   .select-buttons vientos-icon-button,
   .select-buttons paper-button {
@@ -26,6 +27,15 @@
 
   a {
     color: var(--vientos-tertiary-2);
+  }
+
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
   }
 
   h1 {
@@ -65,9 +75,9 @@
   }
 
   .card {
-    background-color: var(--vientos-color-card-bg);
-    margin: var(--spacing-3);
-    padding: 0 var(--spacing-4);
+    background-color: var(--vientos-card-bg);
+    margin: calc(3 * var(--spacing));
+    padding: 0 calc(4 * var(--spacing));
     box-sizing: border-box;
     box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
   };
