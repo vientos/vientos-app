@@ -198,6 +198,12 @@ class VientosShell extends Polymer.mixinBehaviors(
       lazyPages: {
         type: Object,
         value: {
+          'projects': () => {
+            import(/* webpackChunkName: "organization-preview" */ '../cards/organization-preview/organization-preview.html')
+          },
+          'intents': () => {
+            import(/* webpackChunkName: "intent-preview" */ '../cards/intent-preview/intent-preview.html')
+          },
           'search-and-filter': () => {
             import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
           },
@@ -493,6 +499,7 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   ready () {
     super.ready()
+    import(/* webpackChunkName: "vientos-map" */ '../widgets/vientos-map/vientos-map.html')
     this.dispatch('hello')
     this.dispatch('fetchLabels')
     this.dispatch('fetchCategories')
