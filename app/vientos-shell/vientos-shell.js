@@ -34,10 +34,6 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   static get properties () {
     return {
-      config: {
-        type: Object,
-        value: window.vientos.config
-      },
       session: {
         type: Object,
         statePath: 'session',

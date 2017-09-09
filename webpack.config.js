@@ -2,15 +2,22 @@
 /* global __dirname module require */
 const path = require('path')
 const webpack = require('webpack')
+// const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: {
-    main: './app/vientos-shell/vientos-shell.html',
-    engine: './src/main.js'
+    main: './index.js',
+    engine: './src/main.js',
+    vendor: [
+      'raven-js',
+      './bower_components/webcomponentsjs/webcomponents-loader.js',
+      // './bower_components/intl-messageformat/dist/intl-messageformat.min.js',
+      './bower_components/polymer/polymer.html'
+    ]
   },
   output: {
-    // filename: '[name].[chunkhash].bundle.js',
-    filename: '[name].bundle.js',
+    // filename: '[chunkhash].[name].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, './dist'),
     publicPath: 'dist/'
   },
@@ -18,7 +25,7 @@ module.exports = {
     modules: ['node_modules', 'bower_components'],
     descriptionFiles: ['package.json']
   },
-  devtool: 'eval',
+  // devtool: 'eval',
   module: {
     rules: [
       {
@@ -32,6 +39,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.NamedChunksPlugin()
+    new webpack.NamedChunksPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    })
+    // new Uglify()
   ]
 }

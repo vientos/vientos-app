@@ -18,7 +18,11 @@ import * as AppActionCreators from './actionCreators'
 import * as AppReducers from './reducers'
 import * as util from './util'
 
+import Raven from 'raven-js'
 const config = require('../config.json')
+
+// report errors to sentry.io
+if (config.sentry) Raven.config(config.sentry).install()
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -90,7 +94,6 @@ sagaMiddleware.run(saga)
 // otherwise unit tests not run in browser will fail
 if (typeof window !== 'undefined') {
   window.vientos = {}
-  window.vientos.store = store
   window.vientos.ReduxMixin = PolymerRedux(store)
   window.vientos.ActionCreators = Object.assign({}, ActionCreators, AppActionCreators)
   window.vientos.mintUrl = client.mintUrl

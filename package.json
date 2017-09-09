@@ -7,9 +7,11 @@
     "deep-equal": "^1.0.1",
     "escape-goat": "^1.3.0",
     "polymer-redux": "https://github.com/vientos/polymer-redux.git#polymer-webpack-loader",
+    "raven-js": "^3.17.0",
     "redux": "^3.7.2",
     "vientos-client": "https://github.com/vientos/vientos-client.git#0.1.0",
-    "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.3"
+    "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.3",
+    "vientos-leaflet": "https://github.com/vientos/vientos-leaflet.git#0.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -29,7 +31,10 @@
   "license": "Unlicense",
   "standard": {
     "parser": "babel-eslint",
-    "globals": ["Polymer", "CustomEvent"]
+    "globals": [
+      "Polymer",
+      "CustomEvent"
+    ]
   },
   "eslintConfig": {
     "ecmaVersion": 2015,

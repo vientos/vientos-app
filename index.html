@@ -41,48 +41,19 @@
     <meta name="msapplication-TileImage" content="/images/manifest/vientos-144x144.png">
     <meta name="msapplication-TileColor" content="#62a24c">
     <meta name="msapplication-tap-highlight" content="no">
-
     <script src="bower_components/intl-messageformat/dist/intl-messageformat.min.js"></script>
-
-    <script>
-      // Register the base URL
-      const baseUrl = document.querySelector('base').href;
-
-      // // Load and register pre-caching Service Worker
-      // if ('serviceWorker' in navigator) {
-      //   window.addEventListener('load', function() {
-      //     navigator.serviceWorker.register(baseUrl + 'service-worker.js');
-      //   });
-      // }
-    </script>
-    <script>
-      document.addEventListener('WebComponentsReady', function webcomponentsready() {
-        var refScript = document.getElementsByTagName('script')[1];
-        var engineScript = document.createElement('script');
-        engineScript.src = 'dist/engine.bundle.js';
-        refScript.parentNode.insertBefore(engineScript, refScript);
-        document.removeEventListener('WebComponentsReady', webcomponentsready, false);
-        var mainScript = document.createElement('script');
-        mainScript.src = 'dist/main.bundle.js';
-        refScript.parentNode.insertBefore(mainScript, refScript);
-      }, false);
-    </script>
-
-    <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
-    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="dist/vendor.js"></script>
+    <script src="dist/engine.js"></script>
+    <script src="dist/main.js"></script>
     <style media="screen">
-    body {
-      margin: 0;
-      font-family: 'Source Sans Pro', sans-serif;
-      line-height: 1.5;
-      height: 100vh;
-      background-color: #f3f5f3;
-    }
+      body {
+        margin: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        line-height: 1.5;
+        height: 100vh;
+        background-color: #f3f5f3;
+      }
     </style>
-    <!-- <script src="https://cdn.ravenjs.com/3.16.0/raven.min.js" crossorigin="anonymous"></script>
-    <script>
-      if (window.vientos.config.sentry) Raven.config(window.vientos.config.sentry).install()
-    </script> -->
   </head>
   <body>
     <vientos-shell></vientos-shell>
