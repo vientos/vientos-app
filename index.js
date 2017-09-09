@@ -1,16 +1,18 @@
-import 'raven-js'
-// import './bower_components/intl-messageformat/dist/intl-messageformat.min.js'
-import './bower_components/polymer/polymer.html'
+import Raven from 'raven-js'
 import IntlMessageFormat from 'intl-messageformat'
+import { config } from './src/engine'
 
-// Load webcomponents-loader.js to check and load any polyfills your browser needs
-import './bower_components/webcomponentsjs/webcomponents-loader.js'
 document.addEventListener('WebComponentsReady', function webcomponentsready () {
-  import(/* webpackChunkName: "engine" */ './src/engine.js').then(() => {
+  import(/* webpackChunkName: "polymer" */ './bower_components/polymer/polymer.html').then(() => {
     import(/* webpackChunkName: "vientos-shell" */ './app/vientos-shell/vientos-shell.html')
   })
 })
+
+// required by app-localize-behavior
 window.IntlMessageFormat = IntlMessageFormat
+
+// report errors to sentry.io
+if (config.sentry) Raven.config(config.sentry).install()
 
 // // Load and register pre-caching Service Worker
 // if ('serviceWorker' in navigator) {

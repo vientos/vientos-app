@@ -6,13 +6,12 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    main: './index.js',
     vendor: [
       'raven-js',
-      'intl-messageformat',
-      './bower_components/webcomponentsjs/webcomponents-loader.js',
-      './bower_components/polymer/polymer.html'
-    ]
+      'intl-messageformat'
+    ],
+    engine: './src/engine.js',
+    main: './index.js'
   },
   output: {
     // filename: '[chunkhash].[name].js',
