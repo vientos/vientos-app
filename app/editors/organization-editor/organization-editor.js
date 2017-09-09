@@ -1,9 +1,8 @@
-const ActionCreators = window.vientos.ActionCreators
-const util = window.vientos.util
+import { ReduxMixin, ActionCreators, util, mintUrl } from '../../../src/engine.js'
 
 class OrganizationEditor extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(
+  ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'organization-editor' }
@@ -150,7 +149,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     if (creator) {
       this._reset()
       this.set('updated', {
-        _id: window.vientos.mintUrl({ type: 'Project' }),
+        _id: mintUrl({ type: 'Project' }),
         type: 'Project',
         admins: [creator._id],
         categories: [],
@@ -178,7 +177,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     if (existingPlace) {
       place = existingPlace
     } else {
-      place._id = window.vientos.mintUrl({ type: 'Place' })
+      place._id = mintUrl({ type: 'Place' })
       this.dispatch('savePlace', place)
     }
     this._addToCollection(place._id, 'updated.locations')

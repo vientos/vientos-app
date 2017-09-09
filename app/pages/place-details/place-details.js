@@ -1,8 +1,8 @@
-const util = window.vientos.util
+import { ReduxMixin, util } from '../../../src/engine.js'
 
 class PlaceDetails extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(Polymer.Element)) {
+  ReduxMixin(Polymer.Element)) {
   static get is () { return 'place-details' }
 
   static get properties () {

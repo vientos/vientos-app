@@ -1,9 +1,8 @@
-const ActionCreators = window.vientos.ActionCreators
-const util = window.vientos.util
+import { ReduxMixin, ActionCreators, util, mintUrl } from '../../../src/engine.js'
 
 class StartConversation extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(
+  ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'start-conversation' }
@@ -89,7 +88,7 @@ class StartConversation extends Polymer.mixinBehaviors(
   _createConversation (person, intent) {
     if (person && intent) {
       this.set('conversation', {
-        _id: window.vientos.mintUrl({ type: 'Conversation' }),
+        _id: mintUrl({ type: 'Conversation' }),
         type: 'Conversation',
         creator: person._id,
         causingIntent: intent._id,

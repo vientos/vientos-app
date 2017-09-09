@@ -1,6 +1,8 @@
+import { ReduxMixin, util } from '../../../src/engine.js'
+
 class CategoriesSelector extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(Polymer.Element)) {
+  ReduxMixin(Polymer.Element)) {
   static get is () { return 'categories-selector' }
 
   static get properties () {
@@ -23,7 +25,7 @@ class CategoriesSelector extends Polymer.mixinBehaviors(
     }
   }
 
-  _iconFor (...args) { return window.vientos.util.iconFor(...args) }
+  _iconFor (...args) { return util.iconFor(...args) }
 
   _isInSelected (category, selection) {
     return selection && selection.includes(category.id)

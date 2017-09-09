@@ -1,6 +1,8 @@
+import { ReduxMixin, util } from '../../../src/engine.js'
+
 class IntentPreview extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(
+  ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'intent-preview' }
@@ -68,30 +70,30 @@ class IntentPreview extends Polymer.mixinBehaviors(
     }
   }
 
-  _checkIfFavors (...args) { return window.vientos.util.checkIfFavors(...args) }
-  _getThumbnailUrl (...args) { return window.vientos.util.getThumbnailUrl(...args) }
-  _canAdminIntent (...args) { return window.vientos.util.canAdminIntent(...args) }
+  _checkIfFavors (...args) { return util.checkIfFavors(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
+  _canAdminIntent (...args) { return util.canAdminIntent(...args) }
 
   _getIntentProjects (intent, projects) {
-    if (intent && projects && projects.length) { return window.vientos.util.getRef(intent.projects, projects) }
+    if (intent && projects && projects.length) { return util.getRef(intent.projects, projects) }
   }
 
   _showIntentDetails () {
-    window.history.pushState({}, '', window.vientos.util.pathFor(this.intent, 'intent'))
+    window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _checkIfProjectAdmin (person, intent, projects) {
     if (!person || !intent || !projects || !projects.length) return false
     return intent.projects.reduce((acc, projectId) => {
-      return acc.concat(window.vientos.util.getRef(projectId, projects).admins)
+      return acc.concat(util.getRef(projectId, projects).admins)
     }, []).includes(person._id)
   }
 
   _notificationCount (intent, myConversations, notifications) {
     if (!intent || !myConversations || !myConversations.length || !notifications) return 0
     return notifications.filter(notification => {
-      let conversation = window.vientos.util.getRef(notification.object, myConversations)
+      let conversation = util.getRef(notification.object, myConversations)
       return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
     }).length
   }
@@ -101,7 +103,7 @@ class IntentPreview extends Polymer.mixinBehaviors(
       return myConversations.filter(conversation => {
         return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
       }).reduce((count, conversation) => {
-        return window.vientos.util.ourTurn(person, conversation, [intent]) ? ++count : count
+        return util.ourTurn(person, conversation, [intent]) ? ++count : count
       }, 0)
     }
   }

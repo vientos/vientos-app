@@ -1,4 +1,5 @@
-const ActionCreators = window.vientos.ActionCreators
+import { ReduxMixin, ActionCreators, util } from '../../src/engine.js'
+
 const importOrganizationEditor = () => {
   import(/* webpackChunkName: "organization-editor" */ '../editors/organization-editor/organization-editor.html')
 }
@@ -8,7 +9,7 @@ const importIntentEditor = () => {
 
 class VientosShell extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(Polymer.Element)) {
+  ReduxMixin(Polymer.Element)) {
   static get is () { return 'vientos-shell' }
 
   static get actions () {
@@ -241,10 +242,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     ]
   }
 
-  _filterProjects (...args) { return window.vientos.util.filterProjects(...args) }
-  _filterIntents (...args) { return window.vientos.util.filterIntents(...args) }
-  _filterPlaces (...args) { return window.vientos.util.filterPlaces(...args) }
-  _avilableIntents (...args) { return window.vientos.util.availableIntents(...args) }
+  _filterProjects (...args) { return util.filterProjects(...args) }
+  _filterIntents (...args) { return util.filterIntents(...args) }
+  _filterPlaces (...args) { return util.filterPlaces(...args) }
+  _avilableIntents (...args) { return util.availableIntents(...args) }
 
   _routePageChanged (page) {
     let selectedPage = page || 'projects'
@@ -315,25 +316,25 @@ class VientosShell extends Polymer.mixinBehaviors(
   _findProject (page, projectId, projects) {
     if (Array.from(arguments).includes(undefined)) return null
     if (!['project', 'edit-project-details', 'new-intent'].includes(page)) return null
-    return projects.find(project => project._id === window.vientos.util.urlFromId(projectId, 'projects'))
+    return projects.find(project => project._id === util.urlFromId(projectId, 'projects'))
   }
 
   _findIntent (page, intentId, intents) {
     if (Array.from(arguments).includes(undefined)) return null
     if (!['intent', 'edit-intent', 'new-conversation'].includes(page)) return null
-    return intents.find(intent => intent._id === window.vientos.util.urlFromId(intentId, 'intents'))
+    return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
   }
 
   _findConversation (page, conversationId, conversations) {
     if (Array.from(arguments).includes(undefined)) return null
     if (page !== 'conversation') return null
-    return conversations.find(conversation => conversation._id === window.vientos.util.urlFromId(conversationId, 'conversations'))
+    return conversations.find(conversation => conversation._id === util.urlFromId(conversationId, 'conversations'))
   }
 
   _findPlace (page, placeId, places) {
     if (Array.from(arguments).includes(undefined)) return null
     if (page !== 'place') return null
-    return places.find(place => place._id === window.vientos.util.urlFromId(placeId, 'places'))
+    return places.find(place => place._id === util.urlFromId(placeId, 'places'))
   }
 
   _setMapView (place) {
@@ -435,7 +436,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _calcOurTurnCount (person, myConversations, intents) {
     if (Array.from(arguments).includes(undefined)) return 0
     return myConversations.reduce((count, conversation) => {
-      return window.vientos.util.ourTurn(person, conversation, intents) ? ++count : count
+      return util.ourTurn(person, conversation, intents) ? ++count : count
     }, 0)
   }
 

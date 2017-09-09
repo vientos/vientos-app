@@ -1,3 +1,5 @@
+import { util, config } from '../../../src/engine.js'
+
 class VientosMap extends Polymer.Element {
   static get is () { return 'vientos-map' }
 
@@ -12,15 +14,15 @@ class VientosMap extends Polymer.Element {
       },
       latitude: {
         type: Number,
-        value: window.vientos.config.map.latitude
+        value: config.map.latitude
       },
       longitude: {
         type: Number,
-        value: window.vientos.config.map.longitude
+        value: config.map.longitude
       },
       zoom: {
         type: Number,
-        value: window.vientos.config.map.zoom
+        value: config.map.zoom
       },
       view: {
         type: Object,
@@ -42,7 +44,7 @@ class VientosMap extends Polymer.Element {
       },
       tilelayer: {
         type: String,
-        value: () => { return window.vientos.config.map.tilelayer }
+        value: () => { return config.map.tilelayer }
       }
     }
   }
@@ -112,7 +114,7 @@ class VientosMap extends Polymer.Element {
   }
 
   _placeSelected (placeId) {
-    window.history.pushState({}, '', window.vientos.util.pathFor(placeId, 'place'))
+    window.history.pushState({}, '', util.pathFor(placeId, 'place'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 

@@ -1,9 +1,8 @@
-const ActionCreators = window.vientos.ActionCreators
-const util = window.vientos.util
+import { ReduxMixin, ActionCreators, util, mintUrl } from '../../../src/engine.js'
 
 class IntentEditor extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(
+  ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'intent-editor' }
@@ -164,7 +163,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
     if (person && project) {
       this._reset()
       this.set('updated', {
-        _id: window.vientos.mintUrl({ type: 'Intent' }),
+        _id: mintUrl({ type: 'Intent' }),
         title: '',
         description: '',
         question: '',
@@ -186,7 +185,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
     if (existingPlace) {
       place = existingPlace
     } else {
-      place._id = window.vientos.mintUrl({ type: 'Place' })
+      place._id = mintUrl({ type: 'Place' })
       this.dispatch('savePlace', place)
     }
     this._addToCollection(place._id, 'updated.locations')

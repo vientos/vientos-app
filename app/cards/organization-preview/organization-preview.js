@@ -1,4 +1,6 @@
-class OrganizationPreview extends window.vientos.ReduxMixin(
+import { ReduxMixin, util } from '../../../src/engine.js'
+
+class OrganizationPreview extends ReduxMixin(
   Polymer.GestureEventListeners(Polymer.Element)
 ) {
   static get is () { return 'organization-preview' }
@@ -20,11 +22,11 @@ class OrganizationPreview extends window.vientos.ReduxMixin(
     }
   }
 
-  _checkIfFollows (...args) { return window.vientos.util.checkIfFollows(...args) }
-  _getThumbnailUrl (...args) { return window.vientos.util.getThumbnailUrl(...args) }
+  _checkIfFollows (...args) { return util.checkIfFollows(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
 
   _showFullProfile () {
-    window.history.pushState({}, '', window.vientos.util.pathFor(this.organization, 'project'))
+    window.history.pushState({}, '', util.pathFor(this.organization, 'project'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }

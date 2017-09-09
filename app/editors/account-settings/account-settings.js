@@ -1,9 +1,8 @@
-const ActionCreators = window.vientos.ActionCreators
-const util = window.vientos.util
+import { ReduxMixin, ActionCreators, util } from '../../../src/engine.js'
 
 class AccountSettings extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(
+  ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'account-settings' }

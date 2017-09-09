@@ -1,3 +1,5 @@
+// https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+
 'use strict'
 /* global __dirname module require */
 const path = require('path')
@@ -47,7 +49,12 @@ module.exports = {
       minChunks: Infinity
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime'
+      name: 'engine',
+      chunks: ['engine', 'main'],
+      minChunks: 2
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
     })
     // new Uglify()
   ]

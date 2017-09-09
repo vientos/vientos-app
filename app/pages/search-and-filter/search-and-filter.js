@@ -1,8 +1,8 @@
-const ActionCreators = window.vientos.ActionCreators
+import { ReduxMixin, ActionCreators, util } from '../../../src/engine.js'
 
 class SearchAndFilter extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(Polymer.Element)) {
+  ReduxMixin(Polymer.Element)) {
   static get is () { return 'search-and-filter' }
 
   static get actions () {
@@ -65,7 +65,7 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
     }
   }
 
-  _iconFor (...args) { return window.vientos.util.iconFor(...args) }
+  _iconFor (...args) { return util.iconFor(...args) }
 
   _selectionChanged (e, selection) {
     this.dispatch('updateFilteredCategories', selection)

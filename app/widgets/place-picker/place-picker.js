@@ -1,4 +1,5 @@
 /* global google */
+import { config } from '../../../src/engine.js'
 
 class PlacePicker extends Polymer.Element {
   static get is () { return 'place-picker' }
@@ -7,7 +8,7 @@ class PlacePicker extends Polymer.Element {
     return {
       googleMapsApiKey: {
         type: String,
-        value: window.vientos.config.map.googleApiKey
+        value: config.map.googleApiKey
       }
     }
   }

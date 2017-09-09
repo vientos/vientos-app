@@ -1,8 +1,8 @@
-const util = window.vientos.util
+import { ReduxMixin, util } from '../../../src/engine.js'
 
 class ConversationsList extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
-  window.vientos.ReduxMixin(
+  ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'conversations-list' }
