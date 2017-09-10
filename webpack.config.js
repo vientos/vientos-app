@@ -4,7 +4,7 @@
 /* global __dirname module require */
 const path = require('path')
 const webpack = require('webpack')
-const Uglify = require('uglifyjs-webpack-plugin')
+// const Uglify = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -17,7 +17,8 @@ module.exports = {
     main: './index.js'
   },
   output: {
-    filename: '[name].[chunkhash].js',
+    filename: '[name].js',
+    // filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, './dist')
   },
   resolve: {
@@ -28,7 +29,12 @@ module.exports = {
       '../intl-messageformat/dist/intl-messageformat.min.js': 'intl-messageformat'
     }
   },
-  // devtool: 'eval',
+  devtool: 'eval',
+  devServer: {
+    compress: true,
+    historyApiFallback: true,
+    contentBase: './'
+  },
   module: {
     rules: [
       {
@@ -55,7 +61,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest'
     }),
-    new Uglify(),
+    // new Uglify(),
     new HtmlWebpackPlugin({
       inject: 'head',
       template: 'index.ejs'
