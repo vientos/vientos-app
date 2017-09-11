@@ -1,0 +1,36 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="vientos-guide-styles.html">
+
+<dom-module id="vientos-guide">
+  <template>
+
+    <style include="vientos-guide-styles"></style>
+
+    <iron-selector selected="{{section}}" attr-for-selected="name">
+      <iron-icon name="intro" icon="vientos:humanrights"></iron-icon>
+      <iron-icon name="organizations" icon="vientos:organization"></iron-icon>
+      <iron-icon name="intents" icon="vientos:intent"></iron-icon>
+      <iron-icon name="search-and-filter" icon="vientos:search"></iron-icon>
+      <iron-icon name="collaborations" icon="vientos:success"></iron-icon>
+      <iron-icon name="my-account" icon="vientos:user"></iron-icon>
+    </iron-selector>
+    <iron-pages
+      selected="[[section]]"
+      attr-for-selected="name">
+      <section name="intro">intro</section>
+      <section name="organizations">organizations</section>
+      <section name="intents">intents</section>
+      <section name="search-and-filter">search-and-filter</section>
+      <section name="collaborations">collaborations</section>
+      <section name="my-account">my-accounts</section>
+    </iron-pages>
+  </template>
+  <script src="vientos-guide.js"></script>
+</dom-module>
