@@ -489,7 +489,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     // workaround for iron-list rendering issues
     if (this.page === 'projects' || this.page === 'intents') {
       setTimeout(() => {
-        this.$$(`div[name=${this.page}] iron-list`).dispatchEvent(new CustomEvent('iron-resize'))
+        let ironList = this.$$(`div[name=${this.page}] iron-list`)
+        if (ironList) {
+          ironList.dispatchEvent(new CustomEvent('iron-resize'))
+        }
       }, 100)
     }
   }
