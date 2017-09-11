@@ -4,36 +4,42 @@
   "description": "Vientos App",
   "main": "main.js",
   "dependencies": {
-    "cuid": "^1.3.8",
     "deep-equal": "^1.0.1",
-    "escape-goat": "^1.1.0",
-    "isomorphic-fetch": "^2.2.1",
-    "redux": "^3.6.0",
-    "redux-saga": "^0.14.3",
+    "escape-goat": "^1.3.0",
+    "intl-messageformat": "^2.1.0",
+    "polymer-redux": "https://github.com/vientos/polymer-redux.git#polymer-webpack-loader",
+    "raven-js": "^3.17.0",
+    "redux": "^3.7.2",
+    "vientos-client": "https://github.com/vientos/vientos-client.git#0.1.0",
     "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.3",
-    "vientos-fixtures": "https://github.com/vientos/vientos-fixtures.git#0.0.5"
+    "vientos-leaflet": "https://github.com/vientos/vientos-leaflet.git#0.0.3",
+    "webpack-dev-server": "^2.7.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-plugin-istanbul": "^4.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.16.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babelify": "^7.3.0",
-    "browserify": "^14.1.0",
+    "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
-    "cross-env": "^3.1.4",
     "dirty-chai": "^1.2.2",
+    "html-webpack-plugin": "^2.30.1",
     "mocha": "^3.2.0",
-    "nyc": "^10.1.2",
-    "standard": "^9.0.2"
+    "polymer-webpack-loader": "^2.0.0",
+    "standard": "^10.0.3",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
+    "webpack": "^3.5.3"
   },
   "scripts": {
-    "test": "standard && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test/unit/*.js",
-    "bundle": "browserify src/main.js -t [ babelify --presets [ es2015 ] --plugins [ transform-object-rest-spread ] ] -o bundle.js"
+    "test": "standard",
+    "bundle": "webpack",
+    "dev": "webpack-dev-server --hot"
   },
   "author": "",
   "license": "Unlicense",
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "Polymer",
+      "CustomEvent"
+    ]
+  },
   "eslintConfig": {
     "ecmaVersion": 2015,
     "parserOptions": {
@@ -42,12 +48,5 @@
         "experimentalObjectRestSpread": true
       }
     }
-  },
-  "nyc": {
-    "require": [
-      "babel-register"
-    ],
-    "sourceMap": false,
-    "instrument": false
   }
 }

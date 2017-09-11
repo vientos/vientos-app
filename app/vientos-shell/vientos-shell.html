@@ -1,21 +1,7 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
@@ -25,33 +11,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
-<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
-
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-
-
-<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
-
-<link rel="import" href="vientos-shell-styles.html">
-
-<link rel="import" href="../redux-store.html">
 
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,900" rel="stylesheet">
 
-
-<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
-
-<link rel="import" href="../widgets/vientos-icon-button/vientos-icon-button.html">
-
-<link rel="import" href="../widgets/vientos-map/vientos-map.html">
-<!-- <link rel="import" href="../cards/intent-preview/intent-preview.html">
-<link rel="import" href="../cards/organization-preview/organization-preview.html"> -->
-
-
-<link rel="import" href="../vientos-styles/vientos-styles.html">
+<link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="vientos-shell-styles.html">
 
 <dom-module id="vientos-shell">
@@ -73,15 +37,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   pattern="/:id"
   data="{{subrouteData}}"></app-route>
 
-  <!-- <app-scrollpos-control selected="{{page}}"></app-scrollpos-control> -->
-
-  <app-drawer-layout fullbleed force-narrow>
+  <div>
 
     <!-- Main content -->
     <app-header-layout>
 
 
-      <app-header fixed>
         <div id="header">
           <div id="menu-button-holder-left">
             <a href="/">
@@ -115,23 +76,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </template>
           </div>
         </div>
-      </app-header>
       <div id="app-container">
         <iron-pages
         selected="{{page}}"
         attr-for-selected="name"
-        fallback-selection="view404"
         role="main">
+        <!-- TODO: fallback-selection="view404" -->
 
-          <search-and-filter name="filter"></search-and-filter>
+          <search-and-filter name="search-and-filter"></search-and-filter>
 
           <div name="projects">
             <iron-list
               id="list"
               items="[[visibleProjects]]"
-              as="project">
+              as="organization">
               <template>
-                <organization-preview project="[[project]]"></organization-preview>
+                <organization-preview organization="[[organization]]"></organization-preview>
               </template>
             </iron-list>
           </div>
@@ -173,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           project="[[currentProject]]"></intent-editor>
 
           <vientos-inbox name="me"></vientos-inbox>
-          <account-settings name="edit-my-profile"></account-settings>
+          <account-settings name="account"></account-settings>
 
           <start-conversation
           name="new-conversation"
@@ -186,10 +146,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <place-details
           name="place"
           place="[[currentPlace]]"></place-details>
-
-          <my-view404 name="view404"></my-view404>
-
-          <!-- </main> -->
         </iron-pages>
         <vientos-map
           view="[[mapView]]"
@@ -236,8 +192,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <paper-badge label="[[visibleIntents.length]]" for="intents-icon"></paper-badge>
                   </template>
                 </paper-button>
-                <paper-button name="filter" active="[[filterActive]]">
-                  <iron-icon icon="vientos:filter"></iron-icon>
+                <paper-button name="search-and-filter" active="[[filterActive]]">
+                  <iron-icon icon="vientos:search"></iron-icon>
                 </paper-button>
              </iron-selector>
           </app-toolbar>
@@ -245,7 +201,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
 
   </app-header-layout>
-</app-drawer-layout>
+</div>
 
 
 

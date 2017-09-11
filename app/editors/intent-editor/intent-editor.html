@@ -1,4 +1,5 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
@@ -7,7 +8,6 @@
 <link rel="import" href="../../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../widgets/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="../../widgets/place-picker/place-picker.html">
@@ -61,7 +61,7 @@
         ></image-picker>
     </section>
 
-    <section>
+    <section class="select-buttons">
       <h3>[[localize('label:collaboration-type')]]</h3>
       <div>
         <iron-selector selected="{{updated.collaborationType}}" attr-for-selected="name">
@@ -93,15 +93,13 @@
       </div>
     </section>
 
-    <section>
+    <section class="select-buttons">
       <h3>[[localize('label:reciprocity')]]</h3>
       <div>
         <vientos-icon-button id="gift" text="[[localize('gift')]]" icon="vientos:gift"></vientos-icon-button>
-      </div>
-      <div>
-        <vientos-icon-button text="[[localize('barter')]]" icon="" disabled></vientos-icon-button>
-        <vientos-icon-button text="[[localize('time-exchange')]]" icon="" disabled></vientos-icon-button>
-        <vientos-icon-button text="[[localize('trade')]]" icon="" disabled></vientos-icon-button>
+        <vientos-icon-button text="[[localize('barter')]]" icon="vientos:barter" disabled></vientos-icon-button>
+        <vientos-icon-button text="[[localize('time-exchange')]]" icon="vientos:timeexchange" disabled></vientos-icon-button>
+        <vientos-icon-button text="[[localize('trade')]]" icon="vientos:trade" disabled></vientos-icon-button>
       </div>
       <div class="support-feature">[[localize('label:support-feature')]]</div>
     </section>

@@ -7,6 +7,11 @@
 
     <style include="vientos-styles">
 
+      #project-title {
+        text-align: center;
+        display: flex;
+      }
+
       #project-title h4 {
         display: inline-block;
         font-size: 20px;
@@ -19,32 +24,21 @@
         opacity: 0.6;
       }
 
-      h5 {
-        font-size: 16px;
-      }
-
-      #project-title {
-        text-align: center;
+      main > div {
         display: flex;
       }
 
-
-
-
-      main > div {
-        @apply --layout-horizontal;
-      }
       main iron-image {
-        @apply --center-x;
-
         width: 60%;
         height: 10em;
         margin-left: 20%;
       }
+
       main ul {
         width: 20%;
-        @apply --layout-vertical;
-        @apply --layout-start-justified;
+        dispay: flex;
+        flex-direction: column;
+        justify-content: flex-start;
         text-align: center;
 
       }
@@ -58,11 +52,8 @@
         border-radius: 50%;
         color: white;
         opacity: 0.7;
-      }
-
-      main ul li iron-icon {
-        width: var(--spacing-1);
-        height: var(--spacing-1);
+        width: 16px;
+        height: 16px;
       }
 
       main .description {
@@ -70,69 +61,6 @@
         height: 4em;
         overflow: hidden;
       }
-
-      footer  {
-        position: relative;
-      }
-
-      footer app-toolbar {
-        height: auto !important;
-      }
-
-      footer a {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
-
-
-      #project-collaborations {
-        @apply --layout-horizontal;
-        @apply --layout-around-justified;
-        padding-top: var(--spacing-1);
-      }
-
-
-      #project-collaborations > *  {
-        @apply --layout-flex;
-      }
-
-      #project-collaborations ul {
-        margin-top: var(--spacing-1);
-      }
-      #project-collaborations ul li {
-        font-size: 11px;
-        margin-bottom: 2px;
-      }
-
-      #project-collaborations-view-header {
-        @apply --layout-horizontal;
-        @apply --layout-around-justified;
-        padding-top: var(--spacing-1);
-      }
-
-
-      #project-collaborations iron-icon {
-        width: 11px;
-        height: 11px;
-        margin-right: 3px;
-      }
-
-      #project-collaborations-view-header iron-image {
-        width: 3em;
-        height: 3em;
-        margin-right: 1em;
-      }
-
-      #project-collaborations-view-header div {
-        @apply --center-y;
-      }
-
-
-    #project-collaborations {
-      height: 202px;
-      overflow-y: auto;
-    }
 
   </style>
 

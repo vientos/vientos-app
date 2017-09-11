@@ -1,6 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../../cards/organization-preview/organization-preview.html">
@@ -14,14 +14,14 @@
 
     <style include="place-details-styles"></style>
     <header>
-      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+      <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
       <h2>
         [[place.address]]
       </h2>
     </header>
     <section>
-      <template is="dom-repeat" items="[[placeProjects]]" as="project">
-        <organization-preview project="[[project]]"></organization-preview>
+      <template is="dom-repeat" items="[[placeOrganizations]]" as="organization">
+        <organization-preview organization="[[organization]]"></organization-preview>
       </template>
     </section>
     <section>

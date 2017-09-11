@@ -1,38 +1,38 @@
-/* global Polymer */
+class ImagePicker extends Polymer.Element {
+  static get is () { return 'image-picker' }
 
-Polymer({
-  is: 'image-picker',
-
-  properties: {
-    imageUrl: {
+  static get properties () {
+    return {
+      imageUrl: {
       // passed from parent
-      type: String
-    },
-    label: {
+        type: String
+      },
+      label: {
       // passed from parent
-      type: String
-    },
-    newImage: {
-      type: Object,
-      value: null
-    },
-    imagePreviewSrc: {
-      type: String,
-      computed: '_getImagePreviewSrc(imageUrl, newImage)'
+        type: String
+      },
+      newImage: {
+        type: Object,
+        value: null
+      },
+      imagePreviewSrc: {
+        type: String,
+        computed: '_getImagePreviewSrc(imageUrl, newImage)'
+      }
     }
-  },
+  }
 
   reset () {
     this.$['new-image-form'].reset()
-  },
+  }
 
   _imageInputChanged (e) {
     let image = e.target.files[0]
     if (image) {
       this.set('newImage', image)
-      this.fire('picked', image)
+      this.dispatchEvent(new CustomEvent('picked', { detail: image }))
     }
-  },
+  }
 
   _getImagePreviewSrc (imageUrl, newImage) {
     if (newImage) {
@@ -41,5 +41,5 @@ Polymer({
       return imageUrl
     }
   }
-
-})
+}
+window.customElements.define(ImagePicker.is, ImagePicker)

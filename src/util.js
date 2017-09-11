@@ -1,11 +1,7 @@
-/* global CustomEvent */
-
-import { mintUrl } from './vientos'
 import { escape } from 'escape-goat'
 import deepEqual from 'deep-equal'
 const service = require('../config.json').service
 
-export { mintUrl }
 export { deepEqual }
 
 export function locationsInBoundingBox (entity, places, boundingBox) {
@@ -19,12 +15,14 @@ export function locationsInBoundingBox (entity, places, boundingBox) {
 }
 
 export function filterPlaces (entities, places, boundingBox) {
+  if (Array.from(arguments).includes(undefined)) return []
   return entities.reduce((acc, entity) => {
     return acc.concat(locationsInBoundingBox(entity, places, boundingBox))
   }, [])
 }
 
 export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
+  if (Array.from(arguments).includes(undefined)) return []
   let filtered
   // filter on categories
   if (filteredCategories.length === 0) {
@@ -88,10 +86,12 @@ export function checkIfExpired (intent) {
 }
 
 export function availableIntents (intents) {
+  if (!intents) return []
   return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
 }
 
 export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
+  if (Array.from(arguments).includes(undefined)) return []
   let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
   filtered = availableIntents(filtered)
   if (filteredCollaborationTypes.length > 0) {
@@ -109,30 +109,34 @@ export function filterIntents (person, intents, visibleProjects, filteredCollabo
 }
 
 export function filterActiveProjectIntents (person, project, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active' && !checkIfExpired(intent))
   return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
 export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive' && !checkIfExpired(intent))
   return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
 export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && checkIfExpired(intent))
   return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
 }
 
 export function getIntentProjects (intent, projects) {
-  if (!intent || !projects.length) return []
+  if (!intent || !projects) return []
   return projects.filter(project => intent.projects.includes(project._id))
 }
 
 export function checkIfAdmin (person, entities) {
-  if (!entities) return false
+  if (Array.from(arguments).includes(undefined)) return false
+  if (entities === null) return false
   if (!Array.isArray(entities)) entities = [ entities ]
   return person && entities.some(entity => entity.admins && entity.admins.includes(person._id))
 }
@@ -187,6 +191,7 @@ export function getPlaceAddress (placeId, places) {
 }
 
 export function findPotentialMatches (person, projects, intents, matchedIntent) {
+  if (Array.from(arguments).includes(undefined)) return
   if (matchedIntent && person) {
     return intents.filter(intent => {
       return matchedIntent.direction !== intent.direction && intent.projects.some(projectId => {
@@ -262,6 +267,7 @@ function orderIntents (intents, person, myConversations, notifications) {
 
 // TODO reuse for notifications
 export function filterActiveIntents (person, intents, myConversations, notifications) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (person) {
     // conversations which I created
     // and conversation on intens (causing or matching) which I admin
@@ -295,7 +301,8 @@ export function conversationNeedsAttention (person, conversation, notifications,
 }
 
 export function filterIntentConversations (intent, myConversations) {
-  if (intent) {
+  if (Array.from(arguments).includes(undefined)) return []
+  if (intent && myConversations) {
     return myConversations.filter(conversation => {
       return conversation.causingIntent === intent._id ||
       conversation.matchingIntent === intent._id
@@ -304,7 +311,7 @@ export function filterIntentConversations (intent, myConversations) {
 }
 
 export function canAdminIntent (person, intent) {
-  if (!person) return false
+  if (!person || !intent) return false
   let personId = person
   if (typeof person === 'object') personId = person._id
   return !!intent && intent.admins.includes(personId)
@@ -346,12 +353,12 @@ export function back (fallbackPath) {
 }
 
 export function getName (entity, collection) {
-  if (!collection.length) return undefined
+  if (!collection || !collection.length) return undefined
   return getRef(entity, collection).name
 }
 
 export function getImage (entity, collection, size) {
-  if (!collection.length) return undefined
+  if (!collection || !collection.length) return undefined
   return getThumbnailUrl(getRef(entity, collection), size)
 }
 

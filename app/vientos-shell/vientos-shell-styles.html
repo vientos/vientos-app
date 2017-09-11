@@ -1,10 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../vientos-styles/vientos-styles.html">
 
 <dom-module id="vientos-shell-styles">
 
   <template>
   <style include="vientos-styles">
 
+  :host {
+    --toolbar-height: 48px;
+    --vientos-nav-selected-border-bottom: 4px solid var(--vientos-primary-light);
+  }
 
   /* Will be prevented from affecting local DOM of Polymer elements */
   * {
@@ -15,27 +20,10 @@
     height: 100vh;
   }
 
-  app-header {
-    background-color: var(--vientos-secondary-light);
-  }
-
-
-
-
-  iron-pages {
-    padding-bottom: 3em;
-  }
-
   search-and-filter,
   vientos-inbox,
   organization-details,
-  place-details {
-    margin: 0 auto;
-    max-width: 600px;
-    display: block;
-    padding: 10px;
-  }
-
+  place-details,
   organization-editor,
   intent-details,
   start-conversation,
@@ -45,15 +33,27 @@
     margin: 0 auto;
     max-width: 600px;
     display: block;
-    padding: 10px;
-    padding: var(--spacing-2);
-    @apply --center-y;
+    padding: calc(3 * var(--spacing));
+  }
+
+  intent-details,
+  organization-editor,
+  account-settings,
+  intent-editor {
     margin-bottom: 96px;
   }
 
   vientos-map {
     display: none;
     height: 85vh;
+  }
+
+  #app-container {
+    padding: var(--toolbar-height) 0;
+  }
+
+  iron-list {
+    margin-bottom: var(--toolbar-height);
   }
 
   /* when screen is wider than 800px */
@@ -74,19 +74,18 @@
       flex: 1;
     }
 
+    iron-list {
+      margin-bottom: 0;
+    }
+
     vientos-map {
       display: block;
       flex: 2;
     }
   }
 
-
-  app-header {
-    @apply --vientos-toolbar;
-  }
-
   app-toolbar {
-    @apply --h-100;
+    height: 100%;
   }
 
  .primary-action {
@@ -95,11 +94,31 @@
  }
 
  #header {
-   @apply --layout-horizontal;
-   @apply --vientos-toolbar;
+   display: flex;
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 1000;
+   height: var(--toolbar-height);
    box-shadow: 0px 0px 8px #888;
-   /*background-color: var(--vientos-color-header) !important;*/
+   background-color: var(--vientos-secondary-light);
  }
+
+ #header #menu-button-holder-left {
+   width: var(--toolbar-height);
+   height: var(--toolbar-height);
+ }
+
+ #header #menu-button-holder-left a {
+   display: block;
+ }
+
+ #header #logo {
+   width: 32px;
+   height: 32px;
+   margin: calc((var(--toolbar-height) - 32px) / 2);
+ }
+
 
  #header #menu-button-holder-right paper-icon-button {
    vertical-align: super;
@@ -112,21 +131,15 @@
  }
 
  #header #menu-button-holder-right.selected {
-   @apply --vientos-nav-button-selected;
+   border-bottom: var(--vientos-nav-selected-border-bottom);
  }
 
  #header #page-title {
    flex: 1;
    text-align: center;
-   font-size: 2em;
-   line-height: 2em;
- }
-
- #header #logo {
-   width: 32px;
-   height: 32px;
-   /*margin: var(--spacing-1);*/
-   margin: 4px;
+   font-size: calc(var(--toolbar-height) / 2);
+   line-height: var(--toolbar-height);
+   opacity: 0.6;
  }
 
  #header #person-avatar {
@@ -164,10 +177,8 @@
  }
 
  #footer {
-   @apply --vientos-toolbar;
-   @apply --layout-horizontal;
-   @apply --w-100;
-   @apply --spaced-x;
+   width: 100%;
+   height: var(--toolbar-height);
    position: fixed;
    bottom: 0;
    box-shadow: 0px 0px 8px #888;
@@ -176,28 +187,23 @@
  }
 
  #footer app-toolbar {
-   @apply --p-0;
-   @apply --w-100;
-   @apply --h-100;
+   width: 100%;
+   height: 100%;
  }
  /*app-toolbar, */
  #footer iron-selector {
-   /*@apply --fixed-bottom;*/
-   @apply --w-100;
-   @apply --h-100;
-
-   @apply --spaced-x;
-   @apply --vientos-typography-button-x;
-
+   display: flex;
+   width: 100%;
+   height: 100%;
  }
 
 #footer paper-button {
-  @apply --layout-flex;
+  flex: 1;
   color: var(--vientos-primary-dark);
 }
 
 #footer paper-button.iron-selected {
-  @apply --vientos-nav-button-selected;
+  border-bottom: var(--vientos-nav-selected-border-bottom);
 }
 
 #footer paper-button.filtered paper-badge {

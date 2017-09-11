@@ -1,30 +1,34 @@
-/* global Polymer, ReduxBehavior, CustomEvent, util */
+import { ReduxMixin, util } from '../../../src/engine.js'
 
-Polymer({
-  is: 'organization-preview',
-  behaviors: [ ReduxBehavior ],
+class OrganizationPreview extends ReduxMixin(
+  Polymer.GestureEventListeners(Polymer.Element)
+) {
+  static get is () { return 'organization-preview' }
 
-  properties: {
-    project: {
-      type: Object
-    },
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    following: {
-      type: Object,
-      value: null,
-      computed: '_checkIfFollows(person, project)'
+  static get properties () {
+    return {
+      organization: {
+        type: Object
+      },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      following: {
+        type: Object,
+        value: null,
+        computed: '_checkIfFollows(person, project)'
+      }
     }
-  },
-
-  _checkIfFollows: util.checkIfFollows,
-  _getThumbnailUrl: util.getThumbnailUrl,
-
-  _showFullProfile () {
-    window.history.pushState({}, '', util.pathFor(this.project, 'project'))
-    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-})
+  _checkIfFollows (...args) { return util.checkIfFollows(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
+
+  _showFullProfile () {
+    window.history.pushState({}, '', util.pathFor(this.organization, 'project'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
+}
+
+window.customElements.define(OrganizationPreview.is, OrganizationPreview)

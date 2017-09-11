@@ -1,4 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
@@ -21,7 +23,7 @@
     <style include="organization-details-styles"></style>
 
     <header>
-      <div><paper-icon-button icon="arrow-back" on-tap="_back"></paper-icon-button></div>
+      <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
       <h2>
         [[project.name]]
       </h2>
@@ -69,6 +71,7 @@
               <paper-listbox
                 class="dropdown-content"
                 attr-for-selected="name"
+                slot="dropdown-content"
                 on-iron-select="_setNewAdmin">
                 <template is="dom-repeat" items="[[potentialAdmins]]">
                   <paper-item name="[[item._id]]">[[item.name]]</paper-item>
@@ -104,6 +107,7 @@
       <ul>
         <template is="dom-repeat" items="[[project.locations]]" as="placeId">
           <li>
+            <!-- FIXME: ellipsis -->
             <vientos-icon-button
               raised
               ellipsis

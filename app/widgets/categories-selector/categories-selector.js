@@ -1,33 +1,35 @@
-/* global Polymer, ReduxBehavior, util */
+import { ReduxMixin, util } from '../../../src/engine.js'
 
-Polymer({
-  is: 'categories-selector',
+class CategoriesSelector extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  ReduxMixin(Polymer.Element)) {
+  static get is () { return 'categories-selector' }
 
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
-
-  properties: {
-    categories: {
+  static get properties () {
+    return {
+      categories: {
       // from parent
-      type: Array
-    },
-    selection: {
-      type: Array
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+        type: Array
+      },
+      selection: {
+        type: Array
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
     }
-  },
+  }
 
-  _iconFor: util.iconFor,
+  _iconFor (...args) { return util.iconFor(...args) }
 
   _isInSelected (category, selection) {
-    return selection.includes(category.id)
-  },
+    return selection && selection.includes(category.id)
+  }
 
   _toggleCategory (e) {
     e.target.active = !e.target.active
@@ -36,7 +38,8 @@ Polymer({
     } else {
       this.set('selection', [...this.selection, e.model.item.id])
     }
-    this.fire('selection-changed', this.selection)
+    this.dispatchEvent(new CustomEvent('selection-changed', { detail: this.selection }))
     this.updateStyles()
   }
-})
+}
+window.customElements.define(CategoriesSelector.is, CategoriesSelector)

@@ -1,4 +1,5 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
@@ -7,8 +8,8 @@
 <link rel="import" href="conversations-list-styles.html">
 
 <dom-module id="conversations-list">
-  <style include="conversations-list-styles"></style>
   <template>
+  <style include="conversations-list-styles"></style>
     <ul>
       <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
         <li on-tap="_showConversation" class="clickable">

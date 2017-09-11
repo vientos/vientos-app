@@ -32,7 +32,7 @@
       <template is="dom-if" if="[[showProjects]]">
         <div id="projects">
           <ul>
-            <template is="dom-repeat" items="[[_getRef(intent.projects, projects)]]" as="project">
+            <template is="dom-repeat" items="[[intentProjects]]" as="project">
               <li>
                 <iron-image src="[[_getThumbnailUrl(project, 36)]]" sizing="contain"></iron-image>
                 <div>[[project.name]]</div>

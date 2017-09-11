@@ -1,45 +1,48 @@
-/* global Polymer, ReduxBehavior, util */
+import { ReduxMixin, util } from '../../../src/engine.js'
 
-Polymer({
-  is: 'place-details',
-  behaviors: [ ReduxBehavior ],
+class PlaceDetails extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  ReduxMixin(Polymer.Element)) {
+  static get is () { return 'place-details' }
 
-  properties: {
-    place: {
-      type: Object,
-      value: null
-    },
-    intents: {
-      type: Array,
-      statePath: 'intents'
-    },
-    projects: {
-      type: Array,
-      statePath: 'projects'
-    },
-    placeIntents: {
-      type: Array,
-      computed: '_filterIntents(place, intents)'
-    },
-    placeProjects: {
-      type: Array,
-      computed: '_filterProjects(place, projects)'
+  static get properties () {
+    return {
+      place: {
+        type: Object,
+        value: null
+      },
+      intents: {
+        type: Array,
+        statePath: 'intents'
+      },
+      organizations: {
+        type: Array,
+        statePath: 'projects'
+      },
+      placeIntents: {
+        type: Array,
+        computed: '_filterIntents(place, intents)'
+      },
+      placeOrganizations: {
+        type: Array,
+        computed: '_filterOrganizations(place, organizations)'
+      }
     }
-  },
+  }
 
   // TODO filter visible not all
   _filterIntents (place, intents) {
-    if (!place) return []
+    if (!place || !intents) return []
     return intents.filter(intent => intent.locations.includes(place._id))
-  },
-
-  _filterProjects (place, projects) {
-    if (!place) return []
-    return projects.filter(project => project.locations.includes(place._id))
-  },
-
-  _back () {
-    util.back('/map')
   }
 
-})
+  _filterOrganizations (place, projects) {
+    if (!place || !projects) return []
+    return projects.filter(project => project.locations.includes(place._id))
+  }
+
+  _back () {
+    util.back('/projects')
+  }
+}
+window.customElements.define(PlaceDetails.is, PlaceDetails)

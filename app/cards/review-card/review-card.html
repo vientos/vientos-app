@@ -1,9 +1,8 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 
-<link rel="import" href="../../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../../vientos-styles/vientos-styles.html">
@@ -15,7 +14,7 @@
 
     :host > div {
       padding: 10px;
-      background-color: white;
+      background-color: var(--vientos-card-bg);
     }
 
     :host > div > div:first-child {
@@ -40,9 +39,9 @@
       <div>
         <iron-image src="[[_getImage(review.creator, people, 26)]]" sizing="contain"></iron-image>
         <span>[[_getName(review.creator, people)]]</span>
-        <iron-icon icon="social:sentiment-[[review.rating]]"></iron-icon>
+        <iron-icon icon="vientos:[[review.rating]]"></iron-icon>
         <template is="dom-if" if="[[linksToConversation]]">
-          <iron-icon icon="arrow-forward"></iron-icon>
+          <iron-icon icon="vientos:arrow-forward"></iron-icon>
         </template>
       </div>
       <div>

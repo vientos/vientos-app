@@ -2,7 +2,8 @@ bower_components/
 build/
 node_modules/
 bundle.js
+bundle.js.map
 config.json
-coverage
-.nyc_output
 npm-debug.log
+package-lock.json
+dist

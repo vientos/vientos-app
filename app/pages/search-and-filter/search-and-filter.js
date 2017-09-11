@@ -1,90 +1,95 @@
-/* global Polymer, ReduxBehavior, ActionCreators, util */
+import { ReduxMixin, ActionCreators, util } from '../../../src/engine.js'
 
-Polymer({
-  is: 'search-and-filter',
-  behaviors: [ ReduxBehavior, Polymer.AppLocalizeBehavior ],
+class SearchAndFilter extends Polymer.mixinBehaviors(
+  [Polymer.AppLocalizeBehavior],
+  ReduxMixin(Polymer.Element)) {
+  static get is () { return 'search-and-filter' }
 
-  actions: {
-    updateFilteredCategories: ActionCreators.updateFilteredCategories,
-    updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
-    toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
-    toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
-    setLocationFilter: ActionCreators.setLocationFilter,
-    toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
-  },
-
-  properties: {
-    categories: {
-      type: Array,
-      statePath: 'categories'
-    },
-    person: {
-      type: Object,
-      statePath: 'person'
-    },
-    locationFilter: {
-      type: String,
-      statePath: 'locationFilter'
-    },
-    boundingBoxFilter: {
-      type: Boolean,
-      statePath: 'boundingBoxFilter'
-    },
-    filteredCategories: {
-      type: Array,
-      statePath: 'filteredCategories'
-    },
-    filteredCollaborationTypes: {
-      type: Array,
-      statePath: 'filteredCollaborationTypes'
-    },
-    filteredFollowings: {
-      type: Boolean,
-      statePath: 'filteredFollowings'
-    },
-    filteredFavorings: {
-      type: Boolean,
-      statePath: 'filteredFavorings'
-    },
-    myActiveFiltersCount: {
-      type: Number,
-      computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
-    },
-    language: {
-      type: String,
-      statePath: 'language'
-    },
-    resources: {
-      type: Object,
-      statePath: 'labels'
+  static get actions () {
+    return {
+      updateFilteredCategories: ActionCreators.updateFilteredCategories,
+      updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
+      toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
+      toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
+      setLocationFilter: ActionCreators.setLocationFilter,
+      toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
     }
-  },
+  }
 
-  _iconFor: util.iconFor,
+  static get properties () {
+    return {
+      categories: {
+        type: Array,
+        statePath: 'categories'
+      },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
+      locationFilter: {
+        type: String,
+        statePath: 'locationFilter'
+      },
+      boundingBoxFilter: {
+        type: Boolean,
+        statePath: 'boundingBoxFilter'
+      },
+      filteredCategories: {
+        type: Array,
+        statePath: 'filteredCategories'
+      },
+      filteredCollaborationTypes: {
+        type: Array,
+        statePath: 'filteredCollaborationTypes'
+      },
+      filteredFollowings: {
+        type: Boolean,
+        statePath: 'filteredFollowings'
+      },
+      filteredFavorings: {
+        type: Boolean,
+        statePath: 'filteredFavorings'
+      },
+      myActiveFiltersCount: {
+        type: Number,
+        computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
+      },
+      language: {
+        type: String,
+        statePath: 'language'
+      },
+      resources: {
+        type: Object,
+        statePath: 'labels'
+      }
+    }
+  }
+
+  _iconFor (...args) { return util.iconFor(...args) }
 
   _selectionChanged (e, selection) {
     this.dispatch('updateFilteredCategories', selection)
-  },
+  }
 
   _clearCategoriesFilter () {
     this.dispatch('updateFilteredCategories', [])
     this.updateStyles()
-  },
+  }
 
   _selectMyCategories () {
     this.dispatch('updateFilteredCategories', this.person.categories)
     this.updateStyles()
-  },
+  }
 
   _collapseSection (e) {
     let section = Polymer.dom(e).path.find(element => element.localName === 'section')
     let collapser = section.getElementsByClassName('collapser')[0]
     let ironCollapse = section.getElementsByTagName('iron-collapse')[0]
     let icon = collapser.getElementsByTagName('iron-icon')[0]
-    if (icon.icon === 'expand-more') icon.set('icon', 'expand-less')
-    else icon.set('icon', 'expand-more')
+    if (icon.icon === 'vientos:expand-more') icon.set('icon', 'vientos:expand-less')
+    else icon.set('icon', 'vientos:expand-more')
     ironCollapse.toggle()
-  },
+  }
 
   _toggleCollaborationType (e) {
     let button = Polymer.dom(e).path.find(element => element.localName === 'vientos-icon-button')
@@ -97,49 +102,49 @@ Polymer({
     }
     this.dispatch('updateFilteredCollaborationTypes', this.filteredCollaborationTypes)
     this.updateStyles()
-  },
+  }
 
   _clearCollaborationTypesFilter (e) {
     this.dispatch('updateFilteredCollaborationTypes', [])
     let ironCollapse = Polymer.dom(e).path.find(element => element.localName === 'iron-collapse')
     ironCollapse.querySelectorAll('vientos-icon-button').forEach(button => button.set('active', false))
     this.updateStyles()
-  },
+  }
 
   _isCollaborationTypeSelected (collaborationType, filteredCollaborationTypes) {
     return filteredCollaborationTypes.includes(collaborationType.id)
-  },
+  }
 
   _filterFollowings (e) {
     e.target.active = !e.target.active
     this.dispatch('toggleFilterFollowings')
     this.updateStyles()
-  },
+  }
 
   _filterFavorings (e) {
     e.target.active = !e.target.active
     this.dispatch('toggleFilterFavorings')
     this.updateStyles()
-  },
+  }
 
   _calculateMyActiveFiltersCount (filteredFavorings, filteredFollowings) {
     return Number(filteredFavorings) + Number(filteredFollowings)
-  },
+  }
 
   _locationFilterChanged (e, detail) {
     if (this.locationFilter !== detail.item.name) this.dispatch('setLocationFilter', detail.item.name)
-  },
+  }
 
   _boundingBoxButtonVisible (locationFilter) {
     return locationFilter === 'specific'
-  },
+  }
 
   _locationFilterActive (locationFilter) {
     return Number(locationFilter !== 'all')
-  },
+  }
 
   _toggleBoundingBoxFilter () {
     this.dispatch('toggleBoundingBoxFilter')
   }
-
-})
+}
+window.customElements.define(SearchAndFilter.is, SearchAndFilter)
