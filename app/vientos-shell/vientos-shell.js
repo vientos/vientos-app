@@ -197,9 +197,11 @@ class VientosShell extends Polymer.mixinBehaviors(
         value: {
           'projects': () => {
             import(/* webpackChunkName: "organization-preview" */ '../cards/organization-preview/organization-preview.html')
+              .then(() => window.dispatchEvent(new CustomEvent('location-changed')))
           },
           'intents': () => {
             import(/* webpackChunkName: "intent-preview" */ '../cards/intent-preview/intent-preview.html')
+              .then(() => window.dispatchEvent(new CustomEvent('location-changed')))
           },
           'search-and-filter': () => {
             import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
