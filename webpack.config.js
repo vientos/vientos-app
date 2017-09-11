@@ -33,7 +33,9 @@ module.exports = {
   devServer: {
     compress: true,
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: './',
+    host: '0.0.0.0',
+    disableHostCheck: true
   },
   module: {
     rules: [
