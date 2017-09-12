@@ -253,9 +253,9 @@ class VientosShell extends Polymer.mixinBehaviors(
   _avilableIntents (...args) { return util.availableIntents(...args) }
 
   _routePageChanged (page) {
-    let selectedPage = page || 'projects'
+    let selectedPage = page || 'guide'
     this.set('page', selectedPage)
-    // if (!['map', 'project'].includes(page)) window.history.replaceState({}, '', `/${page}`)
+    window.history.replaceState({}, '', `/${selectedPage}`)
   }
 
   _pageChanged (page) {
@@ -479,9 +479,9 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _footerPageChanged (page) {
     if (['search-and-filter', 'projects', 'intents'].includes(page)) {
-      if (page === 'projects' && window.location.pathname === '/') return
+      if (page === 'projects' && window.location.pathname === '/projects') return
       if (page === 'intents' && window.location.pathname === '/intents') return
-      let pathname = page === 'projects' ? '/' : `/${page}`
+      let pathname = `/${page}`
       if (this.showingMap) pathname += '#map'
       window.history.pushState({}, '', pathname)
       window.dispatchEvent(new CustomEvent('location-changed'))
