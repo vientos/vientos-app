@@ -2,7 +2,9 @@
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
@@ -12,24 +14,150 @@
   <template>
 
     <style include="vientos-guide-styles"></style>
-
-    <iron-selector selected="{{section}}" attr-for-selected="name">
-      <iron-icon name="intro" icon="vientos:humanrights"></iron-icon>
-      <iron-icon name="organizations" icon="vientos:organization"></iron-icon>
-      <iron-icon name="intents" icon="vientos:intent"></iron-icon>
-      <iron-icon name="search-and-filter" icon="vientos:search"></iron-icon>
-      <iron-icon name="collaborations" icon="vientos:success"></iron-icon>
-      <iron-icon name="my-account" icon="vientos:user"></iron-icon>
-    </iron-selector>
+    <div id="navigation">
+      <paper-icon-button
+        icon="vientos:arrow-back"
+        on-tap="_previous"
+        disabled="[[showingFirstSection]]"></paper-icon-button>
+      <iron-selector selected="{{section}}" attr-for-selected="name">
+        <iron-icon name="intro" icon="vientos:humanrights"></iron-icon>
+        <iron-icon name="organizations" icon="vientos:organization"></iron-icon>
+        <iron-icon name="intents" icon="vientos:intent"></iron-icon>
+        <iron-icon name="search-and-filter" icon="vientos:search"></iron-icon>
+        <iron-icon name="collaborations" icon="vientos:success"></iron-icon>
+        <iron-icon name="my-account" icon="vientos:user"></iron-icon>
+      </iron-selector>
+      <paper-icon-button
+        icon="vientos:arrow-forward"
+        on-tap="_next"
+        disabled="[[showingLastSection]]"></paper-icon-button>
+    </div>
     <iron-pages
       selected="[[section]]"
       attr-for-selected="name">
-      <section name="intro">intro</section>
-      <section name="organizations">organizations</section>
-      <section name="intents">intents</section>
-      <section name="search-and-filter">search-and-filter</section>
-      <section name="collaborations">collaborations</section>
-      <section name="my-account">my-accounts</section>
+      <section name="intro">
+        <h2>[[localize('guide:intro')]]</h2>
+        <p>[[localize('guide:intro-intro')]]</p>
+        <div id="section-list">
+          <iron-selector selected="{{section}}" attr-for-selected="name">
+            <div name="organizations">
+              <iron-icon icon="vientos:organization"></iron-icon>
+              [[localize('guide:organizations')]]
+            </div>
+            <div name="intents">
+              <iron-icon icon="vientos:intent"></iron-icon>
+              [[localize('guide:intents')]]
+            </div>
+            <div name="search-and-filter">
+              <iron-icon icon="vientos:search"></iron-icon>
+              [[localize('guide:search-and-filter')]]
+            </div>
+            <div name="collaborations">
+              <iron-icon icon="vientos:success"></iron-icon>
+              [[localize('guide:collaborations')]]
+            </div>
+            <div name="my-account">
+              <iron-icon icon="vientos:user"></iron-icon>
+              [[localize('guide:my-account')]]
+            </div>
+          </iron-selector>
+        </div>
+        <div id="see-more">
+          <div>[[localize('guide:want-more')]]</div>
+          <a href="https://vientos.coop">vientos.coop</a>
+        </div>
+      </section>
+      <section name="organizations">
+        <h2>[[localize('guide:organizations')]]</h2>
+        <p>[[localize('guide:organizations-intro')]]</p>
+        <div id="categories-carrousel">
+
+        </div>
+        <h3>[[localize('guide:follow-heading')]]</h3>
+        <p>[[localize('guide:follow-paragraph')]]</p>
+        <iron-icon icon="vientos:follow"></iron-icon>
+        <h3>[[localize('guide:list-map-heading')]]</h3>
+        <p>[[localize('guide:list-map-paragraph')]]</p>
+        <iron-image src=""></iron-image>
+        <h3>[[localize('guide:organization-profile-heading')]]</h3>
+        <p>[[localize('guide:organization-profile-paragraph')]]</p>
+        <h4>[[localize('guide:create-edit-organization-profile')]]</h4>
+        <iron-image src=""></iron-image>
+        <h4>[[localize('guide:add-organization-admins')]]</h4>
+        <iron-image src=""></iron-image>
+      </section>
+      <section name="intents">
+        <h2>[[localize('guide:intents')]]</h2>
+        <p>[[localize('guide:intents-intro')]]</p>
+        <h3>[[localize('guide:offer-request-heading')]]</h3>
+        <p>[[localize('guide:offer-request-paragraph')]]</p>
+        <div>
+          <iron-icon icon="vientos:offer"></iron-icon>
+          <iron-icon icon="vientos:request"></iron-icon>
+        </div>
+        <h3>[[localize('guide:bookmark-heading')]]</h3>
+        <p>[[localize('guide:bookmark-paragraph')]]</p>
+        <iron-icon icon="vientos:interested"></iron-icon>
+        <h3>[[localize('label:collaboration-types')]]</h3>
+        <p>[[localize('guide:collaboration-types-paragraph')]]</p>
+        <ul>
+          <li>
+            <iron-icon icon="vientos:work"></iron-icon>
+            [[localize('label:work')]]
+          </li>
+          <li>
+            <iron-icon icon="vientos:usage"></iron-icon>
+            [[localize('label:usage')]]
+          </li>
+          <li>
+            <iron-icon icon="vientos:consumption"></iron-icon>
+            [[localize('label:consumption')]]
+          </li>
+          <li>
+            <iron-icon icon="vientos:ownership"></iron-icon>
+            [[localize('label:ownership')]]
+          </li>
+        </ul>
+        <h3>[[localize('label:reciprocity')]]</h3>
+        <p>[[localize('guide:reciprocity-paragraph')]]</p>
+        <ul>
+          <li>
+            <iron-icon icon="vientos:gift"></iron-icon>
+            [[localize('label:gift')]]
+          </li>
+          <li>
+            <iron-icon icon="vientos:barter"></iron-icon>
+            [[localize('label:barter')]]
+          </li>
+          <li>
+            <iron-icon icon="vientos:timeexchange"></iron-icon>
+            [[localize('label:time-exchange')]]
+          </li>
+          <li>
+            <iron-icon icon="vientos:trade"></iron-icon>
+            [[localize('label:trade')]]
+          </li>
+        </ul>
+        <h3>[[localize('guide:conversations-heading')]]</h3>
+        <p>[[localize('guide:conversations-paragraph')]]</p>
+        <iron-image src=""></iron-image>
+        <h3>[[localize('guide:create-intent-heading')]]</h3>
+        <p>[[localize('guide:create-intent-paragraph')]]</p>
+        <h4>[[localize('guide:intent-question-heading')]]</h4>
+        <p>[[localize('guide:intent-question-paragraph')]]</p>
+        <iron-image src=""></iron-image>
+        <h4>[[localize('guide:add-organization-admins')]]</h4>
+        <iron-image src=""></iron-image>
+      </section>
+      <section name="search-and-filter">
+        <h2>[[localize('guide:search-and-filter')]]</h2>
+      </section>
+      <section name="collaborations">
+        <h2>[[localize('guide:collaborations')]]</h2>
+      </section>
+      <section name="my-account">
+        <h2>[[localize('guide:my-account')]]</h2>
+      </section>
     </iron-pages>
   </template>
   <script src="vientos-guide.js"></script>

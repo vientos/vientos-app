@@ -6,6 +6,66 @@
   <template>
 
     <style include="vientos-styles">
+      #navigation {
+        display: flex;
+        background-color: white;
+        padding: 16px 0;
+        position: fixed;
+        bottom: var(--toolbar-height);
+        right: 0; left: 0;
+        z-index: 20;
+      }
+
+        #navigation iron-selector {
+          flex: 1;
+          display: flex;
+          justify-content: space-around;
+        }
+
+        iron-selector iron-icon {
+          height: 24px;
+          background-color: var(--vientos-secondary-light);
+          width: 24px;
+          padding: 8px;
+          border-radius: 50%;
+          opacity: 0.7;
+          color: black;
+        }
+
+
+        #navigation iron-selector iron-icon.iron-selected {
+          background-color: var(--vientos-secondary-2);
+          opacity: 1;
+        }
+
+      iron-pages {
+        min-height: 100vh;
+        background-color: white;
+        text-align: center;
+        padding-top: 1.5em;
+      }
+
+        iron-pages h2 {
+          color: var(--vientos-tertiary-2);
+        }
+
+        iron-pages section[name=intro] #section-list {
+          text-align: left;
+          margin-left: 3em;
+          line-height: 2.5em;
+          color: var(--vientos-tertiary-2);
+        }
+
+          iron-pages section[name=intro] #section-list iron-icon {
+            margin-right: 1em;
+          }
+
+          iron-pages section[name=intro] #see-more {
+            background-color: var(--vientos-secondary-light);
+            padding: 8px;
+            margin: 2em 1em;
+          }
+
 
     </style>
 
