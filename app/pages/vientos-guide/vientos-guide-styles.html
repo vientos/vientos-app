@@ -32,6 +32,17 @@
           color: black;
         }
 
+        iron-selector iron-icon[icon="vientos:user"] {
+          /* TODO remove when all icons are squared */
+          padding: 8px 5px 8px 11px;
+        }
+
+        iron-selector iron-icon[icon="vientos:humanrights"] {
+          /* TODO remove when all icons are squared */
+          padding: 8px 6px 8px 10px;
+        }
+
+
 
         #navigation iron-selector iron-icon.iron-selected {
           background-color: var(--vientos-secondary-2);
@@ -39,13 +50,38 @@
         }
 
       iron-pages {
-        min-height: 100vh;
+        min-height: calc(100vh - 3 * var(--toolbar-height));
         background-color: white;
         text-align: center;
-        padding-top: 1.5em;
+        padding: 1.5em 1em 2em ;
       }
 
+        iron-pages p {
+          opacity: 0.8;
+        }
+
         iron-pages h2 {
+          color: var(--vientos-tertiary-2);
+        }
+
+        iron-pages h3 {
+          color: var(--vientos-primary-dark);
+          font-size: 1.2em;
+          margin-top: 1em;
+        }
+
+        iron-pages h4 {
+          color: var(--vientos-primary-dark);
+        }
+
+        iron-pages iron-icon {
+          color: var(--vientos-tertiary-2);
+          width: 40px;
+          height: 40px;
+        }
+
+        iron-pages label {
+          display: block;
           color: var(--vientos-tertiary-2);
         }
 
@@ -58,6 +94,14 @@
 
           iron-pages section[name=intro] #section-list iron-icon {
             margin-right: 1em;
+            color: black;
+            padding: 12px;
+            height: 24px;
+            width: 24px;
+          }
+
+          iron-pages section[name=intro] #section-list iron-icon[icon="vientos:user"] {
+            padding: 12px 8px 12px 16px;
           }
 
           iron-pages section[name=intro] #see-more {
@@ -65,6 +109,60 @@
             padding: 8px;
             margin: 2em 1em;
           }
+
+        iron-pages section[name=intents] #direction {
+          display: flex;
+          justify-content: space-around;
+        }
+
+        iron-pages section[name=intents] #direction iron-icon {
+          /* TODO remove when all icons are squared */
+          width: 68px;
+          height: 40px;
+        }
+
+        iron-pages section[name=intents] ul {
+          text-align: left;
+          margin-left: 0.5em;
+        }
+
+          iron-pages section[name=intents] ul li {
+            display: flex;
+          }
+
+            iron-pages section[name=intents] ul li div {
+              flex: 1;
+              margin-left: 1em;
+              border-bottom: 1px dashed var(--vientos-primary-dark);
+              margin-bottom: 1em;
+            }
+
+              iron-pages section[name=intents] ul li div h4{
+                padding-top: 0.5em;
+              }
+
+        iron-pages section[name=collaborations] #closing-conversation {
+          display: flex;
+          justify-content: space-around;
+        }
+
+        iron-pages section[name="my-account"] #create-account {
+          background-color: var(--vientos-secondary-light);
+          padding: 8px;
+          margin: 2em 1em;
+        }
+
+        iron-pages section[name="my-account"] #create-account a {
+          color: var(--vientos-complementary-3);
+          text-decoration: none;
+        }
+
+        iron-pages section[name="my-account"] #create-account iron-icon {
+          color: var(--vientos-complementary-3);
+          width: 24px;
+          height: 24px;
+          margin-left: 1em;
+        }
 
 
     </style>

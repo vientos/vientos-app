@@ -24,6 +24,10 @@ class VientosGuide extends Polymer.mixinBehaviors(
       showingLastSection: {
         type: Boolean
       },
+      person: {
+        type: Object,
+        statePath: 'person'
+      },
       language: {
         type: String,
         statePath: 'language'
@@ -46,6 +50,8 @@ class VientosGuide extends Polymer.mixinBehaviors(
     } else {
       this.set('showingLastSection', false)
     }
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
   }
 
   _previous () {

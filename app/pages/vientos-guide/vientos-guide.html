@@ -76,6 +76,7 @@
         <h3>[[localize('guide:follow-heading')]]</h3>
         <p>[[localize('guide:follow-paragraph')]]</p>
         <iron-icon icon="vientos:follow"></iron-icon>
+        <label>[[localize('button:follow')]]</label>
         <h3>[[localize('guide:list-map-heading')]]</h3>
         <p>[[localize('guide:list-map-paragraph')]]</p>
         <iron-image src=""></iron-image>
@@ -91,31 +92,50 @@
         <p>[[localize('guide:intents-intro')]]</p>
         <h3>[[localize('guide:offer-request-heading')]]</h3>
         <p>[[localize('guide:offer-request-paragraph')]]</p>
-        <div>
-          <iron-icon icon="vientos:offer"></iron-icon>
-          <iron-icon icon="vientos:request"></iron-icon>
+        <div id="direction">
+          <div>
+            <iron-icon icon="vientos:offer"></iron-icon>
+            <label>[[localize('offer')]]</label>
+          </div>
+          <div>
+            <iron-icon icon="vientos:request"></iron-icon>
+            <label>[[localize('request')]]</label>
+          </div>
         </div>
         <h3>[[localize('guide:bookmark-heading')]]</h3>
         <p>[[localize('guide:bookmark-paragraph')]]</p>
-        <iron-icon icon="vientos:interested"></iron-icon>
+        <iron-icon icon="vientos:favor"></iron-icon>
+        <label>[[localize('button:favor')]]</label>
         <h3>[[localize('label:collaboration-types')]]</h3>
         <p>[[localize('guide:collaboration-types-paragraph')]]</p>
         <ul>
           <li>
             <iron-icon icon="vientos:work"></iron-icon>
-            [[localize('label:work')]]
+            <div>
+              <h4>[[localize('work')]]</h4>
+              <p>[[localize('guide:work-explained')]]</p>
+            </div>
           </li>
           <li>
             <iron-icon icon="vientos:usage"></iron-icon>
-            [[localize('label:usage')]]
+            <div>
+              <h4>[[localize('usage')]]</h4>
+              <p>[[localize('guide:usage-explained')]]</p>
+            </div>
           </li>
           <li>
             <iron-icon icon="vientos:consumption"></iron-icon>
-            [[localize('label:consumption')]]
+            <div>
+              <h4>[[localize('consumption')]]</h4>
+              <p>[[localize('guide:consumption-explained')]]</p>
+            </div>
           </li>
           <li>
             <iron-icon icon="vientos:ownership"></iron-icon>
-            [[localize('label:ownership')]]
+            <div>
+              <h4>[[localize('ownership')]]</h4>
+              <p>[[localize('guide:ownership-explained')]]</p>
+            </div>
           </li>
         </ul>
         <h3>[[localize('label:reciprocity')]]</h3>
@@ -123,19 +143,31 @@
         <ul>
           <li>
             <iron-icon icon="vientos:gift"></iron-icon>
-            [[localize('label:gift')]]
+            <div>
+              <h4>[[localize('gift')]]</h4>
+              <p>[[localize('guide:gift-explained')]]</p>
+            </div>
           </li>
           <li>
             <iron-icon icon="vientos:barter"></iron-icon>
-            [[localize('label:barter')]]
+            <div>
+              <h4>[[localize('barter')]]</h4>
+              <p>[[localize('guide:barter-explained')]]</p>
+            </div>
           </li>
           <li>
             <iron-icon icon="vientos:timeexchange"></iron-icon>
-            [[localize('label:time-exchange')]]
+            <div>
+              <h4>[[localize('time-exchange')]]</h4>
+              <p>[[localize('guide:time-exchange-explained')]]</p>
+            </div>
           </li>
           <li>
             <iron-icon icon="vientos:trade"></iron-icon>
-            [[localize('label:trade')]]
+            <div>
+              <h4>[[localize('trade')]]</h4>
+              <p>[[localize('guide:trade-explained')]]</p>
+            </div>
           </li>
         </ul>
         <h3>[[localize('guide:conversations-heading')]]</h3>
@@ -151,12 +183,57 @@
       </section>
       <section name="search-and-filter">
         <h2>[[localize('guide:search-and-filter')]]</h2>
+        <p>[[localize('guide:search-and-filter-intro')]]</p>
+        <p>[[localize('guide:search-and-filter-active')]]</p>
+        <iron-image></iron-image>
+        <h3>[[localize('label:follow-favor')]]</h3>
+        <p>[[localize('guide:follow-favor-explained')]]</p>
+        <h3>[[localize('label:location')]]</h3>
+        <p>[[localize('guide:location-explained')]]</p>
+        <h3>[[localize('label:categories')]]</h3>
+        <p>[[localize('guide:categories-explained')]]</p>
+        <h3>[[localize('label:collaboration-types')]]</h3>
+        <p>[[localize('guide:collaboration-types-explained')]]</p>
       </section>
       <section name="collaborations">
         <h2>[[localize('guide:collaborations')]]</h2>
+        <p>[[localize('guide:collaborations-intro')]]</p>
+        <h3>[[localize('guide:conversations')]]</h3>
+        <p>[[localize('guide:converations-explained')]]</p>
+        <h3>[[localize('guide:answer-questions')]]</h3>
+        <p>[[localize('guide:answer-questions-explained')]]</p>
+        <h3>[[localize('guide:chat-turns-notifications')]]</h3>
+        <p>[[localize('guide:chat-explained')]]</p>
+        <p>[[localize('guide:turns-explained')]]</p>
+        <p>[[localize('guide:notifications-explained')]]</p>
+        <h3>[[localize('guide:evaluation')]]</h3>
+        <div id="closing-conversation">
+          <div>
+            <iron-icon icon="vientos:aborted"></iron-icon>
+            <label>[[localize('button:abort')]]</label>
+          </div>
+          <div>
+            <iron-icon icon="vientos:success"></iron-icon>
+            <label>[[localize('button:succeed')]]</label>
+          </div>
+        </div>
+        <p>[[localize('guide:evaluation-explained')]]</p>
       </section>
       <section name="my-account">
         <h2>[[localize('guide:my-account')]]</h2>
+        <p>[[localize('guide:my-account-intro')]]</p>
+        <h3>[[localize('guide:account-settings')]]</h3>
+        <p>[[localize('guide:account-settings-explained')]]</p>
+        <h3>[[localize('guide:my-projects')]]</h3>
+        <p>[[localize('guide:my-projects-explained')]]</p>
+        <h3>[[localize('guide:inbox')]]</h3>
+        <p>[[localize('guide:inbox-explained')]]</p>
+        <template is="dom-if" if="[[!person]]">
+          <div id="create-account">
+            <p>[[localize('guide:create-account-invitation')]]</p>
+            <a href="/me">[[localize('button:login')]]<iron-icon icon="vientos:user"></iron-icon></a>
+          </div>
+        </template>
       </section>
     </iron-pages>
   </template>
