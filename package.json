@@ -12,7 +12,7 @@
     "redux": "^3.7.2",
     "vientos-client": "https://github.com/vientos/vientos-client.git#0.1.0",
     "vientos-data": "https://github.com/vientos/vientos-data.git#0.1.3",
-    "vientos-leaflet": "https://github.com/vientos/vientos-leaflet.git#0.0.4",
+    "vientos-leaflet": "https://github.com/vientos/vientos-leaflet.git#0.0.5",
     "webpack-dev-server": "^2.7.1"
   },
   "devDependencies": {
