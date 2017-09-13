@@ -38,6 +38,7 @@
       <section name="intro">
         <h2>[[localize('guide:intro')]]</h2>
         <p>[[localize('guide:intro-intro')]]</p>
+        <p>[[localize('guide:guide-intro')]]</p>
         <div id="section-list">
           <iron-selector selected="{{section}}" attr-for-selected="name">
             <div name="organizations">
@@ -70,22 +71,20 @@
       <section name="organizations">
         <h2>[[localize('guide:organizations')]]</h2>
         <p>[[localize('guide:organizations-intro')]]</p>
-        <div id="categories-carrousel">
-
-        </div>
+        <p>[[localize('guide:project-categories')]]</p>
+        <iron-image src="images/categories.gif"></iron-image>
         <h3>[[localize('guide:follow-heading')]]</h3>
-        <p>[[localize('guide:follow-paragraph')]]</p>
         <iron-icon icon="vientos:follow"></iron-icon>
         <label>[[localize('button:follow')]]</label>
         <h3>[[localize('guide:list-map-heading')]]</h3>
         <p>[[localize('guide:list-map-paragraph')]]</p>
-        <iron-image src=""></iron-image>
+        <iron-image src="images/org-map-list.gif"></iron-image>
         <h3>[[localize('guide:organization-profile-heading')]]</h3>
         <p>[[localize('guide:organization-profile-paragraph')]]</p>
         <h4>[[localize('guide:create-edit-organization-profile')]]</h4>
-        <iron-image src=""></iron-image>
+        <p>[[localize('guide:public-organization-profile-explained')]]</p>
         <h4>[[localize('guide:add-organization-admins')]]</h4>
-        <iron-image src=""></iron-image>
+        <p>[[localize('guide:organization-admins-explained')]]</p>
       </section>
       <section name="intents">
         <h2>[[localize('guide:intents')]]</h2>
@@ -178,14 +177,12 @@
         <h4>[[localize('guide:intent-question-heading')]]</h4>
         <p>[[localize('guide:intent-question-paragraph')]]</p>
         <iron-image src=""></iron-image>
-        <h4>[[localize('guide:add-organization-admins')]]</h4>
-        <iron-image src=""></iron-image>
       </section>
       <section name="search-and-filter">
         <h2>[[localize('guide:search-and-filter')]]</h2>
         <p>[[localize('guide:search-and-filter-intro')]]</p>
         <p>[[localize('guide:search-and-filter-active')]]</p>
-        <iron-image></iron-image>
+        <iron-image class="short" src="images/active-filter.png"></iron-image>
         <h3>[[localize('label:follow-favor')]]</h3>
         <p>[[localize('guide:follow-favor-explained')]]</p>
         <h3>[[localize('label:location')]]</h3>
@@ -200,6 +197,7 @@
         <p>[[localize('guide:collaborations-intro')]]</p>
         <h3>[[localize('guide:conversations')]]</h3>
         <p>[[localize('guide:converations-explained')]]</p>
+        <iron-image src="images/start-conv.gif" sizing="contain"></iron-image>
         <h3>[[localize('guide:answer-questions')]]</h3>
         <p>[[localize('guide:answer-questions-explained')]]</p>
         <h3>[[localize('guide:chat-turns-notifications')]]</h3>
@@ -222,11 +220,13 @@
       <section name="my-account">
         <h2>[[localize('guide:my-account')]]</h2>
         <p>[[localize('guide:my-account-intro')]]</p>
+        <p>[[localize('guide:my-account-private-explained')]]</p>
         <h3>[[localize('guide:account-settings')]]</h3>
         <p>[[localize('guide:account-settings-explained')]]</p>
         <h3>[[localize('guide:my-projects')]]</h3>
         <p>[[localize('guide:my-projects-explained')]]</p>
         <h3>[[localize('guide:inbox')]]</h3>
+        <iron-image class="short" src="images/inbox.png"></iron-image>
         <p>[[localize('guide:inbox-explained')]]</p>
         <template is="dom-if" if="[[!person]]">
           <div id="create-account">
