@@ -14,9 +14,11 @@ window.IntlMessageFormat = IntlMessageFormat
 // report errors to sentry.io
 if (config.sentry) Raven.config(config.sentry).install()
 
-// // Load and register pre-caching Service Worker
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register(document.querySelector('base').href + 'service-worker.js')
-//   })
-// }
+// Load and register Service Worker
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function registerServiceWorker () {
+      navigator.serviceWorker.register(document.querySelector('base').href + 'service-worker.js')
+    })
+  }
+}

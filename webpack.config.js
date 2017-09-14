@@ -6,6 +6,9 @@ const path = require('path')
 const webpack = require('webpack')
 // const Uglify = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
+
+const DIST_DIR = 'dist'
 
 module.exports = {
   entry: {
@@ -19,7 +22,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     // filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, './dist')
+    path: path.resolve(__dirname, DIST_DIR)
   },
   resolve: {
     modules: ['node_modules', 'bower_components'],
@@ -29,7 +32,7 @@ module.exports = {
       '../intl-messageformat/dist/intl-messageformat.min.js': 'intl-messageformat'
     }
   },
-  devtool: 'eval',
+  // devtool: 'eval',
   devServer: {
     compress: true,
     historyApiFallback: true,
@@ -50,6 +53,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
     new webpack.NamedChunksPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -67,6 +73,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: 'head',
       template: 'index.ejs'
+    }),
+    new WorkboxPlugin({
+      globDirectory: DIST_DIR,
+      globPatterns: ['**/*.{html,js,css}'],
+      dontCacheBustUrlsMatching: /\.\w{20}\.js/,
+      swSrc: './service-worker.js',
+      swDest: path.join(DIST_DIR, 'service-worker.js')
     })
   ]
 }
