@@ -25,7 +25,11 @@ module.exports = merge(common, {
     }),
     new WorkboxPlugin({
       globDirectory: DIST_DIR,
-      globPatterns: ['**/*.{html,js,css}'],
+      globPatterns: [
+        '*.{html,js,css}',
+        '**/webcomponents-loader.js',
+        '**/leaflet.css'
+      ],
       dontCacheBustUrlsMatching: /\.\w{20}\.js/,
       swSrc: './service-worker.js',
       swDest: path.join(DIST_DIR, 'service-worker.js')
@@ -33,6 +37,7 @@ module.exports = merge(common, {
     new CopyPlugin([
       { from: 'manifest.json' },
       { from: 'images', to: 'images' },
+      { from: 'node_modules/workbox-sw', to: 'node_modules/workbox-sw' },
       { from: 'bower_components/webcomponentsjs', to: 'bower_components/webcomponentsjs' },
       { from: 'bower_components/leaflet', to: 'bower_components/leaflet' }
     ])
