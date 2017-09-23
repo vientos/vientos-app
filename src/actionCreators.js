@@ -28,6 +28,13 @@ export function updateFilteredCollaborationTypes (selection) {
   }
 }
 
+export function updateSearchTerm (searchTerm) {
+  return {
+    type: ActionTypes.UPDATE_SEARCH_TERM,
+    searchTerm
+  }
+}
+
 export function toggleFilterFollowings () {
   return {
     type: ActionTypes.TOGGLE_FILTER_FOLLOWINGS

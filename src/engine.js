@@ -37,6 +37,7 @@ const reducer = combineReducers({
   reviews: DataReducers.reviews,
   filteredCategories: AppReducers.filteredCategories,
   filteredCollaborationTypes: AppReducers.filteredCollaborationTypes,
+  searchTerm: AppReducers.searchTerm,
   filteredFollowings: AppReducers.filteredFollowings,
   filteredFavorings: AppReducers.filteredFavorings,
   locationFilter: AppReducers.locationFilter,

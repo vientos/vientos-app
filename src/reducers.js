@@ -19,6 +19,15 @@ export function filteredCollaborationTypes (state = [], action) {
   }
 }
 
+export function searchTerm (state = null, action) {
+  switch (action.type) {
+    case ActionTypes.UPDATE_SEARCH_TERM:
+      return action.searchTerm
+    default:
+      return state
+  }
+}
+
 export function filteredFollowings (state = false, action) {
   switch (action.type) {
     case ActionTypes.TOGGLE_FILTER_FOLLOWINGS:

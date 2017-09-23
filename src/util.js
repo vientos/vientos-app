@@ -21,7 +21,11 @@ export function filterPlaces (entities, places, boundingBox) {
   }, [])
 }
 
-export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
+function appearsInSearchResults (entity, searchTerm, searchIndex) {
+  return searchIndex.search(searchTerm).find(result => result.ref === entity._id)
+}
+
+export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox, searchTerm, projectsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
   let filtered
   // filter on categories
@@ -77,7 +81,9 @@ export function filterProjects (person, projects, places, intents, filteredCateg
       return project.locations.length === 0
     })
   }
-
+  if (searchTerm && projectsIndex) {
+    filtered = filtered.filter(project => appearsInSearchResults(project, searchTerm, projectsIndex))
+  }
   return filtered
 }
 
@@ -90,10 +96,11 @@ export function availableIntents (intents) {
   return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
 }
 
-export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
+export function filterIntents (person, intents, filteredCollaborationTypes, filteredFavorings, searchTerm, intentsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
-  let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
-  filtered = availableIntents(filtered)
+  // TODO rethink cross filtering
+  // let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
+  let filtered = availableIntents(intents)
   if (filteredCollaborationTypes.length > 0) {
     filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
   }
@@ -104,6 +111,9 @@ export function filterIntents (person, intents, visibleProjects, filteredCollabo
         return favoring.intent === intent._id
       })
     })
+  }
+  if (searchTerm && intentsIndex) {
+    filtered = filtered.filter(intent => appearsInSearchResults(intent, searchTerm, intentsIndex))
   }
   return filtered
 }

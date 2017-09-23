@@ -148,12 +148,12 @@ class VientosShell extends Polymer.mixinBehaviors(
       visibleProjects: {
         type: Array,
         value: [],
-        computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox)'
+        computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox, searchTerm, projectsIndex)'
       },
       visibleIntents: {
         type: Array,
         value: [],
-        computed: '_filterIntents(person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings)' // TODO boundingBox
+        computed: '_filterIntents(person, intents, filteredCollaborationTypes, filteredFavorings, searchTerm, intentsIndex)' // TODO boundingBox
       },
       visiblePlaces: {
         type: Array,
@@ -183,6 +183,22 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: Boolean,
         computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
         observer: '_highlightBadges'
+      },
+      searchTerm: {
+        type: String,
+        statePath: 'searchTerm'
+      },
+      lunr: {
+        type: Object,
+        value: null
+      },
+      projectsIndex: {
+        type: Object,
+        value: null
+      },
+      intentsIndex: {
+        type: Object,
+        value: null
       },
       language: {
         type: String,
@@ -243,7 +259,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     return [
       '_routePageChanged(routeData.page)',
       '_handleMapVisibility(page, wideScreen, showingMap)',
-      '_footerPageChanged(page)'
+      '_footerPageChanged(page)',
+      '_bootstrapSearch(page)',
+      '_indexProjects(lunr, projects)',
+      '_indexIntents(lunr, intents)'
     ]
   }
 
@@ -500,6 +519,44 @@ class VientosShell extends Polymer.mixinBehaviors(
         }
       }, 100)
     }
+  }
+
+  _bootstrapSearch (page) {
+    if (page !== 'search-and-filter') return
+    import(/* webpackChunkName: "lunr" */ '../../src/lunr').then(lunrLib => {
+      const lunr = lunrLib.default
+      this.set('lunr', lunr)
+      this._indexProjects(lunr, this.getState().projects)
+      this._indexIntents(lunr, this.getState().intents)
+    })
+  }
+
+  _indexProjects (lunr, projects) {
+    if (!lunr || !projects || !projects.length) return
+    let projectsIndex = lunr(function () {
+      this.use(lunr.es)
+      this.ref('_id')
+      this.field('name', { boost: 10 })
+      this.field('description')
+      projects.forEach(function (project) {
+        this.add(project)
+      }, this)
+    })
+    this.set('projectsIndex', projectsIndex)
+  }
+
+  _indexIntents (lunr, intents) {
+    if (!lunr || !intents || !intents.length) return
+    let intentsIndex = lunr(function () {
+      this.use(lunr.es)
+      this.ref('_id')
+      this.field('title', { boost: 10 })
+      this.field('description')
+      intents.forEach(function (intent) {
+        this.add(intent)
+      }, this)
+    })
+    this.set('intentsIndex', intentsIndex)
   }
 
   ready () {
