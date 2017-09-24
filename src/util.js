@@ -177,10 +177,6 @@ export function urlFromId (id, collection) {
   return service + '/' + collection + '/' + id
 }
 
-export function iconFor (item) {
-  return 'vientos:' + item.id
-}
-
 export function getRef (entityIds, collection) {
   if (!Array.isArray(entityIds)) {
     let entity = collection.find(element => entityIds === element._id)

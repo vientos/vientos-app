@@ -1,4 +1,4 @@
-import { ReduxMixin, ActionCreators, util } from '../../../src/engine.js'
+import { ReduxMixin, ActionCreators } from '../../../src/engine.js'
 
 class SearchAndFilter extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
@@ -74,8 +74,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
       }
     }
   }
-
-  _iconFor (...args) { return util.iconFor(...args) }
 
   _selectionChanged (e, selection) {
     this.dispatch('updateFilteredCategories', selection)

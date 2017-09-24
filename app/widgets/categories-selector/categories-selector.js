@@ -1,4 +1,4 @@
-import { ReduxMixin, util } from '../../../src/engine.js'
+import { ReduxMixin } from '../../../src/engine.js'
 
 class CategoriesSelector extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
@@ -24,8 +24,6 @@ class CategoriesSelector extends Polymer.mixinBehaviors(
       }
     }
   }
-
-  _iconFor (...args) { return util.iconFor(...args) }
 
   _isInSelected (category, selection) {
     return selection && selection.includes(category.id)
