@@ -1,6 +1,5 @@
 import { escape } from 'escape-goat'
 import deepEqual from 'deep-equal'
-const service = require('../config.json').service
 
 export { deepEqual }
 
@@ -173,17 +172,32 @@ export function pathFor (entity, type) {
   return `/${type}/${url.split('/').pop()}`
 }
 
-export function urlFromId (id, collection) {
-  return service + '/' + collection + '/' + id
+function compareIdentifiers (fuzzy, cannonical) {
+  if (fuzzy.includes(':')) {
+    // IRI identifier
+    return fuzzy === cannonical
+  } else {
+    // CUID identifier
+    return fuzzy === cannonical.split('/').pop()
+  }
 }
-
+/**
+ * accepts string identifier (IRI or CUID) or array of them
+ * and an array of entities
+ * returns a reference to entity or array of references
+ * where entity _id matches the string
+ */
 export function getRef (entityIds, collection) {
   if (!Array.isArray(entityIds)) {
-    let entity = collection.find(element => entityIds === element._id)
+    // single identifier
+    let entity = collection.find(element => compareIdentifiers(entityIds, element._id))
     if (entity) return entity
     else throw new Error('entity not found in the collection: ' + entityIds)
   } else {
-    let entities = collection.filter(entity => entityIds.includes(entity._id))
+    // array of identifiers
+    let entities = collection.filter(entity => {
+      return entityIds.find(id => compareIdentifiers(id, entity._id))
+    })
     if (entityIds.length === entities.length) return entities
     else throw new Error('entities not found in the collection: ' + JSON.stringify(entityIds))
   }

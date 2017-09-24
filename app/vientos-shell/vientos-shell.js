@@ -284,6 +284,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else {
       // TODO: this._showPage404();
     }
+    // clear subrouteData.id
+    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation'].includes(page)) {
+      delete this.subrouteData.id
+    }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
     this._decorateMeButton(page)
@@ -337,28 +341,44 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _findProject (page, projectId, projects) {
-    if (Array.from(arguments).includes(undefined)) return null
+  _findProject (page, projectCuid, projects) {
+    if (Array.from(arguments).includes(undefined) || !projects.length) return null
     if (!['project', 'edit-project-details', 'new-intent'].includes(page)) return null
-    return projects.find(project => project._id === util.urlFromId(projectId, 'projects'))
+    try {
+      return util.getRef(projectCuid, projects)
+    } catch (e) {
+      return null
+    }
   }
 
-  _findIntent (page, intentId, intents) {
-    if (Array.from(arguments).includes(undefined)) return null
+  _findIntent (page, intentCuid, intents) {
+    if (Array.from(arguments).includes(undefined) || !intents.length) return null
     if (!['intent', 'edit-intent', 'new-conversation'].includes(page)) return null
-    return intents.find(intent => intent._id === util.urlFromId(intentId, 'intents'))
+    try {
+      return util.getRef(intentCuid, intents)
+    } catch (e) {
+      return null
+    }
   }
 
-  _findConversation (page, conversationId, conversations) {
-    if (Array.from(arguments).includes(undefined)) return null
+  _findConversation (page, conversationCuid, conversations) {
+    if (Array.from(arguments).includes(undefined) || !conversations.length) return null
     if (page !== 'conversation') return null
-    return conversations.find(conversation => conversation._id === util.urlFromId(conversationId, 'conversations'))
+    try {
+      return util.getRef(conversationCuid, conversations)
+    } catch (e) {
+      return null
+    }
   }
 
-  _findPlace (page, placeId, places) {
-    if (Array.from(arguments).includes(undefined)) return null
+  _findPlace (page, placeCuid, places) {
+    if (Array.from(arguments).includes(undefined) || !places.length) return null
     if (page !== 'place') return null
-    return places.find(place => place._id === util.urlFromId(placeId, 'places'))
+    try {
+      return util.getRef(placeCuid, places)
+    } catch (e) {
+      return null
+    }
   }
 
   _setMapView (place) {
