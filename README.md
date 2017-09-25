@@ -6,7 +6,7 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/vientos/vientos-app.svg)](https://greenkeeper.io/)
 [![bitHound Dependencies](https://www.bithound.io/github/vientos/vientos-app/badges/dependencies.svg)](https://www.bithound.io/github/vientos/vientos-app/staging/dependencies/npm)
-[![NSP Status](https://nodesecurity.io/orgs/vientos/projects/43149b48-d35a-4c5d-9d7c-ef24383fcb70/badge)](https://nodesecurity.io/orgs/vientos/projects/43149b48-d35a-4c5d-9d7c-ef24383fcb70)
+[![NSP Status](https://nodesecurity.io/orgs/vientos/projects/8ce10402-be35-4831-bc4f-936d5a336d0b/badge)](https://nodesecurity.io/orgs/vientos/projects/8ce10402-be35-4831-bc4f-936d5a336d0b)
 [![Known Vulnerabilities](https://snyk.io/test/github/vientos/vientos-app/badge.svg)](https://snyk.io/test/github/vientos/vientos-app)
 
 
