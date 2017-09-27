@@ -22,7 +22,9 @@ class ImagePicker extends Polymer.Element {
     }
   }
 
+  // called from parent
   reset () {
+    this.set('newImage', null)
     this.$['new-image-form'].reset()
   }
 

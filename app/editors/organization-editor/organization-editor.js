@@ -122,7 +122,11 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     this.set('newLink', '')
     this.$$('place-picker').reset()
     this.$$('image-picker').reset()
-    this._makeClone()
+    if (this.project) {
+      this._makeClone()
+    } else {
+      this._createNewProject(this.creator)
+    }
   }
 
   _save () {
@@ -130,10 +134,10 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     this._addContact()
     this._addLink()
     this.dispatch('saveProject', this.updated, this.newImage)
-    this._reset()
     // we use replaceState to avoid when edting and going to project page, that back button take you to edit again
     window.history.replaceState({}, '', `/project/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+    this._reset()
   }
 
   _readyToSave (hasChages, name, description, logo, newImage) {
@@ -147,7 +151,6 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
 
   _createNewProject (creator) {
     if (creator) {
-      this._reset()
       this.set('updated', {
         _id: mintUrl({ type: 'Project' }),
         type: 'Project',
