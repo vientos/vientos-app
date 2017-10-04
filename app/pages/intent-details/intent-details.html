@@ -181,22 +181,6 @@
       <div>[[intent.expiryDate]]</div>
     </section>
 
-    <section id="stats">
-      <h3>[[localize('stats')]]</h3>
-      <span>
-        <iron-icon icon="vientos:conversation"></iron-icon>
-        [[intent.openConversations.length]]
-      </span>
-      <span>
-        <iron-icon icon="vientos:success"></iron-icon>
-        [[intent.collaborations.length]]
-        [[intent.successfulConversations.length]]
-      </span>
-      <span>
-        <iron-icon icon="vientos:aborted"></iron-icon>
-        [[intent.abortedConversations.length]]
-      </span>
-    </section>
     <template is="dom-if" if="[[successfulReviewGroups.length]]">
       <section class="reviews">
         <h3>[[localize('label:collaborations')]]</h3>
