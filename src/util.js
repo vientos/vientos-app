@@ -393,3 +393,11 @@ export function addHyperLinks (text) {
   }
   return text
 }
+
+export function pairReviews (reviews) {
+  return Object.values(reviews.reduce((acc, review) => {
+    if (!acc[review.conversation]) acc[review.conversation] = []
+    acc[review.conversation].push(review)
+    return acc
+  }, {}))
+}

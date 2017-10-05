@@ -34,8 +34,15 @@ class ReviewCard extends Polymer.mixinBehaviors(
     }
   }
 
-  _getName (...args) { return util.getName(...args) }
-  _getImage (...args) { return util.getImage(...args) }
+  _getName (personId, people) {
+    if (!personId) return
+    return util.getName(personId, people)
+  }
+
+  _getImage (personId, people, size) {
+    if (!personId) return
+    return util.getImage(personId, people, size)
+  }
 
   _linksToConversation (review, myConversations, skipLink) {
     if (Array.from(arguments).includes(undefined)) return false

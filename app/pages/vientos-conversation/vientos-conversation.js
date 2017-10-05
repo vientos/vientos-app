@@ -205,9 +205,11 @@ class VientosConversation extends Polymer.mixinBehaviors(
       as: this._whoReviews(),
       body: this.newReview,
       conversation: this.conversation._id,
+      causingIntent: this.conversation.causingIntent,
       rating: this.rating,
       success: this.success
     }
+    if (this.conversation.matchingIntent) review.matchingIntent = this.conversation.matchingIntent
     this.dispatch('addReview', review)
     this._reset()
   }

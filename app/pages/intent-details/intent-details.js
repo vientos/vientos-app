@@ -173,16 +173,12 @@ class IntentDetails extends Polymer.mixinBehaviors(
 
   _reviewsOfAbortedConversations (intent, reviews) {
     if (!intent || !reviews) return []
-    return intent.abortedConversations.map(conversationId => {
-      return reviews.filter(review => review.conversation === conversationId)
-    })
+    return util.pairReviews(reviews.filter(review => !review.success && (review.causingIntent === intent._id || review.matchingIntent === intent._id)))
   }
 
   _reviewsOfSuccessfulConversations (intent, reviews) {
-    if (!intent || !intent.successfulConversations || !reviews) return []
-    return intent.successfulConversations.map(conversationId => {
-      return reviews.filter(review => review.conversation === conversationId)
-    })
+    if (!intent || !reviews) return []
+    return util.pairReviews(reviews.filter(review => review.success && (review.causingIntent === intent._id || review.matchingIntent === intent._id)))
   }
 
   _canFavor (person, projectAdmin) {
