@@ -62,7 +62,7 @@
           <paper-button raised on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
         </template>
       </template>
-      <template is="dom-if" if="[[_showReviewButton(person, conversation, intents, reviewing, editingCollaboration)]]">
+      <template is="dom-if" if="[[_showReviewButton(person, conversation, intents, reviewing)]]">
         <section class="action-buttons">
           <vientos-icon-button
             id="button-abort"
@@ -71,7 +71,6 @@
             text="[[localize('button:abort')]]"
             icon="vientos:aborted"
             ></vientos-icon-button>
-          <!-- <template is="dom-if" if="[[conversation.collaboration.body]]"> -->
           <vientos-icon-button
             id="button-success"
             raised
@@ -79,7 +78,6 @@
             text="[[localize('button:succeed')]]"
             icon="vientos:success"
           ></vientos-icon-button>
-          <!-- </template> -->
         </section>
       </template>
     </section>

@@ -155,10 +155,6 @@ class IntentEditor extends Polymer.mixinBehaviors(
     this.updateStyles()
   }
 
-  _setCollaborationCondition (e, detail) {
-    this.condition = detail.item.name
-  }
-
   _createNewIntent (person, project) {
     if (person && project) {
       this._reset()

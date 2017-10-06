@@ -1,4 +1,4 @@
-import { ReduxMixin, ActionCreators, util, mintUrl } from '../../../src/engine.js'
+import { ReduxMixin, ActionCreators, util } from '../../../src/engine.js'
 
 class VientosConversation extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
@@ -39,15 +39,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
         observer: '_deativateNotifications'
       },
       conversation: {
-        type: Object,
-        observer: '_setEditedCollaboration'
-      },
-      editedCollaboration: {
         type: Object
-      },
-      editingCollaboration: {
-        type: Boolean,
-        value: false
       },
       causingIntent: {
         type: Object,
@@ -72,7 +64,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
       showNewMessage: {
         type: Boolean,
         value: false,
-        computed: '_showNewMessage(conversation, reviewing, editingCollaboration)'
+        computed: '_showNewMessage(conversation, reviewing)'
       },
       newReview: {
         type: String,
@@ -116,20 +108,6 @@ class VientosConversation extends Polymer.mixinBehaviors(
 
   _getMatchingIntent (conversation, intents) {
     if (conversation && intents && conversation.matchingIntent && intents.length) { return util.getRef(conversation.matchingIntent, intents) }
-  }
-
-  _setEditedCollaboration (conversation) {
-    if (!conversation) return
-    if (conversation.collaboration) {
-      this.set('editedCollaboration', Object.assign({}, conversation.collaboration))
-    } else {
-      this.set('editedCollaboration', {
-        _id: mintUrl({ type: 'Collaboration' }),
-        type: 'Collaboration',
-        body: '',
-        conversation: conversation._id
-      })
-    }
   }
 
   _toggleTurn () {
@@ -214,9 +192,9 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this._reset()
   }
 
-  _showNewMessage (conversation, reviewing, editingCollaboration) {
+  _showNewMessage (conversation, reviewing) {
     if (!conversation) return
-    return conversation.reviews.length === 0 && !reviewing && !editingCollaboration
+    return conversation.reviews.length === 0 && !reviewing
   }
 
   _classForSameTeam (person, creator, conversation, intents) {
@@ -232,37 +210,15 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this.set('newReview', '')
     this.set('rating', null)
     this.set('reviewing', false)
-    this.set('editingCollaboration', false)
     this.set('changeTurn', false)
   }
 
-  _showCollaborationBody (reviewing, success) {
-    return !reviewing || (reviewing && success)
-  }
-
-  _showCollaborationEditor (conversation, reviewing, editingCollaboration) {
-    return conversation && this._bothMessaged(conversation) && conversation.reviews.length === 0 && !reviewing && editingCollaboration
-  }
-
-  _toggleCollaborationEditor () {
-    this.set('editingCollaboration', !this.editingCollaboration)
-  }
-
-  _cancelCollaborationEditing () {
-    this._toggleCollaborationEditor()
-    this.set('editedCollaboration.body', this.conversation.collaboration.body)
-  }
-
-  _showReviewButton (person, conversation, intents, reviewing, editingCollaboration) {
-    return this._canReview(person, conversation, intents) && !reviewing && !editingCollaboration && conversation.reviews.length === 0
+  _showReviewButton (person, conversation, intents, reviewing) {
+    return this._canReview(person, conversation, intents) && !reviewing && conversation.reviews.length === 0
   }
 
   _bothMessaged (conversation) {
     return [...new Set(conversation.messages.map(message => message.creator))].length > 1
-  }
-
-  _showCollaborationEditButton (conversation, reviewing) {
-    return conversation && this._bothMessaged(conversation) && !reviewing && conversation.reviews.length === 0
   }
 
   _filterNotifications (conversation, notifications) {

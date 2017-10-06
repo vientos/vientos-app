@@ -25,7 +25,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       fetchCategories: ActionCreators.fetchCategories,
       fetchProjects: ActionCreators.fetchProjects,
       fetchIntents: ActionCreators.fetchIntents,
-      fetchCollaborations: ActionCreators.fetchCollaborations,
       fetchReviews: ActionCreators.fetchReviews,
       fetchMyConversations: ActionCreators.fetchMyConversations,
       fetchNotifications: ActionCreators.fetchNotifications,
