@@ -29,11 +29,15 @@ class VientosInbox extends Polymer.mixinBehaviors(
       },
       activeIntents: {
         type: Array,
-        computed: '_filterActiveIntents(person, intents, myConversations, notifications)'
+        computed: '_filterActiveIntents(person, intents, myConversations, notifications, reviews)'
       },
       myConversations: {
         type: Array,
         statePath: 'myConversations'
+      },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
       },
       notifications: {
         type: Array,

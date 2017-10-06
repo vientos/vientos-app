@@ -57,7 +57,7 @@ class IntentDetails extends Polymer.mixinBehaviors(
       },
       currentConversation: {
         type: Object,
-        computed: '_currentConversation(person, projectAdmin, conversations)'
+        computed: '_currentConversation(person, projectAdmin, conversations, reviews)'
       },
       projects: {
         type: Array,
@@ -156,11 +156,11 @@ class IntentDetails extends Polymer.mixinBehaviors(
     return projectAdmin && conversations && conversations.length
   }
 
-  _currentConversation (person, projectAdmin, conversations) {
+  _currentConversation (person, projectAdmin, conversations, reviews) {
     if (person && !projectAdmin && conversations) {
       return conversations.find(conversation => {
         return conversation.creator === person._id &&
-          conversation.reviews.length < 2
+          util.filterConversationReviews(conversation, reviews).length < 2
       }) || null
     } else {
       return null

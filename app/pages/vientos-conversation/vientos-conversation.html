@@ -23,20 +23,20 @@
       <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
     </header>
     <section id="review">
-      <template is="dom-if" if="[[conversation.reviews.length]]">
-        <template is="dom-if" if="[[conversation.reviews.0.success]]">
+      <template is="dom-if" if="[[conversationReviews.length]]">
+        <template is="dom-if" if="[[conversationReviews.0.success]]">
           <h3><iron-icon icon="vientos:success"></iron-icon>[[localize('label:successful-collaboration')]]</h3>
         </template>
-        <template is="dom-if" if="[[!conversation.reviews.0.success]]">
+        <template is="dom-if" if="[[!conversationReviews.0.success]]">
           <h3><iron-icon icon="vientos:aborted"></iron-icon>[[localize('label:aborted-conversation')]]</h3>
         </template>
         <h4>[[localize('label:reviews')]]</h4>
-        <template is="dom-repeat" items="[[conversation.reviews]]" as="review">
+        <template is="dom-repeat" items="[[conversationReviews]]" as="review">
           <review-card review="[[review]]" skip-link></review-card>
         </template>
       </template>
       <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
-        <template is="dom-if" if="[[!conversation.reviews.length]]">
+        <template is="dom-if" if="[[!conversationReviews.length]]">
           <template is="dom-if" if="[[success]]">
             <h3><iron-icon icon="vientos:success"></iron-icon>[[localize('label:successful-collaboration')]]</h3>
           </template>
@@ -58,7 +58,7 @@
           value="{{newReview}}" label="[[localize('label:review-body')]]">
         </paper-textarea>
         <paper-button raised on-tap="_sendReview" disabled="[[!rating]]">[[localize('button:review')]]</paper-button>
-        <template is="dom-if" if="[[!conversation.reviews.length]]">
+        <template is="dom-if" if="[[!conversationReviews.length]]">
           <paper-button raised on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
         </template>
       </template>

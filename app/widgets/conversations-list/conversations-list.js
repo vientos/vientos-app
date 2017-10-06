@@ -17,6 +17,10 @@ class ConversationsList extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'intents'
       },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
+      },
     // passed from parent
       conversations: {
         type: Array
@@ -27,7 +31,7 @@ class ConversationsList extends Polymer.mixinBehaviors(
       },
       visibleConversations: {
         type: Array,
-        computed: '_filterConversations(person, conversations, intent, notifications, intents)'
+        computed: '_filterConversations(person, conversations, intent, notifications, intents, reviews)'
       },
       notifications: {
         type: Array,
@@ -60,12 +64,12 @@ class ConversationsList extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _filterConversations (person, conversations, intent, notifications, intents) {
+  _filterConversations (person, conversations, intent, notifications, intents, reviews) {
     if (Array.from(arguments).includes(undefined)) return []
     if (!person) return []
     return conversations.filter(conversation => {
       // show if has notification
-      return util.intentPrimaryForMyConversation(person, conversation, intent, notifications, intents)
+      return util.intentPrimaryForMyConversation(person, conversation, intent, notifications, intents, reviews)
     }).sort((a, b) => {
       let aNotifications = notifications.filter(notification => notification.object === a._id)
       let bNotifications = notifications.filter(notification => notification.object === b._id)

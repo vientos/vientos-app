@@ -41,6 +41,15 @@ class VientosConversation extends Polymer.mixinBehaviors(
       conversation: {
         type: Object
       },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
+      },
+      conversationReviews: {
+        type: Array,
+        value: [],
+        computed: '_filterConversationReviews(conversation, reviews)'
+      },
       causingIntent: {
         type: Object,
         computed: '_getCausingIntent(conversation, intents)'
@@ -101,6 +110,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   _getName (...args) { return util.getName(...args) }
   _getImage (...args) { return util.getImage(...args) }
   _addHyperLinks (...args) { return util.addHyperLinks(...args) }
+  _filterConversationReviews (...args) { return util.filterConversationReviews(...args) }
 
   _getCausingIntent (conversation, intents) {
     if (conversation && intents && intents.length) { return util.getRef(conversation.causingIntent, intents) }
@@ -139,9 +149,9 @@ class VientosConversation extends Polymer.mixinBehaviors(
   _canReview (person, conversation, intents) {
     if (!conversation || !intents) return false
     // no reviews
-    if (conversation.reviews.length === 0) return true
+    if (this.conversationReviews.length === 0) return true
     // if only one review was made, but not from my team (includes me)
-    if (conversation.reviews.length === 1) return !util.sameTeam(person._id, conversation.reviews[0].creator, conversation, intents)
+    if (this.conversationReviews.length === 1) return !util.sameTeam(person._id, this.conversationReviews[0].creator, conversation, intents)
     // TODO handle when project memeber, but not intent admin already reviewed (sameTeam() only checks intent admins)
     return false
   }
@@ -194,7 +204,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
 
   _showNewMessage (conversation, reviewing) {
     if (!conversation) return
-    return conversation.reviews.length === 0 && !reviewing
+    return this.conversationReviews.length === 0 && !reviewing
   }
 
   _classForSameTeam (person, creator, conversation, intents) {
@@ -202,7 +212,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   }
 
   _showNewReview (conversation, canReview, reviewing) {
-    return canReview && (reviewing || conversation.reviews.length === 1)
+    return canReview && (reviewing || this.conversationReviews.length === 1)
   }
 
   _reset () {
@@ -214,7 +224,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   }
 
   _showReviewButton (person, conversation, intents, reviewing) {
-    return this._canReview(person, conversation, intents) && !reviewing && conversation.reviews.length === 0
+    return this._canReview(person, conversation, intents) && !reviewing && this.conversationReviews.length === 0
   }
 
   _bothMessaged (conversation) {

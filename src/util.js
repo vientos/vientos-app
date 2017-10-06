@@ -117,25 +117,25 @@ export function filterIntents (person, intents, filteredCollaborationTypes, filt
   return filtered
 }
 
-export function filterActiveProjectIntents (person, project, intents, myConversations, notifications) {
+export function filterActiveProjectIntents (person, project, intents, myConversations, notifications, reviews) {
   if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active' && !checkIfExpired(intent))
-  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications, reviews) : filtered
 }
 
-export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications) {
+export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications, reviews) {
   if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive' && !checkIfExpired(intent))
-  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications, reviews) : filtered
 }
 
-export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications) {
+export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications, reviews) {
   if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && checkIfExpired(intent))
-  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications, reviews) : filtered
 }
 
 export function getIntentProjects (intent, projects) {
@@ -233,11 +233,11 @@ function onThisIntentConversation (intent, notification, conversations) {
   return onThisIntent(conversation, intent)
 }
 
-function onThisIntentAndOurTurn (person, conversation, intent) {
+function onThisIntentAndOurTurn (person, conversation, intent, reviews) {
   return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent])
 }
 
-function orderIntents (intents, person, myConversations, notifications) {
+function orderIntents (intents, person, myConversations, notifications, reviews) {
   return intents.sort((a, b) => {
     let aNotifications = notifications.filter(notification => {
       return onThisIntentConversation(a, notification, myConversations)
@@ -253,10 +253,10 @@ function orderIntents (intents, person, myConversations, notifications) {
       return 1
     } else {
       let aOurTurnConversations = myConversations.filter(conversation => {
-        return onThisIntentAndOurTurn(person, conversation, a)
+        return onThisIntentAndOurTurn(person, conversation, a, reviews)
       })
       let bOurTurnConversations = myConversations.filter(conversation => {
-        return onThisIntentAndOurTurn(person, conversation, b)
+        return onThisIntentAndOurTurn(person, conversation, b, reviews)
       })
       if (aOurTurnConversations.length && bOurTurnConversations.length) {
         let aLastConversationCreatedAt = new Date(aOurTurnConversations.pop().createdAt)
@@ -286,22 +286,22 @@ function orderIntents (intents, person, myConversations, notifications) {
 }
 
 // TODO reuse for notifications
-export function filterActiveIntents (person, intents, myConversations, notifications) {
+export function filterActiveIntents (person, intents, myConversations, notifications, reviews) {
   if (Array.from(arguments).includes(undefined)) return []
   if (person) {
     // conversations which I created
     // and conversation on intens (causing or matching) which I admin
     let activeIntents = intents.filter(intent => {
       return myConversations.some(conversation => {
-        return intentPrimaryForMyConversation(person, conversation, intent, notifications, intents)
+        return intentPrimaryForMyConversation(person, conversation, intent, notifications, intents, reviews)
       })
     })
-    return orderIntents(activeIntents, person, myConversations, notifications)
+    return orderIntents(activeIntents, person, myConversations, notifications, reviews)
   }
 }
 
 // TODO fix name foo
-export function intentPrimaryForMyConversation (person, conversation, intent, notifications, intents) {
+export function intentPrimaryForMyConversation (person, conversation, intent, notifications, intents, reviews) {
   if (!intent) return false
   return (
           // show causing intent unless im admin of matching intent
@@ -309,15 +309,20 @@ export function intentPrimaryForMyConversation (person, conversation, intent, no
           (conversation.matchingIntent && conversation.causingIntent === intent._id && intent.admins.includes(person._id)) ||
           (conversation.matchingIntent === intent._id && intent.admins.includes(person._id))
          ) &&
-         conversationNeedsAttention(person, conversation, notifications, intents)
+         conversationNeedsAttention(person, conversation, notifications, intents, reviews)
 }
 
-export function conversationNeedsAttention (person, conversation, notifications, intents) {
+export function filterConversationReviews (conversation, reviews) {
+  if (!conversation || !reviews) return []
+  return reviews.filter(review => review.conversation === conversation._id)
+}
+
+function conversationNeedsAttention (person, conversation, notifications, intents, reviews) {
   return notifications.some(notification => notification.object === conversation._id) ||
     // don't show when both sides reviewed
-    conversation.reviews.length === 0 ||
+    filterConversationReviews(conversation, reviews).length === 0 ||
     // don't show when I've reviewed
-    ourTurn(person, conversation, intents)
+    ourTurn(person, conversation, intents, reviews)
 }
 
 export function filterIntentConversations (intent, myConversations) {
@@ -347,10 +352,11 @@ export function sameTeam (myId, otherPersonId, conversation, intents) {
         (otherPersonId === conversation.creator || canAdminIntent(otherPersonId, matchingIntent)))
 }
 
-export function ourTurn (person, conversation, intents) {
+export function ourTurn (person, conversation, intents, reviews) {
+  let conversationReviews = filterConversationReviews(conversation, reviews)
   if (!person || !conversation || intents.length === 0) return false
-  if (conversation.reviews.length === 2) return false
-  if (conversation.reviews.length === 1) return !sameTeam(person._id, conversation.reviews[0].creator, conversation, intents)
+  if (conversationReviews.length === 2) return false
+  if (conversationReviews.length === 1) return !sameTeam(person._id, conversationReviews[0].creator, conversation, intents)
   let lastMessage = conversation.messages[conversation.messages.length - 1]
   return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
 }

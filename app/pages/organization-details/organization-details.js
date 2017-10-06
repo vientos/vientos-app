@@ -75,20 +75,24 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'intents'
       },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
+      },
       activeIntents: {
         type: Array,
         value: [],
-        computed: '_filterActiveIntents(person, project, intents, myConversations, notifications)'
+        computed: '_filterActiveIntents(person, project, intents, myConversations, notifications, reviews)'
       },
       inactiveIntents: {
         type: Array,
         value: [],
-        computed: '_filterInactiveIntents(person, project, intents, myConversations, notifications)'
+        computed: '_filterInactiveIntents(person, project, intents, myConversations, notifications, reviews)'
       },
       expiredIntents: {
         type: Array,
         value: [],
-        computed: '_filterExpiredIntents(person, project, intents, myConversations, notifications)'
+        computed: '_filterExpiredIntents(person, project, intents, myConversations, notifications, reviews)'
       },
       language: {
         type: String,
