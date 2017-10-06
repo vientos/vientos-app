@@ -73,7 +73,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
       showNewMessage: {
         type: Boolean,
         value: false,
-        computed: '_showNewMessage(conversation, reviewing)'
+        computed: '_showNewMessage(conversation, conversationReviews, reviewing)'
       },
       newReview: {
         type: String,
@@ -94,7 +94,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
       canReview: {
         type: Boolean,
         value: false,
-        computed: '_canReview(person, conversation, intents)'
+        computed: '_canReview(person, conversation, intents, conversationReviews)'
       },
       language: {
         type: String,
@@ -152,12 +152,12 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this._reset()
   }
 
-  _canReview (person, conversation, intents) {
+  _canReview (person, conversation, intents, conversationReviews) {
     if (!conversation || !intents) return false
     // no reviews
-    if (this.conversationReviews.length === 0) return true
+    if (conversationReviews.length === 0) return true
     // if only one review was made, but not from my team (includes me)
-    if (this.conversationReviews.length === 1) return !util.sameTeam(person._id, this.conversationReviews[0].creator, conversation, intents)
+    if (conversationReviews.length === 1) return !util.sameTeam(person._id, conversationReviews[0].creator, conversation, intents)
     // TODO handle when project memeber, but not intent admin already reviewed (sameTeam() only checks intent admins)
     return false
   }
@@ -213,17 +213,17 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this._reset()
   }
 
-  _showNewMessage (conversation, reviewing) {
+  _showNewMessage (conversation, conversationReviews, reviewing) {
     if (!conversation) return
-    return this.conversationReviews.length === 0 && !reviewing
+    return conversationReviews.length === 0 && !reviewing
   }
 
   _classForSameTeam (person, creator, conversation, intents) {
     return util.sameTeam(person._id, creator, conversation, intents) ? 'us' : 'others'
   }
 
-  _showNewReview (conversation, canReview, reviewing) {
-    return canReview && (reviewing || this.conversationReviews.length === 1)
+  _showNewReview (conversationReviews, canReview, reviewing) {
+    return canReview && (reviewing || conversationReviews.length === 1)
   }
 
   _reset () {
@@ -234,8 +234,8 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this.set('changeTurn', false)
   }
 
-  _showReviewButton (person, conversation, intents, reviewing) {
-    return this._canReview(person, conversation, intents) && !reviewing && this.conversationReviews.length === 0
+  _showReviewButton (canReview, reviewing, conversationReviews) {
+    return canReview && !reviewing && conversationReviews.length === 0
   }
 
   _bothMessaged (conversation) {

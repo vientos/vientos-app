@@ -35,7 +35,7 @@
           <review-card review="[[review]]" skip-link></review-card>
         </template>
       </template>
-      <template is="dom-if" if="[[_showNewReview(conversation, canReview, reviewing)]]">
+      <template is="dom-if" if="[[_showNewReview(conversationReviews, canReview, reviewing)]]">
         <template is="dom-if" if="[[!conversationReviews.length]]">
           <template is="dom-if" if="[[success]]">
             <h3><iron-icon icon="vientos:success"></iron-icon>[[localize('label:successful-collaboration')]]</h3>
@@ -62,7 +62,7 @@
           <paper-button raised on-tap="_abortReview">[[localize('button:cancel')]]</paper-button>
         </template>
       </template>
-      <template is="dom-if" if="[[_showReviewButton(person, conversation, intents, reviewing)]]">
+      <template is="dom-if" if="[[_showReviewButton(canReview, reviewing, conversationReviews)]]">
         <section class="action-buttons">
           <vientos-icon-button
             id="button-abort"
