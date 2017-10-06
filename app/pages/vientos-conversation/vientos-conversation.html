@@ -24,10 +24,10 @@
     </header>
     <section id="review">
       <template is="dom-if" if="[[conversationReviews.length]]">
-        <template is="dom-if" if="[[conversationReviews.0.success]]">
+        <template is="dom-if" if="[[success]]">
           <h3><iron-icon icon="vientos:success"></iron-icon>[[localize('label:successful-collaboration')]]</h3>
         </template>
-        <template is="dom-if" if="[[!conversationReviews.0.success]]">
+        <template is="dom-if" if="[[!success]]">
           <h3><iron-icon icon="vientos:aborted"></iron-icon>[[localize('label:aborted-conversation')]]</h3>
         </template>
         <h4>[[localize('label:reviews')]]</h4>

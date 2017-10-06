@@ -107,6 +107,12 @@ class VientosConversation extends Polymer.mixinBehaviors(
     }
   }
 
+  static get observers () {
+    return [
+      '_setSuccess(conversationReviews)'
+    ]
+  }
+
   _getName (...args) { return util.getName(...args) }
   _getImage (...args) { return util.getImage(...args) }
   _addHyperLinks (...args) { return util.addHyperLinks(...args) }
@@ -156,6 +162,12 @@ class VientosConversation extends Polymer.mixinBehaviors(
     return false
   }
 
+  _setSuccess (conversationReviews) {
+    if (conversationReviews && conversationReviews.length) {
+      this.set('success', conversationReviews[0].success)
+    }
+  }
+
   _abort () {
     this.set('success', false)
     this._startReview()
@@ -185,7 +197,6 @@ class VientosConversation extends Polymer.mixinBehaviors(
     }
   }
 
-  // TODO mark review as of success or abortion
   _sendReview () {
     let review = {
       type: 'Review',
