@@ -319,14 +319,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _personChanged (person) {
     if (person) {
       this.dispatch('setLanguage', person.language)
-      // fetch conversations and update every 60s
-      this.dispatch('fetchMyConversations', person)
-      setInterval(() => { this.dispatch('fetchMyConversations', person) }, 60000)
-
-      // fetch notifications and update every 60s
-      this.dispatch('fetchNotifications', person)
-      setInterval(() => { this.dispatch('fetchNotifications', person) }, 60000)
-
+      this._fetchProtectedData()
       // setup push notifications
       navigator.serviceWorker.ready.then(registration => {
         return registration.pushManager.getSubscription()
@@ -579,17 +572,31 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.set('intentsIndex', intentsIndex)
   }
 
+  _fetchPublicData () {
+    this.dispatch('fetchProjects')
+    this.dispatch('fetchPlaces')
+    this.dispatch('fetchPeople')
+    this.dispatch('fetchIntents')
+    this.dispatch('fetchReviews')
+  }
+
+  _fetchProtectedData () {
+    this.dispatch('fetchMyConversations', this.person)
+    this.dispatch('fetchNotifications', this.person)
+  }
+
+  _fetchUpdates () {
+    this._fetchPublicData()
+    if (this.person) this._fetchProtectedData()
+  }
+
   ready () {
     super.ready()
     import(/* webpackChunkName: "vientos-map" */ '../widgets/vientos-map/vientos-map.html')
     this.dispatch('hello')
     this.dispatch('fetchLabels')
     this.dispatch('fetchCategories')
-    this.dispatch('fetchProjects')
-    this.dispatch('fetchPlaces')
-    this.dispatch('fetchPeople')
-    this.dispatch('fetchIntents')
-    this.dispatch('fetchReviews')
+    this._fetchPublicData()
 
     let mqWideScreen = window.matchMedia('(min-width: 800px)')
     this.set('wideScreen', mqWideScreen.matches)
@@ -597,6 +604,8 @@ class VientosShell extends Polymer.mixinBehaviors(
 
     // fetch reviews and update every 60s
     // setInterval(() => { this.dispatch('fetchReviews') }, 60000)
+    window.addEventListener('online', this._fetchUpdates.bind(this))
+    window.addEventListener('offline', () => console.log('offline'))
 
     window.addEventListener('location-changed', this._locationChanged.bind(this))
     window.dispatchEvent(new CustomEvent('location-changed'))
