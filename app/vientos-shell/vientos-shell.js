@@ -270,6 +270,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _filterIntents (...args) { return util.filterIntents(...args) }
   _filterPlaces (...args) { return util.filterPlaces(...args) }
   _avilableIntents (...args) { return util.availableIntents(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
 
   _routePageChanged (page) {
     let selectedPage = page || 'guide'

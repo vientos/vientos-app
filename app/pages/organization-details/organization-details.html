@@ -54,7 +54,7 @@
         <vientos-icon-button
           raised
           on-tap="_editDetails"
-          text="[[localize('button:edit')]]">
+          text="[[localize('button:edit-profile')]]">
         </vientos-icon-button>
         <vientos-icon-button
           raised
@@ -85,7 +85,7 @@
         <ul id="admin-list">
           <template is="dom-repeat" items="[[_getRef(project.admins, people)]]">
             <li>
-              <iron-image src="[[item.logo]]" sizing="contain"></iron-image>
+              <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="contain"></iron-image>
               [[item.name]]
             </li>
           </template>
@@ -95,7 +95,7 @@
 
     <section id="logo">
       <template is="dom-if" if="[[project.logo]]">
-        <iron-image src="[[project.logo]]" sizing="contain"></iron-image>
+        <iron-image src="[[_getThumbnailUrl(project, 150)]]" sizing="contain"></iron-image>
       </template>
     </section>
     <template is="dom-if" if="[[project.description]]">

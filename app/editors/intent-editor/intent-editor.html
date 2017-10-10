@@ -38,7 +38,9 @@
     ></paper-input>
       <div>
         <paper-textarea
+         rows="3"
          label="[[localize('label:org-description')]]"
+         placeholder="[[localize('placeholder:intent-description')]]"
          value="{{updated.description}}"
          required>
        </paper-textarea>
@@ -46,7 +48,9 @@
 
       <div>
         <paper-textarea
+         rows="3"
          label="[[localize('label:questions')]]"
+         placeholder="[[localize('placeholder:intent-question')]]"
          value="{{updated.question}}"
          required>
        </paper-textarea>
@@ -56,7 +60,7 @@
     <section id="logo">
       <image-picker
         image-url="[[updated.logo]]"
-        label="[[localize('label:image')]]"
+        label="[[localize('label:select-image')]]"
         on-picked="_imagePicked"
         ></image-picker>
     </section>

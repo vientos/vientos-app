@@ -16,31 +16,43 @@
     <style include="organization-editor-styles">
     </style>
 
+    <section class="notice">
+      [[localize('notice:public-data')]]
+    </section>
     <section id="logo">
       <image-picker
         image-url="[[updated.logo]]"
-        label="[[localize('label:image')]]"
+        label="[[localize('label:select-image')]]"
         on-picked="_imagePicked"
         ></image-picker>
     </section>
     <section id="general-info">
-      <paper-input value="{{updated.name}}" label="[[localize('label:org-name')]]" required></paper-input>
+      <paper-input
+        value="{{updated.name}}"
+        label="[[localize('label:org-name')]]"
+        placeholder="[[localize('placeholder:org-name')]]"
+        required>
+      </paper-input>
       <div>
         <paper-textarea
          label="[[localize('label:org-description')]]"
+         placeholder="[[localize('placeholder:org-description')]]"
          value="{{updated.description}}"
          required>
        </paper-textarea>
       </div>
     </section>
     <section id="categories">
-    <categories-selector
-      categories="[[categories]]"
-      selection="[[updated.categories]]"
-      on-selection-changed="_categoriesSelectionChanged"></categories-selector>
+      <h3>[[localize('label:categories')]]</h3>
+      <p class="hint">[[localize('hint:org-categories')]]</p>
+      <categories-selector
+        categories="[[categories]]"
+        selection="[[updated.categories]]"
+        on-selection-changed="_categoriesSelectionChanged"></categories-selector>
     </section>
     <section>
       <h3>[[localize('label:address')]]</h3>
+      <p class="hint">[[localize('hint:org-address')]]</p>
       <place-picker
         on-picked="_placePicked"
       ></place-picker>
@@ -63,7 +75,7 @@
           </li>
         </template>
       </ul>
-      <paper-input value="{{newContact}}" placeholder="@"></paper-input>
+      <paper-input value="{{newContact}}" placeholder="[[localize('placeholder:contacts')]]"></paper-input>
       <paper-button raised on-tap="_addContact" disabled="[[!newContact]]">[[localize('button:add-contact')]]</paper-button>
     </section>
     <section id="web-social-media">
@@ -76,7 +88,7 @@
           </li>
         </template>
       </ul>
-      <paper-input value="{{newLink}}" placeholder="https://"></paper-input>
+      <paper-input value="{{newLink}}" placeholder="[[localize('placeholder:links')]]"></paper-input>
       <paper-button raised on-tap="_addLink" disabled="[[!newLink]]">[[localize('button:add-link')]]</paper-button>
     </section>
     <footer class="simple">

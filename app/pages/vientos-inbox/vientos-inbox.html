@@ -19,15 +19,20 @@
     <template is="dom-if" if="[[person]]">
 
       <section class="action-buttons">
-        <vientos-icon-button raised icon="" on-tap="_editProfile" text="[[localize('button:edit-profile')]]"></vientos-icon-button>
+        <vientos-icon-button raised icon="" on-tap="_editProfile" text="[[localize('button:account-settings')]]"></vientos-icon-button>
         <vientos-icon-button raised icon="" on-tap="_addProject" text="[[localize('button:add-project')]]"></vientos-icon-button>
         <vientos-icon-button raised icon="" on-tap="_bye" text="[[localize('button:logout')]]"></vientos-icon-button>
       </section>
       <h2 id="title">
+                <iron-image
+                   src="[[_getThumbnailUrl(person, 26)]]"
+                   sizing="contain">
+                </iron-image>
         [[person.name]]
       </h2>
       <template is="dom-if" if="[[myProjects.length]]">
         <section id="my-projects">
+          <h3>[[localize('guide:my-projects')]]</h3>
           <ul>
             <template is="dom-repeat" items="[[myProjects]]" as="project">
               <li on-tap="_showProjectProfile" class="clickable">

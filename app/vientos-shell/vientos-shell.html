@@ -65,7 +65,7 @@
                     [[ourTurnCount]]
                   </span>
                 </template>
-                <iron-image id="person-avatar" src="[[person.logo]]" sizing="contain"></iron-image>
+                <iron-image id="person-avatar" src="[[_getThumbnailUrl(person, 26)]]" sizing="contain"></iron-image>
               </paper-button>
             </template>
             <template is="dom-if" if="[[!person]]">

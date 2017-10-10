@@ -76,7 +76,7 @@
         <ul id="admin-list">
           <template is="dom-repeat" items="[[_getRef(intent.admins, people)]]">
             <li>
-              <iron-image src="[[item.logo]]" sizing="contain"></iron-image>
+              <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="contain"></iron-image>
               [[item.name]]
             </li>
           </template>
