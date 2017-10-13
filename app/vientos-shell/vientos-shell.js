@@ -1,4 +1,5 @@
-import { ReduxMixin, ActionCreators, util } from '../../src/engine.js'
+/* global EventSource */
+import { ReduxMixin, ActionCreators, util, channelUrl } from '../../src/engine.js'
 
 const importOrganizationEditor = () => {
   import(/* webpackChunkName: "organization-editor" */ '../editors/organization-editor/organization-editor.html')
@@ -207,6 +208,12 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'labels'
       },
+      publicChannel: {
+        type: Object
+      },
+      privateChannel: {
+        type: Object
+      },
       lazyPages: {
         type: Object,
         value: {
@@ -319,7 +326,11 @@ class VientosShell extends Polymer.mixinBehaviors(
   _personChanged (person) {
     if (person) {
       this.dispatch('setLanguage', person.language)
+
       this._fetchProtectedData()
+      this.privateChannel = new EventSource(channelUrl(person._id), { withCredentials: true })
+      this.privateChannel.addEventListener('notification', this._fetchUpdates.bind(this))
+
       // setup push notifications
       navigator.serviceWorker.ready.then(registration => {
         return registration.pushManager.getSubscription()
@@ -331,6 +342,13 @@ class VientosShell extends Polymer.mixinBehaviors(
         let details = JSON.parse(JSON.stringify(subscription))
         this.dispatch('saveSubscription', details, person)
       })
+    } else {
+      if (this.privateChannel) {
+        this.dispatch('unsubscribeFromChannel', this.privateChannel)
+        this.privateChannel.removeEventListener('notification', this._fetchUpdates.bind(this))
+        this.privateChannel.close()
+        this.set('privateChannel', null)
+      }
     }
   }
 
@@ -597,6 +615,11 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('fetchLabels')
     this.dispatch('fetchCategories')
     this._fetchPublicData()
+
+    // FIXME use vienos-client
+    // TODO: separate (withCredentials) source for notificaions
+    this.publicChannel = new EventSource(channelUrl())
+    this.publicChannel.addEventListener('update', this._fetchPublicData.bind(this))
 
     let mqWideScreen = window.matchMedia('(min-width: 800px)')
     this.set('wideScreen', mqWideScreen.matches)

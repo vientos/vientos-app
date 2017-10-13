@@ -90,11 +90,13 @@ sagaMiddleware.run(saga)
 const ReduxMixin = PolymerRedux(store)
 const ActionCreators = Object.assign({}, ClientActionCreators, AppActionCreators)
 const mintUrl = client.mintUrl
+const channelUrl = client.channelUrl
 
 export {
   ReduxMixin,
   ActionCreators,
   mintUrl,
+  channelUrl,
   util,
   config
 }
