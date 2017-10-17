@@ -24,4 +24,4 @@ You will also need to run [vientos-service](https://github.com/vientos/vientos-s
 
 ### multilingual
 
-Project uses [Polymer.AppLocalizeBehavior](https://elements.polymer-project.org/elements/app-localize-behavior) please always add new strings to `labels.json` in [vientos-data](https://github.com/ehecame/vientos-data) and **never hardcode untranslated strings** in any of the templates!
+Project uses [Polymer.AppLocalizeBehavior](https://elements.polymer-project.org/elements/app-localize-behavior) please always add new strings to `labels.json` in [vientos-data](https://github.com/vientos/vientos-data) and **never hardcode untranslated strings** in any of the templates!

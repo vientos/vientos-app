@@ -302,7 +302,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
-    this._decorateMeButton(page)
+    this._decorateTopButtons(page)
   }
 
   _hasFooter (page) {
@@ -499,9 +499,11 @@ class VientosShell extends Polymer.mixinBehaviors(
     }, 0)
   }
 
-  _decorateMeButton (page) {
+  _decorateTopButtons (page) {
     if (page === 'me') this.$['menu-button-holder-right'].className = 'selected'
     else this.$['menu-button-holder-right'].className = ''
+    if (page === 'guide') this.$['menu-button-holder-left'].className = 'selected'
+    else this.$['menu-button-holder-left'].className = ''
   }
 
   _showProfile () {
