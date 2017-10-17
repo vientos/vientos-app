@@ -82,8 +82,8 @@ class ConversationsList extends Polymer.mixinBehaviors(
       } else if (bNotifications.length) {
         return 1
       } else {
-        let aOurTurn = util.ourTurn(person, a, intents)
-        let bOurTurn = util.ourTurn(person, b, intents)
+        let aOurTurn = util.ourTurn(person, a, intents, reviews)
+        let bOurTurn = util.ourTurn(person, b, intents, reviews)
         if (aOurTurn && bOurTurn) {
           return new Date(b.createdAt) - new Date(a.createdAt)
         } else if (aOurTurn) {

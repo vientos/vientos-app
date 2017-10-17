@@ -64,7 +64,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
       },
       turnToggleChecked: {
         type: Boolean,
-        computed: '_turnToggleChecked(person, conversation, intents, changeTurn)'
+        computed: '_turnToggleChecked(person, conversation, intents, reviews, changeTurn)'
       },
       newMessage: {
         type: String,
@@ -130,9 +130,9 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this.set('changeTurn', !this.changeTurn)
   }
 
-  _turnToggleChecked (person, conversation, intents, changeTurn) {
+  _turnToggleChecked (person, conversation, intents, reviews, changeTurn) {
     if (Array.from(arguments).includes(undefined)) return
-    let ourTurn = util.ourTurn(person, conversation, intents)
+    let ourTurn = util.ourTurn(person, conversation, intents, reviews)
     return this.changeTurn ? !ourTurn : ourTurn
   }
 
@@ -141,7 +141,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   }
 
   _sendMessage () {
-    let ourTurn = util.ourTurn(this.person, this.conversation, this.intents)
+    let ourTurn = util.ourTurn(this.person, this.conversation, this.intents, this.reviews)
     this.dispatch('addMessage', {
       type: 'Message',
       creator: this.person._id,

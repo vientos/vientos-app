@@ -13,7 +13,7 @@
     <ul>
       <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
         <li on-tap="_showConversation" class="clickable">
-          <template is="dom-if" if="[[_ourTurn(person, conversation, intents)]]">
+          <template is="dom-if" if="[[_ourTurn(person, conversation, intents, reviews)]]">
             <span class="our-turn"><iron-icon icon="vientos:ball"></iron-icon></span>
           </template>
           <template is="dom-if" if="[[_getNotificationsCount(conversation, notifications)]]">

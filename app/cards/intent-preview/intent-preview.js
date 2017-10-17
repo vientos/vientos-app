@@ -33,9 +33,13 @@ class IntentPreview extends Polymer.mixinBehaviors(
         type: Number,
         computed: '_notificationCount(intent, myConversations, notifications)'
       },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
+      },
       ourTurnCount: {
         type: Number,
-        computed: '_calcOurTurnCount(person, myConversations, intent, projectAdmin)'
+        computed: '_calcOurTurnCount(person, myConversations, intent, projectAdmin, reviews)'
       },
       projects: {
         type: Array,
@@ -98,12 +102,12 @@ class IntentPreview extends Polymer.mixinBehaviors(
     }).length
   }
 
-  _calcOurTurnCount (person, myConversations, intent, projectAdmin) {
+  _calcOurTurnCount (person, myConversations, intent, projectAdmin, reviews) {
     if (person && projectAdmin && intent && myConversations) {
       return myConversations.filter(conversation => {
         return conversation.causingIntent === intent._id || conversation.matchingIntent === intent._id
       }).reduce((count, conversation) => {
-        return util.ourTurn(person, conversation, [intent]) ? ++count : count
+        return util.ourTurn(person, conversation, [intent], reviews) ? ++count : count
       }, 0)
     }
   }

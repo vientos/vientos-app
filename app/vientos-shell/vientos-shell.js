@@ -170,9 +170,13 @@ class VientosShell extends Polymer.mixinBehaviors(
         value: [],
         computed: '_filterPlaces(visibleIntents, places, boundingBox)'
       },
+      reviews: {
+        type: Array,
+        statePath: 'reviews'
+      },
       ourTurnCount: {
         type: Number,
-        computed: '_calcOurTurnCount(person, myConversations, intents)'
+        computed: '_calcOurTurnCount(person, myConversations, intents, reviews)'
       },
       availableIntents: {
         type: Array,
@@ -344,7 +348,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       })
     } else {
       if (this.privateChannel) {
-        this.dispatch('unsubscribeFromChannel', this.privateChannel)
         this.privateChannel.removeEventListener('notification', this._fetchUpdates.bind(this))
         this.privateChannel.close()
         this.set('privateChannel', null)
@@ -488,10 +491,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _calcOurTurnCount (person, myConversations, intents) {
+  _calcOurTurnCount (person, myConversations, intents, reviews) {
     if (Array.from(arguments).includes(undefined)) return 0
     return myConversations.reduce((count, conversation) => {
-      return util.ourTurn(person, conversation, intents) ? ++count : count
+      return util.ourTurn(person, conversation, intents, reviews) ? ++count : count
     }, 0)
   }
 
@@ -616,8 +619,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('fetchCategories')
     this._fetchPublicData()
 
-    // FIXME use vienos-client
-    // TODO: separate (withCredentials) source for notificaions
     this.publicChannel = new EventSource(channelUrl())
     this.publicChannel.addEventListener('update', this._fetchPublicData.bind(this))
 
@@ -625,8 +626,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.set('wideScreen', mqWideScreen.matches)
     mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
 
-    // fetch reviews and update every 60s
-    // setInterval(() => { this.dispatch('fetchReviews') }, 60000)
     window.addEventListener('online', this._fetchUpdates.bind(this))
     window.addEventListener('offline', () => console.log('offline'))
 

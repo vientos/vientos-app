@@ -234,7 +234,7 @@ function onThisIntentConversation (intent, notification, conversations) {
 }
 
 function onThisIntentAndOurTurn (person, conversation, intent, reviews) {
-  return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent])
+  return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent], reviews)
 }
 
 function orderIntents (intents, person, myConversations, notifications, reviews) {
