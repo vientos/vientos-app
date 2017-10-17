@@ -55,6 +55,10 @@ class VientosInbox extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'session'
       },
+      online: {
+        type: Boolean,
+        statePath: 'online'
+      },
       language: {
         type: String,
         statePath: 'language'

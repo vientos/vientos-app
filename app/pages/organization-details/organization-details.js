@@ -67,6 +67,11 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
         type: Boolean,
         value: false
       },
+      addNewAdminButtonDisabled: {
+        type: Boolean,
+        value: false,
+        computed: '_addNewAdminButtonDisabled(addingNewAdmin, online)'
+      },
       project: {
       // passed from parent
         type: Object
@@ -93,6 +98,10 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
         type: Array,
         value: [],
         computed: '_filterExpiredIntents(person, project, intents, myConversations, notifications, reviews)'
+      },
+      online: {
+        type: Boolean,
+        statePath: 'online'
       },
       language: {
         type: String,
@@ -148,6 +157,10 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   _getPotentialAdmins (project, people) {
     if (!project || !people) return []
     return people.filter(person => !project.admins.includes(person._id))
+  }
+
+  _addNewAdminButtonDisabled (addingNewAdmin, online) {
+    return addingNewAdmin || !online
   }
 
   _startAddingAdmin () {

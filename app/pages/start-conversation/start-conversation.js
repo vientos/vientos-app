@@ -43,6 +43,10 @@ class StartConversation extends Polymer.mixinBehaviors(
         type: Boolean,
         value: false
       },
+      online: {
+        type: Boolean,
+        statePath: 'online'
+      },
       language: {
         type: String,
         statePath: 'language'

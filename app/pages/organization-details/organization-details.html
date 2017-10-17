@@ -37,6 +37,7 @@
           icon="vientos:follow"
           text="[[localize('button:follow')]]"
           on-tap="_follow"
+          disabled="[[!online]]"
           ></vientos-icon-button>
         </template>
         <template is="dom-if" if="[[following]]">
@@ -45,6 +46,7 @@
           icon="vientos:unfollow"
           text="[[localize('button:unfollow')]]"
           on-tap="_unfollow"
+          disabled="[[!online]]"
           ></vientos-icon-button>
         </template>
       </section>
@@ -54,14 +56,15 @@
         <vientos-icon-button
           raised
           on-tap="_editDetails"
-          text="[[localize('button:edit-profile')]]">
-        </vientos-icon-button>
+          text="[[localize('button:edit-profile')]]"
+          disabled="[[!online]]"
+          ></vientos-icon-button>
         <vientos-icon-button
           raised
           on-tap="_startAddingAdmin"
           text="[[localize('button:add-admin')]]"
-          disabled="[[addingNewAdmin]]">
-        </vientos-icon-button>
+          disabled="[[addNewAdminButtonDisabled]]"
+          ></vientos-icon-button>
       </section>
       <section>
         <h3>[[localize('label:admins')]]</h3>
@@ -150,7 +153,10 @@
 
 
 <template is="dom-if" if="[[admin]]">
-  <paper-button class="primary-action" on-tap="_newIntent">
+  <paper-button
+    class="primary-action"
+    disabled="[[!online]]"
+    on-tap="_newIntent">
     <iron-icon icon="vientos:add-intent"></iron-icon>
     [[localize('button:add-intent')]]
   </paper-button>

@@ -90,6 +90,14 @@ class IntentDetails extends Polymer.mixinBehaviors(
         type: Boolean,
         computed: '_checkIfExpired(intent)'
       },
+      activateButtonDisabled: {
+        type: Boolean,
+        computed: '_activateButtonDisabled(expired, online)'
+      },
+      online: {
+        type: Boolean,
+        statePath: 'online'
+      },
       language: {
         type: String,
         statePath: 'language'
@@ -132,6 +140,10 @@ class IntentDetails extends Polymer.mixinBehaviors(
     let updated = Object.assign({}, this.intent)
     updated.status = 'active'
     this.dispatch('saveIntent', updated)
+  }
+
+  _activateButtonDisabled (expired, online) {
+    return expired || !online
   }
 
   _projectPageUrl (project) {
@@ -204,8 +216,8 @@ class IntentDetails extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _canLeaveAdmin (intent, intentAdmin) {
-    if (!intent) return false
+  _canLeaveAdmin (intent, intentAdmin, online) {
+    if (!intent || !online) return false
     return intentAdmin && intent.admins.length > 1
   }
 

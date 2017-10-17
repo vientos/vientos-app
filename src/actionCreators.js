@@ -7,6 +7,13 @@ export function setLanguage (language) {
   }
 }
 
+export function setOnline (online) {
+  return {
+    type: ActionTypes.SET_ONLINE,
+    online
+  }
+}
+
 export function setBoundingBox (boundingBox) {
   return {
     type: ActionTypes.SET_BOUNDING_BOX,

@@ -16,6 +16,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       setLanguage: ActionCreators.setLanguage,
+      setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
       hello: ActionCreators.hello,
       bye: ActionCreators.bye,
@@ -628,9 +629,14 @@ class VientosShell extends Polymer.mixinBehaviors(
     let mqWideScreen = window.matchMedia('(min-width: 800px)')
     this.set('wideScreen', mqWideScreen.matches)
     mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
-
-    window.addEventListener('online', this._fetchUpdates.bind(this))
-    window.addEventListener('offline', () => console.log('offline'))
+    this.dispatch('setOnline', navigator.onLine)
+    window.addEventListener('online', () => {
+      this.dispatch('setOnline', true)
+      this._fetchUpdates.bind(this)
+    })
+    window.addEventListener('offline', () => {
+      this.dispatch('setOnline', false)
+    })
 
     window.addEventListener('location-changed', this._locationChanged.bind(this))
     window.dispatchEvent(new CustomEvent('location-changed'))

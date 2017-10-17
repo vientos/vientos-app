@@ -86,3 +86,12 @@ export function boundingBox (state = DEFUALT_BOUNDINGBOX, action) {
       return state
   }
 }
+
+export function online (state = false, action) {
+  switch (action.type) {
+    case ActionTypes.SET_ONLINE:
+      return action.online
+    default:
+      return state
+  }
+}

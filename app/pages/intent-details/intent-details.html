@@ -39,12 +39,14 @@
           <vientos-icon-button
             raised
             on-tap="_edit"
+            disabled="[[!online]]"
             text="[[localize('button:edit')]]">
           </vientos-icon-button>
           <template is="dom-if" if="[[active]]">
             <vientos-icon-button
               raised
               on-tap="_deactivate"
+              disabled="[[!online]]"
               text="[[localize('button:deactivate')]]">
             </vientos-icon-button>
           </template>
@@ -53,20 +55,21 @@
               raised
               on-tap="_activate"
               text="[[localize('button:activate')]]"
-              disabled="[[expired]]"
+              disabled="[[activateButtonDisabled]]"
             ></vientos-icon-button>
           </template>
           <vientos-icon-button
             raised
             text="[[localize('button:leave-admin')]]"
             on-tap="_leaveAdmin"
-            disabled="[[!_canLeaveAdmin(intent, intentAdmin)]]"
+            disabled="[[!_canLeaveAdmin(intent, intentAdmin, online)]]"
           ></vientos-icon-button>
         </template>
         <template is="dom-if" if="[[!intentAdmin]]">
           <vientos-icon-button
           raised
           text="[[localize('button:become-admin')]]"
+          disabled="[[!online]]"
           on-tap="_becomeAdmin"
           ></vientos-icon-button>
         </template>
@@ -211,7 +214,11 @@
     </template>
     <template is="dom-if" if="[[_showPrimaryAction(person, projectAdmin)]]">
       <template is="dom-if" if="[[!currentConversation]]">
-        <paper-button class="primary-action" id="start" on-tap="_startConversation">
+        <paper-button
+          class="primary-action"
+          id="start"
+          disabled="[[!online]]" 
+          on-tap="_startConversation">
           <iron-icon icon="vientos:conversation"></iron-icon>
           [[localize('button:start-conversation')]]
         </paper-button>

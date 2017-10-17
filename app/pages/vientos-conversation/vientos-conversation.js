@@ -73,7 +73,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
       showNewMessage: {
         type: Boolean,
         value: false,
-        computed: '_showNewMessage(conversation, conversationReviews, reviewing)'
+        computed: '_showNewMessage(conversation, conversationReviews, reviewing, online)'
       },
       newReview: {
         type: String,
@@ -95,6 +95,10 @@ class VientosConversation extends Polymer.mixinBehaviors(
         type: Boolean,
         value: false,
         computed: '_canReview(person, conversation, intents, conversationReviews)'
+      },
+      online: {
+        type: Boolean,
+        statePath: 'online'
       },
       language: {
         type: String,
@@ -213,8 +217,8 @@ class VientosConversation extends Polymer.mixinBehaviors(
     this._reset()
   }
 
-  _showNewMessage (conversation, conversationReviews, reviewing) {
-    if (!conversation) return
+  _showNewMessage (conversation, conversationReviews, reviewing, online) {
+    if (!conversation || !online) return false
     return conversationReviews.length === 0 && !reviewing
   }
 

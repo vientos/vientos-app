@@ -43,7 +43,8 @@ const reducer = combineReducers({
   locationFilter: AppReducers.locationFilter,
   boundingBoxFilter: AppReducers.boundingBoxFilter,
   boundingBox: AppReducers.boundingBox,
-  language: AppReducers.language
+  language: AppReducers.language,
+  online: AppReducers.online
 })
 
 const sagaMiddleware = createSagaMiddleware()

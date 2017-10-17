@@ -21,40 +21,42 @@
 
     <h3>[[localize('label:questions')]]</h3>
     <p>[[intent.question]]</p>
-    <div>
-        <paper-textarea
-         label="[[localize('label:intent-answer')]]"
-         value="{{answer.body}}"
-         autofocus>
-       </paper-textarea>
-    </div>
+    <template is="dom-if" if="[[online]]">
+      <div>
+          <paper-textarea
+           label="[[localize('label:intent-answer')]]"
+           value="{{answer.body}}"
+           autofocus>
+         </paper-textarea>
+      </div>
 
-    <!-- <template is="dom-if" if="[[potentialMatches.length]]">
-      <template is="dom-if" if="[[!selectingMatch]]">
-        <paper-button id="select-match" raised on-tap="_toggleSelectingMatch">[[localize('button:select-matching')]]</paper-button>
-      </template>
-      <template is="dom-if" if="[[selectingMatch]]" restamp>
-        <paper-dropdown-menu label="[[localize('label:matching-intent')]]">
-          <paper-listbox
-            class="dropdown-content"
-            attr-for-selected="name"
-            on-iron-select="_setMatchingIntent">
-            <template is="dom-repeat" items="[[potentialMatches]]">
-              <paper-item name="[[item._id]]">[[item.title]]</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
-      </template>
-    </template> -->
-    <section>
-          <paper-button raised
-            on-tap="_send"
-            disabled="[[!answer.body]]"
-          >[[localize('button:send')]]</paper-button>
-          <paper-button raised
-            on-tap="_cancel"
-          >[[localize('button:cancel')]]</paper-button>
-    </section>
+      <!-- <template is="dom-if" if="[[potentialMatches.length]]">
+        <template is="dom-if" if="[[!selectingMatch]]">
+          <paper-button id="select-match" raised on-tap="_toggleSelectingMatch">[[localize('button:select-matching')]]</paper-button>
+        </template>
+        <template is="dom-if" if="[[selectingMatch]]" restamp>
+          <paper-dropdown-menu label="[[localize('label:matching-intent')]]">
+            <paper-listbox
+              class="dropdown-content"
+              attr-for-selected="name"
+              on-iron-select="_setMatchingIntent">
+              <template is="dom-repeat" items="[[potentialMatches]]">
+                <paper-item name="[[item._id]]">[[item.title]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </template>
+      </template> -->
+      <section>
+            <paper-button raised
+              on-tap="_send"
+              disabled="[[!answer.body]]"
+            >[[localize('button:send')]]</paper-button>
+            <paper-button raised
+              on-tap="_cancel"
+            >[[localize('button:cancel')]]</paper-button>
+      </section>
+    </template>
   </template>
 
   <script src="start-conversation.js"></script>
