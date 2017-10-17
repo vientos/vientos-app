@@ -285,6 +285,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _routePageChanged (page) {
     let selectedPage = page || 'guide'
     this.set('page', selectedPage)
+    if (this.subrouteData.id) return
     window.history.replaceState({}, '', `/${selectedPage}`)
   }
 
