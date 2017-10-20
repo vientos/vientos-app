@@ -7,60 +7,71 @@
 
     <style include="vientos-styles">
 
-      #project-title {
+      * {
         text-align: center;
-        display: flex;
       }
 
-      #project-title h4 {
-        display: inline-block;
-        font-size: 20px;
-        padding: 25px 5px;
-        flex: 1;
+      h4 {
+        color: var(--vientos-tertiary-1);
+        font-size: 24px;
+        padding: 8px;
+        line-height: 1.25em;
       }
 
-      #project-title iron-icon {
-        margin-top: 25px;
-        opacity: 0.6;
+      #logo {
+        position: relative;
       }
 
-      main > div {
-        display: flex;
-      }
+        #logo iron-icon {
+          position: absolute;
+          bottom: 0;
+          left: 24px;
+          width: 28px;
+          height: 28px;
+          opacity: 0.5;
+          color: var(--vientos-tertiary-1);
+        }
 
-      main iron-image {
-        width: 60%;
-        height: 10em;
-        margin-left: 20%;
-      }
+        #logo iron-image {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+        }
 
-      main ul {
-        width: 20%;
-        dispay: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        text-align: center;
-
-      }
-      main ul li {
-        padding-bottom: 8px;
-      }
-
-      main ul li iron-icon  {
-        background-color: var(--vientos-primary-light);
-        padding: 7px;
-        border-radius: 50%;
-        color: white;
+      #description {
+        margin: 8px 0;
         opacity: 0.7;
-        width: 16px;
-        height: 16px;
+        line-height: 1.25em;
+        font-size: 0.85em;
       }
 
-      main .description {
-        margin: 15px 0;
-        height: 4em;
-        overflow: hidden;
+      #addresses {
+        color: var(--vientos-tertiary-2);
       }
+
+        #addresses li {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-transform: uppercase;
+          font-size: 0.6em;
+        }
+
+      #categories {
+        padding: 8px 0;
+      }
+
+        #categories li {
+          display: inline-block;
+        }
+
+          #categories li iron-icon  {
+            opacity: .4;
+            width: 28px;
+            height: 28px;
+            padding: 8px 12px;
+          }
+
 
   </style>
 

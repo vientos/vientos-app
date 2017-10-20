@@ -1,7 +1,8 @@
 import { escape } from 'escape-goat'
+import shave from 'shave'
 import deepEqual from 'deep-equal'
 
-export { deepEqual }
+export { deepEqual, shave }
 
 export function locationsInBoundingBox (entity, places, boundingBox) {
   return places.filter(place => {

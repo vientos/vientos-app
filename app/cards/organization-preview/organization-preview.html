@@ -13,34 +13,36 @@
     <style include="organization-preview-styles"></style>
 
     <div class="card" on-tap="_showFullProfile">
-        <div id="project-title">
-          <h4>
-            [[organization.name]]
-          </h4>
+        <h4>
+          [[organization.name]]
+        </h4>
+        <div id="logo">
           <template is="dom-if" if="[[following]]">
             <iron-icon icon="vientos:follow"></iron-icon>
           </template>
+          <iron-image
+             src="[[_getThumbnailUrl(organization, 200)]]"
+             sizing="cover"
+          ></iron-image>
+
         </div>
-        <main>
-
-          <div>
-            <iron-image
-               src="[[_getThumbnailUrl(organization, 200)]]"
-               sizing="contain"
-            ></iron-image>
-
-            <ul id="project-preview-categories">
-            <template is="dom-repeat" items="[[organization.categories]]">
-              <li>
-                <iron-icon icon="vientos:[[item]]"></iron-icon>
-              </li>
-            </template>
+        <div id="description">
+          [[organization.description]]
+        </div>
+        <template is="dom-if" if="[[organization.locations.length]]">
+            <ul id="addresses">
+              <template is="dom-repeat" items="[[organization.locations]]" as="place">
+                <li>[[_trimAddress(place, places)]]</li>
+              </template>
             </ul>
-          </div>
-          <div class="description">
-            [[organization.description]]
-          </div>
-        </main>
+        </template>
+        <ul id="categories">
+          <template is="dom-repeat" items="[[organization.categories]]">
+            <li>
+              <iron-icon icon="vientos:[[item]]"></iron-icon>
+            </li>
+          </template>
+        </ul>
 
     </div>
 
