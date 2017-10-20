@@ -74,6 +74,12 @@ class IntentPreview extends Polymer.mixinBehaviors(
     }
   }
 
+  static get observers () {
+    return [
+      '_shaveTitle(intent.title)'
+    ]
+  }
+
   _checkIfFavors (...args) { return util.checkIfFavors(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
   _canAdminIntent (...args) { return util.canAdminIntent(...args) }
@@ -110,6 +116,13 @@ class IntentPreview extends Polymer.mixinBehaviors(
         return util.ourTurn(person, conversation, [intent], reviews) ? ++count : count
       }, 0)
     }
+  }
+
+  _shaveTitle (title) {
+    if (!title) return
+    setTimeout(() => {
+      util.shave(this.$.title, 80)
+    }, 100)
   }
 }
 window.customElements.define(IntentPreview.is, IntentPreview)
