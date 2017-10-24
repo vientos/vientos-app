@@ -10,8 +10,7 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       follow: ActionCreators.follow,
-      unfollow: ActionCreators.unfollow,
-      saveProject: ActionCreators.saveProject
+      unfollow: ActionCreators.unfollow
     }
   }
 
@@ -51,26 +50,9 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'places'
       },
-      potentialAdmins: {
-        type: Array,
-        computed: '_getPotentialAdmins(project, people)'
-      },
       canFollow: {
         type: Boolean,
         computed: '_canFollow(person, admin, project)'
-      },
-      newAdmin: {
-        type: String,
-        value: null
-      },
-      addingNewAdmin: {
-        type: Boolean,
-        value: false
-      },
-      addNewAdminButtonDisabled: {
-        type: Boolean,
-        value: false,
-        computed: '_addNewAdminButtonDisabled(addingNewAdmin, online)'
       },
       project: {
       // passed from parent
@@ -152,33 +134,6 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   _newIntent () {
     window.history.pushState({}, '', `/new-intent/${this.project._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
-  _getPotentialAdmins (project, people) {
-    if (!project || !people) return []
-    return people.filter(person => !project.admins.includes(person._id))
-  }
-
-  _addNewAdminButtonDisabled (addingNewAdmin, online) {
-    return addingNewAdmin || !online
-  }
-
-  _startAddingAdmin () {
-    this.set('addingNewAdmin', true)
-  }
-
-  _cancelAddingAdmin () {
-    this.set('addingNewAdmin', false)
-  }
-
-  _setNewAdmin (e, detail) {
-    this.set('newAdmin', detail.item.name)
-  }
-
-  _addNewAdmin () {
-    this.project.admins = [...new Set([...this.project.admins, this.newAdmin])]
-    this.dispatch('saveProject', this.project)
-    this.set('addingNewAdmin', false)
   }
 
   _showLocationOnMap (e) {

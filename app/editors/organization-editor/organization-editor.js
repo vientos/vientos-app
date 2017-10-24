@@ -32,6 +32,23 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
         type: Object,
         value: null
       },
+      potentialAdmins: {
+        type: Array,
+        computed: '_getPotentialAdmins(project, people)'
+      },
+      newAdmin: {
+        type: String,
+        value: null
+      },
+      addingNewAdmin: {
+        type: Boolean,
+        value: false
+      },
+      addNewAdminButtonDisabled: {
+        type: Boolean,
+        value: false,
+        computed: '_addNewAdminButtonDisabled(addingNewAdmin, online)'
+      },
       places: {
         type: Array,
         statePath: 'places'
@@ -138,6 +155,33 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     window.history.replaceState({}, '', `/project/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
     this._reset()
+  }
+
+  _getPotentialAdmins (project, people) {
+    if (!project || !people) return []
+    return people.filter(person => !project.admins.includes(person._id))
+  }
+
+  _addNewAdminButtonDisabled (addingNewAdmin, online) {
+    return addingNewAdmin || !online
+  }
+
+  _startAddingAdmin () {
+    this.set('addingNewAdmin', true)
+  }
+
+  _cancelAddingAdmin () {
+    this.set('addingNewAdmin', false)
+  }
+
+  _setNewAdmin (e, detail) {
+    this.set('newAdmin', detail.item.name)
+  }
+
+  _addNewAdmin () {
+    this.project.admins = [...new Set([...this.project.admins, this.newAdmin])]
+    this.dispatch('saveProject', this.project)
+    this.set('addingNewAdmin', false)
   }
 
   _readyToSave (hasChages, name, description, logo, newImage) {

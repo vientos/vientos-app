@@ -12,7 +12,6 @@
 
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
-<link rel="import" href="../../widgets/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="../../cards/intent-preview/intent-preview.html">
 
 <link rel="import" href="organization-profile-styles.html">
@@ -23,82 +22,46 @@
     <style include="organization-profile-styles"></style>
 
     <header>
-      <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
+      <paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button>
       <h2>
         [[project.name]]
       </h2>
-    </header>
-
-    <template is="dom-if" if="[[canFollow]]">
-      <section class="action-buttons">
-        <template is="dom-if" if="[[!following]]">
-          <vientos-icon-button
-          raised
-          icon="vientos:follow"
-          text="[[localize('button:follow')]]"
-          on-tap="_follow"
-          disabled="[[!online]]"
-          ></vientos-icon-button>
-        </template>
-        <template is="dom-if" if="[[following]]">
-          <vientos-icon-button
-          raised
-          icon="vientos:unfollow"
-          text="[[localize('button:unfollow')]]"
-          on-tap="_unfollow"
-          disabled="[[!online]]"
-          ></vientos-icon-button>
-        </template>
-      </section>
-    </template>
-    <template is="dom-if" if="[[admin]]">
-      <section class="action-buttons">
-        <vientos-icon-button
+      <template is="dom-if" if="[[admin]]">
+        <paper-icon-button
           raised
           on-tap="_editDetails"
-          text="[[localize('button:edit-profile')]]"
+          icon="vientos:artculture"
           disabled="[[!online]]"
-          ></vientos-icon-button>
-        <vientos-icon-button
+          ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[canFollow]]">
+        <template is="dom-if" if="[[!following]]">
+          <paper-icon-button
           raised
-          on-tap="_startAddingAdmin"
-          text="[[localize('button:add-admin')]]"
-          disabled="[[addNewAdminButtonDisabled]]"
-          ></vientos-icon-button>
-      </section>
-      <section>
-        <h3>[[localize('label:admins')]]</h3>
-        <template is="dom-if" if="[[addingNewAdmin]]">
-          <div>
-            <paper-dropdown-menu label="[[localize('label:select-new-admin')]]">
-              <paper-listbox
-                class="dropdown-content"
-                attr-for-selected="name"
-                slot="dropdown-content"
-                on-iron-select="_setNewAdmin">
-                <template is="dom-repeat" items="[[potentialAdmins]]">
-                  <paper-item name="[[item._id]]">[[item.name]]</paper-item>
-                </template>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-button raised on-tap="_addNewAdmin" disabled="[[!newAdmin]]">[[localize('button:save')]]</paper-button>
-            <paper-button raised on-tap="_cancelAddingAdmin">[[localize('button:cancel')]]</paper-button>
-          </div>
+          icon="vientos:follow"
+          on-tap="_follow"
+          disabled="[[!online]]"
+          ></paper-icon-button>
         </template>
-        <ul id="admin-list">
-          <template is="dom-repeat" items="[[_getRef(project.admins, people)]]">
-            <li>
-              <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="contain"></iron-image>
-              [[item.name]]
-            </li>
-          </template>
-        </ul>
-      </section>
-    </template>
+        <template is="dom-if" if="[[following]]">
+          <paper-icon-button
+          raised
+          icon="vientos:follow"
+          set
+          on-tap="_unfollow"
+          disabled="[[!online]]"
+          ></paper-icon-button>
+        </template>
+      </template>
+    </header>
+
 
     <section id="logo">
       <template is="dom-if" if="[[project.logo]]">
-        <iron-image src="[[_getThumbnailUrl(project, 150)]]" sizing="contain"></iron-image>
+        <iron-image
+          class="org-logo"
+          src="[[_getThumbnailUrl(project, 150)]]"
+          sizing="cover"></iron-image>
       </template>
     </section>
     <template is="dom-if" if="[[project.description]]">
@@ -106,22 +69,23 @@
         [[project.description]]
       </section>
     </template>
-    <section id="project-location">
-      <ul>
-        <template is="dom-repeat" items="[[project.locations]]" as="placeId">
-          <li>
-            <!-- FIXME: ellipsis -->
-            <vientos-icon-button
-              raised
-              ellipsis
-              on-tap="_showLocationOnMap"
-              icon="vientos:crosshairs"
-              text="[[_getPlaceAddress(placeId, places)]]">
-            </vientos-icon-button>
-          </li>
-        </template>
-      </ul>
-    </section>
+    <template is="dom-if" if="[[project.locations.length]]">
+      <section id="project-location">
+          <h3>[[localize('label:address')]]</h3>
+          <ul>
+            <template is="dom-repeat" items="[[project.locations]]" as="placeId">
+              <li>
+                <paper-button
+                  raised
+                  on-tap="_showLocationOnMap">
+                  <iron-icon icon="vientos:crosshairs"></iron-icon>
+                  <span class="ellipsis">[[_getPlaceAddress(placeId, places)]]</span>
+                </paper-button>
+              </li>
+            </template>
+          </ul>
+      </section>
+    </template>
     <template is="dom-if" if="[[project.categories]]">
       <section id="categories">
         <h3>[[localize('label:categories')]]</h3>
@@ -129,7 +93,7 @@
           <template is="dom-repeat" items="[[project.categories]]" as="category">
             <li>
               <iron-icon icon="vientos:[[category]]"></iron-icon>
-              [[localize(category)]]
+              <div>[[localize(category)]]</div>
             </li>
           </template>
         </ul>
@@ -171,7 +135,6 @@
       <intent-preview intent="[[item]]"></intent-preview>
     </template>
   </div>
-
 </section>
 <template is="dom-if" if="[[admin]]">
   <section id="expired-intents">

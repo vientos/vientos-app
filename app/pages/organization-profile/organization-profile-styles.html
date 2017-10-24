@@ -7,17 +7,36 @@
 
     <style include="vientos-styles">
 
+      header h2 {
+        color: var(--vientos-tertiary-1);
+      }
+
+      h3 {
+        color: var(--vientos-tertiary-2);
+      }
+
       #logo {
         text-align: center;
       }
 
-      #logo iron-image {
-        width: 150px;
-        height: 150px;
+      #project-location li {
+        padding: 6px 0;
+        opacity: 0.8;
       }
 
-      #project-location vientos-icon-button {
-        --vientos-icon-button-w: 90%;
+      #project-location paper-button {
+        width: 95%;
+        display: flex;
+        padding: 8px;
+      }
+
+      #project-location span {
+        font-size: 0.8em;
+        flex: 1;
+      }
+      #project-location iron-icon {
+        height: 20px;
+        width: 20px;
       }
 
       #project-description {
@@ -33,11 +52,42 @@
         opacity: 0.5;
       }
 
-      iron-icon {
-        opacity: 0.7;
-        padding-right: 10px;
-        width: 42px;
+      #categories {
+        margin-bottom: 20px;
       }
+
+      #categories ul {
+        opacity: 0.7;
+        text-align: center;
+      }
+
+      #categories li {
+        display: inline-block;
+        padding: 8px 0 12px;
+        vertical-align: top;
+        width: 96px;
+      }
+
+        #categories li iron-icon {
+          display: block;
+          opacity: 0.5;
+          width: 28px;
+          height: 28px;
+          margin: 0 auto;
+        }
+
+        #categories li div {
+          font-size: 0.75em;
+          line-height: 1.2em;
+          height: 2.4em;
+          padding-top: 0.2em;
+        }
+
+    #active-intents div,
+    #expired-intents div,
+    #inactive-intents div {
+      margin: 0 calc(-3 * var(--spacing))
+    }
 
 
 

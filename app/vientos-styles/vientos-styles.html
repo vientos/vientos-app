@@ -63,10 +63,17 @@
   }
 
   h3 {
-    font-size: 0.85em;
+    font-size: 0.8em;
     font-weight: 400;
     margin-bottom: 15px;
     opacity: 0.9;
+    text-transform: uppercase;
+  }
+
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .clickable,
@@ -170,9 +177,11 @@
     margin-bottom: 20px;
   }
 
-  header div {
-    display: flex;
-    align-items: center;
+  header h2 {
+    flex: 1;
+    padding: 0 16px;
+    text-align: center;
+    line-height: 1.25;
   }
 
   header paper-icon-button {
@@ -180,7 +189,18 @@
       height: 35px;
       background-color: #ccc;
       border-radius: 50%;
-      margin-right: 20px;
+      color: white;
+  }
+
+  header paper-icon-button[set] {
+    background-color: var(--vientos-secondary-1);
+  }
+
+
+  .org-logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
   }
 
   footer {
