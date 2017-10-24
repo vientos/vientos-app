@@ -301,7 +301,6 @@ export function filterActiveIntents (person, intents, myConversations, notificat
   }
 }
 
-// TODO fix name foo
 export function intentPrimaryForMyConversation (person, conversation, intent, notifications, intents, reviews) {
   if (!intent) return false
   return (
@@ -318,7 +317,7 @@ export function filterConversationReviews (conversation, reviews) {
   return reviews.filter(review => review.conversation === conversation._id)
 }
 
-function conversationNeedsAttention (person, conversation, notifications, intents, reviews) {
+export function conversationNeedsAttention (person, conversation, notifications, intents, reviews) {
   return notifications.some(notification => notification.object === conversation._id) ||
     // don't show when both sides reviewed
     filterConversationReviews(conversation, reviews).length === 0 ||
@@ -333,6 +332,8 @@ export function filterIntentConversations (intent, myConversations) {
       return conversation.causingIntent === intent._id ||
       conversation.matchingIntent === intent._id
     })
+  } else {
+    return []
   }
 }
 

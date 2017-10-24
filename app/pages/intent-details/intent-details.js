@@ -42,6 +42,14 @@ class IntentDetails extends Polymer.mixinBehaviors(
       intent: {
         type: Object
       },
+      intents: {
+        type: Object,
+        statePath: 'intents'
+      },
+      notifications: {
+        type: Object,
+        statePath: 'notifications'
+      },
       favoring: {
         type: Object,
         value: null,
@@ -49,7 +57,7 @@ class IntentDetails extends Polymer.mixinBehaviors(
       },
       conversations: {
         type: Array,
-        computed: '_filterIntentConversations(intent, myConversations)'
+        computed: '_filterConversations(intent, myConversations, person, notifications, intents, reviews)'
       },
       myConversations: {
         type: Array,
@@ -113,7 +121,6 @@ class IntentDetails extends Polymer.mixinBehaviors(
   _checkIfFavors (...args) { return util.checkIfFavors(...args) }
   _checkIfExpired (...args) { return util.checkIfExpired(...args) }
   _getIntentProjects (...args) { return util.getIntentProjects(...args) }
-  _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
   _getRef (...args) { return util.getRef(...args) }
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
@@ -216,27 +223,21 @@ class IntentDetails extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _canLeaveAdmin (intent, intentAdmin, online) {
-    if (!intent || !online) return false
-    return intentAdmin && intent.admins.length > 1
-  }
-
-  _leaveAdmin () {
-    let updated = Object.assign({}, this.intent)
-    updated.admins = this.intent.admins.filter(adminId => adminId !== this.person._id)
-    this.dispatch('saveIntent', updated)
-  }
-
-  _becomeAdmin () {
-    let updated = Object.assign({}, this.intent)
-    updated.admins = [...this.intent.admins, this.person._id]
-    this.dispatch('saveIntent', updated)
-  }
-
   _intentAdminChanged (newValue, oldValue) {
     if (oldValue === undefined) return
     this.dispatch('fetchMyConversations', this.person)
     this.dispatch('fetchNotifications', this.person)
+  }
+
+  _filterConversations (intent, myConversations, person, notifications, intents, reviews) {
+    return util.filterIntentConversations(intent, myConversations)
+            .filter(conversation => {
+              return util.conversationNeedsAttention(person, conversation, notifications, intents, reviews)
+            })
+  }
+
+  _daysLeft (expiryDate) {
+    return Math.floor((new Date(expiryDate) - Date.now()) / (1000 * 60 * 60 * 24))
   }
 }
 window.customElements.define(IntentDetails.is, IntentDetails)

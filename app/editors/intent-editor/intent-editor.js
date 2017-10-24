@@ -29,6 +29,11 @@ class IntentEditor extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'person'
       },
+      intentAdmin: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfAdmin(person, intent)'
+      },
       places: {
         type: Object,
         statePath: 'places'
@@ -81,6 +86,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
     ]
   }
 
+  _checkIfAdmin (...args) { return util.checkIfAdmin(...args) }
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
 
   _intentChanged () {
@@ -197,6 +203,23 @@ class IntentEditor extends Polymer.mixinBehaviors(
 
   _imagePicked (e) {
     this.set('newImage', e.detail)
+  }
+
+  _canLeaveAdmin (intent, intentAdmin, online) {
+    if (!intent || !online) return false
+    return intentAdmin && intent.admins.length > 1
+  }
+
+  _leaveAdmin () {
+    let updated = Object.assign({}, this.intent)
+    updated.admins = this.intent.admins.filter(adminId => adminId !== this.person._id)
+    this.dispatch('saveIntent', updated)
+  }
+
+  _becomeAdmin () {
+    let updated = Object.assign({}, this.intent)
+    updated.admins = [...this.intent.admins, this.person._id]
+    this.dispatch('saveIntent', updated)
   }
 
   ready () {

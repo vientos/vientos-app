@@ -8,7 +8,6 @@
 
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
-<link rel="import" href="../../widgets/vientos-icon-button/vientos-icon-button.html">
 <link rel="import" href="../../widgets/conversations-list/conversations-list.html">
 <link rel="import" href="../../cards/review-card/review-card.html">
 
@@ -23,6 +22,33 @@
       <h2>
         [[intent.title]]
       </h2>
+      <template is="dom-if" if="[[projectAdmin]]">
+        <paper-icon-button
+          raised
+          icon="vientos:artculture"
+          on-tap="_edit"
+          disabled="[[!online]]"
+          ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
+        <section class="action-buttons">
+          <template is="dom-if" if="[[!favoring]]">
+            <paper-icon-button
+            raised
+            icon="vientos:favor"
+            on-tap="_favor"
+            ></paper-icon-button>
+          </template>
+          <template is="dom-if" if="[[favoring]]">
+            <paper-icon-button
+            raised
+            set
+            icon="vientos:favor"
+            on-tap="_unfavor"
+            ></paper-icon-button>
+          </template>
+        </section>
+      </template>
     </header>
     <template is="dom-if" if="[[!active]]">
       <div class="banner">[[localize('hint:inactive')]]</div>
@@ -34,80 +60,18 @@
       </template>
     </template>
     <template is="dom-if" if="[[projectAdmin]]">
-      <section class="action-buttons">
-        <template is="dom-if" if="[[intentAdmin]]">
-          <vientos-icon-button
-            raised
-            on-tap="_edit"
-            disabled="[[!online]]"
-            text="[[localize('button:edit')]]">
-          </vientos-icon-button>
-          <template is="dom-if" if="[[active]]">
-            <vientos-icon-button
-              raised
-              on-tap="_deactivate"
-              disabled="[[!online]]"
-              text="[[localize('button:deactivate')]]">
-            </vientos-icon-button>
-          </template>
-          <template is="dom-if" if="[[!active]]">
-            <vientos-icon-button
-              raised
-              on-tap="_activate"
-              text="[[localize('button:activate')]]"
-              disabled="[[activateButtonDisabled]]"
-            ></vientos-icon-button>
-          </template>
-          <vientos-icon-button
-            raised
-            text="[[localize('button:leave-admin')]]"
-            on-tap="_leaveAdmin"
-            disabled="[[!_canLeaveAdmin(intent, intentAdmin, online)]]"
-          ></vientos-icon-button>
-        </template>
-        <template is="dom-if" if="[[!intentAdmin]]">
-          <vientos-icon-button
-          raised
-          text="[[localize('button:become-admin')]]"
-          disabled="[[!online]]"
-          on-tap="_becomeAdmin"
-          ></vientos-icon-button>
-        </template>
-      </section>
       <section>
         <h3>[[localize('label:admins')]]</h3>
         <ul id="admin-list">
           <template is="dom-repeat" items="[[_getRef(intent.admins, people)]]">
             <li>
-              <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="contain"></iron-image>
+              <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="cover"></iron-image>
               [[item.name]]
             </li>
           </template>
         </ul>
       </section>
     </template>
-
-    <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
-      <section class="action-buttons">
-        <template is="dom-if" if="[[!favoring]]">
-          <vientos-icon-button
-          raised
-          icon="vientos:favor"
-          text="[[localize('button:favor')]]"
-          on-tap="_favor"
-          ></vientos-icon-button>
-        </template>
-        <template is="dom-if" if="[[favoring]]">
-          <vientos-icon-button
-          raised
-          icon="vientos:unfavor"
-          text="[[localize('button:unfavor')]]"
-          on-tap="_unfavor"
-          ></vientos-icon-button>
-        </template>
-      </section>
-    </template>
-
     <template is="dom-if" if="[[_showConversations(intentAdmin, conversations)]]">
       <section>
         <h3>
@@ -117,71 +81,74 @@
       </section>
     </template>
 
-    <section>
+    <section id="projects">
       <h3>
         [[localize('label:projects')]]
       </h3>
-      <ul id="projects">
+      <ul>
         <template is="dom-repeat" items="[[intentProjects]]" as="project">
           <li on-tap="_showProjectProfile" class="clickable">
             <iron-image
                src="[[_getThumbnailUrl(project, 26)]]"
-               sizing="contain">
+               sizing="cover">
             </iron-image>
-            [[project.name]]
+            <div class="ellipsis">[[project.name]]</div>
           </li>
         </template>
       </ul>
     </section>
-    <section>
+    <div id="direction">
       <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
       [[localize(intent.direction)]]
+    </div>
+    <template is="dom-if" if="[[intent.logo]]">
+      <section id="logo">
+        <iron-image src="[[_getThumbnailUrl(intent, 280)]]" sizing="cover"></iron-image>
+      </section>
+    </template>
+    <section id="info">
+      <div>
+        <h3>[[localize('label:collaboration-type')]]</h3>
+        <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
+        <div>
+          [[localize(intent.collaborationType)]]
+        </div>
+      </div>
+      <div>
+        <h3>[[localize('label:reciprocity')]]</h3>
+        <iron-icon icon="vientos:[[intent.reciprocity]]"></iron-icon>
+        <div>
+          [[localize(intent.reciprocity)]]
+        </div>
+      </div>
+      <div>
+        <h3>[[localize('label:expiry-date')]]</h3>
+        <span>[[_daysLeft(intent.expiryDate)]][[localize('label:short-day')]]</span>
+        <div>[[intent.expiryDate]]</div>
+      </div>
     </section>
     <section id="description">
       <h3>[[localize('label:description')]]</h3>
       <div>[[intent.description]]</div>
-      <template is="dom-if" if="[[intent.logo]]">
-        <div id="logo">
-          <iron-image src="[[_getThumbnailUrl(intent, 200)]]" sizing="contain"></iron-image>
-        </div>
-      </template>
     </section>
     <section>
       <template is="dom-if" if="[[intent.locations.length]]">
         <h3>[[localize('label:address')]]</h3>
         <div>
-          <ul>
+          <ul class="place-buttons">
             <template is="dom-repeat" items="[[intent.locations]]" as="placeId">
               <li>
-                <vientos-icon-button
+                <paper-button
                   raised
-                  on-tap="_showLocationOnMap"
-                  icon="vientos:crosshairs"
-                  text="[[_getPlaceAddress(placeId, places)]]">
-                </vientos-icon-button>
+                  on-tap="_showLocationOnMap">
+                  <iron-icon icon="vientos:crosshairs"></iron-icon>
+                  <span class="ellipsis">[[_getPlaceAddress(placeId, places)]]</span>
+                </paper-button>
               </li>
             </template>
           </ul>
         </div>
       </template>
-    </section>
-    <section>
-      <h3>[[localize('label:collaboration-type')]]</h3>
-      <div>
-        <iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon>
-        [[localize(intent.collaborationType)]]
-      </div>
-    </section>
-    <section>
-      <h3>[[localize('label:reciprocity')]]</h3>
-      <div>
-        <iron-icon icon="vientos:[[intent.reciprocity]]"></iron-icon>
-        [[localize(intent.reciprocity)]]
-      </div>
-    </section>
-    <section>
-      <h3>[[localize('label:expiry-date')]]</h3>
-      <div>[[intent.expiryDate]]</div>
     </section>
 
     <template is="dom-if" if="[[successfulReviewGroups.length]]">
@@ -217,7 +184,7 @@
         <paper-button
           class="primary-action"
           id="start"
-          disabled="[[!online]]" 
+          disabled="[[!online]]"
           on-tap="_startConversation">
           <iron-icon icon="vientos:conversation"></iron-icon>
           [[localize('button:start-conversation')]]

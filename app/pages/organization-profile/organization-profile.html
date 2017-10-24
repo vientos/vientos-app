@@ -72,7 +72,7 @@
     <template is="dom-if" if="[[project.locations.length]]">
       <section id="project-location">
           <h3>[[localize('label:address')]]</h3>
-          <ul>
+          <ul class="place-buttons">
             <template is="dom-repeat" items="[[project.locations]]" as="placeId">
               <li>
                 <paper-button
