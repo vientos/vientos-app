@@ -5,7 +5,7 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   ReduxMixin(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
-  static get is () { return 'organization-details' }
+  static get is () { return 'organization-profile' }
 
   static get actions () {
     return {

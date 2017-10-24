@@ -234,7 +234,7 @@ class VientosShell extends Polymer.mixinBehaviors(
             import(/* webpackChunkName: "search-and-filter" */ '../pages/search-and-filter/search-and-filter.html')
           },
           'project': () => {
-            import(/* webpackChunkName: "organization-details" */ '../pages/organization-details/organization-details.html')
+            import(/* webpackChunkName: "organization-profile" */ '../pages/organization-profile/organization-profile.html')
           },
           'edit-project-details': importOrganizationEditor,
           'new-project': importOrganizationEditor,
