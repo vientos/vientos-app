@@ -62,7 +62,7 @@
     <template is="dom-if" if="[[projectAdmin]]">
       <section>
         <h3>[[localize('label:admins')]]</h3>
-        <ul id="admin-list">
+        <ul class="admin-list">
           <template is="dom-repeat" items="[[_getRef(intent.admins, people)]]">
             <li>
               <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="cover"></iron-image>

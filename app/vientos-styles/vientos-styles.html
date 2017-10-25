@@ -11,20 +11,44 @@
     --spacing: 4px;
   }
 
-  .select-buttons vientos-icon-button,
-  .select-buttons paper-button {
-    width: 140px;
-    height: 48px;
-    margin: 5px;
-    border: 1px solid grey;
-    border-radius: 5px;
+  .select-buttons {
+    text-align: center;
   }
 
-  .select-buttons vientos-icon-button[active],
-  .select-buttons paper-button[active] {
-    background-color: var(--vientos-secondary-1);
-    --vientos-icon-button-bg-color: var(--vientos-secondary-1);
+  .select-buttons paper-button {
+    flex-direction: column;
+    max-width: 96px;
+    text-align: center;
+    padding: 0;
+    margin-top: 12px;
   }
+
+  .select-buttons iron-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: var(--button-inactive-bg);
+    padding: 12px;
+    color: var(--button-color);
+  }
+
+  .select-buttons div {
+    font-size: 0.75em;
+    line-height: 1.2em;
+    height: 2.4em;
+    padding-top: 0.2em;
+  }
+
+  .select-buttons paper-button[active] iron-icon {
+    background-color: var(--vientos-secondary-1);
+  }
+
+  .select-buttons paper-button[active] div {
+    color: var(--vientos-secondary-1);
+  }
+
 
   .place-buttons li {
     padding: 6px 0;
@@ -40,11 +64,27 @@
   .place-buttons span {
     font-size: 0.8em;
     flex: 1;
-    
+
   }
   .place-buttons iron-icon {
     height: 20px;
     width: 20px;
+  }
+
+  .admin-list iron-image {
+    border-radius: 50%;
+    vertical-align: sub;
+    width: 26px;
+    height: 26px;
+    margin-right: 5px;
+  }
+
+  .fancy-button {
+    border: 1px solid var(--vientos-grey);
+    border-radius: 8px;
+    background: white;
+    font-size: 0.8em;
+    padding: 4px 6px;
   }
 
   * {
@@ -123,12 +163,6 @@
     width: 100%;
   }
 
-
-  paper-textarea[required],
-  paper-input[required] {
-    --paper-input-container-color: var(--vientos-complementary-3);
-  }
-
   paper-textarea[value],
   paper-input[value] {
     --paper-input-container-color: var(--primary-color);
@@ -170,12 +204,6 @@
 
   section {
     margin-bottom: 35px;
-  }
-
-  #admin-list iron-image {
-    width: 26px;
-    height: 26px;
-    margin-right: 5px;
   }
 
   .support-feature {

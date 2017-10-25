@@ -32,6 +32,10 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
         type: Object,
         value: null
       },
+      admins: {
+        type: Array,
+        computed: '_getRef(updated.admins, people)'
+      },
       potentialAdmins: {
         type: Array,
         computed: '_getPotentialAdmins(project, people)'
@@ -44,14 +48,13 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
         type: Boolean,
         value: false
       },
-      addNewAdminButtonDisabled: {
-        type: Boolean,
-        value: false,
-        computed: '_addNewAdminButtonDisabled(addingNewAdmin, online)'
-      },
       places: {
         type: Array,
         statePath: 'places'
+      },
+      people: {
+        type: Array,
+        statePath: 'people'
       },
       newLink: {
         type: String,
@@ -76,7 +79,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
       },
       hasChages: {
         type: Boolean,
-        computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.name, updated.description, updated.categories, updated.locations, updated.contacts, updated.links)',
+        computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.name, updated.description, updated.categories, updated.locations, updated.contacts, updated.links, updated.admins)',
         value: false
       },
       language: {
@@ -91,6 +94,15 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   }
 
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
+  _getRef (...args) {
+    if (Array.from(arguments).includes(undefined)) return undefined
+    try {
+      return util.getRef(...args)
+    } catch (e) {
+      return undefined
+    }
+  }
 
   _projectChanged () {
     this._reset()
@@ -162,10 +174,6 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     return people.filter(person => !project.admins.includes(person._id))
   }
 
-  _addNewAdminButtonDisabled (addingNewAdmin, online) {
-    return addingNewAdmin || !online
-  }
-
   _startAddingAdmin () {
     this.set('addingNewAdmin', true)
   }
@@ -179,8 +187,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   }
 
   _addNewAdmin () {
-    this.project.admins = [...new Set([...this.project.admins, this.newAdmin])]
-    this.dispatch('saveProject', this.project)
+    this.set('updated.admins', [...new Set([...this.project.admins, this.newAdmin])])
     this.set('addingNewAdmin', false)
   }
 

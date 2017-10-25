@@ -6,12 +6,49 @@
   <template>
 
     <style include="vientos-styles">
+
+      paper-dropdown-menu {
+        display: block;
+      }
       place-picker {
         margin-bottom: 16px;
       }
 
       #logo {
-        color: var(--vientos-complementary-3);
+        color: var(--vientos-tertiary-2);
+      }
+
+      h3 {
+        color: var(--vientos-tertiary-2);
+      }
+
+      paper-textarea,
+      paper-input {
+        --paper-input-container-color: var(--vientos-tertiary-2);
+      }
+
+      .selection-list {
+        margin-bottom: 20px;
+      }
+
+      .selection-list li {
+        display: flex;
+      }
+
+      .selection-list li div {
+        flex: 1;
+        font-size: 0.8em;
+        line-height: 28px;
+        padding-left: 4px;
+      }
+
+      .selection-list paper-icon-button {
+        width: 28px;
+        height: 28px;
+        padding: 4px;
+        background-color: #fff;
+        color: var(--vientos-grey);
+        border-radius: 50%;
       }
 
     </style>

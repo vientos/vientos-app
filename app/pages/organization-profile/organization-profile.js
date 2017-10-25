@@ -101,7 +101,6 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   _filterActiveIntents (...args) { return util.filterActiveProjectIntents(...args) }
   _filterExpiredIntents (...args) { return util.filterExpiredProjectIntents(...args) }
   _filterInactiveIntents (...args) { return util.filterInactiveProjectIntents(...args) }
-  _getRef (...args) { return util.getRef(...args) }
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
 
