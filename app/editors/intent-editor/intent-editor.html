@@ -3,6 +3,7 @@
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
@@ -20,165 +21,151 @@
 
     <style include="intent-editor-styles"></style>
 
-    <section>
-      <template is="dom-if" if="[[intentAdmin]]">
-        <template is="dom-if" if="[[active]]">
-          <vientos-icon-button
-            raised
-            on-tap="_deactivate"
-            disabled="[[!online]]"
-            text="[[localize('button:deactivate')]]">
-          </vientos-icon-button>
-        </template>
-        <template is="dom-if" if="[[!active]]">
-          <vientos-icon-button
-            raised
-            on-tap="_activate"
-            text="[[localize('button:activate')]]"
-            disabled="[[activateButtonDisabled]]"
-          ></vientos-icon-button>
-        </template>
-        <vientos-icon-button
-          raised
-          text="[[localize('button:leave-admin')]]"
-          on-tap="_leaveAdmin"
-          disabled="[[!_canLeaveAdmin(intent, intentAdmin, online)]]"
-        ></vientos-icon-button>
-      </template>
-      <template is="dom-if" if="[[!intentAdmin]]">
-        <vientos-icon-button
-        raised
-        text="[[localize('button:become-admin')]]"
-        disabled="[[!online]]"
-        on-tap="_becomeAdmin"
-        ></vientos-icon-button>
-      </template>
-    </section>
+    <div id="admin">
+      <div>[[localize('label:admin-intent')]]</div>
+      <paper-toggle-button
+        on-tap="_toggleAdmin"
+        disabled="[[!_toggleAdminEnabled(intentAdmin, updated, updated.admins)]]"
+        checked="[[intentAdminChecked]]"></paper-toggle-button>
+    </div>
+    <template is="dom-if" if="[[intentAdmin]]">
+      <section>
+        <div id="status">
+          <div>[[localize('label:active')]]</div>
+          <paper-toggle-button
+            on-tap="_toggleIntentStatus"
+            checked="[[activeToggleChecked]]"></paper-toggle-button>
+        </div>
+      </section>
 
-    <section id="intent-direction-toggle">
-      <iron-icon icon="vientos:offer"></iron-icon>
-      <span>[[localize('offer')]]</span>
-      <paper-toggle-button on-tap="_toggleDirection" checked="[[toggled]]"></paper-toggle-button>
-      <iron-icon icon="vientos:request"></iron-icon>
-      <span>[[localize('request')]]</span>
-    </section>
-
-    <section>
-    <paper-input
-      value="{{updated.title}}"
-      label="[[localize('label:title')]]"
-      char-counter
-      maxlength="60"
-      required
-    ></paper-input>
-      <div>
-        <paper-textarea
-         rows="3"
-         label="[[localize('label:org-description')]]"
-         placeholder="[[localize('placeholder:intent-description')]]"
-         value="{{updated.description}}"
-         required>
-       </paper-textarea>
-      </div>
-
-      <div>
-        <paper-textarea
-         rows="3"
-         label="[[localize('label:questions')]]"
-         placeholder="[[localize('placeholder:intent-question')]]"
-         value="{{updated.question}}"
-         required>
-       </paper-textarea>
-      </div>
-    </section>
-
-    <section id="logo">
-      <image-picker
-        image-url="[[updated.logo]]"
-        label="[[localize('label:select-image')]]"
-        on-picked="_imagePicked"
-        ></image-picker>
-    </section>
-
-    <section class="select-buttons">
-      <h3>[[localize('label:collaboration-type')]]</h3>
-      <div>
-        <iron-selector selected="{{updated.collaborationType}}" attr-for-selected="name">
-          <vientos-icon-button
-            name="work"
-            text="[[localize('work')]]"
-            icon="vientos:work"
-            toggles
-          ></vientos-icon-button>
-          <vientos-icon-button
-            name="usage"
-            text="[[localize('usage')]]"
-            icon="vientos:usage"
-            toggles
-          ></vientos-icon-button>
-          <vientos-icon-button
-            name="consumption"
-            text="[[localize('consumption')]]"
-            icon="vientos:consumption"
-            toggles
-          ></vientos-icon-button>
-          <vientos-icon-button
-            name="ownership"
-            text="[[localize('ownership')]]"
-            icon="vientos:ownership"
-            toggles
-          ></vientos-icon-button>
+      <section id="direction" class="select-buttons">
+        <iron-selector selected="{{updated.direction}}" attr-for-selected="name">
+          <paper-button
+            name="request">
+            <iron-icon icon="vientos:request"></iron-icon>
+            <div>[[localize('request')]]</div>
+          </paper-button>
+          <paper-button
+            name="offer">
+            <iron-icon icon="vientos:offer"></iron-icon>
+            <div>[[localize('offer')]]</div>
+          </paper-button>
         </iron-selector>
-      </div>
-    </section>
+      </section>
 
-    <section class="select-buttons">
-      <h3>[[localize('label:reciprocity')]]</h3>
-      <div>
-        <vientos-icon-button id="gift" text="[[localize('gift')]]" icon="vientos:gift"></vientos-icon-button>
-        <vientos-icon-button text="[[localize('barter')]]" icon="vientos:barter" disabled></vientos-icon-button>
-        <vientos-icon-button text="[[localize('time-exchange')]]" icon="vientos:timeexchange" disabled></vientos-icon-button>
-        <vientos-icon-button text="[[localize('trade')]]" icon="vientos:trade" disabled></vientos-icon-button>
-      </div>
-      <div class="support-feature">[[localize('label:support-feature')]]</div>
-    </section>
+      <section id="info">
+        <paper-input
+          value="{{updated.title}}"
+          label="[[localize('label:title')]] *"
+          char-counter
+          maxlength="60"
+          required
+        ></paper-input>
+        <div>
+          <paper-textarea
+           rows="3"
+           label="[[localize('label:org-description')]] *"
+           placeholder="[[localize('placeholder:intent-description')]]"
+           value="{{updated.description}}"
+           required>
+         </paper-textarea>
+        </div>
 
-    <section>
-      <vaadin-date-picker
-        id="datepicker"
-        value="{{updated.expiryDate}}"
-        min="[[expiryMinDate]]"
-        label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
-    </section>
+        <div>
+          <paper-textarea
+           rows="3"
+           label="[[localize('label:questions')]] *"
+           placeholder="[[localize('placeholder:intent-question')]]"
+           value="{{updated.question}}"
+           required>
+         </paper-textarea>
+        </div>
+      </section>
 
-    <section>
-      <h3>[[localize('label:address')]]</h3>
-      <place-picker
+      <section id="logo">
+        <image-picker
+          image-url="[[updated.logo]]"
+          label="[[localize('label:select-image')]]"
+          on-picked="_imagePicked"
+          ></image-picker>
+      </section>
+
+      <section id="collaboration-type" class="select-buttons">
+        <h3>[[localize('label:collaboration-type')]]</h3>
+        <iron-selector selected="{{updated.collaborationType}}" attr-for-selected="name">
+          <template is="dom-repeat" items="[[collaborationTypes]]">
+            <paper-button
+              name="[[item]]">
+              <iron-icon icon="vientos:[[item]]"></iron-icon>
+              <div>[[localize(item)]]</div>
+            </paper-button>
+          </template>
+        </iron-selector>
+      </section>
+
+      <section id="reciprocity" class="select-buttons">
+        <h3>[[localize('label:reciprocity')]]</h3>
+          <!-- TODO: use dom-repeat (fix timeexchange icon name!)  -->
+          <paper-button
+            noink
+            name="gift">
+            <iron-icon icon="vientos:gift"></iron-icon>
+            <div>[[localize('gift')]]</div>
+          </paper-button>
+          <paper-button
+            disabled
+            name="barter">
+            <iron-icon icon="vientos:barter"></iron-icon>
+            <div>[[localize('barter')]]</div>
+          </paper-button>
+          <paper-button
+            disabled
+            name="time-exchange">
+            <iron-icon icon="vientos:timeexchange"></iron-icon>
+            <div>[[localize('time-exchange')]]</div>
+          </paper-button>
+          <paper-button
+            disabled
+            name="trade">
+            <iron-icon icon="vientos:trade"></iron-icon>
+            <div>[[localize('trade')]]</div>
+          </paper-button>
+        <div class="support-feature">[[localize('label:support-feature')]]</div>
+      </section>
+
+      <section id="expiry-date">
+        <vaadin-date-picker
+          id="datepicker"
+          value="{{updated.expiryDate}}"
+          min="[[expiryMinDate]]"
+          label="[[localize('label:expiry-date')]]"></vaadin-date-picker>
+      </section>
+
+      <section id="address">
+        <h3>[[localize('label:address')]]</h3>
+        <ul class="selection-list">
+          <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
+            <li>
+              <paper-icon-button icon="vientos:cancel" on-tap="_removeLocation"></paper-icon-button>
+              <div class="ellipsis">[[_getPlaceAddress(placeId, places)]]</div>
+            </li>
+          </template>
+        </ul>
+        <place-picker
         on-picked="_placePicked"
-      ></place-picker>
-      <ul>
-        <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
-          <li>
-            [[_getPlaceAddress(placeId, places)]]
-            <paper-button raised on-tap="_removeLocation">X</paper-button>
-          </li>
-        </template>
-      </ul>
-    </section>
-
+        ></place-picker>
+      </section>
+    </template>
     <footer class="simple">
-
-          <paper-button
-            id="button-save"
-            on-tap="_save"
-            disabled="[[!readyToSave]]"
-          >[[localize('button:save')]]</paper-button>
-
-          <paper-button
-            id="button-cancel"
-            on-tap="_cancel"
-          >[[localize('button:cancel')]]</paper-button>
-
+      <paper-button
+        id="button-save"
+        on-tap="_save"
+        disabled="[[!readyToSave]]"
+      >[[localize('button:save')]]</paper-button>
+      <paper-button
+        id="button-cancel"
+        on-tap="_cancel"
+      >[[localize('button:cancel')]]</paper-button>
     </footer>
   </template>
 

@@ -29,10 +29,16 @@ class IntentEditor extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'person'
       },
+      intentAdminChecked: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfAdmin(person, updated)'
+      },
       intentAdmin: {
         type: Boolean,
         value: false,
-        computed: '_checkIfAdmin(person, intent)'
+        computed: '_checkIfAdmin(person, updated, updated.admins)',
+        observer: '_setDatePicker'
       },
       places: {
         type: Object,
@@ -48,15 +54,19 @@ class IntentEditor extends Polymer.mixinBehaviors(
         type: Object,
         value: null
       },
-      toggled: {
-        type: Boolean,
-        computed: '_checkIfToggled(updated)'
-      },
       expiryMinDate: {
         type: String,
         value: () => {
           return new Date().toISOString().split('T')[0]
         }
+      },
+      activeToggleChecked: {
+        type: Boolean,
+        computed: '_checkIfActive(updated)'
+      },
+      expired: {
+        type: Boolean,
+        computed: '_checkIfExpired(updated, updated.expiryDate)'
       },
       readyToSave: {
         type: Boolean,
@@ -65,7 +75,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
       },
       hasChanges: {
         type: Boolean,
-        computed: '_hasChanges(intent, updated, newImage, updated.direction, updated.locations, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
+        computed: '_hasChanges(intent, updated, newImage, updated.direction, updated.locations, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate, updated.admins, updated.status)',
         value: false
       },
       language: {
@@ -81,18 +91,17 @@ class IntentEditor extends Polymer.mixinBehaviors(
 
   static get observers () {
     return [
-      '_createNewIntent(person, project)',
-      '_collaborationTypeChanged(updated.collaborationType)'
+      '_createNewIntent(person, project)'
     ]
   }
 
   _checkIfAdmin (...args) { return util.checkIfAdmin(...args) }
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
+  _checkIfExpired (...args) { return util.checkIfExpired(...args) }
 
   _intentChanged () {
     this._reset()
     this._makeClone()
-    if (this.intent) { this.set('collaborationType', this.intent.collaborationType) }
   }
 
   _makeClone () {
@@ -126,9 +135,10 @@ class IntentEditor extends Polymer.mixinBehaviors(
 
   _reset () {
     this.set('newImage', null)
-    this.$$('place-picker').reset()
-    this.$$('image-picker').reset()
-    if (this.updated && this.updated.collaborationType) this.$$(`vientos-icon-button[name=${this.updated.collaborationType}]`).set('active', false)
+    let placePicker = this.$$('place-picker')
+    if (placePicker) placePicker.reset()
+    let imagePicker = this.$$('image-picker')
+    if (imagePicker) imagePicker.reset()
     this.updateStyles()
     this._makeClone()
   }
@@ -145,20 +155,13 @@ class IntentEditor extends Polymer.mixinBehaviors(
     }
   }
 
-  _checkIfToggled (updated) {
-    return updated && updated.direction === 'request'
+  _toggleIntentStatus (e) {
+    let status = this._checkIfActive(this.updated) ? 'inactive' : 'active'
+    this.set('updated.status', status)
   }
 
-  _toggleDirection () {
-    this.set('updated.direction', this.updated.direction === 'offer' ? 'request' : 'offer')
-  }
-
-  _collaborationTypeChanged (updated) {
-    this.collaborationTypes.forEach(colType => {
-      this.$$(`vientos-icon-button[name=${colType}]`).set('active', false)
-    })
-    if (updated) this.$$(`vientos-icon-button[name=${updated}]`).set('active', true)
-    this.updateStyles()
+  _checkIfActive (intent) {
+    if (intent) return intent.status === 'active'
   }
 
   _createNewIntent (person, project) {
@@ -205,27 +208,25 @@ class IntentEditor extends Polymer.mixinBehaviors(
     this.set('newImage', e.detail)
   }
 
-  _canLeaveAdmin (intent, intentAdmin, online) {
-    if (!intent || !online) return false
-    return intentAdmin && intent.admins.length > 1
+  _toggleAdminEnabled (intentAdmin, updated) {
+    if (!updated) return false
+    return !intentAdmin || (intentAdmin && updated.admins.length > 1)
   }
 
-  _leaveAdmin () {
-    let updated = Object.assign({}, this.intent)
-    updated.admins = this.intent.admins.filter(adminId => adminId !== this.person._id)
-    this.dispatch('saveIntent', updated)
+  _toggleAdmin () {
+    if (this.intentAdmin) {
+      this.set('updated.admins', this.intent.admins.filter(adminId => adminId !== this.person._id))
+    } else {
+      this.set('updated.admins', [...this.updated.admins, this.person._id].sort())
+    }
   }
 
-  _becomeAdmin () {
-    let updated = Object.assign({}, this.intent)
-    updated.admins = [...this.intent.admins, this.person._id]
-    this.dispatch('saveIntent', updated)
-  }
-
-  ready () {
-    super.ready()
-    this.$.datepicker.set('i18n.firstDayOfWeek', 1)
-    // this.$.datepicker.set('i18n.formatDate', (date) => { return date.toLocaleDateString() })
+  _setDatePicker () {
+    let datePicker = this.$.datepicker
+    if (datePicker) {
+      datePicker.set('i18n.firstDayOfWeek', 1)
+      datePicker.set('i18n.formatDate', date => date.toLocaleDateString())
+    }
   }
 }
 window.customElements.define(IntentEditor.is, IntentEditor)

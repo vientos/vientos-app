@@ -98,10 +98,6 @@ class IntentDetails extends Polymer.mixinBehaviors(
         type: Boolean,
         computed: '_checkIfExpired(intent)'
       },
-      activateButtonDisabled: {
-        type: Boolean,
-        computed: '_activateButtonDisabled(expired, online)'
-      },
       online: {
         type: Boolean,
         statePath: 'online'
@@ -135,22 +131,6 @@ class IntentDetails extends Polymer.mixinBehaviors(
     // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
     window.history.replaceState({}, '', `/edit-intent/${this.intent._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
-  _deactivate () {
-    let updated = Object.assign({}, this.intent)
-    updated.status = 'inactive'
-    this.dispatch('saveIntent', updated)
-  }
-
-  _activate () {
-    let updated = Object.assign({}, this.intent)
-    updated.status = 'active'
-    this.dispatch('saveIntent', updated)
-  }
-
-  _activateButtonDisabled (expired, online) {
-    return expired || !online
   }
 
   _projectPageUrl (project) {

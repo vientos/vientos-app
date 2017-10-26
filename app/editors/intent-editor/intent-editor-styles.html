@@ -7,32 +7,51 @@
 
     <style include="vientos-styles">
 
-
-      #intent-direction-toggle {
+      #status,
+      #admin {
         display: flex;
         margin: 8px 0;
       }
 
-      #intent-direction-toggle iron-icon {
-        color: grey;
-        margin-top: 2px;
-        width: 24px;
-        height: 16px;
-        padding-right: 5px;
+      #status div,
+      #admin div {
+        flex: 1;
+      }
+
+      #logo {
+        color: var(--vientos-complementary-2);
+      }
+
+      h3 {
+        color: var(--vientos-complementary-2);
+      }
+
+      paper-textarea,
+      paper-input {
+        --paper-input-container-color: var(--vientos-complementary-2);
+      }
+
+      .select-buttons paper-button[disabled] {
+        background: none;
+      }
+
+      .select-buttons paper-button[active] iron-icon,
+      .select-buttons paper-button.iron-selected iron-icon,
+      .select-buttons paper-button[name=gift] iron-icon {
+        background-color: var(--vientos-complementary-1);
+      }
+
+      .select-buttons paper-button[active] div,
+      .select-buttons paper-button.iron-selected div,
+      .select-buttons paper-button[name=gift] div {
+        color: var(--vientos-complementary-1);
       }
 
       input {
         width: 100%;
       }
 
-      vientos-icon-button[active],
-      vientos-icon-button#gift {
-        --vientos-icon-button-bg-color: var(--vientos-secondary-1);
-      }
 
-      place-picker {
-        margin-bottom: 16px;
-      }
 
     </style>
 
