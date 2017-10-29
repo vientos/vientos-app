@@ -7,6 +7,13 @@ export function setLanguage (language) {
   }
 }
 
+export function setLabels (labels) {
+  return {
+    type: ActionTypes.SET_LABELS,
+    labels
+  }
+}
+
 export function setOnline (online) {
   return {
     type: ActionTypes.SET_ONLINE,

@@ -32,7 +32,6 @@ const reducer = combineReducers({
   myConversations: DataReducers.myConversations,
   notifications: DataReducers.notifications,
   session: DataReducers.session,
-  labels: DataReducers.labels,
   intents: DataReducers.intents,
   reviews: DataReducers.reviews,
   filteredCategories: AppReducers.filteredCategories,
@@ -44,6 +43,7 @@ const reducer = combineReducers({
   boundingBoxFilter: AppReducers.boundingBoxFilter,
   boundingBox: AppReducers.boundingBox,
   language: AppReducers.language,
+  labels: AppReducers.labels,
   online: AppReducers.online
 })
 

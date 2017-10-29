@@ -73,6 +73,15 @@ export function language (state = config.language, action) {
   }
 }
 
+export function labels (state = {}, action) {
+  switch (action.type) {
+    case ActionTypes.SET_LABELS:
+      return action.labels
+    default:
+      return state
+  }
+}
+
 const DEFUALT_BOUNDINGBOX = {
   sw: { lat: -90, lng: -180 },
   ne: { lat: 90, lng: 180 }

@@ -16,6 +16,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       setLanguage: ActionCreators.setLanguage,
+      setLabels: ActionCreators.setLabels,
       setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
       hello: ActionCreators.hello,
@@ -23,7 +24,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       fetchPerson: ActionCreators.fetchPerson,
       fetchPeople: ActionCreators.fetchPeople,
       fetchPlaces: ActionCreators.fetchPlaces,
-      fetchLabels: ActionCreators.fetchLabels,
       fetchCategories: ActionCreators.fetchCategories,
       fetchProjects: ActionCreators.fetchProjects,
       fetchIntents: ActionCreators.fetchIntents,
@@ -618,8 +618,9 @@ class VientosShell extends Polymer.mixinBehaviors(
   ready () {
     super.ready()
     import(/* webpackChunkName: "vientos-map" */ '../widgets/vientos-map/vientos-map.html')
+    import(/* webpackChunkName: "vientos-labels" */ '../../node_modules/vientos-data/labels/app.json')
+      .then(labels => this.dispatch('setLabels', labels))
     this.dispatch('hello')
-    this.dispatch('fetchLabels')
     this.dispatch('fetchCategories')
     this._fetchPublicData()
 
