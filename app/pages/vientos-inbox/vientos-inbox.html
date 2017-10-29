@@ -2,6 +2,7 @@
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
@@ -54,10 +55,16 @@
           <ul>
             <template is="dom-repeat" items="[[myProjects]]" as="project">
               <li on-tap="_showProjectProfile" class="clickable">
-                <iron-image
-                   src="[[_getThumbnailUrl(project, 92)]]"
-                   sizing="contain">
-                </iron-image>
+                <template is="dom-if" if="[[project.logo]]">
+                  <iron-image
+                     src="[[_getThumbnailUrl(project, 92)]]"
+                     sizing="contain">
+                  </iron-image>
+                </template>
+                <template is="dom-if" if="[[!project.logo]]">
+                  <iron-icon icon="vientos:organization"></iron-icon>
+                </template>
+
               </li>
             </template>
           </ul>
