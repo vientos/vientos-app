@@ -18,37 +18,9 @@
     <style include="intent-details-styles"></style>
 
     <header>
-      <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
       <h2>
         [[intent.title]]
       </h2>
-      <template is="dom-if" if="[[projectAdmin]]">
-        <paper-icon-button
-          raised
-          icon="vientos:artculture"
-          on-tap="_edit"
-          disabled="[[!online]]"
-          ></paper-icon-button>
-      </template>
-      <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
-        <section class="action-buttons">
-          <template is="dom-if" if="[[!favoring]]">
-            <paper-icon-button
-            raised
-            icon="vientos:favor"
-            on-tap="_favor"
-            ></paper-icon-button>
-          </template>
-          <template is="dom-if" if="[[favoring]]">
-            <paper-icon-button
-            raised
-            set
-            icon="vientos:favor"
-            on-tap="_unfavor"
-            ></paper-icon-button>
-          </template>
-        </section>
-      </template>
     </header>
     <template is="dom-if" if="[[!active]]">
       <div class="banner">[[localize('hint:inactive')]]</div>
@@ -197,6 +169,38 @@
         </paper-button>
       </template>
     </template>
+    <footer class="page-footer">
+      <paper-button on-tap="_back">
+        <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+        <iron-icon class="back-clue" icon="vientos:intent"></iron-icon>
+      </paper-button>
+      <div></div>
+      <template is="dom-if" if="[[projectAdmin]]">
+        <paper-icon-button
+          class="round"
+          icon="vientos:artculture"
+          on-tap="_edit"
+          disabled="[[!online]]"
+          ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
+        <template is="dom-if" if="[[!favoring]]">
+          <paper-icon-button
+            class="round"
+            icon="vientos:favor"
+            on-tap="_favor"
+            ></paper-icon-button>
+        </template>
+        <template is="dom-if" if="[[favoring]]">
+          <paper-icon-button
+            class="round"
+            set
+            icon="vientos:favor"
+            on-tap="_unfavor"
+            ></paper-icon-button>
+        </template>
+      </template>
+    </footer>
   </template>
 
   <script src="intent-details.js"></script>

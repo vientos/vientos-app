@@ -8,7 +8,6 @@
 
   :host {
     --toolbar-height: 48px;
-    --vientos-nav-selected-border-bottom: 4px solid var(--vientos-primary-light);
   }
 
   /* Will be prevented from affecting local DOM of Polymer elements */
@@ -48,10 +47,6 @@
     height: 85vh;
   }
 
-  #app-container {
-    padding: var(--toolbar-height) 0;
-  }
-
   iron-list {
     margin-bottom: var(--toolbar-height);
   }
@@ -84,140 +79,45 @@
     }
   }
 
-  app-toolbar {
-    height: 100%;
-  }
-
  .primary-action {
    background-color: var(--vientos-primary);
    color: white;
  }
 
- #header {
-   display: flex;
-   position: fixed;
-   top: 0;
-   width: 100%;
-   z-index: 1000;
-   height: var(--toolbar-height);
-   box-shadow: 0px 0px 8px #888;
-   background-color: var(--vientos-secondary-light);
- }
-
- #header #menu-button-holder-left {
-   width: var(--toolbar-height);
-   height: var(--toolbar-height);
- }
-
- #header #menu-button-holder-left a {
-   display: block;
- }
-
- #header #logo {
-   width: 32px;
-   height: 32px;
-   margin: calc((var(--toolbar-height) - 32px) / 2);
- }
-
-
- #header #menu-button-holder-right paper-icon-button {
-   vertical-align: super;
-   opacity: 0.5;
- }
-
- #header #menu-button-holder-right #login-button {
-   color: var(--vientos-complementary-3);
-   opacity: 0.8;
- }
-
- #header #menu-button-holder-right.selected,
- #header #menu-button-holder-left.selected {
-   border-bottom: var(--vientos-nav-selected-border-bottom);
- }
-
- #header #page-title {
-   flex: 1;
-   text-align: center;
-   font-size: calc(var(--toolbar-height) / 2);
-   line-height: var(--toolbar-height);
-   opacity: 0.6;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   font-size: 0.85em;
-   text-transform: uppercase;
- }
-
- #header #person-avatar {
-   width: 26px;
+ footer iron-image {
    height: 26px;
-   margin-left: 5px;
+   width: 26px;
+   border-radius: 50%;
  }
 
- #header span#notifications ,
- #header span#our-turn {
-   padding: 3px 8px;
-   border-radius: 25%;
-   color: white;
-   font-weight: bolder;
-   margin-left: 5px;
-   font-size: 14px;
- }
-
- #header span#notifications iron-icon,
- #header span#our-turn iron-icon{
-   width: 14px;
-   height: 14px;
- }
-
- #header span#notifications {
-   background-color: var(--accent-color);
- }
-
- #header span#our-turn {
-   background-color: var(--vientos-complementary-2);
- }
-
- #header #login-button iron-icon {
-   margin-left: 5px;
- }
-
- #footer {
-   width: 100%;
-   height: var(--toolbar-height);
-   position: fixed;
-   bottom: 0;
-   box-shadow: 0px 0px 8px #888;
-   background-color: var(--vientos-secondary-light);
-   z-index: 10000;
- }
-
- #footer app-toolbar {
-   width: 100%;
-   height: 100%;
- }
- /*app-toolbar, */
- #footer iron-selector {
+ footer iron-selector {
    display: flex;
-   width: 100%;
-   height: 100%;
  }
 
-#footer paper-button {
+footer paper-button {
   flex: 1;
-  color: var(--vientos-primary-dark);
+  padding-bottom: 8px;
+  min-width: 0;
+}
+footer paper-button[name=menu] {
+  width: 24px;
+  flex: none;
+  padding-left: 8px;
+  padding-right: 0;
+  color: var(--vientos-grey)
 }
 
-#footer paper-button.iron-selected {
-  border-bottom: var(--vientos-nav-selected-border-bottom);
+footer paper-button.iron-selected {
+  border-bottom: 4px solid var(--vientos-primary-light);
+  padding-bottom: 4px;
 }
 
-#footer paper-button.filtered paper-badge {
+footer paper-button.filtered paper-badge {
   --paper-badge-background: var(--vientos-secondary-1);
   --paper-badge-text-color: #000;
 }
 
-#footer paper-button[active] iron-icon {
+footer paper-button[active] iron-icon {
  background-color: var(--vientos-secondary-1);
  color: black;
  border-radius: 50%;
@@ -226,6 +126,27 @@
  box-sizing: content-box;
 }
 
+div[name=menu] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 85vh;
+  text-align: center;
+}
+div[name=menu] li {
+  padding: 8px;
+}
+div[name=menu] li a {
+  display: block;
+  text-decoration: none;
+  color: var(--vientos-grey);
+  text-transform: uppercase;
+}
+
+div[name=menu] li a:hover {
+  background-color: var(--vientos-tertiary-3);
+  color: white
+}
   </style>
 </template>
 </dom-module>

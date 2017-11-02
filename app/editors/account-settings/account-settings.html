@@ -4,6 +4,8 @@
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 
 <link rel="import" href="../../widgets/categories-selector/categories-selector.html">
 <link rel="import" href="../../widgets/image-picker/image-picker.html">
@@ -45,9 +47,28 @@
         selection="[[updated.categories]]"
         on-selection-changed="_categoriesSelectionChanged"></categories-selector>
     </section>
-    <footer class="simple">
-      <paper-button id="button-save" raised on-tap="_save" disabled="[[!readyToSave]]">[[localize('button:save')]]</paper-button>
-      <paper-button id="button-cancel" raised on-tap="_cancel">[[localize('button:cancel')]]</paper-button>
+    <footer class="page-footer">
+      <template is="dom-if" if="[[hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:cancel"
+        ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[!hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:arrow-back"
+        ></paper-icon-button>
+      </template>
+      <div></div>
+      <paper-icon-button
+        on-tap="_save"
+        class="round"
+        icon="vientos:ok"
+        disabled="[[!readyToSave]]"
+      ></paper-icon-button>
     </footer>
 
 

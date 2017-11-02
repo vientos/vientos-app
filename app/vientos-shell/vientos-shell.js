@@ -175,10 +175,6 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'reviews'
       },
-      ourTurnCount: {
-        type: Number,
-        computed: '_calcOurTurnCount(person, myConversations, intents, reviews)'
-      },
       availableIntents: {
         type: Array,
         value: [],
@@ -303,17 +299,16 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
-    this._decorateTopButtons(page)
   }
 
   _hasFooter (page) {
-    return ![
-      'edit-project-details',
-      'new-project',
-      'account',
-      'new-intent',
-      'edit-intent',
-      'new-conversation'
+    return [
+      'projects',
+      'intents',
+      'place',
+      'me',
+      'menu',
+      'guide'
     ].includes(page)
   }
 
@@ -493,25 +488,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _calcOurTurnCount (person, myConversations, intents, reviews) {
-    if (Array.from(arguments).includes(undefined)) return 0
-    return myConversations.reduce((count, conversation) => {
-      return util.ourTurn(person, conversation, intents, reviews) ? ++count : count
-    }, 0)
-  }
-
-  _decorateTopButtons (page) {
-    if (page === 'me') this.$['menu-button-holder-right'].className = 'selected'
-    else this.$['menu-button-holder-right'].className = ''
-    if (page === 'guide') this.$['menu-button-holder-left'].className = 'selected'
-    else this.$['menu-button-holder-left'].className = ''
-  }
-
-  _showProfile () {
-    window.history.pushState({}, '', '/me')
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
   _highlightBadges (newVal) {
     let projectsBtn = this.$$('paper-button[name=projects]')
     let intentsBtn = this.$$('paper-button[name=intents]')
@@ -535,7 +511,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _footerPageChanged (page) {
-    if (['search-and-filter', 'projects', 'intents'].includes(page)) {
+    if (['me', 'projects', 'intents', 'menu'].includes(page)) {
       if (page === 'projects' && window.location.pathname === '/projects') return
       if (page === 'intents' && window.location.pathname === '/intents') return
       let pathname = `/${page}`
@@ -613,6 +589,10 @@ class VientosShell extends Polymer.mixinBehaviors(
   _fetchUpdates () {
     this._fetchPublicData()
     if (this.person) this._fetchProtectedData()
+  }
+
+  _logout () {
+    this.dispatch('bye', this.session)
   }
 
   ready () {

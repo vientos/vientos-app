@@ -41,41 +41,6 @@
 
     <!-- Main content -->
     <app-header-layout>
-
-
-        <div id="header">
-          <div id="menu-button-holder-left">
-            <a href="/guide">
-              <iron-image id="logo" src="../../../images/logo.png" sizing="contain"></iron-image>
-            </a>
-          </div>
-          <div id="page-title">[[localize(page)]]</div>
-          <div id="menu-button-holder-right">
-            <template is="dom-if" if="[[person]]">
-              <paper-button on-tap="_showProfile">
-                <template is="dom-if" if="[[notifications.length]]">
-                  <span id="notifications">
-                    <iron-icon icon="vientos:notification"></iron-icon>
-                    [[notifications.length]]
-                  </span>
-                </template>
-                <template is="dom-if" if="[[ourTurnCount]]">
-                  <span id="our-turn">
-                    <iron-icon icon="vientos:ball"></iron-icon>
-                    [[ourTurnCount]]
-                  </span>
-                </template>
-                <iron-image id="person-avatar" src="[[_getThumbnailUrl(person, 26)]]" sizing="contain"></iron-image>
-              </paper-button>
-            </template>
-            <template is="dom-if" if="[[!person]]">
-              <paper-button id="login-button" on-tap="_showProfile">
-                [[localize('button:login')]]
-                <iron-icon icon="vientos:user"></iron-icon>
-              </paper-button>
-            </template>
-          </div>
-        </div>
       <div id="app-container">
         <iron-pages
         selected="{{page}}"
@@ -105,6 +70,15 @@
                 <intent-preview intent="[[intent]]" show-projects></intent-preview>
               </template>
             </iron-list>
+          </div>
+
+          <div name="menu">
+            <ul>
+              <li><a href="/guide">[[localize('guide')]]</a></li>
+              <li><a href="/account">[[localize('button:account-settings')]]</a></li>
+              <li><a href="/new-project">[[localize('button:add-project')]]</a></li>
+              <li><a href="/" on-tap="_logout">[[localize('button:logout')]]</a></li>
+            </ul>
           </div>
 
 
@@ -179,34 +153,42 @@
       </template>
 
       <template is="dom-if" if="[[_hasFooter(page)]]">
-        <div id="footer">
-          <app-toolbar>
-             <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
-
-                <paper-button name="projects">
-                  <iron-icon id="projects-icon" icon="vientos:organization"></iron-icon>
-                  <template is="dom-if" if="[[filterActive]]">
-                    <paper-badge label="[[visibleProjects.length]]" for="projects-icon"></paper-badge>
-                  </template>
-                </paper-button>
-                <paper-button name="intents">
-                  <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
-                  <template is="dom-if" if="[[filterActive]]">
-                    <paper-badge label="[[visibleIntents.length]]" for="intents-icon"></paper-badge>
-                  </template>
-                </paper-button>
-                <paper-button name="search-and-filter" active="[[filterActive]]">
-                  <iron-icon icon="vientos:search"></iron-icon>
-                </paper-button>
-             </iron-selector>
-          </app-toolbar>
-        </div>
+        <footer>
+          <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+           <paper-button name="intents">
+             <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
+             <template is="dom-if" if="[[filterActive]]">
+               <paper-badge label="[[visibleIntents.length]]" for="intents-icon"></paper-badge>
+             </template>
+           </paper-button>
+            <paper-button name="projects">
+              <iron-icon id="projects-icon" icon="vientos:organization"></iron-icon>
+              <template is="dom-if" if="[[filterActive]]">
+                <paper-badge label="[[visibleProjects.length]]" for="projects-icon"></paper-badge>
+              </template>
+            </paper-button>
+            <template is="dom-if" if="[[person]]">
+              <paper-button name="me">
+                <iron-image id="person-avatar" src="[[_getThumbnailUrl(person, 26)]]" sizing="cover"></iron-image>
+                <template is="dom-if" if="[[notifications.length]]">
+                  <paper-badge label="[[notifications.length]]" for="person-avatar"></paper-badge>
+                </template>
+              </paper-button>
+            </template>
+            <template is="dom-if" if="[[!person]]">
+              <paper-button name="me">
+                <iron-icon icon="vientos:user"></iron-icon>
+              </paper-button>
+            </template>
+            <paper-button name="menu">
+              <iron-icon icon="vientos:menu"></iron-icon>
+            </paper-button>
+          </iron-selector>
+        </footer>
       </template>
 
   </app-header-layout>
 </div>
-
-
 
 </template>
 

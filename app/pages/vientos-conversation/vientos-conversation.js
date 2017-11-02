@@ -121,6 +121,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   _getImage (...args) { return util.getImage(...args) }
   _addHyperLinks (...args) { return util.addHyperLinks(...args) }
   _filterConversationReviews (...args) { return util.filterConversationReviews(...args) }
+  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
 
   _getCausingIntent (conversation, intents) {
     if (conversation && intents && intents.length) { return util.getRef(conversation.causingIntent, intents) }

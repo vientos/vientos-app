@@ -19,9 +19,6 @@
 <dom-module id="vientos-conversation">
   <template>
     <style include="vientos-conversation-styles"></style>
-    <header>
-      <div><paper-icon-button icon="vientos:arrow-back" on-tap="_back"></paper-icon-button></div>
-    </header>
     <section id="review">
       <template is="dom-if" if="[[conversationReviews.length]]">
         <template is="dom-if" if="[[success]]">
@@ -63,7 +60,7 @@
         </template>
       </template>
       <template is="dom-if" if="[[_showReviewButton(canReview, reviewing, conversationReviews)]]">
-        <section class="action-buttons">
+        <section>
           <vientos-icon-button
             id="button-abort"
             raised
@@ -120,6 +117,13 @@
         </div>
       </template>
     </section>
+    <footer class="page-footer">
+      <paper-button on-tap="_back">
+        <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+        <iron-image class="back-clue round" src="[[_getThumbnailUrl(person, 26)]]" sizing="cover"></iron-image>
+      </paper-button>
+      <div></div>
+    </footer>
   </template>
 
   <script src="vientos-conversation.js"></script>

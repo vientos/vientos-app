@@ -1,4 +1,4 @@
-<link rel="import" href="../../../bower_components/polymer/polymer.html">
+t<link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
@@ -18,30 +18,6 @@
     <style include="vientos-inbox-styles"></style>
 
     <template is="dom-if" if="[[person]]">
-
-      <section class="action-buttons">
-        <vientos-icon-button
-          raised
-          icon=""
-          on-tap="_editProfile"
-          text="[[localize('button:account-settings')]]"
-          disabled="[[!online]]"
-          ></vientos-icon-button>
-        <vientos-icon-button
-          raised
-          icon=""
-          on-tap="_addProject"
-          text="[[localize('button:add-project')]]"
-          disabled="[[!online]]"
-          ></vientos-icon-button>
-        <vientos-icon-button
-          raised
-          icon=""
-          on-tap="_bye"
-          text="[[localize('button:logout')]]"
-          disabled="[[!online]]"
-          ></vientos-icon-button>
-      </section>
       <h2 id="title">
                 <iron-image
                    src="[[_getThumbnailUrl(person, 26)]]"
