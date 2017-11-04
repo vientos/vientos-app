@@ -178,7 +178,7 @@
       <template is="dom-if" if="[[projectAdmin]]">
         <paper-icon-button
           class="round"
-          icon="vientos:artculture"
+          icon="vientos:settings"
           on-tap="_edit"
           disabled="[[!online]]"
           ></paper-icon-button>
@@ -187,7 +187,7 @@
         <template is="dom-if" if="[[!favoring]]">
           <paper-icon-button
             class="round"
-            icon="vientos:favor"
+            icon="vientos:bookmark"
             on-tap="_favor"
             ></paper-icon-button>
         </template>
@@ -195,7 +195,7 @@
           <paper-icon-button
             class="round"
             set
-            icon="vientos:favor"
+            icon="vientos:bookmark"
             on-tap="_unfavor"
             ></paper-icon-button>
         </template>

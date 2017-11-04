@@ -25,7 +25,7 @@
         <iron-icon name="intents" icon="vientos:intent"></iron-icon>
         <iron-icon name="search-and-filter" icon="vientos:search"></iron-icon>
         <iron-icon name="collaborations" icon="vientos:success"></iron-icon>
-        <iron-icon name="my-account" icon="vientos:user"></iron-icon>
+        <iron-icon name="my-account" icon="vientos:person"></iron-icon>
       </iron-selector>
       <paper-icon-button
         icon="vientos:arrow-forward"
@@ -58,7 +58,7 @@
               [[localize('guide:collaborations')]]
             </div>
             <div name="my-account">
-              <iron-icon icon="vientos:user"></iron-icon>
+              <iron-icon icon="vientos:person"></iron-icon>
               [[localize('guide:my-account')]]
             </div>
           </iron-selector>
@@ -103,7 +103,7 @@
         </div>
         <h3>[[localize('guide:bookmark-heading')]]</h3>
         <p>[[localize('guide:bookmark-paragraph')]]</p>
-        <iron-icon icon="vientos:favor"></iron-icon>
+        <iron-icon icon="vientos:bookmark"></iron-icon>
         <label>[[localize('button:favor')]]</label>
         <h3>[[localize('label:collaboration-types')]]</h3>
         <p>[[localize('guide:collaboration-types-paragraph')]]</p>
@@ -155,7 +155,7 @@
             </div>
           </li>
           <li>
-            <iron-icon icon="vientos:timeexchange"></iron-icon>
+            <iron-icon icon="vientos:time-exchange"></iron-icon>
             <div>
               <h4>[[localize('time-exchange')]]</h4>
               <p>[[localize('guide:time-exchange-explained')]]</p>
@@ -231,7 +231,7 @@
         <template is="dom-if" if="[[!person]]">
           <div id="create-account">
             <p>[[localize('guide:create-account-invitation')]]</p>
-            <a href="/me">[[localize('button:login')]]<iron-icon icon="vientos:user"></iron-icon></a>
+            <a href="/me">[[localize('button:login')]]<iron-icon icon="vientos:person"></iron-icon></a>
           </div>
         </template>
       </section>

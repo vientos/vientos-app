@@ -105,7 +105,7 @@
 
       <section id="reciprocity" class="select-buttons">
         <h3>[[localize('label:reciprocity')]]</h3>
-          <!-- TODO: use dom-repeat (fix timeexchange icon name!)  -->
+          <!-- TODO: use dom-repeat (fix time-exchange icon name!)  -->
           <paper-button
             noink
             name="gift">
@@ -121,7 +121,7 @@
           <paper-button
             disabled
             name="time-exchange">
-            <iron-icon icon="vientos:timeexchange"></iron-icon>
+            <iron-icon icon="vientos:time-exchange"></iron-icon>
             <div>[[localize('time-exchange')]]</div>
           </paper-button>
           <paper-button
@@ -146,7 +146,7 @@
         <ul class="selection-list">
           <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
             <li>
-              <paper-icon-button icon="vientos:cancel" on-tap="_removeLocation"></paper-icon-button>
+              <paper-icon-button icon="vientos:delete" on-tap="_removeLocation"></paper-icon-button>
               <div class="ellipsis">[[_getPlaceAddress(placeId, places)]]</div>
             </li>
           </template>

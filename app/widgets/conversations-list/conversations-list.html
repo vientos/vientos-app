@@ -13,17 +13,19 @@
     <ul>
       <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
         <li on-tap="_showConversation" class="clickable">
-          <template is="dom-if" if="[[_ourTurn(person, conversation, intents, reviews)]]">
-            <span class="our-turn"><iron-icon icon="vientos:ball"></iron-icon></span>
-          </template>
           <template is="dom-if" if="[[_getNotificationsCount(conversation, notifications)]]">
             <paper-badge label="[[_getNotificationsCount(conversation, notifications)]]"></paper-badge>
           </template>
-          <iron-image
-             src="[[_getImage(conversation.creator, people, 26)]]"
-             sizing="contain">
-          </iron-image>
-          [[_getName(conversation.creator, people)]]
+          <div>
+            <iron-image
+               src="[[_getImage(conversation.creator, people, 26)]]"
+               sizing="contain">
+            </iron-image>
+            [[_getName(conversation.creator, people)]]
+          </div>
+          <template is="dom-if" if="[[_ourTurn(person, conversation, intents, reviews)]]">
+            <iron-icon icon="vientos:star"></iron-icon>
+          </template>
         </li>
       </template>
     </ul>

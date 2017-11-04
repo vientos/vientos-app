@@ -98,7 +98,7 @@
       <ul class="selection-list">
         <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
           <li>
-            <paper-icon-button icon="vientos:cancel" raised on-tap="_removeLocation"></paper-icon-button>
+            <paper-icon-button icon="vientos:delete" raised on-tap="_removeLocation"></paper-icon-button>
             <div class="ellipsis">[[_getPlaceAddress(placeId, places)]]</div>
           </li>
         </template>
@@ -112,7 +112,7 @@
       <ul class="selection-list">
         <template is="dom-repeat" items="[[updated.contacts]]">
           <li>
-            <paper-icon-button icon="vientos:cancel" on-tap="_removeContact"></paper-icon-button>
+            <paper-icon-button icon="vientos:delete" on-tap="_removeContact"></paper-icon-button>
             <div>[[item]]</div>
           </li>
         </template>
@@ -125,7 +125,7 @@
       <ul class="selection-list">
         <template is="dom-repeat" items="[[updated.links]]">
           <li>
-            <paper-icon-button icon="vientos:cancel" on-tap="_removeLink"></paper-icon-button>
+            <paper-icon-button icon="vientos:delete" on-tap="_removeLink"></paper-icon-button>
             <div>[[item]]</div>
           </li>
         </template>
