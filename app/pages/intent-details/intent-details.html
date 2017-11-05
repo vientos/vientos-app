@@ -31,6 +31,14 @@
         <div class="hint">[[localize('hint:to-activate-expired')]]</div>
       </template>
     </template>
+    <template is="dom-if" if="[[_showConversations(intentAdmin, conversations)]]">
+      <section>
+        <h3>
+          [[localize('label:open-conversations')]]
+        </h3>
+        <conversations-list conversations="[[conversations]]" intent="[[intent]]"></conversations-list>
+      </section>
+    </template>
     <template is="dom-if" if="[[projectAdmin]]">
       <section>
         <h3>[[localize('label:admins')]]</h3>
@@ -43,20 +51,9 @@
           </template>
         </ul>
       </section>
+      <hr />
     </template>
-    <template is="dom-if" if="[[_showConversations(intentAdmin, conversations)]]">
-      <section>
-        <h3>
-          [[localize('label:open-conversations')]]
-        </h3>
-        <conversations-list conversations="[[conversations]]" intent="[[intent]]"></conversations-list>
-      </section>
-    </template>
-
     <section id="projects">
-      <h3>
-        [[localize('label:projects')]]
-      </h3>
       <ul>
         <template is="dom-repeat" items="[[intentProjects]]" as="project">
           <li on-tap="_showProjectProfile" class="clickable">
@@ -113,7 +110,7 @@
                 <paper-button
                   raised
                   on-tap="_showLocationOnMap">
-                  <iron-icon icon="vientos:crosshairs"></iron-icon>
+                  <iron-icon icon="vientos:place"></iron-icon>
                   <span class="ellipsis">[[_getPlaceAddress(placeId, places)]]</span>
                 </paper-button>
               </li>
