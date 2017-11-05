@@ -9,7 +9,7 @@
     <form id="new-image-form">
       <label for="new-image">[[label]]</label>
       <template is="dom-if" if="[[imagePreviewSrc]]">
-        <div><iron-image src="[[imagePreviewSrc]]" sizing="contain"></iron-image></div>
+        <div><iron-image src="[[imagePreviewSrc]]" sizing="cover"></iron-image></div>
       </template>
       <div>
         <input id="new-image"

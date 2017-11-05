@@ -21,7 +21,7 @@ t<link rel="import" href="../../../bower_components/polymer/polymer.html">
       <h2 id="title">
                 <iron-image
                    src="[[_getThumbnailUrl(person, 26)]]"
-                   sizing="contain">
+                   sizing="cover">
                 </iron-image>
         [[person.name]]
       </h2>
@@ -34,7 +34,7 @@ t<link rel="import" href="../../../bower_components/polymer/polymer.html">
                 <template is="dom-if" if="[[project.logo]]">
                   <iron-image
                      src="[[_getThumbnailUrl(project, 92)]]"
-                     sizing="contain">
+                     sizing="cover">
                   </iron-image>
                 </template>
                 <template is="dom-if" if="[[!project.logo]]">

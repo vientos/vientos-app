@@ -95,7 +95,7 @@
         <template is="dom-repeat" items="[[conversation.messages]]" as="message">
           <li class$="[[_classForSameTeam(person, message.creator, conversation, intents)]]">
             <div class="name">
-              <iron-image src="[[_getImage(message.creator, people, 26)]]" sizing="contain"></iron-image>
+              <iron-image src="[[_getImage(message.creator, people, 26)]]" sizing="cover"></iron-image>
               [[_getName(message.creator, people)]]
             </div>
             <div class="message" inner-h-t-m-l="[[_addHyperLinks(message.body)]]"></div>

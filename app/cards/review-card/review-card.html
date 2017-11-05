@@ -38,7 +38,7 @@
 
     <div on-tap="_handleTap">
       <div>
-        <iron-image src="[[_getImage(review.creator, people, 26)]]" sizing="contain"></iron-image>
+        <iron-image src="[[_getImage(review.creator, people, 26)]]" sizing="cover"></iron-image>
         <span>[[_getName(review.creator, people)]]</span>
         <iron-icon icon="vientos:[[review.rating]]"></iron-icon>
         <template is="dom-if" if="[[linksToConversation]]">
