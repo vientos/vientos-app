@@ -8,8 +8,9 @@
     <style include="vientos-styles">
 
     iron-image {
-      width: 26px;
       height: 26px;
+      width: calc(26px * var(--hex-width-ratio));
+      clip-path: var(--hex-clip-path);
     }
 
     vientos-icon-button#button-success,

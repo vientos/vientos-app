@@ -9,6 +9,8 @@
 
   :host {
     --spacing: 4px;
+    --hex-width-ratio: 1.155;
+    --hex-clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   }
 
   .select-buttons {
@@ -95,10 +97,10 @@
   }
 
   .admin-list iron-image {
-    border-radius: 50%;
     vertical-align: sub;
-    width: 26px;
     height: 26px;
+    width: calc(26px * var(--hex-width-ratio));
+    clip-path: var(--hex-clip-path);
     margin-right: 5px;
   }
 
