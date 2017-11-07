@@ -9,7 +9,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
     return {
       updateFilteredCategories: ActionCreators.updateFilteredCategories,
       updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
-      updateSearchTerm: ActionCreators.updateSearchTerm,
       toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
       toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
       setLocationFilter: ActionCreators.setLocationFilter,
@@ -22,6 +21,10 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
       categories: {
         type: Array,
         statePath: 'categories'
+      },
+      collaborationTypes: {
+        type: Array,
+        value: ['work', 'usage', 'consumption', 'ownership']
       },
       person: {
         type: Object,
@@ -54,15 +57,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
       myActiveFiltersCount: {
         type: Number,
         computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
-      },
-      searchTerm: {
-        type: String,
-        statePath: 'searchTerm'
-      },
-      newSearchTerm: {
-        type: String,
-        value: null,
-        observer: '_search'
       },
       language: {
         type: String,
@@ -100,7 +94,7 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
   }
 
   _toggleCollaborationType (e) {
-    let button = Polymer.dom(e).path.find(element => element.localName === 'vientos-icon-button')
+    let button = Polymer.dom(e).path.find(element => element.localName === 'paper-button')
     let collaborationType = button.getAttribute('name')
     button.active = !button.active
     if (this.filteredCollaborationTypes.includes(collaborationType)) {
@@ -153,16 +147,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
 
   _toggleBoundingBoxFilter () {
     this.dispatch('toggleBoundingBoxFilter')
-  }
-
-  _search (newSearchTerm) {
-    if (newSearchTerm === '') newSearchTerm = null
-    this.dispatch('updateSearchTerm', newSearchTerm)
-  }
-
-  _clearSearch () {
-    this.set('newSearchTerm', null)
-    this.dispatch('updateSearchTerm', null)
   }
 }
 window.customElements.define(SearchAndFilter.is, SearchAndFilter)

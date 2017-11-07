@@ -19,6 +19,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       setLabels: ActionCreators.setLabels,
       setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
+      updateSearchTerm: ActionCreators.updateSearchTerm,
       hello: ActionCreators.hello,
       bye: ActionCreators.bye,
       fetchPerson: ActionCreators.fetchPerson,
@@ -65,7 +66,8 @@ class VientosShell extends Polymer.mixinBehaviors(
       },
       myConversations: {
         type: Array,
-        statePath: 'myConversations'
+        statePath: 'myConversations',
+        observer: '_resizeIntentsList'
       },
       notifications: {
         type: Array,
@@ -112,18 +114,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       showingMap: {
         type: Boolean,
         value: false
-      },
-      mapButtonVisible: {
-        type: Boolean,
-        computed: '_mapButtonVisibility(page, wideScreen, showingMap)'
-      },
-      listButtonVisible: {
-        type: Boolean,
-        computed: '_listButtonVisibility(page, wideScreen, showingMap)'
-      },
-      placeInfoButtonVisible: {
-        type: Boolean,
-        computed: '_placeInfoButtonVisibility(page, wideScreen, showingMap)'
       },
       currentProject: {
         type: Object,
@@ -188,6 +178,11 @@ class VientosShell extends Polymer.mixinBehaviors(
       searchTerm: {
         type: String,
         statePath: 'searchTerm'
+      },
+      newSearchTerm: {
+        type: String,
+        value: null,
+        observer: '_search'
       },
       lunr: {
         type: Object,
@@ -267,7 +262,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       '_routePageChanged(routeData.page)',
       '_handleMapVisibility(page, wideScreen, showingMap)',
       '_footerPageChanged(page)',
-      '_bootstrapSearch(page)',
       '_indexProjects(lunr, projects)',
       '_indexIntents(lunr, intents)'
     ]
@@ -278,6 +272,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _filterPlaces (...args) { return util.filterPlaces(...args) }
   _avilableIntents (...args) { return util.availableIntents(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
+  _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
 
   _routePageChanged (page) {
     let selectedPage = page || 'guide'
@@ -305,10 +300,9 @@ class VientosShell extends Polymer.mixinBehaviors(
     return [
       'projects',
       'intents',
-      'place',
-      'me',
       'menu',
-      'guide'
+      'guide',
+      'search-and-filter'
     ].includes(page)
   }
 
@@ -437,19 +431,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _mapButtonVisibility (page, wideScreen, showingMap) {
-    return !wideScreen && !showingMap &&
-      (page === 'projects' || page === 'intents' || page === 'place')
-  }
-
-  _listButtonVisibility (page, wideScreen, showingMap) {
-    return !wideScreen && showingMap && (page === 'projects' || page === 'intents')
-  }
-
-  _placeInfoButtonVisibility (page, wideScreen, showingMap) {
-    return !wideScreen && showingMap && (page === 'place')
-  }
-
   _sessionChanged (session) {
     if (session && session.person) {
       this.dispatch('fetchPerson', session.person)
@@ -522,8 +503,21 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _locationChanged (e) {
-    if (window.location.hash === '#map') this.set('showingMap', true)
-    else this.set('showingMap', false)
+    let listButton = this.$$('#list-button')
+    let mapButton = this.$$('#map-button')
+    if (window.location.hash === '#map') {
+      this.set('showingMap', true)
+      if (listButton && mapButton) {
+        listButton.className = ''
+        mapButton.className = 'selected'
+      }
+    } else {
+      this.set('showingMap', false)
+      if (listButton && mapButton) {
+        listButton.className = 'selected'
+        mapButton.className = ''
+      }
+    }
     // workaround for iron-list rendering issues
     if (this.page === 'projects' || this.page === 'intents') {
       setTimeout(() => {
@@ -536,7 +530,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _bootstrapSearch (page) {
-    if (page !== 'search-and-filter') return
     import(/* webpackChunkName: "lunr" */ '../../src/lunr').then(lunrLib => {
       const lunr = lunrLib.default
       this.set('lunr', lunr)
@@ -595,6 +588,20 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('bye', this.session)
   }
 
+  _resizeIntentsList (myConversations) {
+    if (myConversations && myConversations.length) this.$.intents.notifyResize()
+  }
+
+  _search (newSearchTerm) {
+    if (newSearchTerm === '') newSearchTerm = null
+    this.dispatch('updateSearchTerm', newSearchTerm)
+  }
+
+  _clearSearch () {
+    this.set('newSearchTerm', null)
+    this.dispatch('updateSearchTerm', null)
+  }
+
   ready () {
     super.ready()
     import(/* webpackChunkName: "vientos-map" */ '../widgets/vientos-map/vientos-map.html')
@@ -603,6 +610,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('hello')
     this.dispatch('fetchCategories')
     this._fetchPublicData()
+    this._bootstrapSearch()
 
     this.publicChannel = new EventSource(channelUrl())
     this.publicChannel.addEventListener('update', this._fetchPublicData.bind(this))

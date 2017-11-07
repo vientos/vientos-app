@@ -18,79 +18,6 @@
     <style include="search-and-filter-styles"></style>
 
     <section>
-      <paper-input
-        value="{{newSearchTerm}}"
-        label="[[localize('label:search')]]"
-        raised
-      ></paper-input>
-      <paper-button
-        on-tap="_clearSearch"
-        disabled="[[!searchTerm]]"
-        raised>
-        [[localize('button:clear')]]
-      </paper-button>
-    </section>
-
-    <template is="dom-if" if="[[person]]">
-      <section>
-        <div>
-          <paper-button class="collapser" on-tap="_collapseSection">
-            <h3>
-              [[localize('label:follow-favor')]]
-              <template is="dom-if" if="[[myActiveFiltersCount]]">
-                <paper-badge label="[[myActiveFiltersCount]]"></paper-badge>
-              </template>
-            </h3>
-            <iron-icon icon="vientos:expand-more"></iron-icon>
-          </paper-button>
-        </div>
-        <iron-collapse>
-          <div class="select-buttons">
-            <vientos-icon-button
-              toggles
-              on-tap="_filterFollowings"
-              icon="vientos:follow"
-              small
-              text="[[localize('button:filter-followings')]]">
-            </vientos-icon-button>
-            <vientos-icon-button
-              toggles
-              on-tap="_filterFavorings"
-              icon="vientos:bookmark"
-              small
-              text="[[localize('button:filter-favorings')]]">
-            </vientos-icon-button>
-          </div>
-        </iron-collapse>
-      </section>
-    </template>
-    <section>
-      <div>
-        <paper-button class="collapser" on-tap="_collapseSection">
-          <h3>
-            [[localize('label:location')]]
-            <template is="dom-if" if="[[_locationFilterActive(locationFilter)]]">
-              <paper-badge label="[[_locationFilterActive(locationFilter)]]"></paper-badge>
-            </template>
-          </h3>
-          <iron-icon icon="vientos:expand-more"></iron-icon>
-        </paper-button>
-      </div>
-      <iron-collapse>
-        <paper-radio-group selected="[[locationFilter]]" on-iron-select="_locationFilterChanged">
-          <paper-radio-button name="all">[[localize('label:all')]]</paper-radio-button>
-          <paper-radio-button name="city">[[localize('label:city-wide')]]</paper-radio-button>
-          <paper-radio-button name="specific">[[localize('label:specific-location')]]</paper-radio-button>
-        </paper-radio-group>
-        <template is="dom-if" if="[[_boundingBoxButtonVisible(locationFilter)]]">
-          <paper-toggle-button on-tap="_toggleBoundingBoxFilter" checked="[[boundingBoxFilter]]">
-            <iron-icon icon="vientos:map"></iron-icon>
-            [[localize('button:filter-boundingbox')]]
-          </paper-toggle-button>
-        </template>
-      </iron-collapse>
-    </section>
-    <section>
       <div>
         <paper-button class="collapser" on-tap="_collapseSection">
           <h3>
@@ -105,11 +32,6 @@
       <iron-collapse>
         <p>[[localize('hint:filter-categories')]]</p>
         <div class="buttons">
-          <template is="dom-if" if="[[person]]">
-            <paper-button on-tap="_selectMyCategories" raised>
-              [[localize('button:my-categories')]]
-            </paper-button>
-          </template>
           <paper-button id="clear-categories" on-tap="_clearCategoriesFilter" raised>
             [[localize('button:clear')]]
           </paper-button>
@@ -139,38 +61,13 @@
           </paper-button>
         </div>
         <div class="select-buttons">
-          <vientos-icon-button
-            name="work"
-            text="[[localize('work')]]"
-            icon="vientos:work"
-            toggles
-            on-tap="_toggleCollaborationType"
-            small
-          ></vientos-icon-button>
-          <vientos-icon-button
-            name="usage"
-            text="[[localize('usage')]]"
-            icon="vientos:usage"
-            toggles
-            on-tap="_toggleCollaborationType"
-            small
-          ></vientos-icon-button>
-          <vientos-icon-button
-            name="consumption"
-            text="[[localize('consumption')]]"
-            icon="vientos:consumption"
-            toggles
-            on-tap="_toggleCollaborationType"
-            small
-          ></vientos-icon-button>
-          <vientos-icon-button
-            name="ownership"
-            text="[[localize('ownership')]]"
-            icon="vientos:ownership"
-            toggles
-            on-tap="_toggleCollaborationType"
-            small
-          ></vientos-icon-button>
+          <template is="dom-repeat" items="[[collaborationTypes]]">
+            <paper-button
+              name="[[item]]">
+              <iron-icon icon="vientos:[[item]]"></iron-icon>
+              <div>[[localize(item)]]</div>
+            </paper-button>
+          </template>
         </div>
       </iron-collapse>
     </section>

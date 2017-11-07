@@ -40,5 +40,9 @@ class PlaceDetails extends Polymer.mixinBehaviors(
     if (!place || !projects) return []
     return projects.filter(project => project.locations.includes(place._id))
   }
+
+  _back() {
+    util.back('/intents')
+  }
 }
 window.customElements.define(PlaceDetails.is, PlaceDetails)

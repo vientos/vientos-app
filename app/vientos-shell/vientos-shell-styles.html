@@ -51,6 +51,10 @@
     margin-bottom: var(--toolbar-height);
   }
 
+  .conversations {
+    margin-top: -11px;
+  }
+
   /* when screen is wider than 800px */
   @media screen and (min-width: 800px) {
     #app-container {
@@ -79,11 +83,63 @@
     }
   }
 
- footer iron-image {
+app-header {
+  height: calc(var(--toolbar-height) + 24px);
+  background-color: var(--vientos-secondary-light);
+}
+
+app-header app-toolbar {
+  height: var(--toolbar-height);
+}
+
+iron-input input {
+  background-color: var(--vientos-secondary-light);
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+iron-input input:focus {
+  outline: none;
+}
+
+app-header a {
+  display: block;
+  width: 26px;
+}
+
+ app-header iron-image {
    height: 26px;
    width: calc(26px * var(--hex-width-ratio));
    clip-path: var(--hex-clip-path);
  }
+
+app-header paper-button,
+app-header paper-icon-button {
+  min-width: 0;
+  padding: 0;
+}
+
+app-header #tabs {
+  display: flex;
+  justify-content: space-around;
+  color: grey;
+}
+
+app-header #tabs paper-button,
+app-header #tabs iron-icon,
+app-header #tabs paper-icon-button {
+  height: 20px;
+}
+
+app-header #tabs paper-button,
+app-header #tabs paper-icon-button {
+  padding-bottom: 4px;
+}
+
+app-header #tabs paper-button.selected {
+  border-bottom: 2px solid var(--vientos-primary-dark);
+  padding-bottom: 2px;
+}
 
  footer iron-selector {
    display: flex;

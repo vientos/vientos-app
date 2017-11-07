@@ -1,14 +1,7 @@
-t<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
-
-<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
-
-<link rel="import" href="../../widgets/vientos-icon-button/vientos-icon-button.html">
-<link rel="import" href="../../widgets/conversations-list/conversations-list.html">
-<link rel="import" href="../../cards/intent-preview/intent-preview.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="vientos-inbox-styles.html">
 
@@ -18,49 +11,7 @@ t<link rel="import" href="../../../bower_components/polymer/polymer.html">
     <style include="vientos-inbox-styles"></style>
 
     <template is="dom-if" if="[[person]]">
-      <h2 id="title">
-                <iron-image
-                   src="[[_getThumbnailUrl(person, 26)]]"
-                   sizing="cover">
-                </iron-image>
-        [[person.name]]
-      </h2>
-      <template is="dom-if" if="[[myProjects.length]]">
-        <section id="my-projects">
-          <h3>[[localize('guide:my-projects')]]</h3>
-          <ul>
-            <template is="dom-repeat" items="[[myProjects]]" as="project">
-              <li on-tap="_showProjectProfile" class="clickable">
-                <template is="dom-if" if="[[project.logo]]">
-                  <iron-image
-                     src="[[_getThumbnailUrl(project, 92)]]"
-                     sizing="cover">
-                  </iron-image>
-                </template>
-                <template is="dom-if" if="[[!project.logo]]">
-                  <iron-icon icon="vientos:organization"></iron-icon>
-                </template>
-
-              </li>
-            </template>
-          </ul>
-        </section>
-      </template>
-
-      <section>
-        <h3>
-          [[localize('label:open-conversations')]]
-        </h3>
-        <template is="dom-repeat" items="[[activeIntents]]" as="intent">
-          <intent-preview intent="[[intent]]" show-projects></intent-preview>
-          <div class="conversations">
-            <conversations-list
-              conversations="[[_filterIntentConversations(intent, myConversations)]]"
-              intent="[[intent]]">
-            </conversations-list>
-          </div>
-        </template>
-      </section>
+      <!-- TODO: message that already logged in -->
     </template>
     <template is="dom-if" if="[[!person]]">
       <ul id="login-buttons">
@@ -75,6 +26,13 @@ t<link rel="import" href="../../../bower_components/polymer/polymer.html">
         </template>
       </ul>
     </template>
+    <footer class="page-footer">
+      <paper-icon-button
+        class="round"
+        on-tap="_back"
+        icon="vientos:arrow-back"
+      ></paper-icon-button>
+    </footer>
   </template>
 
   <script src="vientos-inbox.js"></script>

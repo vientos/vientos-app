@@ -13,45 +13,9 @@ class VientosInbox extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'person'
       },
-      intents: {
-        type: Array,
-        statePath: 'intents'
-      },
-      myProjects: {
-        type: Array,
-        computed: '_filterMyProjects(person, projects)'
-      },
-      activeIntents: {
-        type: Array,
-        computed: '_filterActiveIntents(person, intents, myConversations, notifications, reviews)'
-      },
-      myConversations: {
-        type: Array,
-        statePath: 'myConversations'
-      },
-      reviews: {
-        type: Array,
-        statePath: 'reviews'
-      },
-      notifications: {
-        type: Array,
-        statePath: 'notifications'
-      },
-      projects: {
-        type: Array,
-        statePath: 'projects'
-      },
       loginProviders: {
         type: String,
         statePath: 'loginProviders'
-      },
-      session: {
-        type: Object,
-        statePath: 'session'
-      },
-      online: {
-        type: Boolean,
-        statePath: 'online'
       },
       language: {
         type: String,
@@ -64,32 +28,8 @@ class VientosInbox extends Polymer.mixinBehaviors(
     }
   }
 
-  _filterActiveIntents (...args) { return util.filterActiveIntents(...args) }
-  _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
-  _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
-
-  _editProfile () {
-    window.history.pushState({}, '', `/account/`)
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
-  _showProjectProfile (e) {
-    window.history.pushState({}, '', util.pathFor(e.model.project, 'project'))
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
-  _projectUrl (project) {
-    return util.pathFor(project, 'project')
-  }
-
-  _addProject () {
-    window.history.pushState({}, '', `/new-project`)
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
-  _filterMyProjects (person, projects) {
-    if (Array.from(arguments).includes(undefined)) return []
-    if (person) return projects.filter(project => project.admins.includes(this.person._id))
+  _back() {
+    util.back('/intents')
   }
 }
 window.customElements.define(VientosInbox.is, VientosInbox)
