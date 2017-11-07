@@ -13,6 +13,19 @@
     --hex-clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   }
 
+  .primary-action {
+    color: var(--vientos-primary);
+    border-radius: 50%;
+    padding: 4px;
+    border-color: var(--vientos-primary);
+    border-width: medium;
+    border-style: solid;
+  }
+
+  .primary-action[disabled] {
+    opacity: 0.5;
+  }
+
   .select-buttons {
     text-align: center;
   }
@@ -147,6 +160,7 @@
 
   .page-footer div {
     flex: 1;
+    text-align: center;
   }
 
   .page-footer .back-clue {

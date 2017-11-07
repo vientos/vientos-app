@@ -116,12 +116,12 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
     return person && !admin && project
   }
 
-  _follow () {
-    this.dispatch('follow', this.person, this.project)
-  }
-
-  _unfollow () {
-    this.dispatch('unfollow', this.following)
+  _toggleFollow () {
+    if(!this.following) {
+      this.dispatch('follow', this.person, this.project)
+    } else {
+      this.dispatch('unfollow', this.following)
+    }
   }
 
   _editDetails () {

@@ -184,12 +184,12 @@ class IntentDetails extends Polymer.mixinBehaviors(
     return person && !projectAdmin
   }
 
-  _favor () {
-    this.dispatch('favor', this.person, this.intent)
-  }
-
-  _unfavor () {
-    this.dispatch('unfavor', this.favoring)
+  _toggleFavor () {
+    if (!this.favoring) {
+      this.dispatch('favor', this.person, this.intent)
+    } else {
+      this.dispatch('unfavor', this.favoring)
+    }
   }
 
   _showProjectProfile (e) {

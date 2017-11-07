@@ -83,18 +83,6 @@
         </ul>
       </section>
     </template>
-
-
-    <template is="dom-if" if="[[admin]]">
-      <paper-button
-        class="primary-action"
-        disabled="[[!online]]"
-        on-tap="_newIntent">
-        <iron-icon icon="vientos:add-intent"></iron-icon>
-        [[localize('button:add-intent')]]
-      </paper-button>
-    </template>
-
     <section id="active-intents">
       <h3>
         [[localize('intents')]]
@@ -132,33 +120,32 @@
         <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
         <iron-icon class="back-clue" icon="vientos:organization"></iron-icon>
       </paper-button>
-      <div></div>
+      <div>
+        <template is="dom-if" if="[[canFollow]]">
+          <paper-icon-button
+            class="round"
+            icon="vientos:follow"
+            set$="[[following]]"
+            on-tap="_toggleFollow"
+            disabled="[[!online]]"
+          ></paper-icon-button>
+        </template>
+        <template is="dom-if" if="[[admin]]">
+          <paper-icon-button
+            class="round"
+            on-tap="_editDetails"
+            icon="vientos:settings"
+            disabled="[[!online]]"
+            ></paper-icon-button>
+        </template>
+      </div>
       <template is="dom-if" if="[[admin]]">
         <paper-icon-button
-          class="round"
-          on-tap="_editDetails"
-          icon="vientos:settings"
+          class="primary-action"
           disabled="[[!online]]"
-          ></paper-icon-button>
-      </template>
-      <template is="dom-if" if="[[canFollow]]">
-        <template is="dom-if" if="[[!following]]">
-          <paper-icon-button
-          class="round"
-          icon="vientos:follow"
-          on-tap="_follow"
-          disabled="[[!online]]"
-          ></paper-icon-button>
-        </template>
-        <template is="dom-if" if="[[following]]">
-          <paper-icon-button
-          class="round"
-          icon="vientos:follow"
-          set
-          on-tap="_unfollow"
-          disabled="[[!online]]"
-          ></paper-icon-button>
-        </template>
+          icon="vientos:add-intent"
+          on-tap="_newIntent">
+        </paper-icon-button>
       </template>
     </footer>
 
