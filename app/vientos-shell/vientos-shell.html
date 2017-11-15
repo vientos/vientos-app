@@ -29,7 +29,7 @@
   <style include="vientos-shell-styles"></style>
 
 
-  <app-location route="{{route}}"></app-location>
+  <app-location route="{{route}}" query-params="{{query}}"></app-location>
 
   <app-route
   route="{{route}}"
@@ -71,19 +71,8 @@
               </a>
             </template>
           </app-toolbar>
-          <div id="tabs">
-            <paper-button id="list-button" class="selected" on-tap="_showList">
-              <iron-icon icon="vientos:list"></iron-icon>
-              [[localize('button:list')]]
-            </paper-button>
-            <paper-icon-button
-              on-tap=""
-              icon="vientos:networks"></iron-icon>
-            </paper-icon-button>
-            <paper-button id="map-button" on-tap="_showMap">
-              <iron-icon icon="vientos:map"></iron-icon>
-              [[localize('button:map')]]
-            </paper-button>
+          <div id="geo" on-click="_goToMap">
+            [[geoTag]]
           </div>
         </app-header>
       </template>
@@ -186,14 +175,14 @@
         <vientos-map
           view="[[mapView]]"
           locations="[[visiblePlaces]]"
-          of="[[mapOf]]"
+          current-place="[[currentPlace._id]]"
           on-bbox="_updateBoundingBox"
           ></vientos-map>
       </div>
 
       <template is="dom-if" if="[[_hasFooter(page)]]">
         <footer>
-          <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+          <iron-selector selected="{{footerPage}}" attr-for-selected="name" role="navigation">
            <paper-button name="intents">
              <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
              <template is="dom-if" if="[[filterActive]]">
@@ -205,6 +194,9 @@
               <template is="dom-if" if="[[filterActive]]">
                 <paper-badge label="[[visibleProjects.length]]" for="projects-icon"></paper-badge>
               </template>
+            </paper-button>
+            <paper-button name="map">
+              <iron-icon icon="vientos:map"></iron-icon>
             </paper-button>
             <paper-button name="menu">
               <iron-icon icon="vientos:menu"></iron-icon>

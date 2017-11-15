@@ -26,6 +26,20 @@
         box-shadow: 1px 2px 10px #333;
       }
 
+      #full-zoom {
+        position: absolute;
+        top: 64px;
+        right: 70px;
+        z-index: 10000;
+        background: white;
+        border-radius: 50%;
+        padding-left: 11px;
+        opacity: 0.7;
+        color: var(--vientos-tertiary-1);
+        box-shadow: 1px 2px 10px #333;
+      }
+
+
       #map .leaflet-marker-icon {
         background-color: var(--vientos-tertiary-1);
         border-radius: 50%;
@@ -39,6 +53,10 @@
         padding: 5px;
         margin: -1px 0 0 -1px;
         color: white;
+      }
+
+      #map .leaflet-marker-icon iron-icon.selected {
+        color: red;
       }
 
     </style>

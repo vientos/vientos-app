@@ -117,7 +117,7 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   }
 
   _toggleFollow () {
-    if(!this.following) {
+    if (!this.following) {
       this.dispatch('follow', this.person, this.project)
     } else {
       this.dispatch('unfollow', this.following)
@@ -136,8 +136,7 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   }
 
   _showLocationOnMap (e) {
-    let place = util.getRef(e.model.placeId, this.places)
-    window.history.pushState({}, '', util.pathFor(place, 'place') + '#map')
+    window.history.pushState({}, '', `/projects?place=${e.model.placeId}#map`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 

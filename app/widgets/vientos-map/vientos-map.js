@@ -1,4 +1,4 @@
-import { util, config } from '../../../src/engine.js'
+import { config } from '../../../src/engine.js'
 
 class VientosMap extends Polymer.Element {
   static get is () { return 'vientos-map' }
@@ -76,18 +76,22 @@ class VientosMap extends Polymer.Element {
         this.latitude = this.map.getCenter().lat
         this.longitude = this.map.getCenter().lng
       })
-    this._drawMarkers = function drawMarkers () {
-      let icon = this.of === 'projects' ? 'organization' : 'intent'
+    this._drawMarkers = function drawMarkers (currentPlace) {
       this.icon = divIcon({
-        html: `<iron-icon icon="vientos:${icon}"></iron-icon>`,
+        html: `<iron-icon icon="vientos:place"></iron-icon>`,
+        iconSize: toPoint(24, 24)
+      })
+      this.selectedIcon = divIcon({
+        html: `<iron-icon class="selected" icon="vientos:place"></iron-icon>`,
         iconSize: toPoint(24, 24)
       })
       this.markers.clearLayers()
       this.locations.forEach(place => {
-        marker([place.latitude, place.longitude], { placeId: place._id, icon: this.icon })
+        let icon = place._id === currentPlace ? this.selectedIcon : this.icon
+        marker([place.latitude, place.longitude], { placeId: place._id, icon })
           .addTo(this.markers)
           .on('click', e => {
-            this._placeSelected(e.target.options.placeId)
+            this._placeSelected(e.target.options.placeId, this.currentPlace)
           })
       })
     }
@@ -101,7 +105,7 @@ class VientosMap extends Polymer.Element {
 
   _updatedLocations () {
     if (this.map && this.locations) {
-      this._drawMarkers()
+      this._drawMarkers(this.currentPlace)
     }
   }
 
@@ -113,9 +117,19 @@ class VientosMap extends Polymer.Element {
     }
   }
 
-  _placeSelected (placeId) {
-    window.history.pushState({}, '', util.pathFor(placeId, 'place'))
-    window.dispatchEvent(new CustomEvent('location-changed'))
+  _placeSelected (placeId, currentPlace) {
+    let marker = Object.values(this.markers._layers).find(m => m.options.placeId === placeId)
+    let icon
+    if (marker) icon = marker._icon.querySelector('iron-icon')
+    if (placeId !== currentPlace) {
+      if (icon) icon.classList.add('selected')
+      window.history.pushState({}, '', `${window.location.pathname}?place=${placeId}#map`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    } else {
+      if (icon) icon.classList.remove('selected')
+      window.history.replaceState({}, '', `${window.location.pathname}#map`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   }
 
   _updatedBoundingBox () {
@@ -135,6 +149,14 @@ class VientosMap extends Polymer.Element {
     } else {
       this.map.locate()
     }
+  }
+
+  _showFullZoom () {
+    this.set('view', {
+      latitude: config.map.latitude,
+      longitude: config.map.longitude,
+      zoom: config.map.zoom
+    })
   }
 
   _viewChanged (view) {

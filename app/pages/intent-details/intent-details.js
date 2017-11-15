@@ -198,8 +198,7 @@ class IntentDetails extends Polymer.mixinBehaviors(
   }
 
   _showLocationOnMap (e) {
-    let place = util.getRef(e.model.placeId, this.places)
-    window.history.pushState({}, '', util.pathFor(place, 'place') + '#map')
+    window.history.pushState({}, '', `/intents?place=${e.model.placeId}#map`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 

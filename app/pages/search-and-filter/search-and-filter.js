@@ -12,7 +12,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
       toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
       toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
       setLocationFilter: ActionCreators.setLocationFilter,
-      toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter
     }
   }
 
@@ -143,10 +142,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
 
   _locationFilterActive (locationFilter) {
     return Number(locationFilter !== 'all')
-  }
-
-  _toggleBoundingBoxFilter () {
-    this.dispatch('toggleBoundingBoxFilter')
   }
 }
 window.customElements.define(SearchAndFilter.is, SearchAndFilter)

@@ -119,27 +119,12 @@ app-header paper-icon-button {
   padding: 0;
 }
 
-app-header #tabs {
-  display: flex;
-  justify-content: space-around;
-  color: grey;
+app-header #geo {
+  text-align: center;
+  color: white;
+  background-color: #444;
 }
 
-app-header #tabs paper-button,
-app-header #tabs iron-icon,
-app-header #tabs paper-icon-button {
-  height: 20px;
-}
-
-app-header #tabs paper-button,
-app-header #tabs paper-icon-button {
-  padding-bottom: 4px;
-}
-
-app-header #tabs paper-button.selected {
-  border-bottom: 2px solid var(--vientos-primary-dark);
-  padding-bottom: 2px;
-}
 
  footer iron-selector {
    display: flex;
@@ -149,6 +134,9 @@ footer paper-button {
   flex: 1;
   padding-bottom: 8px;
   min-width: 0;
+}
+footer paper-button[name=map] {
+  color: var(--vientos-grey)
 }
 footer paper-button[name=menu] {
   width: 24px;

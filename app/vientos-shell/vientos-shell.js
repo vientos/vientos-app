@@ -1,5 +1,5 @@
 /* global EventSource */
-import { ReduxMixin, ActionCreators, util, channelUrl } from '../../src/engine.js'
+import { ReduxMixin, ActionCreators, util, channelUrl, config } from '../../src/engine.js'
 
 const importOrganizationEditor = () => {
   import(/* webpackChunkName: "organization-editor" */ '../editors/organization-editor/organization-editor.html')
@@ -20,6 +20,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
       updateSearchTerm: ActionCreators.updateSearchTerm,
+      toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter,
       hello: ActionCreators.hello,
       bye: ActionCreators.bye,
       fetchPerson: ActionCreators.fetchPerson,
@@ -46,6 +47,10 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: String,
         reflectToAttribute: true,
         observer: '_pageChanged'
+      },
+      footerPage: {
+        type: String,
+        observer: '_footerPageChanged'
       },
       projects: {
         type: Array,
@@ -93,10 +98,6 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: String,
         statePath: 'locationFilter'
       },
-      mapOf: {
-        type: String,
-        value: 'projects'
-      },
       boundingBox: {
         type: Object,
         statePath: 'boundingBox'
@@ -107,6 +108,10 @@ class VientosShell extends Polymer.mixinBehaviors(
       },
       mapView: {
         type: Object
+      },
+      geoTag: {
+        type: String,
+        value: config.map.name
       },
       wideScreen: {
         type: Boolean
@@ -133,8 +138,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       currentPlace: {
         type: Object,
         value: null,
-        computed: '_findPlace(routeData.page, subrouteData.id, places)',
-        observer: '_setMapView'
+        computed: '_findPlace(query.place, places)'
       },
       visibleProjects: {
         type: Array,
@@ -149,17 +153,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       visiblePlaces: {
         type: Array,
         value: [],
-        computed: '_setVisiblePlaces(page, visibleProjectLocations, visibleIntentLocations)'
-      },
-      visibleProjectLocations: {
-        type: Array,
-        value: [],
-        computed: '_filterPlaces(visibleProjects, places, boundingBox)'
-      },
-      visibleIntentLocations: {
-        type: Array,
-        value: [],
-        computed: '_filterPlaces(visibleIntents, places, boundingBox)'
+        computed: '_setVisiblePlaces(places, visibleProjects, visibleIntents, boundingBox)'
       },
       reviews: {
         type: Array,
@@ -234,9 +228,6 @@ class VientosShell extends Polymer.mixinBehaviors(
           },
           'edit-intent': importIntentEditor,
           'new-intent': importIntentEditor,
-          'place': () => {
-            import(/* webpackChunkName: "place-details" */ '../pages/place-details/place-details.html')
-          },
           'me': () => {
             import(/* webpackChunkName: "vientos-inbox" */ '../pages/vientos-inbox/vientos-inbox.html')
           },
@@ -260,8 +251,8 @@ class VientosShell extends Polymer.mixinBehaviors(
   static get observers () {
     return [
       '_routePageChanged(routeData.page)',
+      '_updateGeoTag(currentPlace, boundingBox)',
       '_handleMapVisibility(page, wideScreen, showingMap)',
-      '_footerPageChanged(page)',
       '_indexProjects(lunr, projects)',
       '_indexIntents(lunr, intents)'
     ]
@@ -275,10 +266,10 @@ class VientosShell extends Polymer.mixinBehaviors(
   _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
 
   _routePageChanged (page) {
-    let selectedPage = page || 'guide'
-    this.set('page', selectedPage)
-    if (this.subrouteData.id) return
-    window.history.replaceState({}, '', `/${selectedPage}`)
+    this.set('page', page || 'guide')
+    if (!page) {
+      window.history.replaceState({}, '', `/${this.page}`)
+    }
   }
 
   _pageChanged (page) {
@@ -287,6 +278,10 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.lazyPages[page]()
     } else {
       // TODO: this._showPage404();
+    }
+    if (['intents', 'projects'].includes(page)) this.set('footerPage', page)
+    if (page === 'place') {
+      this.set('page', 'intents')
     }
     // clear subrouteData.id
     if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation'].includes(page)) {
@@ -376,11 +371,13 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _findPlace (page, placeCuid, places) {
+  _findPlace (placeId, places) {
     if (Array.from(arguments).includes(undefined) || !places.length) return null
-    if (page !== 'place') return null
+    if (!['intents', 'projects'].includes(this.page)) return null
     try {
-      return util.getRef(placeCuid, places)
+      let place = util.getRef(placeId, places)
+      this._setMapView(place)
+      return place
     } catch (e) {
       return null
     }
@@ -396,39 +393,16 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _setVisiblePlaces (page, visibleProjectLocations, visibleIntentLocations) {
-    if (page === 'place') {
-      if (!this.visiblePlaces.length) return visibleProjectLocations
-      return this.visiblePlaces
-    }
-    if (page === 'intents' || page === 'intent') {
-      this.set('mapOf', 'intents')
-      return visibleIntentLocations
-    } else {
-      this.set('mapOf', 'projects')
-      return visibleProjectLocations
-    }
+  _setVisiblePlaces (places, visibleProjects, visibleIntents, boundingBox) {
+    let projectPlaces = this._filterPlaces(visibleProjects, places, boundingBox)
+    let intentPlaces = this._filterPlaces(visibleIntents, places, boundingBox)
+    return [...new Set(projectPlaces.concat(intentPlaces))]
   }
 
   _updateBoundingBox (e, detail) {
     if (this.page === 'projects' || this.page === 'intents') {
       this.dispatch('setBoundingBox', detail)
     }
-  }
-
-  _showMap () {
-    this.set('showingMap', true)
-    if (this.wideScreen) window.history.replaceState({}, '', window.location.pathname + +'#map')
-    else window.history.pushState({}, '', window.location.pathname + '#map')
-    window.dispatchEvent(new CustomEvent('location-changed'))
-    if (this.currentPlace) this._setMapView(this.currentPlace)
-  }
-
-  _showList () {
-    this.set('showingMap', false)
-    if (this.wideScreen) window.history.replaceState({}, '', window.location.pathname)
-    else window.history.pushState({}, '', window.location.pathname)
-    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _sessionChanged (session) {
@@ -491,14 +465,34 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else return false
   }
 
-  _footerPageChanged (page) {
-    if (['me', 'projects', 'intents', 'menu'].includes(page)) {
-      if (page === 'projects' && window.location.pathname === '/projects') return
-      if (page === 'intents' && window.location.pathname === '/intents') return
-      let pathname = `/${page}`
-      if (this.showingMap) pathname += '#map'
-      window.history.pushState({}, '', pathname)
+  _footerPageChanged (footerPage) {
+    if (footerPage === 'map') {
+      this.set('showingMap', true)
+    } else {
+      this.set('showingMap', false)
+      window.history.pushState({}, '', footerPage)
       window.dispatchEvent(new CustomEvent('location-changed'))
+    }
+  }
+
+  _goToMap () {
+    this.set('footerPage', 'map')
+  }
+
+  _updateGeoTag (place, boundingBox) {
+    let map = this.$$('vientos-map')
+    if (!map.latitude || // map still loading
+        (Math.abs(map.latitude - config.map.latitude) <= 0.002 &&
+        Math.abs(map.longitude - config.map.longitude) <= 0.002 &&
+        Math.abs(map.zoom - config.map.zoom) <= 0.002)) {
+      this.set('geoTag', config.map.name)
+    } else {
+      // TODO: check if on my current position
+      if (place) {
+        this.set('geoTag', place.address)
+      } else {
+        this.set('geoTag', this.localize('label:custom-map-boundries'))
+      }
     }
   }
 
@@ -600,6 +594,10 @@ class VientosShell extends Polymer.mixinBehaviors(
   _clearSearch () {
     this.set('newSearchTerm', null)
     this.dispatch('updateSearchTerm', null)
+  }
+
+  _toggleBoundingBoxFilter () {
+    this.dispatch('toggleBoundingBoxFilter')
   }
 
   ready () {
