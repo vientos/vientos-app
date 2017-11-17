@@ -71,8 +71,11 @@
               </a>
             </template>
           </app-toolbar>
-          <div id="geo" on-click="_goToMap">
-            [[geoTag]]
+          <div id="geo">
+            <div class="ellipsis">[[geoTag]]</div>
+            <template is="dom-if" if="[[!showingMap]]">
+              <paper-button class="fancy-button" on-tap="_goToMap">[[localize('button:map')]]</paper-button>
+            </template>
           </div>
         </app-header>
       </template>
@@ -182,26 +185,21 @@
 
       <template is="dom-if" if="[[_hasFooter(page)]]">
         <footer>
-          <iron-selector selected="{{footerPage}}" attr-for-selected="name" role="navigation">
-           <paper-button name="intents">
-             <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
-             <template is="dom-if" if="[[filterActive]]">
-               <paper-badge label="[[visibleIntents.length]]" for="intents-icon"></paper-badge>
-             </template>
-           </paper-button>
-            <paper-button name="projects">
-              <iron-icon id="projects-icon" icon="vientos:organization"></iron-icon>
-              <template is="dom-if" if="[[filterActive]]">
-                <paper-badge label="[[visibleProjects.length]]" for="projects-icon"></paper-badge>
-              </template>
-            </paper-button>
-            <paper-button name="map">
-              <iron-icon icon="vientos:map"></iron-icon>
-            </paper-button>
-            <paper-button name="menu">
-              <iron-icon icon="vientos:menu"></iron-icon>
-            </paper-button>
-          </iron-selector>
+         <paper-button name="intents" on-tap="_showIntentList">
+           <iron-icon id="intents-icon" icon="vientos:intent"></iron-icon>
+           <template is="dom-if" if="[[filterActive]]">
+             <paper-badge label="[[visibleIntents.length]]" for="intents-icon"></paper-badge>
+           </template>
+         </paper-button>
+          <paper-button name="projects" on-tap="_showProjectList">
+            <iron-icon id="projects-icon" icon="vientos:organization"></iron-icon>
+            <template is="dom-if" if="[[filterActive]]">
+              <paper-badge label="[[visibleProjects.length]]" for="projects-icon"></paper-badge>
+            </template>
+          </paper-button>
+          <paper-button name="menu" on-tap="_showMenu">
+            <iron-icon icon="vientos:menu"></iron-icon>
+          </paper-button>
         </footer>
       </template>
 

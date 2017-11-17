@@ -4,20 +4,24 @@ import deepEqual from 'deep-equal'
 
 export { deepEqual, shave }
 
-export function locationsInBoundingBox (entity, places, boundingBox) {
+export function inBoundingBox (place, boundingBox) {
+  return place.latitude <= boundingBox.ne.lat &&
+    place.latitude >= boundingBox.sw.lat &&
+    place.longitude <= boundingBox.ne.lng &&
+    place.longitude >= boundingBox.sw.lng
+}
+
+export function hasLocationsInBoundingBox (entity, places, boundingBox) {
   return places.filter(place => {
     return entity.locations.some(placeId => placeId === place._id) &&
-           place.latitude <= boundingBox.ne.lat &&
-           place.latitude >= boundingBox.sw.lat &&
-           place.longitude <= boundingBox.ne.lng &&
-           place.longitude >= boundingBox.sw.lng
+      inBoundingBox(place, boundingBox)
   })
 }
 
 export function filterPlaces (entities, places, boundingBox) {
   if (Array.from(arguments).includes(undefined)) return []
   return entities.reduce((acc, entity) => {
-    return acc.concat(locationsInBoundingBox(entity, places, boundingBox))
+    return acc.concat(hasLocationsInBoundingBox(entity, places, boundingBox))
   }, [])
 }
 
@@ -25,7 +29,7 @@ function appearsInSearchResults (entity, searchTerm, searchIndex) {
   return searchIndex.search(searchTerm).find(result => result.ref === entity._id)
 }
 
-export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox, searchTerm, projectsIndex) {
+export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, projectsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
   let filtered
   // filter on categories
@@ -61,24 +65,13 @@ export function filterProjects (person, projects, places, intents, filteredCateg
       return intents.some(intent => intent.projects.includes(project._id) && filteredCollaborationTypes.includes(intent.collaborationType))
     })
   }
-  if (locationFilter === 'specific' && boundingBoxFilter) {
-    // filter with location inside bounding box
-    filtered = filtered.filter(project => {
-      return locationsInBoundingBox(project, places, boundingBox).length > 0
-    })
-  } else if (locationFilter === 'specific' && !boundingBoxFilter) {
-    // filter projects with some location
-    filtered = filtered.filter(project => {
-      return project.locations.length !== 0
-    })
-  } else if (locationFilter === 'all' && boundingBoxFilter) {
+  if (currentPlace) {
+    filtered = filtered.filter(project => project.locations.includes(currentPlace._id))
+  } else {
     // show all projects without location and the ones with location inside bounding box
+    // TODO add default loaction to projects without location
     filtered = filtered.filter(project => {
-      return project.locations.length === 0 || locationsInBoundingBox(project, places, boundingBox).length > 0
-    })
-  } else if (locationFilter === 'city') {
-    filtered = filtered.filter(project => {
-      return project.locations.length === 0
+      return hasLocationsInBoundingBox(project, places, boundingBox).length > 0
     })
   }
   if (searchTerm && projectsIndex) {
@@ -96,7 +89,7 @@ export function availableIntents (intents) {
   return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
 }
 
-export function filterIntents (person, intents, filteredCollaborationTypes, filteredFavorings, searchTerm, intentsIndex) {
+export function filterIntents (person, intents, projects, places, filteredCollaborationTypes, filteredFavorings, currentPlace, boundingBox, searchTerm, intentsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
   // TODO rethink cross filtering
   // let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
@@ -110,6 +103,16 @@ export function filterIntents (person, intents, filteredCollaborationTypes, filt
       return person.favorings.some(favoring => {
         return favoring.intent === intent._id
       })
+    })
+  }
+  if (currentPlace) {
+    filtered = filtered.filter(intent => intent.locations.includes(currentPlace._id))
+  } else {
+    // show all intents without location and the ones with location inside bounding box
+    // TODO add default loaction to intents without location
+    filtered = filtered.filter(intent => {
+      return hasLocationsInBoundingBox(intent, places, boundingBox).length ||
+        intent.projects.some(projectId => hasLocationsInBoundingBox(getRef(projectId, projects), places, boundingBox).length)
     })
   }
   if (searchTerm && intentsIndex) {

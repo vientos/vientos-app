@@ -44,6 +44,7 @@
 
   vientos-map {
     display: none;
+    /*height: calc(100vh - 2 * var(--toolbar-height) - 1.5em);*/
     height: 85vh;
   }
 
@@ -123,10 +124,18 @@ app-header #geo {
   text-align: center;
   color: white;
   background-color: #444;
+  display: flex;
 }
 
+app-header #geo div {
+  flex: 1;
+}
 
- footer iron-selector {
+app-header #geo paper-button {
+  color: #444;
+}
+
+ footer {
    display: flex;
  }
 
