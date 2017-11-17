@@ -49,27 +49,8 @@ export function updateSearchTerm (searchTerm) {
   }
 }
 
-export function toggleFilterFollowings () {
+export function togglePersonalFilter () {
   return {
-    type: ActionTypes.TOGGLE_FILTER_FOLLOWINGS
-  }
-}
-
-export function toggleFilterFavorings () {
-  return {
-    type: ActionTypes.TOGGLE_FILTER_FAVORINGS
-  }
-}
-
-export function setLocationFilter (locationFilter) {
-  return {
-    type: ActionTypes.SET_LOCATION_FILTER,
-    locationFilter
-  }
-}
-
-export function toggleBoundingBoxFilter () {
-  return {
-    type: ActionTypes.TOGGLE_BOUNDINBOX_FILTER
+    type: ActionTypes.TOGGLE_PERSONAL_FILTER
   }
 }

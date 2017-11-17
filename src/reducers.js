@@ -28,37 +28,10 @@ export function searchTerm (state = null, action) {
   }
 }
 
-export function filteredFollowings (state = false, action) {
+export function personalFilter (state = false, action) {
   switch (action.type) {
-    case ActionTypes.TOGGLE_FILTER_FOLLOWINGS:
+    case ActionTypes.TOGGLE_PERSONAL_FILTER:
       return !state
-    default:
-      return state
-  }
-}
-
-export function filteredFavorings (state = false, action) {
-  switch (action.type) {
-    case ActionTypes.TOGGLE_FILTER_FAVORINGS:
-      return !state
-    default:
-      return state
-  }
-}
-
-export function boundingBoxFilter (state = false, action) {
-  switch (action.type) {
-    case ActionTypes.TOGGLE_BOUNDINBOX_FILTER:
-      return !state
-    default:
-      return state
-  }
-}
-
-export function locationFilter (state = 'all', action) {
-  switch (action.type) {
-    case ActionTypes.SET_LOCATION_FILTER:
-      return action.locationFilter
     default:
       return state
   }

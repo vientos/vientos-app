@@ -28,7 +28,7 @@ class VientosInbox extends Polymer.mixinBehaviors(
     }
   }
 
-  _back() {
+  _back () {
     util.back('/intents')
   }
 }

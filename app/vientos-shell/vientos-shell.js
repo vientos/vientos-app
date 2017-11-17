@@ -20,7 +20,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
       updateSearchTerm: ActionCreators.updateSearchTerm,
-      toggleBoundingBoxFilter: ActionCreators.toggleBoundingBoxFilter, // TODO remove
+      togglePersonalFilter: ActionCreators.togglePersonalFilter,
       hello: ActionCreators.hello,
       bye: ActionCreators.bye,
       fetchPerson: ActionCreators.fetchPerson,
@@ -82,13 +82,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'filteredCollaborationTypes'
       },
-      filteredFollowings: {
+      personalFilter: {
         type: Boolean,
-        statePath: 'filteredFollowings'
-      },
-      filteredFavorings: {
-        type: Boolean,
-        statePath: 'filteredFavorings'
+        statePath: 'personalFilter'
       },
       locationFilter: {
         type: String,
@@ -139,12 +135,12 @@ class VientosShell extends Polymer.mixinBehaviors(
       visibleProjects: {
         type: Array,
         value: [],
-        computed: '_filterProjects(person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, projectsIndex)'
+        computed: '_filterProjects(person, projects, places, intents, personalFilter, filteredCategories, currentPlace, boundingBox, searchTerm, projectsIndex)'
       },
       visibleIntents: {
         type: Array,
         value: [],
-        computed: '_filterIntents(person, intents, projects, places, filteredCollaborationTypes, filteredFavorings, currentPlace, boundingBox, searchTerm, intentsIndex)'
+        computed: '_filterIntents(person, intents, projects, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, intentsIndex)'
       },
       visiblePlaces: {
         type: Array,
@@ -158,7 +154,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       availableIntents: {
         type: Array,
         value: [],
-        computed: '_avilableIntents(intents)'
+        computed: '_availableIntents(intents)'
       },
       filterActive: {
         type: Boolean,
@@ -257,7 +253,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _filterProjects (...args) { return util.filterProjects(...args) }
   _filterIntents (...args) { return util.filterIntents(...args) }
   _filterPlaces (...args) { return util.filterPlaces(...args) }
-  _avilableIntents (...args) { return util.availableIntents(...args) }
+  _availableIntents (...args) { return util.availableIntents(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
   _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
 
@@ -303,6 +299,12 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else {
       this.dispatch('setLanguage', 'en')
     }
+  }
+
+  _togglePersonalFilter (e) {
+    let vientosMapElement = this.$$('vientos-map')
+    if (vientosMapElement) vientosMapElement._showFullZoom()
+    this.dispatch('togglePersonalFilter')
   }
 
   // _showPage404 () {

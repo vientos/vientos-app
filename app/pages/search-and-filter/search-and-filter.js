@@ -8,10 +8,7 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       updateFilteredCategories: ActionCreators.updateFilteredCategories,
-      updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes,
-      toggleFilterFollowings: ActionCreators.toggleFilterFollowings,
-      toggleFilterFavorings: ActionCreators.toggleFilterFavorings,
-      setLocationFilter: ActionCreators.setLocationFilter,
+      updateFilteredCollaborationTypes: ActionCreators.updateFilteredCollaborationTypes
     }
   }
 
@@ -29,14 +26,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'person'
       },
-      locationFilter: {
-        type: String,
-        statePath: 'locationFilter'
-      },
-      boundingBoxFilter: {
-        type: Boolean,
-        statePath: 'boundingBoxFilter'
-      },
       filteredCategories: {
         type: Array,
         statePath: 'filteredCategories'
@@ -44,18 +33,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
       filteredCollaborationTypes: {
         type: Array,
         statePath: 'filteredCollaborationTypes'
-      },
-      filteredFollowings: {
-        type: Boolean,
-        statePath: 'filteredFollowings'
-      },
-      filteredFavorings: {
-        type: Boolean,
-        statePath: 'filteredFavorings'
-      },
-      myActiveFiltersCount: {
-        type: Number,
-        computed: '_calculateMyActiveFiltersCount(filteredFavorings, filteredFollowings)'
       },
       language: {
         type: String,
@@ -114,34 +91,6 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
 
   _isCollaborationTypeSelected (collaborationType, filteredCollaborationTypes) {
     return filteredCollaborationTypes.includes(collaborationType.id)
-  }
-
-  _filterFollowings (e) {
-    e.target.active = !e.target.active
-    this.dispatch('toggleFilterFollowings')
-    this.updateStyles()
-  }
-
-  _filterFavorings (e) {
-    e.target.active = !e.target.active
-    this.dispatch('toggleFilterFavorings')
-    this.updateStyles()
-  }
-
-  _calculateMyActiveFiltersCount (filteredFavorings, filteredFollowings) {
-    return Number(filteredFavorings) + Number(filteredFollowings)
-  }
-
-  _locationFilterChanged (e, detail) {
-    if (this.locationFilter !== detail.item.name) this.dispatch('setLocationFilter', detail.item.name)
-  }
-
-  _boundingBoxButtonVisible (locationFilter) {
-    return locationFilter === 'specific'
-  }
-
-  _locationFilterActive (locationFilter) {
-    return Number(locationFilter !== 'all')
   }
 }
 window.customElements.define(SearchAndFilter.is, SearchAndFilter)

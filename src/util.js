@@ -29,42 +29,27 @@ function appearsInSearchResults (entity, searchTerm, searchIndex) {
   return searchIndex.search(searchTerm).find(result => result.ref === entity._id)
 }
 
-export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, projectsIndex) {
+export function filterProjects (person, projects, places, intents, personalFilter, filteredCategories, currentPlace, boundingBox, searchTerm, projectsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
-  let filtered
-  // filter on categories
-  if (filteredCategories.length === 0) {
-    filtered = projects.slice()
-  } else {
-    filtered = projects.filter(project => {
-      return project.categories.some(category => {
-        return filteredCategories.includes(category)
-      })
-    })
-  }
-  // filter following projects
-  if (filteredFollowings) {
-    filtered = filtered.filter(project => {
+  let filtered = projects.slice()
+  if (personalFilter) {
+    let followed = filtered.filter(project => {
       return person.followings.some(following => {
         return following.project === project._id
       })
     })
+    filtered = filtered.filter(project => project.admins.includes(person._id)).concat(followed)
+  } else {
+    // filter on categories
+    if (filteredCategories.length) {
+      filtered = projects.filter(project => {
+        return project.categories.some(category => {
+          return filteredCategories.includes(category)
+        })
+      })
+    }
   }
 
-  if (filteredFavorings) {
-    filtered = filtered.filter(project => {
-      // return the projects which has at least one intent which person favored
-      return intents.some(intent => intent.projects.includes(project._id) && person.favorings.some(favoring => favoring.intent === intent._id))
-    })
-  }
-
-  // filter on collaboration types
-  if (filteredCollaborationTypes.length > 0) {
-    filtered = filtered.filter(project => {
-      // return the projects which has at least one intent which its collaborationType is among filteredCollaborationTypes
-      return intents.some(intent => intent.projects.includes(project._id) && filteredCollaborationTypes.includes(intent.collaborationType))
-    })
-  }
   if (currentPlace) {
     filtered = filtered.filter(project => project.locations.includes(currentPlace._id))
   } else {
@@ -89,21 +74,23 @@ export function availableIntents (intents) {
   return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
 }
 
-export function filterIntents (person, intents, projects, places, filteredCollaborationTypes, filteredFavorings, currentPlace, boundingBox, searchTerm, intentsIndex) {
+export function filterIntents (person, intents, projects, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, intentsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
-  // TODO rethink cross filtering
-  // let filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
-  let filtered = availableIntents(intents)
-  if (filteredCollaborationTypes.length > 0) {
-    filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
-  }
-  // filter favoring intents
-  if (filteredFavorings) {
-    filtered = filtered.filter(intent => {
+  let filtered = intents.slice()
+  if (personalFilter) {
+    let activeIntents = filterActiveIntents(person, intents, myConversations, notifications, reviews)
+    let admined = intents.filter(intent => intent.admins.includes(person._id))
+    let favored = filtered.filter(intent => {
       return person.favorings.some(favoring => {
         return favoring.intent === intent._id
       })
     })
+    filtered = [...new Set(activeIntents.concat(admined).concat(favored))]
+  } else {
+    filtered = availableIntents(filtered)
+    if (filteredCollaborationTypes.length > 0) {
+      filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
+    }
   }
   if (currentPlace) {
     filtered = filtered.filter(intent => intent.locations.includes(currentPlace._id))

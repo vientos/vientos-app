@@ -89,9 +89,16 @@ app-header {
   background-color: var(--vientos-secondary-light);
 }
 
-app-header app-toolbar {
-  height: var(--toolbar-height);
-}
+  app-header app-toolbar {
+    height: var(--toolbar-height);
+  }
+
+    app-header app-toolbar paper-button[name=me][active] {
+      background-color: var(--vientos-primary-dark); 
+      border-radius: 50%;
+      height: 34px;
+      width: calc(34px * var(--hex-width-ratio));
+    }
 
 iron-input input {
   background-color: var(--vientos-secondary-light);
