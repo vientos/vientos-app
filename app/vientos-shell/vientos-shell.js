@@ -597,6 +597,10 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('updateSearchTerm', null)
   }
 
+  _showMenu () {
+    this.set('page', 'menu')
+  }
+
   ready () {
     super.ready()
     import(/* webpackChunkName: "vientos-map" */ '../widgets/vientos-map/vientos-map.html')

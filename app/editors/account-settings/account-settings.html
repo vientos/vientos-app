@@ -21,11 +21,13 @@
     <section>
       <div id="language-toggle">
         <h4>[[localize('label:language')]]</h4>
-        <div>
-          <span>ES</span>
-          <paper-toggle-button on-tap="_toggleLanguage" checked="[[_checkedLanguageInput(updated.language)]]"></paper-toggle-button>
-          <span>EN</span>
-        </div>
+        <iron-selector
+          attr-for-selected="name"
+          selected="[[updated.language]]"
+          on-selected-changed="_languageChanged">
+          <paper-button name="es" raised>ES</paper-button>
+          <paper-button name="en" raised>EN</paper-button>
+        </iron-selector>
       </div>
       <div>
         <h4>[[localize('label:email-notifications')]]</h4>
@@ -38,14 +40,6 @@
         label="[[localize('label:select-image')]]"
         on-picked="_imagePicked"
         ></image-picker>
-    </section>
-
-    <section id="categories">
-      <h3>[[localize('label:categories')]]</h3>
-      <categories-selector
-        categories="[[categories]]"
-        selection="[[updated.categories]]"
-        on-selection-changed="_categoriesSelectionChanged"></categories-selector>
     </section>
     <footer class="page-footer">
       <template is="dom-if" if="[[hasChanges]]">

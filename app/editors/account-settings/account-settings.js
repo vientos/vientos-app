@@ -23,10 +23,6 @@ class AccountSettings extends Polymer.mixinBehaviors(
       updated: {
         type: Object
       },
-      categories: {
-        type: Object,
-        statePath: 'categories'
-      },
       newImage: {
         type: Object,
         value: null
@@ -38,7 +34,7 @@ class AccountSettings extends Polymer.mixinBehaviors(
       },
       hasChanges: {
         type: Boolean,
-        computed: '_hasChanges(person, updated, newImage, updated.name, updated.language, updated.emailNotifications, updated.categories)',
+        computed: '_hasChanges(person, updated, newImage, updated.name, updated.language, updated.emailNotifications)',
         value: false
       },
       language: {
@@ -64,10 +60,6 @@ class AccountSettings extends Polymer.mixinBehaviors(
     }
   }
 
-  _categoriesSelectionChanged (e, selection) {
-    this.set('updated.categories', selection)
-  }
-
   _reset () {
     this.set('newImage', null)
     this.$$('image-picker').reset()
@@ -84,26 +76,18 @@ class AccountSettings extends Polymer.mixinBehaviors(
   _save () {
     this.dispatch('savePerson', this.updated, this.newImage)
     this._reset()
-    window.history.pushState({}, '', `/me`)
+    window.history.pushState({}, '', `/`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _cancel () {
     this._reset()
-    window.history.pushState({}, '', `/me`)
+    window.history.pushState({}, '', `/`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _toggleLanguage (e) {
-    if (this.updated.language === 'en') {
-      this.set('updated.language', 'es')
-    } else {
-      this.set('updated.language', 'en')
-    }
-  }
-
-  _checkedLanguageInput (language) {
-    return language === 'en'
+  _languageChanged (e, detail) {
+    if (detail.value) this.set('updated.language', detail.value)
   }
 
   _toggleEmailNotifications (e) {
