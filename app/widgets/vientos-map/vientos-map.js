@@ -172,7 +172,7 @@ class VientosMap extends Polymer.Element {
       longitude: config.map.longitude,
       zoom: config.map.zoom
     })
-    window.history.replaceState({}, '', `${window.location.pathname}#map`)
+    window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 

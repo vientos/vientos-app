@@ -32,14 +32,9 @@
     margin: 0 auto;
     max-width: 600px;
     display: block;
-    padding: calc(3 * var(--spacing));
-  }
-
-  intent-details,
-  organization-editor,
-  account-settings,
-  intent-editor {
-    margin-bottom: 96px;
+    padding: 0;
+    padding-bottom: 50px;
+    position: relative;
   }
 
   vientos-map {
@@ -169,9 +164,9 @@ footer paper-button.iron-selected {
   padding-bottom: 4px;
 }
 
-footer paper-button.filtered paper-badge {
+footer paper-button paper-badge {
   --paper-badge-background: var(--vientos-secondary-1);
-  --paper-badge-text-color: #000;
+  --paper-badge-text-color: white;
 }
 
 footer paper-button[active] iron-icon {

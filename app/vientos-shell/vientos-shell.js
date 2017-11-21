@@ -279,6 +279,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation'].includes(page)) {
       delete this.subrouteData.id
     }
+    this.$$('app-header-layout').notifyResize()
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
   }
