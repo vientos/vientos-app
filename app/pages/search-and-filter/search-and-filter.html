@@ -17,59 +17,50 @@
 
     <style include="search-and-filter-styles"></style>
 
-    <section>
-      <div>
-        <paper-button class="collapser" on-tap="_collapseSection">
-          <h3>
-            [[localize('label:categories')]]
-            <template is="dom-if" if="[[filteredCategories.length]]">
-              <paper-badge label="[[filteredCategories.length]]"></paper-badge>
-            </template>
-          </h3>
-          <iron-icon icon="vientos:expand-more"></iron-icon>
-        </paper-button>
-      </div>
-      <iron-collapse>
-        <p>[[localize('hint:filter-categories')]]</p>
-        <div class="buttons">
-          <paper-button id="clear-categories" on-tap="_clearCategoriesFilter" raised>
+      <section id="collaboration-types">
+        <h3>
+          <div>[[localize('label:collaboration-types')]]</div>
+          <template is="dom-if" if="[[filteredCollaborationTypes.length]]">
+            <paper-badge label="[[filteredCollaborationTypes.length]]"></paper-badge>
+          </template>
+          <paper-button id="clear-collaboration-types" on-tap="_clearCollaborationTypesFilter" class="fancy-button">
             [[localize('button:clear')]]
           </paper-button>
+        </h3>
+        <div>
+          <div class="select-buttons">
+            <iron-selector
+              attr-for-selected="name"
+              selected="[[filteredCollaborationTypes]]"
+              on-selected-items-changed="_collaborationTypeSelectionChanged"
+              multi>
+              <template is="dom-repeat" items="[[collaborationTypes]]">
+                <paper-button
+                name="[[item]]">
+                <iron-icon icon="vientos:[[item]]"></iron-icon>
+                <div>[[localize(item)]]</div>
+                </paper-button>
+              </template>
+            </iron-selector>
         </div>
+      </div>
+    </section>
+    <section id="categories">
+      <h3>
+        <div>[[localize('label:categories')]]</div>
+        <template is="dom-if" if="[[filteredCategories.length]]">
+          <paper-badge label="[[filteredCategories.length]]"></paper-badge>
+        </template>
+        <paper-button id="clear-categories" on-tap="_clearCategoriesFilter" class="fancy-button">
+          [[localize('button:clear')]]
+        </paper-button>
+      </h3>
+      <div>
         <categories-selector
         categories="[[categories]]"
         selection="[[filteredCategories]]"
         on-selection-changed="_selectionChanged"></categories-selector>
-      </iron-collapse>
-    </section>
-    <section>
-      <div>
-        <paper-button class="collapser" on-tap="_collapseSection">
-          <h3>
-            [[localize('label:collaboration-types')]]
-            <template is="dom-if" if="[[filteredCollaborationTypes.length]]">
-              <paper-badge label="[[filteredCollaborationTypes.length]]"></paper-badge>
-            </template>
-          </h3>
-          <iron-icon icon="vientos:expand-more"></iron-icon>
-        </paper-button>
       </div>
-      <iron-collapse>
-        <div class="buttons">
-          <paper-button id="clear-collaboration-types" on-tap="_clearCollaborationTypesFilter" raised>
-            [[localize('button:clear')]]
-          </paper-button>
-        </div>
-        <div class="select-buttons">
-          <template is="dom-repeat" items="[[collaborationTypes]]">
-            <paper-button
-              name="[[item]]">
-              <iron-icon icon="vientos:[[item]]"></iron-icon>
-              <div>[[localize(item)]]</div>
-            </paper-button>
-          </template>
-        </div>
-      </iron-collapse>
     </section>
   </template>
 

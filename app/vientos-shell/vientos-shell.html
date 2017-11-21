@@ -107,12 +107,14 @@
               <template>
                 <div>
                   <intent-preview intent="[[intent]]" show-projects></intent-preview>
-                  <div class="conversations">
-                    <conversations-list
-                      conversations="[[_filterIntentConversations(intent, myConversations)]]"
-                      intent="[[intent]]">
-                    </conversations-list>
-                  </div>
+                  <template is="dom-if" if="[[personalFilter]]">
+                    <div class="conversations">
+                      <conversations-list
+                        conversations="[[_filterIntentConversations(intent, myConversations)]]"
+                        intent="[[intent]]">
+                      </conversations-list>
+                    </div>
+                  </template>
                 </div>
               </template>
             </iron-list>
