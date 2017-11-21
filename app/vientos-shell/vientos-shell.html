@@ -18,7 +18,7 @@
 
 <link rel="import" href="../widgets/conversations-list/conversations-list.html">
 
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,900" rel="stylesheet">
 
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="vientos-shell-styles.html">
@@ -180,6 +180,8 @@
         <vientos-map
           view="[[mapView]]"
           locations="[[visiblePlaces]]"
+          projects="[[projects]]"
+          intents="[[availableIntents]]"
           current-place="[[currentPlace._id]]"
           on-bbox="_updateBoundingBox"
           ></vientos-map>
