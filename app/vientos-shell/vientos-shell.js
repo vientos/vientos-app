@@ -424,13 +424,13 @@ class VientosShell extends Polymer.mixinBehaviors(
 
     if (wideScreen) {
       ironPagesElement.style.display = 'block'
-      if (page === 'intents' || page === 'projects' || page === 'place') {
+      if (page === 'intents' || page === 'projects' || page === 'search-and-filter') {
         vientosMapElement.style.display = 'block'
       } else {
         vientosMapElement.style.display = 'none'
       }
     } else {
-      if (page === 'intents' || page === 'projects' || page === 'place') {
+      if (page === 'intents' || page === 'projects' || page === 'search-and-filter') {
         vientosMapElement.style.display = showingMap ? 'block' : 'none'
         ironPagesElement.style.display = showingMap ? 'none' : 'block'
       } else {
