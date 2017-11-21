@@ -95,13 +95,22 @@ app-header {
       width: calc(34px * var(--hex-width-ratio));
     }
 
-iron-input input {
+    app-header app-toolbar iron-icon[icon="vientos:person"] {
+      margin-left: 10px;
+    }
+
+app-header app-toolbar iron-input {
+  flex: 1;
+}
+
+app-header app-toolbar iron-input input {
   background-color: var(--vientos-secondary-light);
   border: none;
   border-bottom: 1px solid gray;
+  width: 100%;
 }
 
-iron-input input:focus {
+app-header app-toolbar iron-input input:focus {
   outline: none;
 }
 

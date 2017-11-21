@@ -218,7 +218,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   _cancel () {
     this._reset()
     if (this.creator) {
-      window.history.replaceState({}, '', `/me`)
+      window.history.replaceState({}, '', `/`)
       window.dispatchEvent(new CustomEvent('location-changed'))
     } else {
       window.history.replaceState({}, '', `/project/${this.project._id.split('/').pop()}`)

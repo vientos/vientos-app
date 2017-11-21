@@ -260,7 +260,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   }
 
   _back () {
-    util.back('/me')
+    util.back('/intents')
   }
 }
 window.customElements.define(VientosConversation.is, VientosConversation)
