@@ -1,5 +1,9 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
@@ -14,25 +18,32 @@
   <template>
 
     <style include="vientos-guide-styles"></style>
-    <div id="navigation">
-      <paper-icon-button
-        icon="vientos:arrow-back"
-        on-tap="_previous"
-        disabled="[[showingFirstSection]]"></paper-icon-button>
-      <iron-selector selected="{{section}}" attr-for-selected="name">
-        <iron-icon name="intro" icon="vientos:humanrights"></iron-icon>
-        <iron-icon name="organizations" icon="vientos:organization"></iron-icon>
-        <iron-icon name="intents" icon="vientos:intent"></iron-icon>
-        <iron-icon name="search-and-filter" icon="vientos:search"></iron-icon>
-        <iron-icon name="collaborations" icon="vientos:success"></iron-icon>
-        <iron-icon name="my-account" icon="vientos:person"></iron-icon>
-      </iron-selector>
-      <paper-icon-button
-        icon="vientos:arrow-forward"
-        on-tap="_next"
-        disabled="[[showingLastSection]]"></paper-icon-button>
-    </div>
-    <iron-pages
+    <app-header-layout>
+      <app-header slot="header" reveals>
+        <app-toolbar>
+          <h2>{{localize('guide')}}</h2>
+          <paper-icon-button icon="vientos:cancel" on-tap="_close"></paper-icon-button>
+        </app-toolbar>
+        <app-toolbar id="navigation">
+          <paper-icon-button
+            icon="vientos:arrow-back"
+            on-tap="_previous"
+            disabled="[[showingFirstSection]]"></paper-icon-button>
+          <iron-selector selected="{{section}}" attr-for-selected="name">
+            <iron-icon name="intro" icon="vientos:humanrights"></iron-icon>
+            <iron-icon name="organizations" icon="vientos:organization"></iron-icon>
+            <iron-icon name="intents" icon="vientos:intent"></iron-icon>
+            <iron-icon name="search-and-filter" icon="vientos:search"></iron-icon>
+            <iron-icon name="collaborations" icon="vientos:success"></iron-icon>
+            <iron-icon name="my-account" icon="vientos:person"></iron-icon>
+          </iron-selector>
+          <paper-icon-button
+            icon="vientos:arrow-forward"
+            on-tap="_next"
+            disabled="[[showingLastSection]]"></paper-icon-button>
+        </app-toolbar>
+      </app-header>
+      <iron-pages
       selected="[[section]]"
       attr-for-selected="name">
       <section name="intro">
@@ -234,8 +245,9 @@
             <a href="/me">[[localize('button:login')]]<iron-icon icon="vientos:person"></iron-icon></a>
           </div>
         </template>
-      </section>
-    </iron-pages>
+        </section>
+      </iron-pages>
+    </app-header-layout>
   </template>
   <script src="vientos-guide.js"></script>
 </dom-module>

@@ -6,17 +6,18 @@
   <template>
 
     <style include="vientos-styles">
-      #navigation {
-        display: flex;
-        background-color: white;
-        padding: 16px 0;
-        position: fixed;
-        bottom: var(--toolbar-height);
-        right: 0; left: 0;
-        z-index: 20;
+    app-header {
+      background-color: white;
+      padding-bottom: 12px;
+    }
+
+      app-toolbar {
+        height: var(--toolbar-height);
+        margin: 0;
+        padding: 0;
       }
 
-        #navigation iron-selector {
+        app-toolbar iron-selector {
           flex: 1;
           display: flex;
           justify-content: space-around;
@@ -44,9 +45,19 @@
 
 
 
-        #navigation iron-selector iron-icon.iron-selected {
+        app-toolbar iron-selector iron-icon.iron-selected {
           background-color: var(--vientos-secondary-2);
           opacity: 1;
+        }
+
+        app-toolbar h2 {
+          text-align: center;
+          flex: 1;
+          padding-left: 40px;
+        }
+
+        app-toolbar paper-icon-button[icon="vientos:cancel"] {
+          color: #444;
         }
 
       iron-pages {

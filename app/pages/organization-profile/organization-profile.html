@@ -1,7 +1,9 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
-<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html"><link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
@@ -18,136 +20,138 @@
 
     <style include="organization-profile-styles"></style>
 
-    <header class="sticky">
-      <h2>
-        [[project.name]]
-      </h2>
-    </header>
+    <app-header-layout>
+      <app-header class="page-header" fixed condenses slot="header" effects="resize-snapped-title">
+        <h2 condensed-title class="ellipsis" sticky>[[project.name]]</h2>
+        <h2 main-title>[[project.name]]</h2>
+      </app-header>
+
+      <app-toolbar class="action-toolbar">
+        <paper-button on-tap="_back">
+          <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+          <iron-icon class="back-clue" icon="vientos:organization"></iron-icon>
+        </paper-button>
+        <div>
+          <template is="dom-if" if="[[canFollow]]">
+            <paper-icon-button
+              class="round"
+              icon="vientos:follow"
+              set$="[[following]]"
+              on-tap="_toggleFollow"
+              disabled="[[!online]]"
+            ></paper-icon-button>
+          </template>
+          <template is="dom-if" if="[[admin]]">
+            <paper-icon-button
+              class="round"
+              on-tap="_editDetails"
+              icon="vientos:settings"
+              disabled="[[!online]]"
+              ></paper-icon-button>
+          </template>
+        </div>
+        <template is="dom-if" if="[[admin]]">
+          <paper-icon-button
+            class="primary-action"
+            disabled="[[!online]]"
+            icon="vientos:add-intent"
+            on-tap="_newIntent">
+          </paper-icon-button>
+        </template>
+      </app-toolbar>
 
 
-    <section id="logo">
-      <template is="dom-if" if="[[project.logo]]">
-        <iron-image
-          class="org-logo"
-          src="[[_getThumbnailUrl(project, 150)]]"
-          sizing="cover"></iron-image>
-      </template>
-    </section>
-    <template is="dom-if" if="[[project.description]]">
-      <section id="project-description">
-        [[project.description]]
+      <section id="logo">
+        <template is="dom-if" if="[[project.logo]]">
+          <iron-image
+            class="org-logo"
+            src="[[_getThumbnailUrl(project, 150)]]"
+            sizing="cover"></iron-image>
+        </template>
       </section>
-    </template>
-    <template is="dom-if" if="[[project.locations.length]]">
-      <section id="project-location">
-          <h3>[[localize('label:address')]]</h3>
-          <ul class="place-buttons">
-            <template is="dom-repeat" items="[[project.locations]]" as="placeId">
+      <template is="dom-if" if="[[project.description]]">
+        <section id="project-description">
+          [[project.description]]
+        </section>
+      </template>
+      <template is="dom-if" if="[[project.locations.length]]">
+        <section id="project-location">
+            <h3>[[localize('label:address')]]</h3>
+            <ul class="place-buttons">
+              <template is="dom-repeat" items="[[project.locations]]" as="placeId">
+                <li>
+                  <paper-button
+                    raised
+                    on-tap="_showLocationOnMap">
+                    <iron-icon icon="vientos:place"></iron-icon>
+                    <span class="ellipsis">[[_getPlaceAddress(placeId, places)]]</span>
+                  </paper-button>
+                </li>
+              </template>
+            </ul>
+        </section>
+      </template>
+      <template is="dom-if" if="[[project.categories]]">
+        <section id="categories">
+          <h3>[[localize('label:categories')]]</h3>
+          <ul>
+            <template is="dom-repeat" items="[[project.categories]]" as="category">
               <li>
-                <paper-button
-                  raised
-                  on-tap="_showLocationOnMap">
-                  <iron-icon icon="vientos:place"></iron-icon>
-                  <span class="ellipsis">[[_getPlaceAddress(placeId, places)]]</span>
-                </paper-button>
+                <iron-icon icon="vientos:[[category]]"></iron-icon>
+                <div>[[localize(category)]]</div>
               </li>
             </template>
           </ul>
-      </section>
-    </template>
-    <template is="dom-if" if="[[project.categories]]">
-      <section id="categories">
-        <h3>[[localize('label:categories')]]</h3>
-        <ul>
-          <template is="dom-repeat" items="[[project.categories]]" as="category">
-            <li>
-              <iron-icon icon="vientos:[[category]]"></iron-icon>
-              <div>[[localize(category)]]</div>
-            </li>
-          </template>
-        </ul>
-      </section>
-    </template>
-    <template is="dom-if" if="[[_showLinksAndContacts(project)]]">
-      <section>
-        <h3>[[localize('label:contacts-links')]]</h3>
-        <ul>
-        <template is="dom-repeat" items="[[project.links]]">
-          <li><a href="[[item]]" target="_blank">[[item]]</a></li>
-        </template>
-        </ul>
-        <ul>
-        <template is="dom-repeat" items="[[project.contacts]]">
-          <li>[[item]]</li>
-        </template>
-        </ul>
-      </section>
-    </template>
-    <section id="active-intents">
-      <h3>
-        [[localize('intents')]]
-      </h3>
-      <div>
-        <template is="dom-repeat" items="[[activeIntents]]">
-          <intent-preview intent="[[item]]"></intent-preview>
-        </template>
-      </div>
-    </section>
-    <template is="dom-if" if="[[admin]]">
-      <section id="expired-intents">
-        <h3>
-          [[localize('label:expired-intents')]]
-        </h3>
-        <div>
-          <template is="dom-repeat" items="[[expiredIntents]]">
-            <intent-preview intent="[[item]]"></intent-preview>
-          </template>
-        </div>
-      </section>
-      <section id="inactive-intents">
-        <h3>
-          [[localize('label:inactive-intents')]]
-        </h3>
-        <div>
-          <template is="dom-repeat" items="[[inactiveIntents]]">
-            <intent-preview intent="[[item]]"></intent-preview>
-          </template>
-        </div>
-      </section>
-    </template>
-    <footer class="page-footer">
-      <paper-button on-tap="_back">
-        <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
-        <iron-icon class="back-clue" icon="vientos:organization"></iron-icon>
-      </paper-button>
-      <div>
-        <template is="dom-if" if="[[canFollow]]">
-          <paper-icon-button
-            class="round"
-            icon="vientos:follow"
-            set$="[[following]]"
-            on-tap="_toggleFollow"
-            disabled="[[!online]]"
-          ></paper-icon-button>
-        </template>
-        <template is="dom-if" if="[[admin]]">
-          <paper-icon-button
-            class="round"
-            on-tap="_editDetails"
-            icon="vientos:settings"
-            disabled="[[!online]]"
-            ></paper-icon-button>
-        </template>
-      </div>
-      <template is="dom-if" if="[[admin]]">
-        <paper-icon-button
-          class="primary-action"
-          disabled="[[!online]]"
-          icon="vientos:add-intent"
-          on-tap="_newIntent">
-        </paper-icon-button>
+        </section>
       </template>
-    </footer>
+      <template is="dom-if" if="[[_showLinksAndContacts(project)]]">
+        <section>
+          <h3>[[localize('label:contacts-links')]]</h3>
+          <ul>
+          <template is="dom-repeat" items="[[project.links]]">
+            <li><a href="[[item]]" target="_blank">[[item]]</a></li>
+          </template>
+          </ul>
+          <ul>
+          <template is="dom-repeat" items="[[project.contacts]]">
+            <li>[[item]]</li>
+          </template>
+          </ul>
+        </section>
+      </template>
+      <section id="active-intents">
+        <h3>
+          [[localize('intents')]]
+        </h3>
+        <div>
+          <template is="dom-repeat" items="[[activeIntents]]">
+            <intent-preview intent="[[item]]"></intent-preview>
+          </template>
+        </div>
+      </section>
+      <template is="dom-if" if="[[admin]]">
+        <section id="expired-intents">
+          <h3>
+            [[localize('label:expired-intents')]]
+          </h3>
+          <div>
+            <template is="dom-repeat" items="[[expiredIntents]]">
+              <intent-preview intent="[[item]]"></intent-preview>
+            </template>
+          </div>
+        </section>
+        <section id="inactive-intents">
+          <h3>
+            [[localize('label:inactive-intents')]]
+          </h3>
+          <div>
+            <template is="dom-repeat" items="[[inactiveIntents]]">
+              <intent-preview intent="[[item]]"></intent-preview>
+            </template>
+          </div>
+        </section>
+      </template>
+    </app-header-layout>
 
   </template>
 

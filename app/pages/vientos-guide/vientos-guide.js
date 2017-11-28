@@ -63,5 +63,10 @@ class VientosGuide extends Polymer.mixinBehaviors(
     let index = this.sections.indexOf(this.section)
     this.set('section', this.sections[index + 1])
   }
+
+  _close () {
+    window.history.pushState({}, '', `/intents`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
 }
 window.customElements.define(VientosGuide.is, VientosGuide)

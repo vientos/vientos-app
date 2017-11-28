@@ -40,7 +40,8 @@ class IntentDetails extends Polymer.mixinBehaviors(
         computed: '_reviewsOfSuccessfulConversations(intent, reviews)'
       },
       intent: {
-        type: Object
+        type: Object,
+        observer: '_resizeHeader'
       },
       intents: {
         type: Object,
@@ -217,6 +218,12 @@ class IntentDetails extends Polymer.mixinBehaviors(
 
   _daysLeft (expiryDate) {
     return Math.floor((new Date(expiryDate) - Date.now()) / (1000 * 60 * 60 * 24))
+  }
+
+  _resizeHeader () {
+    setTimeout(() => {
+      this.$$('app-header-layout').notifyResize()
+    }, 100)
   }
 }
 window.customElements.define(IntentDetails.is, IntentDetails)

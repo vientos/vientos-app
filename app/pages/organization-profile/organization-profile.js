@@ -56,7 +56,8 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
       },
       project: {
       // passed from parent
-        type: Object
+        type: Object,
+        observer: '_resizeHeader'
       },
       intents: {
         type: Array,
@@ -142,6 +143,12 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
 
   _showLinksAndContacts (project) {
     return project && (project.links.length || project.contacts.length)
+  }
+
+  _resizeHeader () {
+    setTimeout(() => {
+      this.$$('app-header-layout').notifyResize()
+    }, 100)
   }
 }
 window.customElements.define(OrganizationDetails.is, OrganizationDetails)

@@ -289,7 +289,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       'projects',
       'intents',
       'menu',
-      'guide',
       'search-and-filter'
     ].includes(page)
   }
@@ -463,7 +462,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else return false
   }
 
-  _goToMap () {
+  _showMap () {
     if (this.currentPlace) {
       window.history.pushState({}, '', `${this.page}?place=${this.currentPlace._id}#map`)
     } else {

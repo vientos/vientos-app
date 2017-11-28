@@ -7,7 +7,7 @@
   <style include="vientos-styles">
 
   :host {
-    --toolbar-height: 48px;
+    --toolbar-height: 40px;
   }
 
   /* Will be prevented from affecting local DOM of Polymer elements */
@@ -33,18 +33,14 @@
     max-width: 600px;
     display: block;
     padding: 0;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     position: relative;
   }
 
   vientos-map {
     display: none;
     /*height: calc(100vh - 2 * var(--toolbar-height) - 1.5em);*/
-    height: 85vh;
-  }
-
-  iron-list {
-    margin-bottom: var(--toolbar-height);
+    height: calc(100vh - 2 * var(--toolbar-height) - 27px);
   }
 
   .conversations {
@@ -55,12 +51,11 @@
   @media screen and (min-width: 800px) {
     #app-container {
       display: flex;
-      min-height: 100vh;
     }
 
     #app-container iron-pages div[name=projects],
     #app-container iron-pages div[name=intents] {
-      height: 85vh;
+      height: calc(100vh - 2 * var(--toolbar-height) - 27px);
       display: flex;
       flex-direction: column;
     }
@@ -80,11 +75,12 @@
   }
 
 app-header {
-  height: calc(var(--toolbar-height) + 24px);
+  height: calc(2 * var(--toolbar-height) + 27px);
   background-color: var(--vientos-secondary-light);
 }
 
   app-header app-toolbar {
+    padding-left: 0;
     height: var(--toolbar-height);
   }
 
@@ -101,6 +97,7 @@ app-header {
 
 app-header app-toolbar iron-input {
   flex: 1;
+  margin-right: 8px;
 }
 
 app-header app-toolbar iron-input input {
@@ -131,6 +128,14 @@ app-header paper-icon-button {
   padding: 0;
 }
 
+app-header paper-button[name=menu] {
+  width: 24px;
+  flex: none;
+  padding-left: 8px;
+  padding-right: 0;
+  color: var(--vientos-grey)
+}
+
 app-header #geo {
   text-align: center;
   color: white;
@@ -148,44 +153,37 @@ app-header #geo paper-button {
   color: #444;
 }
 
- footer {
-   display: flex;
- }
+  #nav-toolbar {
+    height: var(--toolbar-height);
+    padding-top: 8px;
+    box-shadow: 0px 0px 8px #888;
+    background-color: var(--vientos-secondary-light);
+    z-index: 10000;
+    display: flex;
+  }
 
-footer paper-button {
-  flex: 1;
-  padding-bottom: 8px;
-  min-width: 0;
-}
-footer paper-button[name=map] {
-  color: var(--vientos-grey)
-}
-footer paper-button[name=menu] {
-  width: 24px;
-  flex: none;
-  padding-left: 8px;
-  padding-right: 0;
-  color: var(--vientos-grey)
-}
+    #nav-toolbar paper-button {
+      flex: 1;
+      padding-bottom: 8px;
+      min-width: 0;
+    }
+      #nav-toolbar paper-button[name=map] {
+        color: var(--vientos-grey)
+      }
 
-footer paper-button.iron-selected {
-  border-bottom: 4px solid var(--vientos-primary-light);
-  padding-bottom: 4px;
-}
+      #nav-toolbar paper-button.iron-selected {
+        border-bottom: 4px solid var(--vientos-primary-light);
+        padding-bottom: 4px;
+      }
 
-footer paper-button paper-badge {
-  --paper-badge-background: var(--vientos-secondary-1);
-  --paper-badge-text-color: white;
-}
-
-footer paper-button[active] iron-icon {
- background-color: var(--vientos-secondary-1);
- color: black;
- border-radius: 50%;
- padding: 5px 3px 5px 7px;
- opacity: 0.7;
- box-sizing: content-box;
-}
+        #nav-toolbar paper-button[active] iron-icon {
+         background-color: var(--vientos-secondary-1);
+         color: black;
+         border-radius: 50%;
+         padding: 5px 3px 5px 7px;
+         opacity: 0.7;
+         box-sizing: content-box;
+        }
 
 div[name=menu] {
   display: flex;
@@ -207,6 +205,26 @@ div[name=menu] li a {
 div[name=menu] li a:hover {
   background-color: var(--vientos-tertiary-3);
   color: white
+}
+
+div.badge {
+  background-color: var(--vientos-secondary-1);
+  margin-right: 5px;
+  border-radius: 50%;
+  min-width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+}
+
+paper-button[name=intents] div.badge  {
+  background-color: var(--vientos-complementary-3);
+}
+
+paper-button[name=projects] div.badge  {
+  background-color: var(--vientos-tertiary-3);
 }
   </style>
 </template>

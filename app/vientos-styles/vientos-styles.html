@@ -134,45 +134,59 @@
     box-shadow: 0 0 8px #888;
   }
 
-  footer {
-    height: var(--toolbar-height);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0px 0px 8px #888;
-    background-color: var(--vientos-secondary-light);
-    z-index: 10000;
+  app-header.page-header {
+    padding: 8px 0;
+    background-color: white;
   }
 
-  .page-footer {
+  app-header.page-header h2 {
+    padding: 0 8px;
+    background-color: white;
+  }
+
+  app-header.page-header h2[main-title] {
+    margin-top: -33px;
+  }
+
+  .action-toolbar {
+    position: sticky;
+    top:41px;
+    z-index: 100;
+    background-color: #eee;
+    padding: 0.5em 0;
+    box-shadow: 0 0 8px #888;
+    margin-bottom: 1em;
+  }
+
+  .action-toolbar {
+    height: var(--toolbar-height);
     display: flex;
     align-items: center;
     padding: 0 10px;
   }
 
-  .page-footer paper-button {
+  .action-toolbar paper-button {
     margin: 0;
     padding: 0;
     min-width: 0;
   }
 
-  .page-footer paper-button iron-icon,
-  .page-footer paper-icon-button {
+  .action-toolbar paper-button iron-icon,
+  .action-toolbar paper-icon-button {
       width: 35px;
       height: 35px;
   }
 
-  .page-footer paper-icon-button[set] {
+  .action-toolbar paper-icon-button[set] {
     background-color: var(--vientos-secondary-1);
   }
 
-  .page-footer div {
+  .action-toolbar div {
     flex: 1;
     text-align: center;
   }
 
-  .page-footer .back-clue {
+  .action-toolbar .back-clue {
     width: 28px;
     height: 28px;
     margin-left: 5px;
