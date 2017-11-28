@@ -158,8 +158,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       },
       filterActive: {
         type: Boolean,
-        computed: '_activeFilter(projects, availableIntents, visibleProjects, visibleIntents)',
-        observer: '_highlightBadges'
+        computed: '_activeFilter(filteredCategories, filteredCollaborationTypes)'
       },
       searchTerm: {
         type: String,
@@ -440,26 +439,8 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _highlightBadges (newVal) {
-    let projectsBtn = this.$$('paper-button[name=projects]')
-    let intentsBtn = this.$$('paper-button[name=intents]')
-    if (projectsBtn && intentsBtn) {
-      let projectsBadge = projectsBtn.getElementsByTagName('paper-badge')[0]
-      let intentsBadge = intentsBtn.getElementsByTagName('paper-badge')[0]
-      if ((newVal && !projectsBtn.className.includes('filtered')) || (!newVal && projectsBtn.className.includes('filtered'))) {
-        projectsBtn.toggleClass('filtered')
-        intentsBtn.toggleClass('filtered')
-        if (projectsBadge) projectsBadge.notifyResize()
-        if (intentsBadge) intentsBadge.notifyResize()
-        this.updateStyles()
-      }
-    }
-  }
-
-  _activeFilter (projects, availableIntents, visibleProjects, visibleIntents) {
-    if (projects && availableIntents && visibleProjects && visibleIntents) {
-      return projects.length !== visibleProjects.length || availableIntents.length !== visibleIntents.length
-    } else return false
+  _activeFilter (filteredCategories, filteredCollaborationTypes) {
+    return filteredCategories && filteredCollaborationTypes && filteredCategories.length && filteredCollaborationTypes.length
   }
 
   _showMap () {

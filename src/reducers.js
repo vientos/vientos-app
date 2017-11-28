@@ -4,7 +4,7 @@ const config = require('../config.json')
 export function filteredCategories (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_CATEGORIES:
-      return action.selection
+      return [...action.selection]
     default:
       return state
   }
@@ -13,7 +13,7 @@ export function filteredCategories (state = [], action) {
 export function filteredCollaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_COLLABORATION_TYPES:
-      return action.selection
+      return [...action.selection]
     default:
       return state
   }

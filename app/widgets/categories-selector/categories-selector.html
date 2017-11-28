@@ -2,6 +2,7 @@
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
 
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../vientos-styles/vientos-styles.html">
@@ -10,26 +11,29 @@
 <dom-module id="categories-selector">
   <template>
     <style include="vientos-styles">
-    .select-buttons paper-button[active] iron-icon {
-      background-color: var(--vientos-tertiary-1);
-    }
+      paper-button.iron-selected iron-icon {
+        background-color: var(--vientos-tertiary-1);
+      }
 
-    .select-buttons paper-button[active] div {
-      color: var(--vientos-tertiary-1);
-    }
+      paper-button.iron-selected div {
+        color: var(--vientos-tertiary-1);
+      }
     </style>
 
-    <div class="select-buttons">
+  <div class="select-buttons">
+    <iron-selector
+      attr-for-selected="name"
+      selected-values="[[selection]]"
+      on-selected-items-changed="_selectionChanged"
+      multi>
       <template is="dom-repeat" items="[[categories]]">
-        <paper-button
-          toggles
-          id="[[item.id]]"
-          on-tap="_toggleCategory">
+        <paper-button name="[[item.id]]">
           <iron-icon icon="vientos:[[item.id]]"></iron-icon>
           <div>[[localize(item.id)]]</div>
         </paper-button>
       </template>
-    </div>
+    </iron-selector>
+  </div>
 
   </template>
   <script src="categories-selector.js"></script>

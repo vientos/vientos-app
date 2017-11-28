@@ -12,12 +12,7 @@ class CategoriesSelector extends Polymer.mixinBehaviors(
         type: Array
       },
       selection: {
-        type: Array,
-        observer: '_selectionChanged'
-      },
-      initialSetActiveDone: {
-        type: Boolean,
-        value: false
+        type: Array
       },
       language: {
         type: String,
@@ -30,24 +25,8 @@ class CategoriesSelector extends Polymer.mixinBehaviors(
     }
   }
 
-  _selectionChanged (selection) {
-    if (selection && !this.initialSetActiveDone) {
-      selection.forEach(categoryId => {
-        let button = this.$$(`paper-button#${categoryId}`)
-        if (button && !button.active) button.set('active', true)
-      })
-      this.set('initialSetActiveDone', true)
-      this.updateStyles()
-    }
-  }
-
-  _toggleCategory (e) {
-    if (this.selection.includes(e.model.item.id)) {
-      this.set('selection', this.selection.filter(s => s !== e.model.item.id))
-    } else {
-      this.set('selection', [...this.selection, e.model.item.id])
-    }
-    this.dispatchEvent(new CustomEvent('selection-changed', { detail: this.selection }))
+  _selectionChanged (e) {
+    this.dispatchEvent(new CustomEvent('selection-changed', { detail: e.target.selectedValues }))
   }
 }
 window.customElements.define(CategoriesSelector.is, CategoriesSelector)

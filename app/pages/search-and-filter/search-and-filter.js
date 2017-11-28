@@ -55,7 +55,7 @@ class SearchAndFilter extends Polymer.mixinBehaviors(
   }
 
   _collaborationTypeSelectionChanged (e, detail) {
-    this.dispatch('updateFilteredCollaborationTypes', detail.value)
+    this.dispatch('updateFilteredCollaborationTypes', e.target.selectedValues)
   }
 
   _clearCollaborationTypesFilter (e) {

@@ -31,7 +31,7 @@
           <div class="select-buttons">
             <iron-selector
               attr-for-selected="name"
-              selected="[[filteredCollaborationTypes]]"
+              selected-values="[[filteredCollaborationTypes]]"
               on-selected-items-changed="_collaborationTypeSelectionChanged"
               multi>
               <template is="dom-repeat" items="[[collaborationTypes]]">

@@ -99,7 +99,11 @@ export function filterIntents (person, intents, projects, places, myConversation
     // TODO add default loaction to intents without location
     filtered = filtered.filter(intent => {
       return hasLocationsInBoundingBox(intent, places, boundingBox).length ||
-        intent.projects.some(projectId => hasLocationsInBoundingBox(getRef(projectId, projects), places, boundingBox).length)
+        intent.projects.some(projectId => {
+          let project = getRef(projectId, projects)
+          return hasLocationsInBoundingBox(project, places, boundingBox).length ||
+            project.locations.length === 0 // TODO remove when default location
+        })
     })
   }
   if (searchTerm && intentsIndex) {
