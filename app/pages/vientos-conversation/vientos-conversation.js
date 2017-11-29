@@ -10,7 +10,6 @@ class VientosConversation extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       addMessage: ActionCreators.addMessage,
-      addReview: ActionCreators.addReview,
       saveNotification: ActionCreators.saveNotification
     }
   }
@@ -74,22 +73,6 @@ class VientosConversation extends Polymer.mixinBehaviors(
         type: Boolean,
         value: false,
         computed: '_showNewMessage(conversation, conversationReviews, reviewing, online)'
-      },
-      newReview: {
-        type: String,
-        value: ''
-      },
-      rating: {
-        type: String,
-        value: null
-      },
-      success: {
-        type: Boolean,
-        value: false
-      },
-      reviewing: {
-        type: Boolean,
-        value: false
       },
       canReview: {
         type: Boolean,
@@ -173,51 +156,6 @@ class VientosConversation extends Polymer.mixinBehaviors(
     }
   }
 
-  _abort () {
-    this.set('success', false)
-    this._startReview()
-  }
-
-  _succeed () {
-    this.set('success', true)
-    this._startReview()
-  }
-
-  _startReview () {
-    this.set('reviewing', true)
-  }
-
-  _abortReview () {
-    this._reset()
-  }
-
-  _whoReviews () {
-    if (this.person._id === this.conversation.creator) {
-      return 'creatorOrMatchingIntentAdmin'
-    }
-    if (!this.conversation.matchingIntent) {
-      return 'causingIntentAdminReview'
-    } else {
-      // TODO
-    }
-  }
-
-  _sendReview () {
-    let review = {
-      type: 'Review',
-      creator: this.person._id,
-      as: this._whoReviews(),
-      body: this.newReview,
-      conversation: this.conversation._id,
-      causingIntent: this.conversation.causingIntent,
-      rating: this.rating,
-      success: this.success
-    }
-    if (this.conversation.matchingIntent) review.matchingIntent = this.conversation.matchingIntent
-    this.dispatch('addReview', review)
-    this._reset()
-  }
-
   _showNewMessage (conversation, conversationReviews, reviewing, online) {
     if (!conversation || !online) return false
     return conversationReviews.length === 0 && !reviewing
@@ -227,20 +165,9 @@ class VientosConversation extends Polymer.mixinBehaviors(
     return util.sameTeam(person._id, creator, conversation, intents) ? 'us' : 'others'
   }
 
-  _showNewReview (conversationReviews, canReview, reviewing) {
-    return canReview && (reviewing || conversationReviews.length === 1)
-  }
-
   _reset () {
     this.set('newMessage', '')
-    this.set('newReview', '')
-    this.set('rating', null)
-    this.set('reviewing', false)
     this.set('changeTurn', false)
-  }
-
-  _showReviewButton (canReview, reviewing, conversationReviews) {
-    return canReview && !reviewing && conversationReviews.length === 0
   }
 
   _bothMessaged (conversation) {
@@ -257,6 +184,11 @@ class VientosConversation extends Polymer.mixinBehaviors(
       notification.active = false
       this.dispatch('saveNotification', notification)
     })
+  }
+
+  _goToReview () {
+    window.history.pushState({}, '', `/review/${this.conversation._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _back () {

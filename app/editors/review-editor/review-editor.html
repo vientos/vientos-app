@@ -1,0 +1,98 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+
+
+<link rel="import" href="../../cards/review-card/review-card.html">
+<link rel="import" href="review-editor-styles.html">
+
+<dom-module id="review-editor">
+  <template>
+
+    <style include="review-editor-styles"></style>
+
+    <app-toolbar class="action-toolbar">
+      <template is="dom-if" if="[[hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:cancel"
+        ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[!hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:arrow-back"
+        ></paper-icon-button>
+      </template>
+      <div></div>
+      <paper-icon-button
+        on-tap="_save"
+        class="round"
+        icon="vientos:ok"
+        disabled="[[!readyToSave]]"
+      ></paper-icon-button>
+    </app-toolbar>
+
+    <section>
+      <template is="dom-if" if="[[conversationReviews.length]]">
+        <template is="dom-if" if="[[success]]">
+          <h3><iron-icon icon="vientos:success"></iron-icon>[[localize('label:successful-collaboration')]]</h3>
+        </template>
+        <template is="dom-if" if="[[!success]]">
+          <h3><iron-icon icon="vientos:aborted"></iron-icon>[[localize('label:aborted-conversation')]]</h3>
+        </template>
+      </template>
+      <template is="dom-if" if="[[conversationReviews.length]]">
+        <h4>[[localize('label:reviews')]]</h4>
+        <template is="dom-repeat" items="[[conversationReviews]]" as="review">
+          <review-card review="[[review]]" skip-link></review-card>
+        </template>
+      </template>
+      <template is="dom-if" if="[[!conversationReviews.length]]">
+        <div>
+          <h3>[[localize('label:interaction-outcome')]]</h3>
+          <iron-selector class="select-buttons" selected="{{outcome}}" attr-for-selected="name">
+            <paper-button name="dissatisfied">
+              <iron-icon icon="vientos:success"></iron-icon>
+              <div>[[localize('button:succeeded')]]</div>
+            </paper-button>
+            <paper-button name="neutral">
+              <iron-icon icon="vientos:aborted"></iron-icon>
+              <div>[[localize('button:aborted')]]</div>
+            </paper-button>
+          </iron-selector>
+        </div>
+      </template>
+      <div>
+        <h3>[[localize('label:rate-interaction')]]</h3>
+        <iron-selector class="select-buttons" selected="{{rating}}" attr-for-selected="name">
+          <paper-button name="dissatisfied">
+            <iron-icon icon="vientos:dissatisfied"></iron-icon>
+            <div>[[localize('label:dissatisfied')]]</div>
+          </paper-button>
+          <paper-button name="neutral">
+            <iron-icon icon="vientos:neutral"></iron-icon>
+            <div>[[localize('label:neutral')]]</div>
+          </paper-button>
+          <paper-button name="satisfied">
+            <iron-icon icon="vientos:satisfied"></iron-icon>
+            <div>[[localize('label:satisfied')]]</div>
+          </paper-button>
+        </iron-selector>
+      </div>
+      <paper-textarea
+        value="{{reviewBody}}" label="[[localize('label:review-body')]]">
+      </paper-textarea>
+    </section>
+
+  </template>
+
+  <script src="review-editor.js"></script>
+
+</dom-module>

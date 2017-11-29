@@ -7,6 +7,10 @@
 
     <style include="vientos-styles">
 
+    app-toolbar.action-toolbar {
+      top: 0;
+    }
+
     iron-image {
       height: 26px;
       width: calc(26px * var(--hex-width-ratio));
@@ -36,7 +40,7 @@
       opacity: 0.8;
       font-size: 16px;
     }
-    
+
     li.us {
       text-align: right;
       margin-left: 3em;
@@ -84,13 +88,9 @@
       };
     }
 
-    section#review paper-icon-button {
-      border: 1px solid #444;
-    }
-
-    section#review paper-icon-button.iron-selected {
-      background-color: var(--vientos-tertiary-2);
-      color: white;
+    paper-icon-button.primary-action[disabled]{
+      color: #666;
+      border-color: #666;
     }
 
     </style>

@@ -231,6 +231,9 @@ class VientosShell extends Polymer.mixinBehaviors(
           'conversation': () => {
             import(/* webpackChunkName: "vientos-conversation" */ '../pages/vientos-conversation/vientos-conversation.html')
           },
+          'review': () => {
+            import(/* webpackChunkName: "review-editor" */ '../editors/review-editor/review-editor.html')
+          },
           'guide': () => {
             import(/* webpackChunkName: "vientos-guide" */ '../pages/vientos-guide/vientos-guide.html')
           }
@@ -275,7 +278,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.set('page', 'intents')
     }
     // clear subrouteData.id
-    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation'].includes(page)) {
+    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation', 'review'].includes(page)) {
       delete this.subrouteData.id
     }
     this.$$('app-header-layout').notifyResize()
@@ -360,7 +363,7 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _findConversation (page, conversationCuid, conversations) {
     if (Array.from(arguments).includes(undefined) || !conversations.length) return null
-    if (page !== 'conversation') return null
+    if (!['conversation', 'review'].includes(page)) return null
     try {
       return util.getRef(conversationCuid, conversations)
     } catch (e) {
