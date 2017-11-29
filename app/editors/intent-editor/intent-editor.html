@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
@@ -21,13 +22,37 @@
 
     <style include="intent-editor-styles"></style>
 
-    <div id="admin">
+    <app-toolbar class="action-toolbar">
+      <template is="dom-if" if="[[hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:cancel"
+        ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[!hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:arrow-back"
+        ></paper-icon-button>
+      </template>
+      <div></div>
+      <paper-icon-button
+        on-tap="_save"
+        class="round"
+        icon="vientos:ok"
+        disabled="[[!readyToSave]]"
+      ></paper-icon-button>
+    </app-toolbar>
+
+    <section id="admin">
       <div>[[localize('label:admin-intent')]]</div>
       <paper-toggle-button
         on-tap="_toggleAdmin"
         disabled="[[!_toggleAdminEnabled(intentAdmin, updated, updated.admins)]]"
         checked="[[intentAdminChecked]]"></paper-toggle-button>
-    </div>
+    </section>
     <template is="dom-if" if="[[intentAdmin]]">
       <section>
         <div id="status">
@@ -156,29 +181,6 @@
         ></place-picker>
       </section>
     </template>
-    <footer class="page-footer">
-      <template is="dom-if" if="[[hasChanges]]">
-        <paper-icon-button
-          class="round"
-          on-tap="_cancel"
-          icon="vientos:cancel"
-        ></paper-icon-button>
-      </template>
-      <template is="dom-if" if="[[!hasChanges]]">
-        <paper-icon-button
-          class="round"
-          on-tap="_cancel"
-          icon="vientos:arrow-back"
-        ></paper-icon-button>
-      </template>
-      <div></div>
-      <paper-icon-button
-        on-tap="_save"
-        class="round"
-        icon="vientos:ok"
-        disabled="[[!readyToSave]]"
-      ></paper-icon-button>
-    </footer>
   </template>
 
   <script src="intent-editor.js"></script>
