@@ -70,7 +70,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
       },
       readyToSave: {
         type: Boolean,
-        computed: '_readyToSave(hasChanges, updated.title ,updated.description, updated.question, updated.collaborationType, updated.reciprocity, updated.expiryDate)',
+        computed: '_readyToSave(hasChanges, updated.title ,updated.description, updated.question, updated.collaborationType, updated.expiryDate)', // TODO updated.reciprocity,
         value: false
       },
       hasChanges: {
@@ -117,6 +117,8 @@ class IntentEditor extends Polymer.mixinBehaviors(
   }
 
   _save () {
+    let updated = this.updated
+    if (!updated.reciprocity) updated.reciprocity = 'gift'
     this.dispatch('saveIntent', this.updated, this.newImage)
     this._reset()
     // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
@@ -124,8 +126,8 @@ class IntentEditor extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _readyToSave (hasChanges, title, description, question, collaborationType, reciprocity, expiryDate) {
-    return !!title && !!description && !!question && !!collaborationType && !!reciprocity && !!expiryDate && !!hasChanges
+  _readyToSave (hasChanges, title, description, question, collaborationType, expiryDate) { // TODO reciprocity
+    return !!title && !!description && !!question && !!collaborationType && !!expiryDate && !!hasChanges
   }
 
   _hasChanges (intent, updated, newImage) {
