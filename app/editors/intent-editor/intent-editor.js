@@ -106,7 +106,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
 
   _makeClone () {
     if (this.intent) {
-      let updated = Object.assign({}, this.intent)
+      let updated = util.cloneDeep(this.intent)
       this.set('updated', updated)
     }
   }

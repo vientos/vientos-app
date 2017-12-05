@@ -55,7 +55,7 @@ class AccountSettings extends Polymer.mixinBehaviors(
 
   _makeClone () {
     if (this.person) {
-      let updated = Object.assign({}, this.person)
+      let updated = util.cloneDeep(this.person)
       this.set('updated', updated)
     }
   }

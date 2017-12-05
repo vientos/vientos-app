@@ -30,7 +30,8 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
       },
       updated: {
         type: Object,
-        value: null
+        value: null,
+        notify: true
       },
       admins: {
         type: Array,
@@ -79,7 +80,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
       },
       hasChanges: {
         type: Boolean,
-        computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.name, updated.description, updated.categories, updated.locations, updated.contacts, updated.links, updated.admins)',
+        computed: '_hasChanges(project, updated, newImage, newContact, newLink, updated.categories, updated.name, updated.description, updated.locations, updated.contacts, updated.links, updated.admins)',
         value: false
       },
       language: {
@@ -111,7 +112,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
 
   _makeClone () {
     if (this.project) {
-      let updated = Object.assign({}, this.project)
+      let updated = util.cloneDeep(this.project)
       this.set('updated', updated)
     }
   }
@@ -143,6 +144,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
 
   _categoriesSelectionChanged (e, selection) {
     this.set('updated.categories', selection)
+    this.notifyPath('updated.categories')
   }
 
   _reset () {
@@ -195,9 +197,10 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     return !!name && !!description && hasChanges
   }
 
-  _hasChanges (project, updated, newImage, newLink, newContact) {
+  _hasChanges (project, updated, newImage, newLink, newContact, cats) {
     if (!project) return true
-    return !util.deepEqual(project, updated) || newImage || newLink || newContact
+    let diff = !util.deepEqual(project, updated)
+    return diff || newImage || newLink || newContact
   }
 
   _createNewProject (creator) {
@@ -239,6 +242,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
 
   _removeLocation (e) {
     this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
+    this.notifyPath('updated.locations')
   }
 
   _placePicked (e) {

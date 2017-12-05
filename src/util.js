@@ -1,8 +1,9 @@
 import { escape } from 'escape-goat'
 import shave from 'shave'
 import deepEqual from 'deep-equal'
+import { cloneDeep } from 'lodash'
 
-export { deepEqual, shave }
+export { deepEqual, shave, cloneDeep }
 
 export function inBoundingBox (place, boundingBox) {
   return place.latitude <= boundingBox.ne.lat &&
