@@ -20,7 +20,8 @@ class VientosShell extends Polymer.mixinBehaviors(
       setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
       updateSearchTerm: ActionCreators.updateSearchTerm,
-      togglePersonalFilter: ActionCreators.togglePersonalFilter,
+      enablePersonalFilter: ActionCreators.enablePersonalFilter,
+      disablePersonalFilter: ActionCreators.disablePersonalFilter,
       hello: ActionCreators.hello,
       bye: ActionCreators.bye,
       fetchPerson: ActionCreators.fetchPerson,
@@ -104,6 +105,11 @@ class VientosShell extends Polymer.mixinBehaviors(
       geoTag: {
         type: String,
         value: config.map.name
+      },
+      toast: {
+        type: String,
+        statePath: 'toast',
+        observer: '_showToast'
       },
       wideScreen: {
         type: Boolean
@@ -306,7 +312,8 @@ class VientosShell extends Polymer.mixinBehaviors(
   _togglePersonalFilter (e) {
     let vientosMapElement = this.$$('vientos-map')
     if (vientosMapElement) vientosMapElement._showFullZoom()
-    this.dispatch('togglePersonalFilter')
+    if (this.personalFilter) this.dispatch('disablePersonalFilter')
+    else this.dispatch('enablePersonalFilter')
   }
 
   // _showPage404 () {
@@ -584,6 +591,10 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _showMenu () {
     this.set('page', 'menu')
+  }
+
+  _showToast (toast) {
+    if (toast) this.$.toast.open()
   }
 
   ready () {

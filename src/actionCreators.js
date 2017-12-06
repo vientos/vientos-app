@@ -49,8 +49,14 @@ export function updateSearchTerm (searchTerm) {
   }
 }
 
-export function togglePersonalFilter () {
+export function enablePersonalFilter () {
   return {
-    type: ActionTypes.TOGGLE_PERSONAL_FILTER
+    type: ActionTypes.ENABLE_PERSONAL_FILTER
+  }
+}
+
+export function disablePersonalFilter () {
+  return {
+    type: ActionTypes.DISABLE_PERSONAL_FILTER
   }
 }

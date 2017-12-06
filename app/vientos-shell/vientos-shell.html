@@ -14,6 +14,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
 
 <link rel="import" href="../widgets/conversations-list/conversations-list.html">
@@ -154,16 +155,18 @@
           project="[[currentProject]]"></organization-profile>
 
           <organization-editor
-          name="edit-project-details"
-          project="[[currentProject]]"></organization-editor>
+            name="edit-project-details"
+            project="[[currentProject]]"
+          ></organization-editor>
 
           <organization-editor
           name="new-project"
           creator="[[person]]"></organization-editor>
 
           <intent-details
-          name="intent"
-          intent="[[currentIntent]]"></intent-details>
+            name="intent"
+            intent="[[currentIntent]]"
+          ></intent-details>
 
           <intent-editor
           name="edit-intent"
@@ -203,6 +206,7 @@
           current-place="[[currentPlace._id]]"
           on-bbox="_updateBoundingBox"
           ></vientos-map>
+        <paper-toast id="toast">[[localize(toast.label)]]</paper-toast>
       </div>
   </app-header-layout>
 </div>

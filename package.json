@@ -15,7 +15,7 @@
     "redux": "^3.7.2",
     "shave": "^2.1.3",
     "vientos-client": "https://github.com/vientos/vientos-client.git#0.4.0",
-    "vientos-data": "https://github.com/vientos/vientos-data.git#0.2.3",
+    "vientos-data": "https://github.com/vientos/vientos-data.git#0.2.4",
     "workbox-sw": "^2.0.1"
   },
   "devDependencies": {

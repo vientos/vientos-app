@@ -41,7 +41,8 @@ const reducer = combineReducers({
   boundingBox: AppReducers.boundingBox,
   language: AppReducers.language,
   labels: AppReducers.labels,
-  online: AppReducers.online
+  online: AppReducers.online,
+  toast: AppReducers.toast
 })
 
 const sagaMiddleware = createSagaMiddleware()
