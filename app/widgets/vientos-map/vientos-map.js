@@ -136,13 +136,18 @@ class VientosMap extends Polymer.Element {
     let marker = Object.values(this.markers._layers).find(m => m.options.placeId === placeId)
     let icon
     if (marker) icon = marker._icon.querySelector('iron-icon')
+    let hasIntents = this.intents.filter(intent => intent.locations.includes(placeId)).length > 0
+    let hasProjects = this.projects.filter(project => project.locations.includes(placeId)).length > 0
+    let route = window.location.pathname
+    if (hasIntents && !hasProjects) route = '/intents'
+    if (!hasIntents && hasProjects) route = '/projects'
     if (placeId !== currentPlace) {
       if (icon) icon.classList.add('selected')
-      window.history.pushState({}, '', `${window.location.pathname}?place=${placeId}#map`)
+      window.history.pushState({}, '', `${route}?place=${placeId}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
     } else {
       if (icon) icon.classList.remove('selected')
-      window.history.replaceState({}, '', `${window.location.pathname}#map`)
+      window.history.replaceState({}, '', `${route}#map`)
       window.dispatchEvent(new CustomEvent('location-changed'))
     }
   }

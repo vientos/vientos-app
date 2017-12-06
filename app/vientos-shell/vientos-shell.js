@@ -480,7 +480,8 @@ class VientosShell extends Polymer.mixinBehaviors(
         (Math.abs(map.latitude - config.map.latitude) <= 0.002 &&
         Math.abs(map.longitude - config.map.longitude) <= 0.002 &&
         Math.abs(map.zoom - config.map.zoom) <= 0.002)) {
-      this.set('geoTag', config.map.name)
+      if (place) this.set('geoTag', place.address)
+      else this.set('geoTag', config.map.name)
     } else {
       // TODO: check if on my current position
       if (place) {
