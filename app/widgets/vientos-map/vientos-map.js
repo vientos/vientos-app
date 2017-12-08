@@ -185,7 +185,7 @@ class VientosMap extends Polymer.Element {
 
   ready () {
     super.ready()
-    import(/* webpackChunkName: "vientos-leaflet" */ 'vientos-leaflet').then(this._initializeMap.bind(this))
+    import(/* webpackChunkName: "vientos-leaflet" */ '../../../src/leaflet').then(this._initializeMap.bind(this))
   }
 }
 window.customElements.define(VientosMap.is, VientosMap)
