@@ -35,9 +35,9 @@
       }
 
       #projects iron-image {
-        width: 26px;
         height: 26px;
-        border-radius: 50%;
+        width: calc(26px * var(--hex-width-ratio));
+        clip-path: var(--hex-clip-path);
         vertical-align: sub;
       }
 

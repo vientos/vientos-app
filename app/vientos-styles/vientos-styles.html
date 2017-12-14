@@ -112,8 +112,8 @@
   .admin-list iron-image {
     vertical-align: sub;
     height: 26px;
-    width: calc(26px * var(--hex-width-ratio));
-    clip-path: var(--hex-clip-path);
+    width: 26px;
+    border-radius: 50%;
     margin-right: 5px;
   }
 
@@ -285,14 +285,6 @@
     --paper-input-container-color: var(--primary-color);
   }
 
-  vientos-icon-button[small] {
-    --vientos-icon-button-font-size: 12px;
-  }
-
-  vientos-icon-button[large] {
-    --vientos-icon-button-font-size: 20px;
-  }
-
   paper-button.primary-action {
     position: fixed;
     right: 0;
@@ -339,9 +331,9 @@
   }
 
   .org-logo {
-    width: 150px;
     height: 150px;
-    border-radius: 50%;
+    width: calc(150px * var(--hex-width-ratio));
+    clip-path: var(--hex-clip-path);
   }
 
   iron-icon[icon="vientos:organization"] {
