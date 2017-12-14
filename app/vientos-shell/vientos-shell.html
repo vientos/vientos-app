@@ -77,7 +77,7 @@
           <div id="geo" >
             <div class="ellipsis">[[geoTag]]</div>
           </div>
-          <app-toolbar id="nav-toolbar">
+          <iron-selector attr-for-selected="name" selected="[[tab]]" id="nav-toolbar">
             <paper-button name="intents" on-tap="_showIntentList">
               <div class="badge">[[visibleIntents.length]]</div>
               <iron-icon icon="vientos:intent"></iron-icon>
@@ -91,7 +91,7 @@
                 <iron-icon icon="vientos:map"></iron-icon>
               </paper-button>
             </template>
-          </app-toolbar>
+          </iron-selector>
         </app-header>
       </template>
       <div id="app-container">

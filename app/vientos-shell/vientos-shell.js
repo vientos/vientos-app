@@ -49,6 +49,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         reflectToAttribute: true,
         observer: '_pageChanged'
       },
+      tab: {
+        type: String
+      },
       projects: {
         type: Array,
         statePath: 'projects'
@@ -279,9 +282,12 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else {
       // TODO: this._showPage404();
     }
-    if (['intents', 'projects'].includes(page)) this.set('footerPage', page)
-    if (page === 'place') {
-      this.set('page', 'intents')
+    if (['intents', 'projects'].includes(page)) {
+      if (this.wideScreen && window.location.hash) {
+        window.history.replaceState({}, '', window.location.pathname)
+        window.dispatchEvent(new CustomEvent('location-changed'))
+      }
+      this.set('tab', window.location.hash ? 'map' : page)
     }
     // clear subrouteData.id
     if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation', 'review'].includes(page)) {
@@ -471,7 +477,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
-  _showIntentList () {
+  _showIntentList (e) {
     this.set('page', 'intents')
     this._goToList(this.page)
   }
@@ -597,6 +603,13 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (toast) this.$.toast.open()
   }
 
+  created () {
+    super.created()
+    let mqWideScreen = window.matchMedia('(min-width: 800px)')
+    this.set('wideScreen', mqWideScreen.matches)
+    mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
+  }
+
   ready () {
     super.ready()
     import(/* webpackChunkName: "vientos-map" */ '../widgets/vientos-map/vientos-map.html')
@@ -609,10 +622,6 @@ class VientosShell extends Polymer.mixinBehaviors(
 
     this.publicChannel = new EventSource(channelUrl())
     this.publicChannel.addEventListener('update', this._fetchPublicData.bind(this))
-
-    let mqWideScreen = window.matchMedia('(min-width: 800px)')
-    this.set('wideScreen', mqWideScreen.matches)
-    mqWideScreen.onchange = this._viewPortWidenessChanged.bind(this)
     this.dispatch('setOnline', navigator.onLine)
     window.addEventListener('online', () => {
       this.dispatch('setOnline', true)
