@@ -105,7 +105,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
   }
 
   _makeClone () {
-    if (this.intent) {
+    if (this.intent && (!this.updated || this.intent._id !== this.updated._id)) {
       let updated = util.cloneDeep(this.intent)
       this.set('updated', updated)
     }
@@ -131,7 +131,17 @@ class IntentEditor extends Polymer.mixinBehaviors(
   }
 
   _hasChanges (intent, updated, newImage) {
-    if (!intent) return true
+    if (!intent && updated) {
+      return updated.title !== '' ||
+      updated.description !== '' ||
+      updated.status !== 'active' ||
+      updated.question !== '' ||
+      updated.collaborationType !== null ||
+      updated.direction !== 'offer' ||
+      updated.expiryDate !== new Date(Date.now() + 32 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] ||
+      updated.locations.length > 0 ||
+      newImage
+    }
     return !util.deepEqual(intent, updated) || newImage
   }
 
@@ -141,8 +151,13 @@ class IntentEditor extends Polymer.mixinBehaviors(
     if (placePicker) placePicker.reset()
     let imagePicker = this.$$('image-picker')
     if (imagePicker) imagePicker.reset()
+    this.set('updated', null)
     this.updateStyles()
-    this._makeClone()
+    if (this.intent) {
+      this._makeClone()
+    } else {
+      this._createNewIntent(this.person, this.project)
+    }
   }
 
   _cancel () {
@@ -167,10 +182,10 @@ class IntentEditor extends Polymer.mixinBehaviors(
   }
 
   _createNewIntent (person, project) {
-    if (person && project) {
-      this._reset()
+    if (person && project && (!this.updated || this.intent._id !== this.updated._id)) {
       this.set('updated', {
         _id: mintUrl({ type: 'Intent' }),
+        status: 'active',
         title: '',
         description: '',
         question: '',

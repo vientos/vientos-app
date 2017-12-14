@@ -111,7 +111,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   }
 
   _makeClone () {
-    if (this.project) {
+    if (this.project && (!this.updated || this.project._id !== this.updated._id)) {
       let updated = util.cloneDeep(this.project)
       this.set('updated', updated)
     }
@@ -153,6 +153,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     this.set('newLink', '')
     this.$$('place-picker').reset()
     this.$$('image-picker').reset()
+    this.set('updated', null)
     if (this.project) {
       this._makeClone()
     } else {
@@ -198,13 +199,22 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
   }
 
   _hasChanges (project, updated, newImage, newLink, newContact, cats) {
-    if (!project) return true
+    if (!project && updated) {
+      return updated.categories.length > 0 ||
+      updated.links.length > 0 ||
+      updated.contacts.length > 0 ||
+      updated.locations.length > 0 ||
+      updated.logo ||
+      newImage ||
+      newLink ||
+      newContact
+    }
     let diff = !util.deepEqual(project, updated)
     return diff || newImage || newLink || newContact
   }
 
   _createNewProject (creator) {
-    if (creator) {
+    if (creator && !this.updated) {
       this.set('updated', {
         _id: mintUrl({ type: 'Project' }),
         type: 'Project',
