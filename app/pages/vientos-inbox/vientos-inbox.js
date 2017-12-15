@@ -29,7 +29,8 @@ class VientosInbox extends Polymer.mixinBehaviors(
   }
 
   _back () {
-    util.back('/intents')
+    window.history.pushState({}, '', '/intents')
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }
 window.customElements.define(VientosInbox.is, VientosInbox)

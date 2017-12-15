@@ -139,7 +139,7 @@ class IntentDetails extends Polymer.mixinBehaviors(
   }
 
   _back () {
-    util.back('/intents')
+    this.dispatchEvent(new CustomEvent('back'))
   }
 
   _startConversation () {

@@ -182,7 +182,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
   }
 
   _createNewIntent (person, project) {
-    if (person && project && (!this.updated || this.intent._id !== this.updated._id)) {
+    if (person && project && !this.updated) {
       this.set('updated', {
         _id: mintUrl({ type: 'Intent' }),
         status: 'active',

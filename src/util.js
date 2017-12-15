@@ -366,15 +366,6 @@ export function getThumbnailUrl (entity, width) {
   }
 }
 
-export function back (fallbackPath) {
-  let referrer = document.referrer.split('/')[2]
-  if (referrer === document.location.host) window.history.back()
-  else {
-    window.history.pushState({}, '', fallbackPath)
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-}
-
 export function getName (entity, collection) {
   if (!collection || !collection.length) return undefined
   return getRef(entity, collection).name

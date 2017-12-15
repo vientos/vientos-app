@@ -107,3 +107,12 @@ export function toast (state = null, action) {
       return state
   }
 }
+
+export function history (state = [], action) {
+  switch (action.type) {
+    case ActionTypes.SET_HISTORY:
+      return action.history
+    default:
+      return state
+  }
+}

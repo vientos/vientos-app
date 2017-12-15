@@ -19,6 +19,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       setLabels: ActionCreators.setLabels,
       setOnline: ActionCreators.setOnline,
       setBoundingBox: ActionCreators.setBoundingBox,
+      setHistory: ActionCreators.setHistory,
       updateSearchTerm: ActionCreators.updateSearchTerm,
       enablePersonalFilter: ActionCreators.enablePersonalFilter,
       disablePersonalFilter: ActionCreators.disablePersonalFilter,
@@ -51,6 +52,10 @@ class VientosShell extends Polymer.mixinBehaviors(
       },
       tab: {
         type: String
+      },
+      history: {
+        type: Array,
+        statePath: 'history'
       },
       projects: {
         type: Array,
@@ -257,7 +262,8 @@ class VientosShell extends Polymer.mixinBehaviors(
       '_updateGeoTag(currentPlace, boundingBox)',
       '_handleMapVisibility(page, wideScreen, showingMap)',
       '_indexProjects(lunr, projects)',
-      '_indexIntents(lunr, intents)'
+      '_indexIntents(lunr, intents)',
+      '_updateHistory(routeData.page, subrouteData.id)'
     ]
   }
 
@@ -296,6 +302,34 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.$$('app-header-layout').notifyResize()
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
+  }
+
+  _updateHistory (page, cuid) {
+    if (!this.history) return
+    let updated = [...this.history]
+    if (cuid && ['intent', 'project', 'conversation'].includes(page)) {
+      // removed existing record of the same type
+      updated = updated.filter(record => record.page !== page)
+      updated.push({ page, cuid })
+    } else if (['intents', 'projects'].includes(page)) {
+      updated = []
+    }
+    this.dispatch('setHistory', updated)
+  }
+
+  _smartBack () {
+    if (this.history.length === 1) {
+      let page = this.history[0].page === 'project' ? 'projects' : 'intents'
+      window.history.pushState({}, '', `/${page}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    } else {
+      let updated = [...this.history]
+      updated.pop()
+      let destination = updated.pop()
+      this.dispatch('setHistory', updated)
+      window.history.pushState({}, '', `/${destination.page}/${destination.cuid}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   }
 
   _hasFooter (page) {

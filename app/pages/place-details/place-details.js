@@ -41,7 +41,7 @@ class PlaceDetails extends Polymer.mixinBehaviors(
     return projects.filter(project => project.locations.includes(place._id))
   }
 
-  _back() {
+  _back () {
     util.back('/intents')
   }
 }

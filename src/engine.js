@@ -42,7 +42,8 @@ const reducer = combineReducers({
   language: AppReducers.language,
   labels: AppReducers.labels,
   online: AppReducers.online,
-  toast: AppReducers.toast
+  toast: AppReducers.toast,
+  history: AppReducers.history
 })
 
 const sagaMiddleware = createSagaMiddleware()

@@ -60,3 +60,10 @@ export function disablePersonalFilter () {
     type: ActionTypes.DISABLE_PERSONAL_FILTER
   }
 }
+
+export function setHistory (history) {
+  return {
+    type: ActionTypes.SET_HISTORY,
+    history
+  }
+}

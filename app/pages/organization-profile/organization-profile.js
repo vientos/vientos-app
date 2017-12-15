@@ -110,7 +110,7 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   }
 
   _back () {
-    util.back('/projects')
+    this.dispatchEvent(new CustomEvent('back'))
   }
 
   _canFollow (person, admin, project) {

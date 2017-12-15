@@ -152,7 +152,9 @@
 
           <organization-profile
           name="project"
-          project="[[currentProject]]"></organization-profile>
+          project="[[currentProject]]"
+          on-back="_smartBack"
+          ></organization-profile>
 
           <organization-editor
             name="edit-project-details"
@@ -166,6 +168,7 @@
           <intent-details
             name="intent"
             intent="[[currentIntent]]"
+            on-back="_smartBack"
           ></intent-details>
 
           <intent-editor
@@ -185,7 +188,9 @@
 
           <vientos-conversation
           name="conversation"
-          conversation="[[currentConversation]]"></vientos-conversation>
+          conversation="[[currentConversation]]"
+          on-back="_smartBack"
+          ></vientos-conversation>
 
           <review-editor
           name="review"
