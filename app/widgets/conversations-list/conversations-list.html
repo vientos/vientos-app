@@ -23,9 +23,9 @@
             </iron-image>
             [[_getName(conversation.creator, people)]]
           </div>
-          <template is="dom-if" if="[[_ourTurn(person, conversation, intents, reviews)]]">
+          <!-- <template is="dom-if" if="[[_hasStar(conversation, stars)]]">
             <iron-icon icon="vientos:star"></iron-icon>
-          </template>
+          </template> -->
         </li>
       </template>
     </ul>

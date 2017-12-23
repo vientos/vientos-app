@@ -229,10 +229,6 @@ function onThisIntentConversation (intent, notification, conversations) {
   return onThisIntent(conversation, intent)
 }
 
-function onThisIntentAndOurTurn (person, conversation, intent, reviews) {
-  return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent], reviews)
-}
-
 function orderIntents (intents, person, myConversations, notifications, reviews) {
   return intents.sort((a, b) => {
     let aNotifications = notifications.filter(notification => {
@@ -248,34 +244,18 @@ function orderIntents (intents, person, myConversations, notifications, reviews)
     } else if (bNotifications.length) {
       return 1
     } else {
-      let aOurTurnConversations = myConversations.filter(conversation => {
-        return onThisIntentAndOurTurn(person, conversation, a, reviews)
+      let aConversations = myConversations.filter(conversation => {
+        return onThisIntent(conversation, a)
       })
-      let bOurTurnConversations = myConversations.filter(conversation => {
-        return onThisIntentAndOurTurn(person, conversation, b, reviews)
+      let bConversations = myConversations.filter(conversation => {
+        return onThisIntent(conversation, b)
       })
-      if (aOurTurnConversations.length && bOurTurnConversations.length) {
-        let aLastConversationCreatedAt = new Date(aOurTurnConversations.pop().createdAt)
-        let bLastConversationCreatedAt = new Date(bOurTurnConversations.pop().createdAt)
-        return bLastConversationCreatedAt - aLastConversationCreatedAt
-      } else if (aOurTurnConversations.length) {
+      if (aConversations.length && bConversations.length) {
+        return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
+      } else if (aConversations.length) {
         return -1
-      } else if (bOurTurnConversations.length) {
+      } else if (bConversations.length) {
         return 1
-      } else {
-        let aConversations = myConversations.filter(conversation => {
-          return onThisIntent(conversation, a)
-        })
-        let bConversations = myConversations.filter(conversation => {
-          return onThisIntent(conversation, b)
-        })
-        if (aConversations.length && bConversations.length) {
-          return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
-        } else if (aConversations.length) {
-          return -1
-        } else if (bConversations.length) {
-          return 1
-        }
       }
     }
   })
@@ -314,10 +294,8 @@ export function filterConversationReviews (conversation, reviews) {
 
 export function conversationNeedsAttention (person, conversation, notifications, intents, reviews) {
   return notifications.some(notification => notification.object === conversation._id) ||
-    // don't show when both sides reviewed
-    filterConversationReviews(conversation, reviews).length === 0 ||
-    // don't show when I've reviewed
-    ourTurn(person, conversation, intents, reviews)
+    filterConversationReviews(conversation, reviews).length === 0
+    // TODO stars
 }
 
 export function filterIntentConversations (intent, myConversations) {
@@ -347,15 +325,6 @@ export function sameTeam (myId, otherPersonId, conversation, intents) {
   return (canAdminIntent(myId, causingIntent) && canAdminIntent(otherPersonId, causingIntent)) ||
         ((myId === conversation.creator || canAdminIntent(myId, matchingIntent)) &&
         (otherPersonId === conversation.creator || canAdminIntent(otherPersonId, matchingIntent)))
-}
-
-export function ourTurn (person, conversation, intents, reviews) {
-  let conversationReviews = filterConversationReviews(conversation, reviews)
-  if (!person || !conversation || intents.length === 0) return false
-  if (conversationReviews.length === 2) return false
-  if (conversationReviews.length === 1) return !sameTeam(person._id, conversationReviews[0].creator, conversation, intents)
-  let lastMessage = conversation.messages[conversation.messages.length - 1]
-  return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
 }
 
 export function getThumbnailUrl (entity, width) {

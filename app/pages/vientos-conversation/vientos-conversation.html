@@ -25,12 +25,12 @@
         <back-clue history="[[history]]"></back-clue>
       </paper-button>
       <div>
-        <paper-icon-button
+        <!-- <paper-icon-button
           class="round"
           on-tap="_toggleStar"
           icon="vientos:star"
           disabled="[[canToggleStar]]"
-          ></paper-icon-button>
+          ></paper-icon-button> -->
       </div>
         <paper-icon-button
           class="primary-action"
@@ -77,14 +77,6 @@
       </ul>
     </section>
     <template is="dom-if" if="[[showNewMessage]]">
-      <!-- <div id="turn-toggle">
-      <span>[[localize('label:their-turn')]]</span>
-      <paper-toggle-button toggles checked="[[turnToggleChecked]]" on-tap="_toggleTurn"></paper-toggle-button>
-      <span>[[localize('label:our-turn')]]</span>
-    </div>
-    <template is="dom-if" if="[[_toggleRequiresMessageHint(changeTurn, newMessage)]]">
-    <div class="hint">[[localize('hint:change-turn-needs-message')]]</div>
-  </template> -->
   <div id="message-controls">
     <paper-textarea value="{{newMessage}}" placeholder="[[localize('type-message')]]"></paper-textarea>
     <paper-icon-button

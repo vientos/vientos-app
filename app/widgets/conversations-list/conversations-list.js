@@ -48,7 +48,6 @@ class ConversationsList extends Polymer.mixinBehaviors(
     }
   }
 
-  _ourTurn (...args) { return util.ourTurn(...args) }
   _getName (...args) { return util.getName(...args) }
   _getImage (...args) { return util.getImage(...args) }
 
@@ -82,17 +81,8 @@ class ConversationsList extends Polymer.mixinBehaviors(
       } else if (bNotifications.length) {
         return 1
       } else {
-        let aOurTurn = util.ourTurn(person, a, intents, reviews)
-        let bOurTurn = util.ourTurn(person, b, intents, reviews)
-        if (aOurTurn && bOurTurn) {
-          return new Date(b.createdAt) - new Date(a.createdAt)
-        } else if (aOurTurn) {
-          return -1
-        } else if (bOurTurn) {
-          return 1
-        } else {
-          return new Date(b.createdAt) - new Date(a.createdAt)
-        }
+        // TODO stars
+        return new Date(b.createdAt) - new Date(a.createdAt)
       }
     })
   }

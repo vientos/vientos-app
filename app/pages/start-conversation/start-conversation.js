@@ -105,8 +105,7 @@ class StartConversation extends Polymer.mixinBehaviors(
     return {
       type: 'Message',
       body: '',
-      creator: this.person._id,
-      ourTurn: false
+      creator: this.person._id
     }
   }
 
