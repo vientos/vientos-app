@@ -12,6 +12,7 @@
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 
 <link rel="import" href="../../cards/intent-preview/intent-preview.html">
+<link rel="import" href="../../widgets/back-clue/back-clue.html">
 
 <link rel="import" href="organization-profile-styles.html">
 
@@ -29,7 +30,7 @@
       <app-toolbar class="action-toolbar">
         <paper-button on-tap="_back">
           <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
-          <iron-icon class="back-clue" icon="vientos:organization"></iron-icon>
+          <back-clue history="[[history]]"></back-clue>
         </paper-button>
         <div>
           <template is="dom-if" if="[[canFollow]]">

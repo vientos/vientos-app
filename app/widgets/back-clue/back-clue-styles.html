@@ -1,0 +1,19 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="back-clue-styles">
+  <template>
+    <style include="vientos-styles">
+      iron-image {
+        width: 26px;
+        height: 26px;
+        vertical-align: sub;
+      }
+      iron-image.organization {
+        width: calc(26px * var(--hex-width-ratio));
+        clip-path: var(--hex-clip-path);
+      }
+
+    </style>
+  </template>
+</dom-module>

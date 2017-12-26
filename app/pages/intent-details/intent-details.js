@@ -103,6 +103,10 @@ class IntentDetails extends Polymer.mixinBehaviors(
         type: Boolean,
         statePath: 'online'
       },
+      history: {
+        type: Array,
+        statePath: 'history'
+      },
       language: {
         type: String,
         statePath: 'language'

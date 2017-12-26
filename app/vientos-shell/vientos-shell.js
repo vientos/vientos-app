@@ -308,9 +308,13 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (!this.history) return
     let updated = [...this.history]
     if (cuid && ['intent', 'project', 'conversation'].includes(page)) {
+      let entity
+      try {
+        entity = util.getRef(cuid, this[`${page}s`])
+      } catch (e) {}
       // removed existing record of the same type
       updated = updated.filter(record => record.page !== page)
-      updated.push({ page, cuid })
+      updated.push({ page, cuid, entity })
     } else if (['intents', 'projects'].includes(page)) {
       updated = []
     }

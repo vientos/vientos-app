@@ -12,6 +12,7 @@
 
 <link rel="import" href="../../cards/review-card/review-card.html">
 <link rel="import" href="../../cards/intent-preview/intent-preview.html">
+<link rel="import" href="../../widgets/back-clue/back-clue.html">
 
 <link rel="import" href="vientos-conversation-styles.html">
 
@@ -21,7 +22,7 @@
     <app-toolbar class="action-toolbar">
       <paper-button on-tap="_back">
         <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
-        <iron-icon icon="vientos:intent"></iron-icon>
+        <back-clue history="[[history]]"></back-clue>
       </paper-button>
       <div>
         <paper-icon-button
