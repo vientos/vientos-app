@@ -1,7 +1,7 @@
 import { escape } from 'escape-goat'
 import shave from 'shave'
 import deepEqual from 'deep-equal'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 
 export { deepEqual, shave, cloneDeep }
 
