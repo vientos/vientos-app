@@ -120,10 +120,10 @@ class IntentEditor extends Polymer.mixinBehaviors(
     let updated = this.updated
     if (!updated.reciprocity) updated.reciprocity = 'gift'
     this.dispatch('saveIntent', this.updated, this.newImage)
-    this._reset()
     // we use replaceState to avoid when edting and going to intent page, that back button take you to edit again
     window.history.replaceState({}, '', `/intent/${this.updated._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+    this._reset()
   }
 
   _readyToSave (hasChanges, title, description, question, collaborationType, expiryDate) { // TODO reciprocity

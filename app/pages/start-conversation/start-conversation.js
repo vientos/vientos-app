@@ -74,9 +74,9 @@ class StartConversation extends Polymer.mixinBehaviors(
   _send () {
     this.conversation.messages.push(this.answer)
     this.dispatch('startConversation', this.conversation)
-    this._reset()
     window.history.pushState({}, '', `/conversation/${this.conversation._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
+    this._reset()
   }
 
   _reset () {
