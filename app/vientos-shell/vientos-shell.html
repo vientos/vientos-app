@@ -61,7 +61,7 @@
               <iron-icon icon="vientos:filter"></iron-icon>
             </a>
             <template is="dom-if" if="[[person]]">
-              <paper-button name="me" on-tap="_togglePersonalFilter" toggles>
+              <paper-button name="me" on-tap="_togglePersonalFilter">
                 <iron-image id="person-avatar" src="[[_getThumbnailUrl(person, 26)]]" sizing="cover"></iron-image>
                 <template is="dom-if" if="[[notifications.length]]">
                   <paper-badge label="[[notifications.length]]" for="person-avatar"></paper-badge>

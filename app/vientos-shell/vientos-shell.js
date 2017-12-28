@@ -358,6 +358,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (vientosMapElement) vientosMapElement._showFullZoom()
     if (this.personalFilter) this.dispatch('disablePersonalFilter')
     else this.dispatch('enablePersonalFilter')
+    this.$$('paper-button[name=me]').toggleClass('active')
   }
 
   // _showPage404 () {
@@ -367,6 +368,8 @@ class VientosShell extends Polymer.mixinBehaviors(
   _personChanged (person) {
     if (person) {
       this.dispatch('setLanguage', person.language)
+      let personalFilterButton = this.$$('paper-button[name=me]')
+      if (personalFilterButton && this.personalFilter) personalFilterButton.className = 'active'
 
       this._fetchProtectedData()
       this.privateChannel = new EventSource(channelUrl(person._id), { withCredentials: true })
