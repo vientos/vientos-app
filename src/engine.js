@@ -2,9 +2,10 @@
 import {
   createStore,
   applyMiddleware,
-  compose,
-  combineReducers
+  compose
 } from 'redux'
+import { persistStore, persistCombineReducers } from 'redux-persist'
+import storage from 'localforage'
 import PolymerRedux from 'polymer-redux'
 import {
   ActionTypes,
@@ -19,10 +20,15 @@ import * as AppReducers from './reducers'
 import * as util from './util'
 
 const config = require('../config.json')
+const persistConfig = {
+  key: 'redux',
+  blacklist: ['online', 'toast', 'loginProviders'],
+  storage
+}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const reducer = combineReducers({
+const reducer = persistCombineReducers(persistConfig, {
   loginProviders: DataReducers.loginProviders,
   projects: DataReducers.projects,
   categories: DataReducers.categories,
@@ -51,6 +57,8 @@ const store = createStore(
   reducer,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 )
+
+persistStore(store)
 
 const handleLatest = [
   ActionTypes.FETCH_PROJECTS_REQUESTED,
