@@ -25,6 +25,9 @@ class VientosShell extends Polymer.mixinBehaviors(
       disablePersonalFilter: ActionCreators.disablePersonalFilter,
       hello: ActionCreators.hello,
       bye: ActionCreators.bye,
+      setResume: ActionCreators.setResume,
+      favor: ActionCreators.favor,
+      follow: ActionCreators.follow,
       fetchPerson: ActionCreators.fetchPerson,
       fetchPeople: ActionCreators.fetchPeople,
       fetchPlaces: ActionCreators.fetchPlaces,
@@ -73,6 +76,10 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'person',
         observer: '_personChanged'
+      },
+      resume: {
+        type: Object,
+        statePath: 'resume'
       },
       myConversations: {
         type: Array,
@@ -370,6 +377,12 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.dispatch('setLanguage', person.language)
       let personalFilterButton = this.$$('paper-button[name=me]')
       if (personalFilterButton && this.personalFilter) personalFilterButton.className = 'active'
+      if (this.resume) {
+        window.history.pushState({}, '', this.resume.path)
+        window.dispatchEvent(new CustomEvent('location-changed'))
+        this.dispatch(this.resume.action, person, this.resume.object)
+        this.dispatch('setResume', null)
+      }
 
       this._fetchProtectedData()
       this.privateChannel = new EventSource(channelUrl(person._id), { withCredentials: true })

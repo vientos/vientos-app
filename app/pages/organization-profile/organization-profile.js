@@ -10,7 +10,8 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       follow: ActionCreators.follow,
-      unfollow: ActionCreators.unfollow
+      unfollow: ActionCreators.unfollow,
+      setResume: ActionCreators.setResume
     }
   }
 
@@ -118,14 +119,24 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
   }
 
   _canFollow (person, admin, project) {
-    return person && !admin && project
+    return project && (!person || (person && !admin))
   }
 
   _toggleFollow () {
-    if (!this.following) {
-      this.dispatch('follow', this.person, this.project)
+    if (this.person) {
+      if (!this.following) {
+        this.dispatch('follow', this.person, this.project)
+      } else {
+        this.dispatch('unfollow', this.following)
+      }
     } else {
-      this.dispatch('unfollow', this.following)
+      this.dispatch('setResume', {
+        path: window.location.pathname,
+        action: 'follow',
+        object: this.project
+      })
+      window.history.pushState({}, '', '/me')
+      window.dispatchEvent(new CustomEvent('location-changed'))
     }
   }
 

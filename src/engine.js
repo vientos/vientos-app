@@ -49,7 +49,8 @@ const reducer = persistCombineReducers(persistConfig, {
   labels: AppReducers.labels,
   online: AppReducers.online,
   toast: AppReducers.toast,
-  history: AppReducers.history
+  history: AppReducers.history,
+  resume: AppReducers.resume
 })
 
 const sagaMiddleware = createSagaMiddleware()

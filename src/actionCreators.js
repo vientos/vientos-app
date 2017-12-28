@@ -28,6 +28,13 @@ export function setBoundingBox (boundingBox) {
   }
 }
 
+export function setResume (resume) {
+  return {
+    type: ActionTypes.SET_RESUME,
+    resume
+  }
+}
+
 export function updateFilteredCategories (selection) {
   return {
     type: ActionTypes.UPDATE_FILTERED_CATEGORIES,

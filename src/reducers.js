@@ -81,6 +81,15 @@ export function online (state = false, action) {
   }
 }
 
+export function resume (state = null, action) {
+  switch (action.type) {
+    case ActionTypes.SET_RESUME:
+      return action.resume
+    default:
+      return state
+  }
+}
+
 export function toast (state = null, action) {
   switch (action.type) {
     case ActionTypes.ENABLE_PERSONAL_FILTER:

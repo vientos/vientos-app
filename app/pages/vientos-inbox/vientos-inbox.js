@@ -1,4 +1,4 @@
-import { ReduxMixin, util } from '../../../src/engine.js'
+import { ReduxMixin, ActionCreators } from '../../../src/engine.js'
 
 class VientosInbox extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
@@ -6,6 +6,12 @@ class VientosInbox extends Polymer.mixinBehaviors(
     Polymer.GestureEventListeners(Polymer.Element)
   )) {
   static get is () { return 'vientos-inbox' }
+
+  static get actions () {
+    return {
+      setResume: ActionCreators.setResume
+    }
+  }
 
   static get properties () {
     return {
@@ -28,9 +34,9 @@ class VientosInbox extends Polymer.mixinBehaviors(
     }
   }
 
-  _back () {
-    window.history.pushState({}, '', '/intents')
-    window.dispatchEvent(new CustomEvent('location-changed'))
+  _close () {
+    this.dispatch('setResume', null)
+    window.history.back()
   }
 }
 window.customElements.define(VientosInbox.is, VientosInbox)

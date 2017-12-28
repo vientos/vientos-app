@@ -3,6 +3,8 @@
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
 <link rel="import" href="vientos-inbox-styles.html">
 
 <dom-module id="vientos-inbox">
@@ -10,6 +12,9 @@
 
     <style include="vientos-inbox-styles"></style>
 
+    <header>
+      <paper-icon-button icon="vientos:cancel" on-tap="_close"></paper-icon-button>
+    </header>
     <template is="dom-if" if="[[person]]">
       <!-- TODO: message that already logged in -->
     </template>
@@ -26,13 +31,6 @@
         </template>
       </ul>
     </template>
-    <footer class="page-footer">
-      <paper-icon-button
-        class="round"
-        on-tap="_back"
-        icon="vientos:arrow-back"
-      ></paper-icon-button>
-    </footer>
   </template>
 
   <script src="vientos-inbox.js"></script>

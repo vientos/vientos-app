@@ -12,6 +12,7 @@ class IntentDetails extends Polymer.mixinBehaviors(
       favor: ActionCreators.favor,
       unfavor: ActionCreators.unfavor,
       saveIntent: ActionCreators.saveIntent,
+      setResume: ActionCreators.setResume,
       fetchMyConversations: ActionCreators.fetchMyConversations,
       fetchNotifications: ActionCreators.fetchNotifications
     }
@@ -186,14 +187,24 @@ class IntentDetails extends Polymer.mixinBehaviors(
   }
 
   _canFavor (person, projectAdmin) {
-    return person && !projectAdmin
+    return !person || (person && !projectAdmin)
   }
 
   _toggleFavor () {
-    if (!this.favoring) {
-      this.dispatch('favor', this.person, this.intent)
+    if (this.person) {
+      if (!this.favoring) {
+        this.dispatch('favor', this.person, this.intent)
+      } else {
+        this.dispatch('unfavor', this.favoring)
+      }
     } else {
-      this.dispatch('unfavor', this.favoring)
+      this.dispatch('setResume', {
+        path: window.location.pathname,
+        action: 'favor',
+        object: this.intent
+      })
+      window.history.pushState({}, '', '/me')
+      window.dispatchEvent(new CustomEvent('location-changed'))
     }
   }
 
