@@ -148,8 +148,18 @@ class IntentDetails extends Polymer.mixinBehaviors(
   }
 
   _startConversation () {
-    window.history.pushState({}, '', `/new-conversation/${this.intent._id.split('/').pop()}`)
-    window.dispatchEvent(new CustomEvent('location-changed'))
+    let destination = `/new-conversation/${this.intent._id.split('/').pop()}`
+    if (this.person) {
+      window.history.pushState({}, '', destination)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    } else {
+      this.dispatch('setResume', {
+        path: window.location.pathname,
+        destination
+      })
+      window.history.pushState({}, '', '/me')
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   }
 
   _continueConversation () {
@@ -173,7 +183,7 @@ class IntentDetails extends Polymer.mixinBehaviors(
   }
 
   _showPrimaryAction (person, projectAdmin) {
-    return person && !projectAdmin
+    return !person || (person && !projectAdmin)
   }
 
   _reviewsOfAbortedConversations (intent, reviews) {

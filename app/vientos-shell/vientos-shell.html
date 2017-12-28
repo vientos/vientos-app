@@ -138,12 +138,12 @@
           <div name="menu">
             <ul>
               <li><a href="/guide">[[localize('guide')]]</a></li>
+              <li><a href="/new-project" on-tap="goFromMenu">[[localize('button:add-project')]]</a></li>
+              <li><a href="/account" on-tap="goFromMenu">[[localize('button:account-settings')]]</a></li>
               <template is="dom-if" if="[[!person]]">
                 <li><a href="/me">[[localize('button:login')]]</a></li>
               </template>
               <template is="dom-if" if="[[person]]">
-                <li><a href="/new-project">[[localize('button:add-project')]]</a></li>
-                <li><a href="/account">[[localize('button:account-settings')]]</a></li>
                 <li><a href="/" on-tap="_logout">[[localize('button:logout')]]</a></li>
               </template>
             </ul>

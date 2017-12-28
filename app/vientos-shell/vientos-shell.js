@@ -380,8 +380,13 @@ class VientosShell extends Polymer.mixinBehaviors(
       if (this.resume) {
         window.history.pushState({}, '', this.resume.path)
         window.dispatchEvent(new CustomEvent('location-changed'))
-        this.dispatch(this.resume.action, person, this.resume.object)
-        this.dispatch('setResume', null)
+        if (this.resume.action) {
+          this.dispatch(this.resume.action, person, this.resume.object)
+          this.dispatch('setResume', null)
+        } else if (this.resume.destination) {
+          window.history.replaceState({}, '', this.resume.destination)
+          window.dispatchEvent(new CustomEvent('location-changed'))
+        }
       }
 
       this._fetchProtectedData()
@@ -633,6 +638,17 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _logout () {
     this.dispatch('bye', this.session)
+  }
+
+  goFromMenu (e) {
+    if (this.person) return
+    e.preventDefault()
+    this.dispatch('setResume', {
+      path: window.location.pathname,
+      destination: e.target.href
+    })
+    window.history.pushState({}, '', '/me')
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _resizeIntentsList (myConversations) {
