@@ -382,11 +382,11 @@ class VientosShell extends Polymer.mixinBehaviors(
         window.dispatchEvent(new CustomEvent('location-changed'))
         if (this.resume.action) {
           this.dispatch(this.resume.action, person, this.resume.object)
-          this.dispatch('setResume', null)
         } else if (this.resume.destination) {
           window.history.replaceState({}, '', this.resume.destination)
           window.dispatchEvent(new CustomEvent('location-changed'))
         }
+        this.dispatch('setResume', null)
       }
 
       this._fetchProtectedData()
