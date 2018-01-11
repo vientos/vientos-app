@@ -15,6 +15,7 @@
 <link rel="import" href="../../widgets/conversations-list/conversations-list.html">
 <link rel="import" href="../../widgets/back-clue/back-clue.html">
 <link rel="import" href="../../cards/review-card/review-card.html">
+<link rel="import" href="../../cards/intent-preview/intent-preview.html">
 
 <link rel="import" href="intent-details-styles.html">
 
@@ -79,7 +80,7 @@
           <div class="hint">[[localize('hint:to-activate-expired')]]</div>
         </template>
       </template>
-      <template is="dom-if" if="[[_showConversations(intentAdmin, conversations)]]">
+      <template is="dom-if" if="[[conversations.length]]">
         <section>
           <h3>
             [[localize('label:open-conversations')]]
@@ -167,7 +168,22 @@
           </div>
         </template>
       </section>
-
+      <template is="dom-if" if="[[otherProjectAdmin]]">
+        <section id="matching">
+          <h3>[[localize('label:matched-intents')]]</h3>
+          <template is="dom-repeat" items="[[matchingIntents]]">
+            <intent-preview
+              intent="[[item]]"
+              show-projects></intent-preview>
+          </template>
+          <template is="dom-if" if="[[potentialMatches.length]]">
+            <paper-button class="fancy-button" on-tap="_goToMatchSelector">
+              FIXME: i18n - You have [[potentialMatches.length]] intents that could possibly match
+            </paper-button>
+          </template>
+          TODO: info on how to create new intent that matches
+        </section>
+      </template>
       <template is="dom-if" if="[[successfulReviewGroups.length]]">
         <section class="reviews">
           <h3>[[localize('label:collaborations')]]</h3>

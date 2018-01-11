@@ -92,6 +92,23 @@ class IntentDetails extends Polymer.mixinBehaviors(
         computed: '_checkIfAdmin(person, intent)',
         observer: '_intentAdminChanged'
       },
+      otherProjectAdmin: {
+        type: Boolean,
+        value: false,
+        computed: '_checkIfOtherProjectAdmin(person, projectAdmin, projects)'
+      },
+      matchings: {
+        type: Array,
+        statePath: 'matchings'
+      },
+      matchingIntents: {
+        type: Array,
+        computed: '_computeMatchingIntents(intent, matchings, intents)'
+      },
+      potentialMatches: {
+        type: Array,
+        computed: '_findPotentialMatches(intent, person, projects, intents, matchings)'
+      },
       active: {
         type: Boolean,
         computed: '_checkIfActive(intent)'
@@ -123,6 +140,8 @@ class IntentDetails extends Polymer.mixinBehaviors(
   _checkIfFavors (...args) { return util.checkIfFavors(...args) }
   _checkIfExpired (...args) { return util.checkIfExpired(...args) }
   _getIntentProjects (...args) { return util.getIntentProjects(...args) }
+  _findPotentialMatches (...args) { return util.findPotentialMatches(...args) }
+  _computeMatchingIntents (...args) { return util.filterMatchedIntents(...args) }
   _getRef (...args) { return util.getRef(...args) }
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
@@ -131,6 +150,10 @@ class IntentDetails extends Polymer.mixinBehaviors(
 
   _checkIfActive (intent) {
     if (intent) return intent.status === 'active'
+  }
+
+  _checkIfOtherProjectAdmin (person, projectAdmin, projects) {
+    return !!person && !projectAdmin && !!projects.length && !!projects.find(p => p.admins.includes(person._id))
   }
 
   _edit () {
@@ -165,10 +188,6 @@ class IntentDetails extends Polymer.mixinBehaviors(
   _continueConversation () {
     window.history.pushState({}, '', `/conversation/${this.currentConversation._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
-  _showConversations (projectAdmin, conversations) {
-    return projectAdmin && conversations && conversations.length
   }
 
   _currentConversation (person, projectAdmin, conversations, reviews) {
@@ -249,6 +268,11 @@ class IntentDetails extends Polymer.mixinBehaviors(
     setTimeout(() => {
       this.$$('app-header-layout').notifyResize()
     }, 100)
+  }
+
+  _goToMatchSelector () {
+    window.history.replaceState({}, '', `/select-match/${this.intent._id.split('/').pop()}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }
 window.customElements.define(IntentDetails.is, IntentDetails)

@@ -35,6 +35,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       fetchProjects: ActionCreators.fetchProjects,
       fetchIntents: ActionCreators.fetchIntents,
       fetchReviews: ActionCreators.fetchReviews,
+      fetchMatchings: ActionCreators.fetchMatchings,
       fetchMyConversations: ActionCreators.fetchMyConversations,
       fetchNotifications: ActionCreators.fetchNotifications,
       saveSubscription: ActionCreators.saveSubscription
@@ -255,6 +256,9 @@ class VientosShell extends Polymer.mixinBehaviors(
           'review': () => {
             import(/* webpackChunkName: "review-editor" */ '../editors/review-editor/review-editor.html')
           },
+          'select-match': () => {
+            import(/* webpackChunkName: "match-editor" */ '../editors/match-editor/match-editor.html')
+          },
           'guide': () => {
             import(/* webpackChunkName: "vientos-guide" */ '../pages/vientos-guide/vientos-guide.html')
           }
@@ -303,7 +307,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.set('tab', window.location.hash ? 'map' : page)
     }
     // clear subrouteData.id
-    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review'].includes(page)) {
+    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review', 'select-match'].includes(page)) {
       delete this.subrouteData.id
     }
     this.$$('app-header-layout').notifyResize()
@@ -425,7 +429,7 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _findIntent (page, intentCuid, intents) {
     if (Array.from(arguments).includes(undefined) || !intents.length) return null
-    if (!['intent', 'edit-intent', 'new-conversation'].includes(page)) return null
+    if (!['intent', 'edit-intent', 'new-conversation', 'select-match'].includes(page)) return null
     try {
       return util.getRef(intentCuid, intents)
     } catch (e) {
@@ -624,6 +628,7 @@ class VientosShell extends Polymer.mixinBehaviors(
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
     this.dispatch('fetchReviews')
+    this.dispatch('fetchMatchings')
   }
 
   _fetchProtectedData () {

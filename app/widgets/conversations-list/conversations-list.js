@@ -68,7 +68,7 @@ class ConversationsList extends Polymer.mixinBehaviors(
     if (!person) return []
     return conversations.filter(conversation => {
       // show if has notification
-      return util.intentPrimaryForMyConversation(person, conversation, intent, notifications, intents, reviews)
+      return util.conversationNeedsAttention(person, conversation, notifications, intents, reviews)
     }).sort((a, b) => {
       let aNotifications = notifications.filter(notification => notification.object === a._id)
       let bNotifications = notifications.filter(notification => notification.object === b._id)

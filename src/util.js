@@ -206,17 +206,30 @@ export function getPlaceAddress (placeId, places) {
   }
 }
 
-export function findPotentialMatches (person, projects, intents, matchedIntent) {
+export function findPotentialMatches (matchedIntent, person, projects, intents, matchings) {
   if (Array.from(arguments).includes(undefined)) return
   if (matchedIntent && person) {
     return intents.filter(intent => {
-      return matchedIntent.direction !== intent.direction && intent.projects.some(projectId => {
+      return matchings.some(matching => matching.intents.includes(matchedIntent) && matching.intents.includes(intent))
+    }).filter(intent => {
+      return matchedIntent.direction !== intent.direction &&
+      matchedIntent.collaborationType === intent.collaborationType &&
+      intent.projects.some(projectId => {
         return projects.filter(project => {
           return project.admins.includes(person._id)
         }).some(project => project._id === projectId)
       })
     })
   }
+}
+
+export function filterMatchedIntents (theIntent, matchings, intents) {
+  if (Array.from(arguments).includes(undefined) || !theIntent) return []
+  return intents.filter(anIntent => matchings.some(matching => {
+    return theIntent._id !== anIntent._id &&
+    matching.intents.includes(theIntent._id) &&
+    matching.intents.includes(anIntent._id)
+  }))
 }
 
 function onThisIntent (conversation, intent) {

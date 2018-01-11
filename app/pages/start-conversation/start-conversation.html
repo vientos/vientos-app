@@ -1,11 +1,7 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
 <link rel="import" href="../../cards/intent-preview/intent-preview.html">
@@ -40,31 +36,6 @@
     <p>[[intent.question]]</p>
     <div id="response">
       <template is="dom-if" if="[[online]]">
-        <!-- <div>
-            <paper-textarea
-             label="[[localize('label:intent-answer')]]"
-             value="{{answer.body}}"
-             autofocus>
-           </paper-textarea>
-        </div> -->
-
-        <!-- <template is="dom-if" if="[[potentialMatches.length]]">
-          <template is="dom-if" if="[[!selectingMatch]]">
-            <paper-button id="select-match" raised on-tap="_toggleSelectingMatch">[[localize('button:select-matching')]]</paper-button>
-          </template>
-          <template is="dom-if" if="[[selectingMatch]]" restamp>
-            <paper-dropdown-menu label="[[localize('label:matching-intent')]]">
-              <paper-listbox
-                class="dropdown-content"
-                attr-for-selected="name"
-                on-iron-select="_setMatchingIntent">
-                <template is="dom-repeat" items="[[potentialMatches]]">
-                  <paper-item name="[[item._id]]">[[item.title]]</paper-item>
-                </template>
-              </paper-listbox>
-            </paper-dropdown-menu>
-          </template>
-        </template> -->
         <paper-textarea value="{{answer.body}}" placeholder="[[localize('label:intent-answer')]]"></paper-textarea>
         <paper-icon-button
         icon="vientos:send"

@@ -10,7 +10,8 @@ class VientosConversation extends Polymer.mixinBehaviors(
   static get actions () {
     return {
       addMessage: ActionCreators.addMessage,
-      saveNotification: ActionCreators.saveNotification
+      saveNotification: ActionCreators.saveNotification,
+      saveConversation: ActionCreators.saveConversation
     }
   }
 
@@ -24,9 +25,17 @@ class VientosConversation extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'people'
       },
+      projects: {
+        type: Object,
+        statePath: 'projects'
+      },
       intents: {
-        type: Array,
+        type: Object,
         statePath: 'intents'
+      },
+      matchings: {
+        type: Object,
+        statePath: 'matchings'
       },
       notifications: {
         type: Array,
@@ -55,7 +64,24 @@ class VientosConversation extends Polymer.mixinBehaviors(
       },
       matchingIntent: {
         type: Object,
+        value: null,
         computed: '_getMatchingIntent(conversation, intents)'
+      },
+      availableMatchedIntents: {
+        type: Array,
+        computed: '_computeAvailableMatchedIntents(causingIntent, matchings, intents)'
+      },
+      ableToMatch: {
+        type: Boolean,
+        computed: '_computeAbleToMatch(person, matchingIntent, projects)'
+      },
+      selectingMatch: {
+        type: Boolean,
+        value: false
+      },
+      newMatchingIntentId: {
+        type: String,
+        value: null
       },
       newMessage: {
         type: String,
@@ -100,6 +126,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
   _getImage (...args) { return util.getImage(...args) }
   _addHyperLinks (...args) { return util.addHyperLinks(...args) }
   _filterConversationReviews (...args) { return util.filterConversationReviews(...args) }
+  _computeAvailableMatchedIntents (...args) { return util.filterMatchedIntents(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
 
   _getCausingIntent (conversation, intents) {
@@ -107,7 +134,9 @@ class VientosConversation extends Polymer.mixinBehaviors(
   }
 
   _getMatchingIntent (conversation, intents) {
-    if (conversation && intents && conversation.matchingIntent && intents.length) { return util.getRef(conversation.matchingIntent, intents) }
+    if (conversation && intents && conversation.matchingIntent && intents.length) {
+      return util.getRef(conversation.matchingIntent, intents)
+    } else return null
   }
 
   _sendMessage () {
@@ -141,12 +170,36 @@ class VientosConversation extends Polymer.mixinBehaviors(
     return conversationReviews.length === 0 && !reviewing
   }
 
+  _computeAbleToMatch (person, matchingIntent, projects) {
+    if (Array.from(arguments).includes(undefined)) return false
+    return person && !matchingIntent && projects.some(project => project.admins.includes(person._id))
+  }
+
+  _toggleSelectingMatch () {
+    this.set('selectingMatch', !this.selectingMatch)
+  }
+
+  _cancelSelectingMatch () {
+    this._toggleSelectingMatch()
+    if (this.newMatchingIntentId) this.set('newMatchingIntentId', null)
+  }
+
+  _saveSelectedMatch () {
+    this._toggleSelectingMatch()
+    let updated = util.cloneDeep(this.conversation)
+    updated.matchingIntent = this.newMatchingIntentId
+    this.dispatch('saveConversation', updated)
+    this._reset()
+  }
+
   _classForSameTeam (person, creator, conversation, intents) {
     return util.sameTeam(person._id, creator, conversation, intents) ? 'us' : 'others'
   }
 
   _reset () {
     this.set('newMessage', '')
+    this.set('selectingMatch', false)
+    this.set('newMatchingIntentId', null)
   }
 
   _bothMessaged (conversation) {

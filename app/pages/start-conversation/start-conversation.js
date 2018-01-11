@@ -1,4 +1,4 @@
-import { ReduxMixin, ActionCreators, util, mintUrl } from '../../../src/engine.js'
+import { ReduxMixin, ActionCreators, mintUrl } from '../../../src/engine.js'
 
 class StartConversation extends Polymer.mixinBehaviors(
   [Polymer.AppLocalizeBehavior],
@@ -9,7 +9,7 @@ class StartConversation extends Polymer.mixinBehaviors(
 
   static get actions () {
     return {
-      startConversation: ActionCreators.startConversation
+      saveConversation: ActionCreators.saveConversation
     }
   }
 
@@ -23,25 +23,9 @@ class StartConversation extends Polymer.mixinBehaviors(
         type: Object,
         statePath: 'person'
       },
-      projects: {
-        type: Object,
-        statePath: 'projects'
-      },
-      intents: {
-        type: Object,
-        statePath: 'intents'
-      },
-      potentialMatches: {
-        type: Array,
-        computed: '_findPotentialMatches(person, projects, intents, intent)'
-      },
       answer: {
         type: Object,
         computed: '_setAnswer(conversation)'
-      },
-      selectingMatch: {
-        type: Boolean,
-        value: false
       },
       online: {
         type: Boolean,
@@ -64,8 +48,6 @@ class StartConversation extends Polymer.mixinBehaviors(
     ]
   }
 
-  _findPotentialMatches (...args) { return util.findPotentialMatches(...args) }
-
   _intentChanged () {
     this._reset()
     // this._createConversation()
@@ -73,7 +55,7 @@ class StartConversation extends Polymer.mixinBehaviors(
 
   _send () {
     this.conversation.messages.push(this.answer)
-    this.dispatch('startConversation', this.conversation)
+    this.dispatch('saveConversation', this.conversation)
     window.history.pushState({}, '', `/conversation/${this.conversation._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
     this._reset()
@@ -81,12 +63,7 @@ class StartConversation extends Polymer.mixinBehaviors(
 
   _reset () {
     this.set('answer.body', '')
-    this.set('selectingMatch', false)
     // set inputs to empty
-  }
-
-  _setMatchingIntent (e, detail) {
-    this.set('conversation.matchingIntent', detail.item.name)
   }
 
   _createConversation (person, intent) {
@@ -107,10 +84,6 @@ class StartConversation extends Polymer.mixinBehaviors(
       body: '',
       creator: this.person._id
     }
-  }
-
-  _toggleSelectingMatch () {
-    this.set('selectingMatch', !this.selectingMatch)
   }
 
   _cancel () {

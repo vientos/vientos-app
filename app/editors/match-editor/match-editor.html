@@ -1,0 +1,62 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+
+
+<link rel="import" href="../../cards/intent-preview/intent-preview.html">
+<link rel="import" href="match-editor-styles.html">
+
+<dom-module id="match-editor">
+  <template>
+
+    <style include="match-editor-styles"></style>
+
+    <app-toolbar class="action-toolbar">
+      <template is="dom-if" if="[[matchingIntentId]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:cancel"
+        ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[!matchingIntentId]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:arrow-back"
+        ></paper-icon-button>
+      </template>
+      <div></div>
+      <paper-icon-button
+        on-tap="_save"
+        class="round"
+        icon="vientos:ok"
+        disabled="[[!readyToSave]]"
+      ></paper-icon-button>
+    </app-toolbar>
+
+    <section>
+      <intent-preview
+        intent="[[intent]]"
+        show-projects></intent-preview>
+    </section>
+    <section>
+      <iron-selector selected="{{matchingIntentId}}" attr-for-selected="name">
+        <template is="dom-repeat" items="[[potentialMatches]]">
+          <div name="[[item._id]]">
+            <intent-preview
+              intent="[[item]]"
+              show-projects></intent-preview>
+          </div>
+        </template>
+      </iron-selector>
+    </section>
+
+  </template>
+
+  <script src="match-editor.js"></script>
+
+</dom-module>
