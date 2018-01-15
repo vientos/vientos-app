@@ -303,7 +303,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.set('tab', window.location.hash ? 'map' : page)
     }
     // clear subrouteData.id
-    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'place', 'conversation', 'new-conversation', 'review'].includes(page)) {
+    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review'].includes(page)) {
       delete this.subrouteData.id
     }
     this.$$('app-header-layout').notifyResize()
