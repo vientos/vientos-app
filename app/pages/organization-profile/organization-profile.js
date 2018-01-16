@@ -165,5 +165,10 @@ class OrganizationDetails extends Polymer.mixinBehaviors(
       this.$$('app-header-layout').notifyResize()
     }, 100)
   }
+
+  _goToIntentDetails (e, detail) {
+    window.history.pushState({}, '', util.pathFor(detail, 'intent'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
 }
 window.customElements.define(OrganizationDetails.is, OrganizationDetails)

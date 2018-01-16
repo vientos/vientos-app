@@ -673,6 +673,11 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (toast) this.$.toast.open()
   }
 
+  _goToIntentDetails (e, detail) {
+    window.history.pushState({}, '', util.pathFor(detail, 'intent'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
+
   created () {
     super.created()
     let mqWideScreen = window.matchMedia('(min-width: 800px)')

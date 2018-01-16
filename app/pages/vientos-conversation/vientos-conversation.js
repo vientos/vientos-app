@@ -165,6 +165,11 @@ class VientosConversation extends Polymer.mixinBehaviors(
     })
   }
 
+  _goToIntentDetails (e, detail) {
+    window.history.pushState({}, '', util.pathFor(detail, 'intent'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
+
   _goToReview () {
     window.history.pushState({}, '', `/review/${this.conversation._id.split('/').pop()}`)
     window.dispatchEvent(new CustomEvent('location-changed'))

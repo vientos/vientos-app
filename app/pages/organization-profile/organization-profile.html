@@ -126,7 +126,7 @@
         </h3>
         <div>
           <template is="dom-repeat" items="[[activeIntents]]">
-            <intent-preview intent="[[item]]"></intent-preview>
+            <intent-preview intent="[[item]]" on-tap-card="_goToIntentDetails" class="clickable"></intent-preview>
           </template>
         </div>
       </section>
@@ -137,7 +137,7 @@
           </h3>
           <div>
             <template is="dom-repeat" items="[[expiredIntents]]">
-              <intent-preview intent="[[item]]"></intent-preview>
+              <intent-preview intent="[[item]]" on-tap-card="_goToIntentDetails" class="clickable"></intent-preview>
             </template>
           </div>
         </section>
@@ -147,7 +147,7 @@
           </h3>
           <div>
             <template is="dom-repeat" items="[[inactiveIntents]]">
-              <intent-preview intent="[[item]]"></intent-preview>
+              <intent-preview intent="[[item]]" on-tap-card="_goToIntentDetails" class="clickable"></intent-preview>
             </template>
           </div>
         </section>

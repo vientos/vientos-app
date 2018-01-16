@@ -121,7 +121,11 @@
               as="intent">
               <template>
                 <div>
-                  <intent-preview intent="[[intent]]" show-projects></intent-preview>
+                  <intent-preview
+                    intent="[[intent]]"
+                    show-projects
+                    on-tap-card="_goToIntentDetails"
+                    class="clickable"></intent-preview>
                   <template is="dom-if" if="[[personalFilter]]">
                     <div class="conversations">
                       <conversations-list

@@ -84,11 +84,6 @@ class IntentPreview extends Polymer.mixinBehaviors(
     if (intent && projects && projects.length) { return util.getRef(intent.projects, projects) }
   }
 
-  _showIntentDetails () {
-    window.history.pushState({}, '', util.pathFor(this.intent, 'intent'))
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
   _checkIfProjectAdmin (person, intent, projects) {
     if (!person || !intent || !projects || !projects.length) return false
     return intent.projects.reduce((acc, projectId) => {
@@ -109,6 +104,10 @@ class IntentPreview extends Polymer.mixinBehaviors(
     setTimeout(() => {
       util.shave(this.$.title, 80)
     }, 100)
+  }
+
+  _handleTapCard () {
+    this.dispatchEvent(new CustomEvent('tap-card', { detail: this.intent }))
   }
 }
 window.customElements.define(IntentPreview.is, IntentPreview)

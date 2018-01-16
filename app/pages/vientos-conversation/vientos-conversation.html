@@ -40,9 +40,17 @@
           ></paper-icon-button>
     </app-toolbar>
     <section>
-      <intent-preview intent="[[causingIntent]]" show-projects></intent-preview>
+      <intent-preview
+        intent="[[causingIntent]]"
+          on-tap-card="_goToIntentDetails"
+          class="clickable"
+        show-projects></intent-preview>
       <template is="dom-if" if="[[matchingIntent]]">
-        <intent-preview intent="[[matchingIntent]]" show-projects></intent-preview>
+        <intent-preview
+          intent="[[matchingIntent]]"
+          on-tap-card="_goToIntentDetails"
+          class="clickable"
+          show-projects></intent-preview>
       </template>
     </section>
     <section>
