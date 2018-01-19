@@ -210,7 +210,7 @@ export function findPotentialMatches (matchedIntent, person, projects, intents, 
   if (Array.from(arguments).includes(undefined)) return
   if (matchedIntent && person) {
     return intents.filter(intent => {
-      return matchings.some(matching => matching.intents.includes(matchedIntent) && matching.intents.includes(intent))
+      return !matchings.some(matching => matching.intents.includes(matchedIntent) && matching.intents.includes(intent))
     }).filter(intent => {
       return matchedIntent.direction !== intent.direction &&
       matchedIntent.collaborationType === intent.collaborationType &&
