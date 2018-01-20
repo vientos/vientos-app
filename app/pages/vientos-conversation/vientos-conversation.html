@@ -63,7 +63,7 @@
         </template>
         <template is="dom-if" if="[[availableMatchedIntents.length]]">
           <template is="dom-if" if="[[selectingMatch]]" restamp>
-            <h3>[[localize('label:select-matching')]]</h3>
+            <h3>[[localize('label:select-matching-for-conversation')]]</h3>
             <iron-selector selected="{{newMatchingIntentId}}" attr-for-selected="name">
               <template is="dom-repeat" items="[[availableMatchedIntents]]">
                 <div name="[[item._id]]">

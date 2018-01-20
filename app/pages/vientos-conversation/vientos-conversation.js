@@ -73,7 +73,7 @@ class VientosConversation extends Polymer.mixinBehaviors(
       },
       ableToMatch: {
         type: Boolean,
-        computed: '_computeAbleToMatch(person, matchingIntent, projects)'
+        computed: '_computeAbleToMatch(person, causingIntent, matchingIntent, projects)'
       },
       selectingMatch: {
         type: Boolean,
@@ -170,9 +170,11 @@ class VientosConversation extends Polymer.mixinBehaviors(
     return conversationReviews.length === 0 && !reviewing
   }
 
-  _computeAbleToMatch (person, matchingIntent, projects) {
+  _computeAbleToMatch (person, causingIntent, matchingIntent, projects) {
     if (Array.from(arguments).includes(undefined)) return false
-    return person && !matchingIntent && projects.some(project => project.admins.includes(person._id))
+    return person && !matchingIntent &&
+           !causingIntent.projects.some(projectId => util.getRef(projectId, projects).admins.includes(person._id)) && // not an admin of org from causing intent
+           projects.some(project => project.admins.includes(person._id)) // some other org admin
   }
 
   _toggleSelectingMatch () {

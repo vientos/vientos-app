@@ -109,6 +109,10 @@ class IntentDetails extends Polymer.mixinBehaviors(
         type: Array,
         computed: '_findPotentialMatches(intent, person, projects, intents, matchings)'
       },
+      directionForPotentialMatch: {
+        type: String,
+        computed: '_computeDirectionForPotentialMatch(intent)'
+      },
       active: {
         type: Boolean,
         computed: '_checkIfActive(intent)'
@@ -154,6 +158,10 @@ class IntentDetails extends Polymer.mixinBehaviors(
 
   _checkIfOtherProjectAdmin (person, projectAdmin, projects) {
     return !!person && !projectAdmin && !!projects.length && !!projects.find(p => p.admins.includes(person._id))
+  }
+
+  _computeDirectionForPotentialMatch (intent) {
+    if (intent) return intent.direction === 'offer' ? 'request' : 'offer'
   }
 
   _edit () {

@@ -178,10 +178,12 @@
           </template>
           <template is="dom-if" if="[[potentialMatches.length]]">
             <paper-button class="fancy-button" on-tap="_goToMatchSelector">
-              FIXME: i18n - You have [[potentialMatches.length]] intents that could possibly match
+              [[potentialMatches.length]] [[localize('button:potential-matches-to-select')]]
             </paper-button>
           </template>
-          TODO: info on how to create new intent that matches
+          [[localize('hint:how-to-create-matching-proposal')]]:
+          <strong>[[localize(directionForPotentialMatch)]]</strong> &
+          <strong>[[localize(intent.collaborationType)]]</strong>
         </section>
       </template>
       <template is="dom-if" if="[[successfulReviewGroups.length]]">

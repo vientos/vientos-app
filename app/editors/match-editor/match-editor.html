@@ -44,6 +44,7 @@
         show-projects></intent-preview>
     </section>
     <section>
+      <h3>[[localize('label:select-matching')]]</h3>
       <iron-selector selected="{{matchingIntentId}}" attr-for-selected="name">
         <template is="dom-repeat" items="[[potentialMatches]]">
           <div name="[[item._id]]">
