@@ -368,7 +368,11 @@ class VientosShell extends Polymer.mixinBehaviors(
     let vientosMapElement = this.$$('vientos-map')
     if (vientosMapElement) vientosMapElement._showFullZoom()
     if (this.personalFilter) this.dispatch('disablePersonalFilter')
-    else this.dispatch('enablePersonalFilter')
+    else {
+      this.dispatch('enablePersonalFilter')
+      window.history.pushState({}, '', 'intents')
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
     this.$$('paper-button[name=me]').toggleClass('active')
   }
 
