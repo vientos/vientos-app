@@ -15,6 +15,7 @@
         padding: 10px;
         border: 1px solid rgba(0,0,0,0.2);
         background-color: white;
+        position: relative;
       }
 
       li iron-icon {
@@ -23,15 +24,40 @@
         color: gold;
       }
 
-      li div {
-        flex: 1;
+      li #us {
+        padding-left: 12px;
+        border-left: 1px solid #aaa;
       }
+
+      li #others {
+        flex: 1;
+        padding-right: 4px;
+      }
+
+      li .last-message-time {
+        position: absolute;
+        bottom: 2px;
+        font-size: 0.5em;
+        opacity: .6;
+      }
+
+      li .right {
+        right: 10px;
+      }
+
+      li .left {
+        left: 10px;
+      }
+
+
 
       iron-image {
         height: 26px;
         width: 26px;
         border-radius: 50%;
       }
+
+
 
     </style>
   </template>

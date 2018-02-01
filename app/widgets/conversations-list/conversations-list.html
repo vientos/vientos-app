@@ -11,17 +11,25 @@
   <template>
   <style include="conversations-list-styles"></style>
     <ul>
-      <template is="dom-repeat" items="[[visibleConversations]]" as="conversation">
+      <template is="dom-repeat" items="[[visibleConversationRecords]]" as="record">
         <li on-tap="_showConversation" class="clickable">
-          <template is="dom-if" if="[[_getNotificationsCount(conversation, notifications)]]">
-            <paper-badge label="[[_getNotificationsCount(conversation, notifications)]]"></paper-badge>
+          <template is="dom-if" if="[[record.notificationsCount]]">
+            <paper-badge label="[[record.notificationsCount]]"></paper-badge>
           </template>
-          <div>
+          <div class="last-message-time left">[[record.othersTimeAgo]]</div>
+          <div class="last-message-time right">[[record.usTimeAgo]]</div>
+          <div id="others" class="ellipsis">
             <iron-image
-               src="[[_getImage(conversation.creator, people, 26)]]"
+               src="[[_getThumbnailUrl(record.othersPerson, 26)]]"
                sizing="cover">
             </iron-image>
-            [[_getName(conversation.creator, people)]]
+            <span>[[record.othersPerson.name]]</span>
+          </div>
+          <div id="us">
+            <iron-image
+               src="[[_getThumbnailUrl(record.usPerson, 26)]]"
+               sizing="cover">
+            </iron-image>
           </div>
           <!-- <template is="dom-if" if="[[_hasStar(conversation, stars)]]">
             <iron-icon icon="vientos:star"></iron-icon>
