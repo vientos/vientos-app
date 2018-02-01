@@ -23,43 +23,46 @@
 
     <app-header-layout>
       <app-header class="page-header" fixed condenses slot="header" effects="resize-snapped-title">
-        <h2 condensed-title class="ellipsis" sticky>[[project.name]]</h2>
+        <div sticky>
+          <app-toolbar class="action-toolbar">
+            <paper-button on-tap="_back">
+              <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+              <back-clue history="[[history]]"></back-clue>
+            </paper-button>
+            <div>
+              <template is="dom-if" if="[[canFollow]]">
+                <paper-icon-button
+                  class="round"
+                  icon="vientos:follow"
+                  set$="[[following]]"
+                  on-tap="_toggleFollow"
+                  disabled="[[!online]]">
+                </paper-icon-button>
+              </template>
+              <template is="dom-if" if="[[admin]]">
+                <paper-icon-button
+                  class="round"
+                  on-tap="_editDetails"
+                  icon="vientos:settings"
+                  disabled="[[!online]]">
+                </paper-icon-button>
+              </template>
+            </div>
+            <template is="dom-if" if="[[admin]]">
+              <paper-icon-button
+                class="primary-action"
+                disabled="[[!online]]"
+                icon="vientos:add-intent"
+                on-tap="_newIntent">
+              </paper-icon-button>
+            </template>
+          </app-toolbar>
+          <h2 condensed-title class="ellipsis">[[project.name]]</h2>
+        </div>
         <h2 main-title>[[project.name]]</h2>
       </app-header>
 
-      <app-toolbar class="action-toolbar">
-        <paper-button on-tap="_back">
-          <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
-          <back-clue history="[[history]]"></back-clue>
-        </paper-button>
-        <div>
-          <template is="dom-if" if="[[canFollow]]">
-            <paper-icon-button
-              class="round"
-              icon="vientos:follow"
-              set$="[[following]]"
-              on-tap="_toggleFollow"
-              disabled="[[!online]]"
-            ></paper-icon-button>
-          </template>
-          <template is="dom-if" if="[[admin]]">
-            <paper-icon-button
-              class="round"
-              on-tap="_editDetails"
-              icon="vientos:settings"
-              disabled="[[!online]]"
-              ></paper-icon-button>
-          </template>
-        </div>
-        <template is="dom-if" if="[[admin]]">
-          <paper-icon-button
-            class="primary-action"
-            disabled="[[!online]]"
-            icon="vientos:add-intent"
-            on-tap="_newIntent">
-          </paper-icon-button>
-        </template>
-      </app-toolbar>
+
 
 
       <section id="logo">

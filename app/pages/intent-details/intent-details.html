@@ -25,52 +25,54 @@
 
     <app-header-layout>
       <app-header class="page-header" fixed condenses slot="header" effects="resize-snapped-title">
-        <h2 condensed-title class="ellipsis" sticky>[[intent.title]]</h2>
+        <div sticky>
+          <app-toolbar class="action-toolbar">
+            <paper-button on-tap="_back">
+              <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+              <back-clue history="[[history]]"></back-clue>
+            </paper-button>
+            <div>
+              <template is="dom-if" if="[[projectAdmin]]">
+                <paper-icon-button
+                class="round"
+                icon="vientos:settings"
+                on-tap="_edit"
+                disabled="[[!online]]"
+                ></paper-icon-button>
+              </template>
+              <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
+                <paper-icon-button
+                class="round"
+                set$="[[favoring]]"
+                icon="vientos:bookmark"
+                on-tap="_toggleFavor"
+                ></paper-icon-button>
+              </template>
+            </div>
+            <template is="dom-if" if="[[_showPrimaryAction(person, projectAdmin)]]">
+              <template is="dom-if" if="[[!currentConversation]]">
+                <paper-icon-button
+                class="primary-action"
+                id="start"
+                icon="vientos:conversation"
+                disabled="[[!online]]"
+                on-tap="_startConversation">
+                </paper-icon-button>
+              </template>
+              <template is="dom-if" if="[[currentConversation]]">
+                <paper-icon-button
+                class="primary-action"
+                id="continue"
+                icon="vientos:conversation"
+                on-tap="_continueConversation">
+                </paper-icon-button>
+              </template>
+            </template>
+          </app-toolbar>
+          <h2 condensed-title class="ellipsis">[[intent.title]]</h2>
+        </div>
         <h2 main-title>[[intent.title]]</h2>
       </app-header>
-      <app-toolbar class="action-toolbar">
-        <paper-button on-tap="_back">
-          <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
-          <back-clue history="[[history]]"></back-clue>
-        </paper-button>
-        <div>
-          <template is="dom-if" if="[[projectAdmin]]">
-            <paper-icon-button
-            class="round"
-            icon="vientos:settings"
-            on-tap="_edit"
-            disabled="[[!online]]"
-            ></paper-icon-button>
-          </template>
-          <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
-            <paper-icon-button
-            class="round"
-            set$="[[favoring]]"
-            icon="vientos:bookmark"
-            on-tap="_toggleFavor"
-            ></paper-icon-button>
-          </template>
-        </div>
-        <template is="dom-if" if="[[_showPrimaryAction(person, projectAdmin)]]">
-          <template is="dom-if" if="[[!currentConversation]]">
-            <paper-icon-button
-            class="primary-action"
-            id="start"
-            icon="vientos:conversation"
-            disabled="[[!online]]"
-            on-tap="_startConversation">
-          </paper-icon-button>
-        </template>
-        <template is="dom-if" if="[[currentConversation]]">
-          <paper-icon-button
-          class="primary-action"
-          id="continue"
-          icon="vientos:conversation"
-          on-tap="_continueConversation">
-        </paper-icon-button>
-      </template>
-    </template>
-      </app-toolbar>
       <template is="dom-if" if="[[!active]]">
         <div class="banner">[[localize('hint:inactive')]]</div>
       </template>
