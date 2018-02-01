@@ -193,7 +193,7 @@ class IntentEditor extends Polymer.mixinBehaviors(
         type: 'Intent',
         direction: 'offer',
         reciprocity: 'gift',
-        expiryDate: new Date(Date.now() + 32 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        expiryDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 3 months from now
         creator: person._id,
         admins: [person._id],
         projects: [ project._id ],
