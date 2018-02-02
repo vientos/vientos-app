@@ -32,17 +32,19 @@
 
     <intent-preview intent="[[intent]]" show-projects></intent-preview>
 
-    <h3>[[localize('label:questions')]]</h3>
-    <p>[[intent.question]]</p>
-    <div id="response">
-      <template is="dom-if" if="[[online]]">
-        <paper-textarea value="{{answer.body}}" placeholder="[[localize('label:intent-answer')]]"></paper-textarea>
-        <paper-icon-button
-        icon="vientos:send"
-        on-tap="_send"
-        disabled="[[!answer.body]]"></paper-icon-button>
-      </template>
-    </div>
+    <section>
+      <h3>[[localize('label:questions')]]</h3>
+      <p>[[intent.question]]</p>
+      <div id="response">
+        <template is="dom-if" if="[[online]]">
+          <paper-textarea value="{{answer.body}}" placeholder="[[localize('label:intent-answer')]]"></paper-textarea>
+          <paper-icon-button
+          icon="vientos:send"
+          on-tap="_send"
+          disabled="[[!answer.body]]"></paper-icon-button>
+        </template>
+      </div>
+    </section>
   </template>
 
   <script src="start-conversation.js"></script>
