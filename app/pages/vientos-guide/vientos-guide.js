@@ -39,7 +39,8 @@ class VientosGuide extends Polymer.mixinBehaviors(
     }
   }
 
-  _sectionChanged (section) {
+  _sectionChanged (section, prevSection) {
+    if (!this.sections.includes(section)) return
     if (section === 'intro') {
       this.set('showingFirstSection', true)
     } else {
@@ -50,22 +51,41 @@ class VientosGuide extends Polymer.mixinBehaviors(
     } else {
       this.set('showingLastSection', false)
     }
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
+    if (window.location.hash) {
+      this.$$('app-header').set('fixed', true)
+      setTimeout(() => {
+        let scrollTarget = this.$[window.location.hash.slice(1)]
+        if (scrollTarget) {
+          scrollTarget.scrollIntoView()
+          window.scrollBy(0, -100)
+        }
+      }, 200)
+    }
+    if (!window.location.hash || !this.$$(`[name=${section}] ${window.location.hash}`)) {
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
+      this.$$('app-header').set('fixed', false)
+      window.history.replaceState({}, '', `/guide/${section}`)
+      window.dispatchEvent(new CustomEvent('location-changed'))
+    }
   }
 
   _previous () {
     let index = this.sections.indexOf(this.section)
-    this.set('section', this.sections[index - 1])
+    // this.set('section', this.sections[index - 1])
+    window.history.replaceState({}, '', `/guide/${this.sections[index - 1]}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _next () {
     let index = this.sections.indexOf(this.section)
-    this.set('section', this.sections[index + 1])
+    // this.set('section', this.sections[index + 1])
+    window.history.replaceState({}, '', `/guide/${this.sections[index + 1]}`)
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   _close () {
-    window.history.pushState({}, '', `/intents`)
+    window.history.back()
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 }

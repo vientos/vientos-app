@@ -203,6 +203,10 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: Object,
         value: null
       },
+      guideSection: {
+        type: Object,
+        computed: '_updateGuideSection(page,subrouteData.id)'
+      },
       language: {
         type: String,
         statePath: 'language'
@@ -307,7 +311,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.set('tab', window.location.hash ? 'map' : page)
     }
     // clear subrouteData.id
-    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review', 'select-match'].includes(page)) {
+    if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review', 'select-match', 'guide'].includes(page)) {
       delete this.subrouteData.id
     }
     this.$$('app-header-layout').notifyResize()
@@ -680,6 +684,11 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _showToast (toast) {
     if (toast) this.$.toast.open()
+  }
+
+  _updateGuideSection (page, subdata) {
+    if (page === 'guide') return subdata
+    else return this.guideSection
   }
 
   _goToIntentDetails (e, detail) {

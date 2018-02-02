@@ -1,3 +1,4 @@
+
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
@@ -141,7 +142,7 @@
 
           <div name="menu">
             <ul>
-              <li><a href="/guide">[[localize('guide')]]</a></li>
+              <li><a href="/guide/intro">[[localize('guide')]]</a></li>
               <li><a href="/new-project" on-tap="goFromMenu">[[localize('button:add-project')]]</a></li>
               <li><a href="/account" on-tap="goFromMenu">[[localize('button:account-settings')]]</a></li>
               <template is="dom-if" if="[[!person]]">
@@ -205,7 +206,9 @@
           intent="[[currentIntent]]"></match-editor>
 
           <vientos-guide
-          name="guide"></vientos-guide>
+          name="guide"
+          section="[[guideSection]]"
+          ></vientos-guide>
         </iron-pages>
         <vientos-map
           view="[[mapView]]"
