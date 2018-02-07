@@ -10,7 +10,7 @@
   :host {
     --spacing: 4px;
     --hex-width-ratio: 1.155;
-    --hex-clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    --hex-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   }
 
   .primary-action {
@@ -321,8 +321,8 @@
   }
 
   .org-logo {
-    height: 150px;
-    width: calc(150px * var(--hex-width-ratio));
+    width: 150px;
+    height: calc(150px * var(--hex-width-ratio));
     clip-path: var(--hex-clip-path);
   }
 

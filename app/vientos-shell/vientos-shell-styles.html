@@ -158,7 +158,7 @@ app-header #geo paper-button {
   #nav-toolbar {
     width: 100%;
     height: var(--toolbar-height);
-    padding-top: 8px;
+    padding-top: 0px;
     box-shadow: 0px 0px 8px #888;
     background-color: var(--vientos-secondary-light);
     z-index: 10000;
@@ -167,11 +167,34 @@ app-header #geo paper-button {
 
     #nav-toolbar paper-button {
       flex: 1;
-      padding-bottom: 8px;
+      padding-bottom: 0px;
       min-width: 0;
     }
+
+    #nav-toolbar iron-icon {
+      height: 20px;
+      width: 20px;
+    }
+
+      #nav-toolbar paper-button.tab-button {
+        flex-direction: column;
+      }
+        #nav-toolbar paper-button.tab-button div.text{
+          font-size: 12px;
+          font-weight: 600;
+          opacity: 0.5;
+          line-height: 12px;
+        }
+        #nav-toolbar paper-button.tab-button div.icons {
+          line-height: 20px;
+        }
+        #nav-toolbar paper-button.tab-button div.icons div.badge{
+          display: inline-block;
+          font-size: 12px;
+          line-height: 18px;
+        }
       #nav-toolbar paper-button[name=map] {
-        color: var(--vientos-grey)
+        color: var(--vientos-primary-dark)
       }
 
       #nav-toolbar paper-button.iron-selected {
@@ -213,9 +236,9 @@ div[name=menu] li a:hover {
 div.badge {
   background-color: var(--vientos-secondary-1);
   margin-right: 5px;
-  min-width: 24px;
-  height: 24px;
-  line-height: 24px;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
   font-weight: 600;
   text-align: center;
   color: white;
@@ -227,7 +250,7 @@ paper-button[name=intents] div.badge  {
 
 paper-button[name=projects] div.badge  {
   background-color: var(--vientos-tertiary-3);
-  width: calc(24px * var(--hex-width-ratio));
+  height: calc(16px * var(--hex-width-ratio));
   clip-path: var(--hex-clip-path);
 }
   </style>

@@ -79,17 +79,32 @@
             <div class="ellipsis">[[geoTag]]</div>
           </div>
           <iron-selector attr-for-selected="name" selected="[[tab]]" id="nav-toolbar">
-            <paper-button name="intents" on-tap="_showIntentList">
-              <div class="badge">[[visibleIntents.length]]</div>
-              <iron-icon icon="vientos:intent"></iron-icon>
+            <paper-button class="tab-button" name="intents" on-tap="_showIntentList">
+              <div class="icons">
+                <div class="badge">[[visibleIntents.length]]</div>
+                <iron-icon icon="vientos:intent"></iron-icon>
+              </div>
+              <div class="text">
+                [[localize('intents')]]
+              </div>
             </paper-button>
-            <paper-button name="projects" on-tap="_showProjectList">
-              <div class="badge">[[visibleProjects.length]]</div>
-              <iron-icon icon="vientos:organization"></iron-icon>
+            <paper-button class="tab-button" name="projects" on-tap="_showProjectList">
+              <div class="icons">
+                <div class="badge">[[visibleProjects.length]]</div>
+                <iron-icon icon="vientos:organization"></iron-icon>
+              </div>
+              <div class="text">
+                [[localize('projects')]]
+              </div>
             </paper-button>
             <template is="dom-if" if="[[!wideScreen]]">
-              <paper-button name="map" on-tap="_showMap">
-                <iron-icon icon="vientos:map"></iron-icon>
+              <paper-button class="tab-button" name="map" on-tap="_showMap">
+                <div class="icons">
+                  <iron-icon icon="vientos:map"></iron-icon>
+                </div>
+                <div class="text">
+                  [[localize('button:map')]]
+                </div>
               </paper-button>
             </template>
           </iron-selector>
