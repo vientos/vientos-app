@@ -32,12 +32,15 @@
           disabled="[[canToggleStar]]"
           ></paper-icon-button> -->
       </div>
-        <paper-icon-button
-          class="primary-action"
+        <paper-button
+          class="labeled-button primary-action"
           on-tap="_goToReview"
-          icon="vientos:satisfied"
-          disabled="[[!canReview]]"
-          ></paper-icon-button>
+          disabled="[[!canReview]]">
+          <div class="icons">
+            <iron-icon icon="vientos:satisfied"></iron-icon>
+          </div>
+          <div class="text">[[localize('button:review')]]</div>
+          </paper-button>
     </app-toolbar>
     <section>
       <intent-preview

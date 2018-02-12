@@ -29,32 +29,40 @@
               <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
               <back-clue history="[[history]]"></back-clue>
             </paper-button>
-            <div>
-              <template is="dom-if" if="[[canFollow]]">
-                <paper-icon-button
-                  class="round"
-                  icon="vientos:follow"
-                  set$="[[following]]"
-                  on-tap="_toggleFollow"
-                  disabled="[[!online]]">
-                </paper-icon-button>
-              </template>
-              <template is="dom-if" if="[[admin]]">
-                <paper-icon-button
-                  class="round"
-                  on-tap="_editDetails"
-                  icon="vientos:settings"
-                  disabled="[[!online]]">
-                </paper-icon-button>
-              </template>
-            </div>
+            <template is="dom-if" if="[[canFollow]]">
+              <paper-button
+                class="labeled-button"
+                set$="[[following]]"
+                on-tap="_toggleFollow"
+                disabled="[[!online]]">
+                <div class="icons">
+                  <iron-icon class="round" icon="vientos:follow"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:follow')]]</div>
+              </paper-button>
+              <iron-icon></iron-icon>
+            </template>
             <template is="dom-if" if="[[admin]]">
-              <paper-icon-button
-                class="primary-action"
+              <paper-button
+                class="labeled-button secondary-action"
+                on-tap="_editDetails"
+                disabled="[[!online]]">
+                <div class="icons">
+                  <iron-icon icon="vientos:settings"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:configure')]]</div>
+              </paper-button>
+            </template>
+            <template is="dom-if" if="[[admin]]">
+              <paper-button
+                class="labeled-button primary-action"
                 disabled="[[!online]]"
-                icon="vientos:add-intent"
                 on-tap="_newIntent">
-              </paper-icon-button>
+                <div class="icons">
+                  <iron-icon icon="vientos:add-intent"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:propose')]]</div>
+              </paper-button>
             </template>
           </app-toolbar>
           <h2 condensed-title class="ellipsis">[[project.name]]</h2>

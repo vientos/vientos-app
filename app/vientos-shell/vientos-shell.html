@@ -79,7 +79,7 @@
             <div class="ellipsis">[[geoTag]]</div>
           </div>
           <iron-selector attr-for-selected="name" selected="[[tab]]" id="nav-toolbar">
-            <paper-button class="tab-button" name="intents" on-tap="_showIntentList">
+            <paper-button class="labeled-button" name="intents" on-tap="_showIntentList">
               <div class="icons">
                 <div class="badge">[[visibleIntents.length]]</div>
                 <iron-icon icon="vientos:intent"></iron-icon>
@@ -88,7 +88,7 @@
                 [[localize('intents')]]
               </div>
             </paper-button>
-            <paper-button class="tab-button" name="projects" on-tap="_showProjectList">
+            <paper-button class="labeled-button" name="projects" on-tap="_showProjectList">
               <div class="icons">
                 <div class="badge">[[visibleProjects.length]]</div>
                 <iron-icon icon="vientos:organization"></iron-icon>
@@ -98,7 +98,7 @@
               </div>
             </paper-button>
             <template is="dom-if" if="[[!wideScreen]]">
-              <paper-button class="tab-button" name="map" on-tap="_showMap">
+              <paper-button class="labeled-button" name="map" on-tap="_showMap">
                 <div class="icons">
                   <iron-icon icon="vientos:map"></iron-icon>
                 </div>

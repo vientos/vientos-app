@@ -13,6 +13,15 @@
       border-radius: 50%;
     }
 
+    .primary-action iron-icon{
+      color: var(--vientos-primary-dark);
+    }
+
+    .primary-action[disabled] iron-icon {
+      color: grey;
+      opacity: 0.5;
+    }
+
     #messages {
       padding-bottom: 80px;
     }
@@ -81,11 +90,6 @@
         background-color: var(--vientos-tertiary-2);
         opacity: 0.5;
       };
-    }
-
-    paper-icon-button.primary-action[disabled]{
-      color: #666;
-      border-color: #666;
     }
 
     .iron-selected {

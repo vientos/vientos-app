@@ -84,7 +84,7 @@ class ConversationsList extends Polymer.mixinBehaviors(
   }
 
   _showConversation (e) {
-    window.history.pushState({}, '', util.pathFor(e.model.conversation, 'conversation'))
+    window.history.pushState({}, '', util.pathFor(e.model.record.conversation, 'conversation'))
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
@@ -111,6 +111,7 @@ class ConversationsList extends Polymer.mixinBehaviors(
       }
     }).map(conversation => {
       let record = {
+        conversation,
         notificationsCount: this._getNotificationsCount(conversation, notifications)
       }
       let othersLastMessage = this._getLastMessage(person, conversation, intents, false)

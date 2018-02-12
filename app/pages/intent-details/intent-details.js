@@ -193,11 +193,6 @@ class IntentDetails extends Polymer.mixinBehaviors(
     }
   }
 
-  _continueConversation () {
-    window.history.pushState({}, '', `/conversation/${this.currentConversation._id.split('/').pop()}`)
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
   _currentConversation (person, projectAdmin, conversations, reviews) {
     if (person && !projectAdmin && conversations) {
       return conversations.find(conversation => {

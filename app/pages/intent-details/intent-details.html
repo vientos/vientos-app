@@ -31,42 +31,41 @@
               <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
               <back-clue history="[[history]]"></back-clue>
             </paper-button>
-            <div>
-              <template is="dom-if" if="[[projectAdmin]]">
-                <paper-icon-button
-                class="round"
-                icon="vientos:settings"
-                on-tap="_edit"
-                disabled="[[!online]]"
-                ></paper-icon-button>
-              </template>
-              <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
-                <paper-icon-button
-                class="round"
-                set$="[[favoring]]"
-                icon="vientos:bookmark"
-                on-tap="_toggleFavor"
-                ></paper-icon-button>
-              </template>
-            </div>
+            <template is="dom-if" if="[[projectAdmin]]">
+              <paper-button
+              class="labeled-button secondary-action"
+              on-tap="_edit"
+              disabled="[[!online]]"
+              >
+                <div class="icons">
+                  <iron-icon icon="vientos:settings"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:configure')]]</div>
+              </paper-button>
+              <iron-icon></iron-icon> <!-- Just for space distribution -->
+            </template>
+            <template is="dom-if" if="[[_canFavor(person, projectAdmin)]]">
+              <paper-button
+              class="labeled-button"
+              set$="[[favoring]]"
+              on-tap="_toggleFavor"
+              >
+                <div class="icons">
+                  <iron-icon class="round" icon="vientos:bookmark"></iron-icon>
+                </div>
+                <div class="text">[[localize('label:bookmark')]]</div>
+              </paper-button>
+            </template>
             <template is="dom-if" if="[[_showPrimaryAction(person, projectAdmin)]]">
-              <template is="dom-if" if="[[!currentConversation]]">
-                <paper-icon-button
-                class="primary-action"
-                id="start"
-                icon="vientos:conversation"
-                disabled="[[!online]]"
-                on-tap="_startConversation">
-                </paper-icon-button>
-              </template>
-              <template is="dom-if" if="[[currentConversation]]">
-                <paper-icon-button
-                class="primary-action"
-                id="continue"
-                icon="vientos:conversation"
-                on-tap="_continueConversation">
-                </paper-icon-button>
-              </template>
+              <paper-button
+              class="labeled-button primary-action"
+              disabled="[[currentConversation]]"
+              on-tap="_startConversation">
+                <div class="icons">
+                  <iron-icon icon="vientos:conversation"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:start-conversation')]]</div>
+              </paper-button>
             </template>
           </app-toolbar>
           <h2 condensed-title class="ellipsis">[[intent.title]]</h2>
