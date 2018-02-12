@@ -35,6 +35,8 @@ export function personalFilter (state = false, action) {
       return true
     case ActionTypes.DISABLE_PERSONAL_FILTER:
       return false
+    case ClientActionTypes.BYE_REQUESTED:
+      return false
     default:
       return state
   }

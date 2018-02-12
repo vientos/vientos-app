@@ -290,7 +290,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
 
   _routePageChanged (page) {
-    this.set('page', page || 'guide')
+    this.set('page', page || 'intents')
     if (!page) {
       window.history.replaceState({}, '', `/${this.page}`)
     }
