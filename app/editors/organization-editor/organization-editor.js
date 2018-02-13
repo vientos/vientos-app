@@ -53,6 +53,10 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
         type: Array,
         statePath: 'places'
       },
+      person: {
+        type: Array,
+        statePath: 'person'
+      },
       people: {
         type: Array,
         statePath: 'people'
@@ -261,6 +265,20 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
 
   _imagePicked (e) {
     this.set('newImage', e.detail)
+  }
+
+  _mySelf (person, admin) {
+    if (!person) return
+    return person._id === admin._id
+  }
+
+  _removeMySelfAsAdmin (e) {
+    this.set('updated.admins', this.updated.admins.filter(l => l !== e.model.item._id))
+  }
+
+  _singleAdmin (admins) {
+    if (!admins || !admins.length) return
+    return admins.length === 1
   }
 }
 window.customElements.define(OrganizationEditor.is, OrganizationEditor)

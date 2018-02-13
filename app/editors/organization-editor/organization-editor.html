@@ -76,9 +76,12 @@
     </section>
     <section id="admins">
       <h3>[[localize('label:admins')]]</h3>
-      <ul class="admin-list">
+      <ul class="admin-list selection-list">
         <template is="dom-repeat" items="[[admins]]">
           <li>
+            <template is="dom-if" if="[[_mySelf(person, item)]]">
+              <paper-icon-button icon="vientos:delete" raised on-tap="_removeMySelfAsAdmin" disabled="[[_singleAdmin(admins)]]"></paper-icon-button>
+            </template>
             <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="cover"></iron-image>
             [[item.name]]
           </li>
