@@ -178,10 +178,6 @@ class VientosShell extends Polymer.mixinBehaviors(
         value: [],
         computed: '_availableIntents(intents)'
       },
-      filterActive: {
-        type: Boolean,
-        computed: '_activeFilter(filteredCategories, filteredCollaborationTypes)'
-      },
       searchTerm: {
         type: String,
         statePath: 'searchTerm'
@@ -278,7 +274,9 @@ class VientosShell extends Polymer.mixinBehaviors(
       '_handleMapVisibility(page, wideScreen, showingMap)',
       '_indexProjects(lunr, projects)',
       '_indexIntents(lunr, intents)',
-      '_updateHistory(routeData.page, subrouteData.id)'
+      '_updateHistory(routeData.page, subrouteData.id)',
+      '_activeFilter(filteredCategories, filteredCollaborationTypes)',
+      '_decorateMeButton(personalFilter, person)'
     ]
   }
 
@@ -376,7 +374,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       window.history.pushState({}, '', 'intents')
       window.dispatchEvent(new CustomEvent('location-changed'))
     }
-    this.$$('paper-button[name=me]').toggleClass('active')
   }
 
   // _showPage404 () {
@@ -386,8 +383,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   _personChanged (person) {
     if (person) {
       this.dispatch('setLanguage', person.language)
-      let personalFilterButton = this.$$('paper-button[name=me]')
-      if (personalFilterButton && this.personalFilter) personalFilterButton.className = 'active'
       if (this.resume) {
         window.history.pushState({}, '', this.resume.path)
         window.dispatchEvent(new CustomEvent('location-changed'))
@@ -526,7 +521,25 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _activeFilter (filteredCategories, filteredCollaborationTypes) {
-    return filteredCategories && filteredCollaborationTypes && filteredCategories.length && filteredCollaborationTypes.length
+    let filterButton = this.$$('#filter-button')
+    if (!filterButton) return
+    if (filteredCategories && filteredCategories.length) {
+      filterButton.classList.add('categories')
+    } else {
+      filterButton.classList.remove('categories')
+    }
+    if (filteredCollaborationTypes && filteredCollaborationTypes.length) {
+      filterButton.classList.add('collaborations')
+    } else {
+      filterButton.classList.remove('collaborations')
+    }
+  }
+
+  _decorateMeButton (personalFilter, person) {
+    let button = this.$$('paper-button[name=me]')
+    if (personalFilter === undefined || !button) return
+    if (personalFilter) button.classList.add('active')
+    else button.classList.remove('active')
   }
 
   _showMap () {

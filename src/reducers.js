@@ -6,6 +6,8 @@ export function filteredCategories (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_CATEGORIES:
       return [...action.selection]
+    case ActionTypes.ENABLE_PERSONAL_FILTER:
+      return []
     default:
       return state
   }
@@ -15,6 +17,8 @@ export function filteredCollaborationTypes (state = [], action) {
   switch (action.type) {
     case ActionTypes.UPDATE_FILTERED_COLLABORATION_TYPES:
       return [...action.selection]
+    case ActionTypes.ENABLE_PERSONAL_FILTER:
+      return []
     default:
       return state
   }
@@ -37,6 +41,10 @@ export function personalFilter (state = false, action) {
       return false
     case ClientActionTypes.BYE_REQUESTED:
       return false
+    case ActionTypes.UPDATE_FILTERED_CATEGORIES:
+    case ActionTypes.UPDATE_FILTERED_COLLABORATION_TYPES:
+      if (action.selection.length) return false
+      else return state
     default:
       return state
   }

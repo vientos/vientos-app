@@ -221,6 +221,25 @@ div[name=menu] li a:hover {
   color: white
 }
 
+#filter-button { margin-right: 10px;}
+#filter-button iron-icon {
+  border-radius: 50%;
+  border: 2px solid transparent;
+  height: 32px;
+  width: 32px;
+  padding: 2px;
+}
+
+  #filter-button.categories iron-icon {
+    border-bottom: 3px solid var(--vientos-tertiary-3);
+    border-right: 3px solid var(--vientos-tertiary-3);
+  }
+
+  #filter-button.collaborations iron-icon {
+    border-top: 3px solid var(--vientos-complementary-3);
+    border-left: 3px solid var(--vientos-complementary-3);
+  }
+
 div.badge {
   background-color: var(--vientos-secondary-1);
   margin-right: 5px;
