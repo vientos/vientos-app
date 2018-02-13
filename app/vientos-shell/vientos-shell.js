@@ -167,16 +167,11 @@ class VientosShell extends Polymer.mixinBehaviors(
       visiblePlaces: {
         type: Array,
         value: [],
-        computed: '_setVisiblePlaces(places, boundingBox, visibleProjects, availableIntents)'
+        computed: '_setVisiblePlaces(places, boundingBox, visibleProjects, visibleIntents)'
       },
       reviews: {
         type: Array,
         statePath: 'reviews'
-      },
-      availableIntents: {
-        type: Array,
-        value: [],
-        computed: '_availableIntents(intents)'
       },
       searchTerm: {
         type: String,
@@ -282,7 +277,6 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _filterProjects (...args) { return util.filterProjects(...args) }
   _filterIntents (...args) { return util.filterIntents(...args) }
-  _availableIntents (...args) { return util.availableIntents(...args) }
   _getThumbnailUrl (...args) { return util.getThumbnailUrl(...args) }
   _filterIntentConversations (...args) { return util.filterIntentConversations(...args) }
 
@@ -471,9 +465,9 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _setVisiblePlaces (places, boundingBox, visibleProjects, availableIntents) {
+  _setVisiblePlaces (places, boundingBox, visibleProjects, visibleIntents) {
     if (Array.from(arguments).includes(undefined)) return []
-    return util.filterPlaces(places, boundingBox, visibleProjects, availableIntents)
+    return util.filterPlaces(places, boundingBox, visibleProjects, visibleIntents)
   }
 
   _updateBoundingBox (e, detail) {
