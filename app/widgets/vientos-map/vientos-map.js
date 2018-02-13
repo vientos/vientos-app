@@ -54,7 +54,7 @@ class VientosMap extends Polymer.Element {
   _initializeMap ({ createMap, tileLayer, layerGroup, marker, icon, divIcon, toPoint }) {
     this.map = createMap(this.$.map)
     this.meIcon = divIcon({
-      html: '<div id="my-location"></div>',
+      html: '<div id="my-location"></div>'
     })
     this.map.setView([this.latitude, this.longitude], this.zoom)
 

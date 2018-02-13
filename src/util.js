@@ -19,11 +19,13 @@ export function hasLocationsInBoundingBox (entity, places, boundingBox) {
   })
 }
 
-export function filterPlaces (entities, places, boundingBox) {
+export function filterPlaces (places, boundingBox, projects, intents) {
   if (Array.from(arguments).includes(undefined)) return []
-  return entities.reduce((acc, entity) => {
-    return acc.concat(hasLocationsInBoundingBox(entity, places, boundingBox))
-  }, [])
+  let boundedPlaces = places.filter(place => inBoundingBox(place, boundingBox))
+  return boundedPlaces.filter(place => {
+    return projects.some(project => project.locations.includes(place._id)) ||
+           intents.some(intent => intent.locations.includes(place._id))
+  })
 }
 
 function appearsInSearchResults (entity, searchTerm, searchIndex) {
