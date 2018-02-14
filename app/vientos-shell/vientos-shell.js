@@ -270,8 +270,8 @@ class VientosShell extends Polymer.mixinBehaviors(
       '_indexProjects(lunr, projects)',
       '_indexIntents(lunr, intents)',
       '_updateHistory(routeData.page, subrouteData.id)',
-      '_activeFilter(filteredCategories, filteredCollaborationTypes)',
-      '_decorateMeButton(personalFilter, person)'
+      '_activeFilter(filteredCategories, filteredCollaborationTypes, person)', // person to apply after load
+      '_decorateMeButton(personalFilter, person)' // person to apply after load
     ]
   }
 

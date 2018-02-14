@@ -20,10 +20,11 @@
       <section id="collaboration-types">
         <h3>
           <div>[[localize('label:collaboration-types')]]</div>
-          <template is="dom-if" if="[[filteredCollaborationTypes.length]]">
-            <paper-badge label="[[filteredCollaborationTypes.length]]"></paper-badge>
-          </template>
-          <paper-button id="clear-collaboration-types" on-tap="_clearCollaborationTypesFilter" class="fancy-button">
+          <paper-button
+            id="clear-collaboration-types"
+            on-tap="_clearCollaborationTypesFilter"
+            class="fancy-button"
+            disabled="[[!filteredCollaborationTypes.length]]">
             [[localize('button:clear')]]
           </paper-button>
         </h3>
@@ -48,10 +49,11 @@
     <section id="categories">
       <h3>
         <div>[[localize('label:categories')]]</div>
-        <template is="dom-if" if="[[filteredCategories.length]]">
-          <paper-badge label="[[filteredCategories.length]]"></paper-badge>
-        </template>
-        <paper-button id="clear-categories" on-tap="_clearCategoriesFilter" class="fancy-button">
+        <paper-button
+          id="clear-categories"
+          on-tap="_clearCategoriesFilter"
+          class="fancy-button"
+          disabled="[[!filteredCategories.length]]">
           [[localize('button:clear')]]
         </paper-button>
       </h3>

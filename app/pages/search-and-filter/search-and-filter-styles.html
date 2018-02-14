@@ -7,11 +7,6 @@
 
     <style include="vientos-styles">
 
-      paper-badge {
-        --paper-badge-background: var(--vientos-secondary-1);
-        --paper-badge-text-color: black
-      }
-
       section {
         margin-top: 24px;
       }
@@ -27,8 +22,14 @@
       #collaboration-types h3 {
         color: var(--vientos-complementary-2);
       }
+      #collaboration-types h3 .fancy-button:not([disabled]) {
+        border-color: var(--vientos-complementary-2);
+      }
       #categories h3 {
         color: var(--vientos-tertiary-2);
+      }
+      #categories h3 .fancy-button:not([disabled]) {
+        border-color: var(--vientos-tertiary-2);
       }
 
       paper-button.iron-selected iron-icon {
