@@ -22,7 +22,7 @@ import * as util from './util'
 const config = require('../config.json')
 const persistConfig = {
   key: 'redux',
-  blacklist: ['online', 'toast', 'loginProviders'],
+  blacklist: ['online', 'toast', 'loginProviders', 'boundingBox'],
   storage
 }
 
