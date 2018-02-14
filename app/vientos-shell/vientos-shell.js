@@ -330,8 +330,11 @@ class VientosShell extends Polymer.mixinBehaviors(
   _smartBack () {
     if (this.history.length === 1) {
       let page = this.history[0].page === 'project' ? 'projects' : 'intents'
+      let entity = util.getRef(this.history[0].cuid, this[page])
       window.history.pushState({}, '', `/${page}`)
       window.dispatchEvent(new CustomEvent('location-changed'))
+      let ironList = this.$$(`#${page}`)
+      if (ironList) ironList.scrollToItem(entity)
     } else {
       let updated = [...this.history]
       updated.pop()
@@ -349,6 +352,13 @@ class VientosShell extends Polymer.mixinBehaviors(
       'menu',
       'search-and-filter'
     ].includes(page)
+  }
+
+  _projectsScrollTarget (wideScreen) {
+    return wideScreen ? this.$$('#projects') : 'document'
+  }
+  _intentsScrollTarget (wideScreen) {
+    return wideScreen ? this.$$('#intents') : 'document'
   }
 
   _toggleLanguage (e) {

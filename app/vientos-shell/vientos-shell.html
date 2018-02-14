@@ -121,9 +121,10 @@
 
           <div name="projects">
             <iron-list
-              id="list"
+              id="projects"
               items="[[visibleProjects]]"
-              as="organization">
+              as="organization"
+              scroll-target="[[_projectsScrollTarget(wideScreen)]]">
               <template>
                 <organization-preview organization="[[organization]]"></organization-preview>
               </template>
@@ -134,7 +135,8 @@
             <iron-list
               id="intents"
               items="[[visibleIntents]]"
-              as="intent">
+              as="intent"
+              scroll-target="[[_intentsScrollTarget(wideScreen)]]">
               <template>
                 <div>
                   <intent-preview
