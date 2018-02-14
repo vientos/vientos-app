@@ -99,16 +99,15 @@ class IntentEditor extends Polymer.mixinBehaviors(
   _getPlaceAddress (...args) { return util.getPlaceAddress(...args) }
   _checkIfExpired (...args) { return util.checkIfExpired(...args) }
 
-  _intentChanged () {
-    this._reset()
-    this._makeClone()
+  _intentChanged (intent, oldIntent) {
+    if (this.intent && (!this.updated || !util.deepEqual(intent, oldIntent))) {
+      this._reset()
+    }
   }
 
   _makeClone () {
-    if (this.intent && (!this.updated || this.intent._id !== this.updated._id)) {
-      let updated = util.cloneDeep(this.intent)
-      this.set('updated', updated)
-    }
+    let updated = util.cloneDeep(this.intent)
+    this.set('updated', updated)
   }
 
   _addToCollection (element, collectionPath) {

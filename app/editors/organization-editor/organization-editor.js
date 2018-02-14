@@ -109,16 +109,15 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     }
   }
 
-  _projectChanged () {
-    this._reset()
-    this._makeClone()
+  _projectChanged (project, oldProject) {
+    if (project && (!this.updated || !util.deepEqual(project, oldProject))) {
+      this._reset()
+    }
   }
 
   _makeClone () {
-    if (this.project && (!this.updated || this.project._id !== this.updated._id)) {
-      let updated = util.cloneDeep(this.project)
-      this.set('updated', updated)
-    }
+    let updated = util.cloneDeep(this.project)
+    this.set('updated', updated)
   }
 
   _addToCollection (element, collectionPath) {
