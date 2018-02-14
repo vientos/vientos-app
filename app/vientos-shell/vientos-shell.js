@@ -537,6 +537,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _showMap () {
+    if (this.page === 'menu') this.set('page', 'intents')
     if (this.currentPlace) {
       window.history.pushState({}, '', `${this.page}?place=${this.currentPlace._id}#map`)
     } else {
@@ -657,6 +658,8 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _logout () {
     this.dispatch('bye', this.session)
+    window.history.pushState({}, '', '/intents')
+    window.dispatchEvent(new CustomEvent('location-changed'))
   }
 
   goFromMenu (e) {

@@ -181,8 +181,8 @@ app-header #geo paper-button {
           font-size: 12px;
           line-height: 18px;
         }
-      #nav-toolbar paper-button[name=map] {
-        color: var(--vientos-primary-dark)
+      #nav-toolbar paper-button[name=map] iron-icon {
+        color: var(--vientos-dark-grey)
       }
 
       #nav-toolbar paper-button.iron-selected {
@@ -221,7 +221,10 @@ div[name=menu] li a:hover {
   color: white
 }
 
-#filter-button { margin-right: 10px;}
+#filter-button {
+  margin-right: 10px;
+  color: var(--vientos-dark-grey)
+}
 #filter-button iron-icon {
   border-radius: 50%;
   border: 2px solid transparent;
