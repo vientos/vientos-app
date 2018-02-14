@@ -1,0 +1,45 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="organization-editor-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      paper-dropdown-menu {
+        display: block;
+      }
+      place-picker {
+        margin-bottom: 16px;
+      }
+
+      #logo {
+        color: var(--vientos-tertiary-2);
+      }
+
+      h3 {
+        color: var(--vientos-tertiary-2);
+      }
+
+      paper-textarea,
+      paper-input {
+        --paper-input-container-color: var(--vientos-tertiary-2);
+      }
+
+      paper-icon-button[icon="vientos:delete"] {
+        border: solid 2px var(--vientos-grey);
+        color: var(--vientos-grey);
+        padding: 1px 4px;
+      }
+
+      paper-icon-button[disabled] {
+        opacity: 0.4;
+      }
+
+
+    </style>
+
+  </template>
+
+</dom-module>

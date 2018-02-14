@@ -1,10 +1,14 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../vientos-styles/vientos-styles.html">
 
 <dom-module id="vientos-shell-styles">
 
   <template>
   <style include="vientos-styles">
 
+  :host {
+    --toolbar-height: 40px;
+  }
 
   /* Will be prevented from affecting local DOM of Polymer elements */
   * {
@@ -15,115 +19,250 @@
     height: 100vh;
   }
 
-  app-header {
-    background-color: var(--vientos-secondary-light);
-  }
-
-  vientos-header {
-    @apply --layout-horizontal;
-    @apply --vientos-toolbar;
-    box-shadow: 0px 0px 8px #888;
-    /*background-color: var(--vientos-color-header) !important;*/
-  }
-
-  vientos-footer {
-    @apply --vientos-toolbar;
-    @apply --layout-horizontal;
-    @apply --w-100;
-    @apply --spaced-x;
-    position: fixed;
-    bottom: 0;
-    box-shadow: 0px 0px 8px #888;
-    background-color: var(--vientos-secondary-light);
-  }
-
-  iron-pages {
-    padding-bottom: 3em;
-  }
-
-  intents-list,
-  vientos-filter,
-  vientos-me,
-  vientos-project-profile,
-  vientos-projects,
-  place-page {
-    margin: 0 auto;
-    max-width: 600px;
-    display: block;
-    padding: 10px;
-  }
-
-  vientos-edit-project-details,
-  vientos-intent-page,
+  search-and-filter,
+  vientos-inbox,
+  organization-profile,
+  organization-editor,
+  intent-details,
   start-conversation,
-  personal-profile-editor,
-  conversation-page,
-  vientos-intent-editor {
+  account-settings,
+  vientos-conversation,
+  intent-editor {
     margin: 0 auto;
     max-width: 600px;
     display: block;
-    padding: 10px;
-    padding: var(--spacing-2);
-    @apply --center-y;
-    margin-bottom: 96px;
+    padding: 0;
+    padding-bottom: 10px;
+    position: relative;
   }
-
 
   vientos-map {
-    display: block;
-    width: 100vw;
-    height: 85vh;
+    display: none;
+    /*height: calc(100vh - 2 * var(--toolbar-height) - 1.5em);*/
+    height: calc(100vh - 2 * var(--toolbar-height) - 27px);
   }
 
-
-  vientos-project-preview {
-    height: auto;
-    width: 292px !important;
+  .conversations {
+    margin-top: -11px;
   }
 
-  app-header {
-    @apply --vientos-toolbar;
+  /* when screen is wider than 800px */
+  @media screen and (min-width: 800px) {
+    #app-container {
+      display: flex;
+    }
+
+    #app-container iron-pages div[name=projects],
+    #app-container iron-pages div[name=intents] {
+      height: calc(100vh - 2 * var(--toolbar-height) - 27px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    iron-pages {
+      flex: 1;
+    }
+
+    iron-list {
+      margin-bottom: 0;
+    }
+
+    vientos-map {
+      display: block;
+      flex: 2;
+    }
   }
 
-  #vientos-footer,
-  #vientos-footer app-toolbar,
-  app-header-layout app-toolbar iron-selector {
-    @apply --w-100;
-    @apply --layout-horizontal;
+app-header {
+  height: calc(2 * var(--toolbar-height) + 27px);
+  background-color: var(--vientos-secondary-light);
+}
+
+  app-header app-toolbar {
+    padding-left: 0;
+    height: var(--toolbar-height);
   }
 
+    app-header app-toolbar paper-button[name=me] {
+      padding: 3px;
+      border-radius: 50%;
+    }
 
-  vientos-footer {
+    app-header app-toolbar paper-button[name=me].active {
+      border: 3px solid var(--vientos-primary-dark);
+      padding: 0;
+    }
+
+    app-header app-toolbar iron-icon[icon="vientos:person"] {
+      margin-left: 10px;
+    }
+
+app-header app-toolbar iron-input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+app-header app-toolbar iron-input input {
+  background-color: var(--vientos-secondary-light);
+  border: none;
+  border-bottom: 1px solid gray;
+  width: 100%;
+}
+
+app-header app-toolbar iron-input input:focus {
+  outline: none;
+}
+
+app-header a {
+  display: block;
+  width: 26px;
+}
+
+ app-header iron-image {
+   height: 26px;
+   width: 26px;
+   border-radius: 50%;
+ }
+
+app-header paper-button,
+app-header paper-icon-button {
+  min-width: 0;
+  padding: 0;
+}
+
+app-header paper-button[name=menu] {
+  width: 24px;
+  flex: none;
+  padding-left: 8px;
+  padding-right: 0;
+  color: var(--vientos-dark-grey);
+}
+
+app-header #geo {
+  text-align: center;
+  color: white;
+  background-color: var(--vientos-dark-grey);
+  display: flex;
+}
+
+app-header #geo div {
+  flex: 1;
+}
+
+app-header #geo paper-button {
+  height: 22px;
+  margin-top: 2px;
+  color: #444;
+}
+
+  #nav-toolbar {
+    width: 100%;
+    height: var(--toolbar-height);
+    padding-top: 0px;
+    box-shadow: 0px 0px 8px #888;
+    background-color: var(--vientos-secondary-light);
     z-index: 10000;
+    display: flex;
   }
 
+    #nav-toolbar paper-button {
+      flex: 1;
+      padding-bottom: 0px;
+      min-width: 0;
+    }
 
-  #vientos-header {
-    /*background-color: var(--app-header-background-color);*/
+    #nav-toolbar iron-icon {
+      height: 20px;
+      width: 20px;
+    }
+
+        #nav-toolbar div.badge{
+          display: inline-block;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      #nav-toolbar paper-button[name=map] iron-icon {
+        color: var(--vientos-dark-grey)
+      }
+
+      #nav-toolbar paper-button.iron-selected {
+        border-bottom: 4px solid var(--vientos-primary-light);
+        padding-bottom: 4px;
+      }
+
+        #nav-toolbar paper-button[active] iron-icon {
+         background-color: var(--vientos-secondary-1);
+         color: black;
+         border-radius: 50%;
+         padding: 5px 3px 5px 7px;
+         opacity: 0.7;
+         box-sizing: content-box;
+        }
+
+div[name=menu] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 85vh;
+  text-align: center;
+}
+div[name=menu] li {
+  padding: 8px;
+}
+div[name=menu] li a {
+  display: block;
+  text-decoration: none;
+  color: var(--vientos-dark-grey);
+  text-transform: uppercase;
+}
+
+div[name=menu] li a:hover {
+  background-color: var(--vientos-tertiary-3);
+  color: white
+}
+
+#filter-button {
+  margin-right: 10px;
+  color: var(--vientos-dark-grey)
+}
+#filter-button iron-icon {
+  border-radius: 50%;
+  border: 2px solid transparent;
+  height: 32px;
+  width: 32px;
+  padding: 2px;
+}
+
+  #filter-button.categories iron-icon {
+    border-bottom: 3px solid var(--vientos-tertiary-3);
+    border-right: 3px solid var(--vientos-tertiary-3);
   }
-  app-toolbar {
-    @apply --h-100;
+
+  #filter-button.collaborations iron-icon {
+    border-top: 3px solid var(--vientos-complementary-3);
+    border-left: 3px solid var(--vientos-complementary-3);
   }
-  /*app-header > #contentContainer,
-  app-toolbar {
-  font-size: 22px !important;
-  height: 2.5em !important;
-  }*/
 
-  paper-fab {
-   --paper-fab-background: var(--vientos-primary);
-   --paper-fab-keyboard-focus-background: var(--vientos-primary);
-   --paper-fab-iron-icon: {
-     width: 32px;
-     height: 24px;
-   };
- }
+div.badge {
+  background-color: var(--vientos-secondary-1);
+  margin-right: 5px;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+}
 
- #language-toggle {
-   display: flex;
- }
+paper-button[name=intents] div.badge  {
+  background-color: var(--vientos-complementary-3);
+}
 
-
+paper-button[name=projects] div.badge  {
+  background-color: var(--vientos-tertiary-3);
+  height: calc(16px * var(--hex-width-ratio));
+  clip-path: var(--hex-clip-path);
+}
   </style>
 </template>
 </dom-module>

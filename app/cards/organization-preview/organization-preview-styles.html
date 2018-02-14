@@ -1,0 +1,71 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="organization-preview-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      * {
+        text-align: center;
+      }
+
+      h4 {
+        color: var(--vientos-tertiary-3);
+        font-size: 24px;
+        padding: 8px;
+        line-height: 1.25em;
+      }
+
+      #logo {
+        position: relative;
+      }
+
+        #logo iron-icon {
+          position: absolute;
+          bottom: 0;
+          left: 24px;
+          width: 28px;
+          height: 28px;
+          opacity: 0.5;
+          color: var(--vientos-tertiary-1);
+        }
+
+      #description {
+        margin: 8px 0;
+        opacity: 0.7;
+        line-height: 1.25em;
+        font-size: 0.85em;
+      }
+
+      #addresses {
+        color: var(--vientos-tertiary-2);
+      }
+
+        #addresses li {
+          text-transform: uppercase;
+          font-size: 0.6em;
+        }
+
+      #categories {
+        padding: 8px 0;
+      }
+
+        #categories li {
+          display: inline-block;
+        }
+
+          #categories li iron-icon  {
+            opacity: .4;
+            width: 28px;
+            height: 28px;
+            padding: 8px 12px;
+          }
+
+
+  </style>
+
+  </template>
+
+</dom-module>

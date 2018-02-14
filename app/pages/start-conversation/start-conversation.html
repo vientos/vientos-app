@@ -1,0 +1,52 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../../cards/intent-preview/intent-preview.html">
+
+<link rel="import" href="start-conversation-styles.html">
+
+<dom-module id="start-conversation">
+  <template>
+
+    <style include="start-conversation-styles"></style>
+
+    <app-toolbar class="action-toolbar sticky">
+      <template is="dom-if" if="[[answer.body]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:cancel"
+        ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[!answer.body]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:arrow-back"
+        ></paper-icon-button>
+      </template>
+    </app-toolbar>
+
+    <intent-preview intent="[[intent]]" show-projects></intent-preview>
+
+    <section>
+      <h3>[[localize('label:questions')]] <a href="/guide/intents#question">?</a></h3>
+      <p>[[intent.question]]</p>
+      <div id="response">
+        <template is="dom-if" if="[[online]]">
+          <paper-textarea value="{{answer.body}}" placeholder="[[localize('label:intent-answer')]]"></paper-textarea>
+          <paper-icon-button
+          icon="vientos:send"
+          on-tap="_send"
+          disabled="[[!answer.body]]"></paper-icon-button>
+        </template>
+      </div>
+    </section>
+  </template>
+
+  <script src="start-conversation.js"></script>
+
+</dom-module>

@@ -1,0 +1,42 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="conversations-list-styles.html">
+
+<dom-module id="conversations-list">
+  <template>
+  <style include="conversations-list-styles"></style>
+    <ul>
+      <template is="dom-repeat" items="[[visibleConversationRecords]]" as="record">
+        <li on-tap="_showConversation" class="clickable">
+          <template is="dom-if" if="[[record.notificationsCount]]">
+            <paper-badge label="[[record.notificationsCount]]"></paper-badge>
+          </template>
+          <div class="last-message-time left">[[record.othersTimeAgo]]</div>
+          <div class="last-message-time right">[[record.usTimeAgo]]</div>
+          <div id="others" class="ellipsis">
+            <iron-image
+               src="[[_getThumbnailUrl(record.othersPerson, 26)]]"
+               sizing="cover">
+            </iron-image>
+            <span>[[record.othersPerson.name]]</span>
+          </div>
+          <div id="us">
+            <iron-image
+               src="[[_getThumbnailUrl(record.usPerson, 26)]]"
+               sizing="cover">
+            </iron-image>
+          </div>
+          <!-- <template is="dom-if" if="[[_hasStar(conversation, stars)]]">
+            <iron-icon icon="vientos:star"></iron-icon>
+          </template> -->
+        </li>
+      </template>
+    </ul>
+  </template>
+  <script src="conversations-list.js"></script>
+</dom-module>

@@ -1,0 +1,92 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="intent-preview-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+      #main {
+        display: flex;
+        height: 100px;
+      }
+
+        #main #info {
+          flex: 1;
+        }
+
+          #main #info #title {
+            line-height: 1.2em;
+            font-size: 1em;
+            color: var(--vientos-complementary-3);
+            padding-right: 8px;
+          }
+
+          #main #info #direction {
+            opacity: 0.6;
+            padding: 4px 0;
+            text-transform: uppercase;
+            font-size: 0.8em;
+          }
+
+          #main #info #direction iron-icon {
+            height: 16px;
+            width: 26px;
+            vertical-align: sub;
+          }
+
+        #main #image {
+          width: 100px;
+          margin-right: calc(-4 * var(--spacing));
+          text-align: center;
+        }
+
+          #main #image iron-image {
+            height: 100px;
+            width: 100px;
+          }
+
+          #main #image div {
+            background-color: #bbb;
+            height: 100px;
+          }
+
+          #main #image iron-icon {
+            height: 50px;
+            width: 50px;
+            opacity: 0.8;
+            padding-top: 25px;
+            color: white;
+          }
+
+      #projects {
+        margin-top: 4px;
+        opacity: 0.7;
+      }
+
+        #projects li {
+          display: flex;
+          padding-bottom: 10px;
+        }
+
+        #projects div {
+          line-height: 24px;
+          font-size: 0.9em;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          padding-left: 0.5em;
+          flex: 1;
+          color: var(--vientos-tertiary-3);
+        }
+
+        #projects iron-image {
+          width: 24px;
+          height: calc(24px * var(--hex-width-ratio));
+          clip-path: var(--hex-clip-path);
+        }
+    </style>
+
+  </template>
+
+</dom-module>

@@ -1,0 +1,17 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/google-apis/google-maps-api.html">
+
+<link rel="import" href="place-picker-styles.html">
+
+<dom-module id="place-picker">
+  <template>
+    <style include="place-picker-styles"></style>
+    <div><input id="place-input"></div>
+    <google-maps-api
+      api-key="[[googleMapsApiKey]]"
+      libraries="places"
+      on-api-load="_onGoogleMapsApiLoad"
+      ></google-maps-api>
+  </template>
+  <script src="place-picker.js"></script>
+</dom-module>

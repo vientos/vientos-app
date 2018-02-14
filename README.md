@@ -1,33 +1,27 @@
-# vientos-nahual
+# vientos-app
 
-[![Build Status](https://travis-ci.org/ehecame/vientos-nahual.svg?branch=master)](https://travis-ci.org/ehecame/vientos-nahual)
-[![codecov](https://codecov.io/gh/ehecame/vientos-nahual/branch/master/graph/badge.svg)](https://codecov.io/gh/ehecame/vientos-nahual)
-[![Code Climate](https://codeclimate.com/github/ehecame/vientos-nahual/badges/gpa.svg)](https://codeclimate.com/github/ehecame/vientos-nahual)
-[![bitHound Code](https://www.bithound.io/github/ehecame/vientos-nahual/badges/code.svg)](https://www.bithound.io/github/ehecame/vientos-nahual)
+[![Build Status](https://travis-ci.org/vientos/vientos-app.svg?branch=staging)](https://travis-ci.org/vientos/vientos-app)
+[![Code Climate](https://codeclimate.com/github/vientos/vientos-app/badges/gpa.svg)](https://codeclimate.com/github/vientos/vientos-app)
+[![bitHound Code](https://www.bithound.io/github/vientos/vientos-app/badges/code.svg)](https://www.bithound.io/github/vientos/vientos-app)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ehecame/vientos-nahual.svg)](https://greenkeeper.io/)
-[![bitHound Dependencies](https://www.bithound.io/github/ehecame/vientos-nahual/badges/dependencies.svg)](https://www.bithound.io/github/ehecame/vientos-nahual/master/dependencies/npm)
-[![NSP Status](https://nodesecurity.io/orgs/vientos/projects/43149b48-d35a-4c5d-9d7c-ef24383fcb70/badge)](https://nodesecurity.io/orgs/vientos/projects/43149b48-d35a-4c5d-9d7c-ef24383fcb70)
-
-frontend mutante para vientos
+[![Greenkeeper badge](https://badges.greenkeeper.io/vientos/vientos-app.svg)](https://greenkeeper.io/)
+[![bitHound Dependencies](https://www.bithound.io/github/vientos/vientos-app/badges/dependencies.svg)](https://www.bithound.io/github/vientos/vientos-app/staging/dependencies/npm)
+[![NSP Status](https://nodesecurity.io/orgs/vientos/projects/8ce10402-be35-4831-bc4f-936d5a336d0b/badge)](https://nodesecurity.io/orgs/vientos/projects/8ce10402-be35-4831-bc4f-936d5a336d0b)
+[![Known Vulnerabilities](https://snyk.io/test/github/vientos/vientos-app/badge.svg)](https://snyk.io/test/github/vientos/vientos-app)
 
 
 ## dev setup
 
 ```shell
-npm install
+yarn
 bower install
 cp config.example.json config.json
-
-# If running Vientos' Client without running the whole DB and API App,
-# set 'service' property to 'false' inside config.json
-
-npm run bundle
-polymer serve
+npm start
 ```
 
+You will also need to run [vientos-service](https://github.com/vientos/vientos-service)
 
 
 ### multilingual
 
-Project uses [Polymer.AppLocalizeBehavior](https://elements.polymer-project.org/elements/app-localize-behavior) please always add new strings to `labels.json` in [vientos-data](https://github.com/ehecame/vientos-data) and **never hardcode untranslated strings** in any of the templates!
+Project uses [Polymer.AppLocalizeBehavior](https://elements.polymer-project.org/elements/app-localize-behavior) please always add new strings to `labels.json` in [vientos-data](https://github.com/vientos/vientos-data) and **never hardcode untranslated strings** in any of the templates!

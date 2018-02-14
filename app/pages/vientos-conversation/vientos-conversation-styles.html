@@ -1,0 +1,103 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="vientos-conversation-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+    iron-image {
+      height: 26px;
+      width: 26px;
+      border-radius: 50%;
+    }
+
+    .primary-action iron-icon{
+      color: var(--vientos-primary-dark);
+    }
+
+    .primary-action[disabled] iron-icon {
+      color: grey;
+      opacity: 0.5;
+    }
+
+    #messages {
+      padding-bottom: 80px;
+    }
+
+    li {
+      background-color: white;
+      border-radius: 20px;
+      padding: 10px;
+      margin-bottom: 5px;
+      box-shadow: 1px 1px 1px #aaa;
+    }
+
+    li > div.name {
+      opacity: 0.8;
+      font-size: 16px;
+    }
+
+    li.us {
+      text-align: right;
+      margin-left: 3em;
+    }
+
+    li.others {
+      margin-right: 3em;
+    }
+
+    div#message-controls {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: #eee;
+      padding: 8px;
+    }
+
+    div#message-controls paper-textarea {
+      flex: 4;
+    }
+
+    div#message-controls paper-button {
+      flex: 1;
+      margin: 10px;
+    }
+
+   div#turn-toggle {
+      display: flex;
+      justify-content: center;
+      margin-top: 1em;
+    }
+
+    div.hint {
+      color: var(--accent-color);
+    }
+
+    paper-toggle-button {
+      margin-left: 10px;
+      margin-bottom: 5px;
+      --paper-toggle-button-checked-button-color: var(--vientos-complementary-3);
+      --paper-toggle-button-checked-bar: {
+        background-color: var(--vientos-complementary-3);
+        opacity: 0.5;
+      };
+      --paper-toggle-button-unchecked-button-color: var(--vientos-tertiary-2);
+      --paper-toggle-button-unchecked-bar: {
+        background-color: var(--vientos-tertiary-2);
+        opacity: 0.5;
+      };
+    }
+
+    .iron-selected {
+      border: 2px solid var(--vientos-primary);
+    }
+
+    </style>
+
+  </template>
+
+</dom-module>

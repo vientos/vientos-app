@@ -1,57 +1,28 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
-<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../widgets/conversations-list/conversations-list.html">
 
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,900" rel="stylesheet">
 
 <link rel="import" href="../../bower_components/vientos-iconset/vientos-iconset.html">
-
-<link rel="import" href="vientos-shell-styles.html">
-
-<link rel="import" href="../redux-store.html">
-
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,900" rel="stylesheet">
-
-
-<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
-
-<link rel="import" href="../components/vientos-icon-button/vientos-icon-button.html">
-
-<link rel="import" href="../vientos-header/vientos-header.html">
-<link rel="import" href="../vientos-footer/vientos-footer.html">
-
-<link rel="import" href="../vientos-map/vientos-map.html">
-
-
-<link rel="import" href="../vientos-styles/vientos-styles.html">
 <link rel="import" href="vientos-shell-styles.html">
 
 <dom-module id="vientos-shell">
@@ -61,109 +32,213 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
   <app-location route="{{route}}" query-params="{{query}}"></app-location>
-
   <app-route
-  route="{{route}}"
-  pattern="/:page"
-  data="{{routeData}}"
-  tail="{{subroute}}"></app-route>
-
+    route="{{route}}"
+    pattern="/:page"
+    data="{{routeData}}"
+    tail="{{subroute}}">
+  </app-route>
   <app-route
-  route="{{subroute}}"
-  pattern="/:id"
-  data="{{subrouteData}}"></app-route>
+    route="{{subroute}}"
+    pattern="/:id"
+    data="{{subrouteData}}">
+  </app-route>
 
-  <!-- <app-scrollpos-control selected="{{page}}"></app-scrollpos-control> -->
-
-  <app-drawer-layout fullbleed force-narrow>
-
+  <div>
     <!-- Main content -->
     <app-header-layout>
+      <template is="dom-if" if="[[_hasFooter(page)]]">
+        <app-header slot="header" fixed>
+          <app-toolbar>
+            <paper-button name="menu" on-tap="_showMenu">
+              <iron-icon icon="vientos:menu"></iron-icon>
+            </paper-button>
+            <iron-input bind-value="{{newSearchTerm}}">
+              <input
+                value="{{newSearchTerm}}"
+                placeholder="[[localize('label:search')]]">
+            </iron-input>
+            <a href="/search-and-filter" id="filter-button">
+              <iron-icon icon="vientos:filter"></iron-icon>
+            </a>
+            <template is="dom-if" if="[[person]]">
+              <paper-button name="me" on-tap="_togglePersonalFilter">
+                <iron-image id="person-avatar" src="[[_getThumbnailUrl(person, 26)]]" sizing="cover"></iron-image>
+                <template is="dom-if" if="[[notifications.length]]">
+                  <paper-badge label="[[notifications.length]]" for="person-avatar"></paper-badge>
+                </template>
+              </paper-button>
+            </template>
+            <template is="dom-if" if="[[!person]]">
+              <a href="/me">
+                <iron-icon icon="vientos:person"></iron-icon>
+              </a>
+            </template>
+          </app-toolbar>
+          <div id="geo" >
+            <div class="ellipsis">[[geoTag]]</div>
+          </div>
+          <iron-selector attr-for-selected="name" selected="[[tab]]" id="nav-toolbar">
+            <paper-button class="labeled-button" name="intents" on-tap="_showIntentList">
+              <div class="icons">
+                <div class="badge">[[visibleIntents.length]]</div>
+                <iron-icon icon="vientos:intent"></iron-icon>
+              </div>
+              <div class="text">
+                [[localize('intents')]]
+              </div>
+            </paper-button>
+            <paper-button class="labeled-button" name="projects" on-tap="_showProjectList">
+              <div class="icons">
+                <div class="badge">[[visibleProjects.length]]</div>
+                <iron-icon icon="vientos:organization"></iron-icon>
+              </div>
+              <div class="text">
+                [[localize('projects')]]
+              </div>
+            </paper-button>
+            <template is="dom-if" if="[[!wideScreen]]">
+              <paper-button class="labeled-button" name="map" on-tap="_showMap">
+                <div class="icons">
+                  <iron-icon icon="vientos:map"></iron-icon>
+                </div>
+                <div class="text">
+                  [[localize('button:map')]]
+                </div>
+              </paper-button>
+            </template>
+          </iron-selector>
+        </app-header>
+      </template>
+      <div id="app-container">
+        <iron-pages
+        selected="{{page}}"
+        attr-for-selected="name"
+        role="main">
+        <!-- TODO: fallback-selection="view404" -->
+
+          <search-and-filter name="search-and-filter"></search-and-filter>
+
+          <div name="projects">
+            <iron-list
+              id="projects"
+              items="[[visibleProjects]]"
+              as="organization"
+              scroll-target="[[_projectsScrollTarget(wideScreen)]]">
+              <template>
+                <organization-preview organization="[[organization]]"></organization-preview>
+              </template>
+            </iron-list>
+          </div>
+
+          <div name="intents">
+            <iron-list
+              id="intents"
+              items="[[visibleIntents]]"
+              as="intent"
+              scroll-target="[[_intentsScrollTarget(wideScreen)]]">
+              <template>
+                <div>
+                  <intent-preview
+                    intent="[[intent]]"
+                    show-projects
+                    on-tap-card="_goToIntentDetails"
+                    class="clickable"></intent-preview>
+                  <template is="dom-if" if="[[personalFilter]]">
+                    <div class="conversations">
+                      <conversations-list
+                        conversations="[[_filterIntentConversations(intent, myConversations)]]"
+                        intent="[[intent]]">
+                      </conversations-list>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </iron-list>
+          </div>
+
+          <div name="menu">
+            <ul>
+              <li><a href="/guide/intro">[[localize('guide')]]</a></li>
+              <li><a href="/new-project" on-tap="goFromMenu">[[localize('button:add-project')]]</a></li>
+              <li><a href="/account" on-tap="goFromMenu">[[localize('button:account-settings')]]</a></li>
+              <template is="dom-if" if="[[!person]]">
+                <li><a href="/me">[[localize('button:login')]]</a></li>
+              </template>
+              <template is="dom-if" if="[[person]]">
+                <li><a href="/" on-tap="_logout">[[localize('button:logout')]]</a></li>
+              </template>
+            </ul>
+          </div>
 
 
-      <app-header id="header" fixed>
-        <vientos-header page="[[page]]" on-toggle="_toggleDrawer"></vientos-header>
-      </app-header>
+          <organization-profile
+          name="project"
+          project="[[currentProject]]"
+          on-back="_smartBack"
+          ></organization-profile>
 
-      <iron-pages
-      selected="{{page}}"
-      attr-for-selected="name"
-      fallback-selection="view404"
-      role="main">
-      <!-- <main> -->
+          <organization-editor
+            name="edit-project-details"
+            project="[[currentProject]]"
+          ></organization-editor>
 
-      <vientos-filter name="filter"></vientos-filter>
+          <organization-editor
+          name="new-project"
+          creator="[[person]]"></organization-editor>
 
-      <vientos-projects
-      name="projects"
-      projects="[[visibleProjects]]"></vientos-projects>
+          <intent-details
+            name="intent"
+            intent="[[currentIntent]]"
+            on-back="_smartBack"
+          ></intent-details>
 
-      <intents-list name="intents" intents="[[visibleIntents]]">
-      </intents-list>
+          <intent-editor
+          name="edit-intent"
+          intent="[[currentIntent]]"></intent-editor>
 
-      <vientos-map
-      name="map"
-      view="[[mapView]]"
-      locations="[[visiblePlaces]]"
-      of="[[mapOf]]"
-      on-bbox="_updateBoundingBox"></vientos-map>
+          <intent-editor
+          name="new-intent"
+          project="[[currentProject]]"></intent-editor>
 
-      <vientos-project-profile
-      name="project"
-      project="[[currentProject]]"></vientos-project-profile>
+          <vientos-inbox name="me"></vientos-inbox>
+          <account-settings name="account"></account-settings>
 
-      <vientos-edit-project-details
-      name="edit-project-details"
-      project="[[currentProject]]"></vientos-edit-project-details>
+          <start-conversation
+          name="new-conversation"
+          intent="[[currentIntent]]"></start-conversation>
 
-      <vientos-edit-project-details
-      name="new-project"
-      creator="[[person]]"></vientos-edit-project-details>
+          <vientos-conversation
+          name="conversation"
+          conversation="[[currentConversation]]"
+          on-back="_smartBack"
+          ></vientos-conversation>
 
-      <vientos-intent-page
-      name="intent"
-      intent="[[currentIntent]]"></vientos-intent-page>
+          <review-editor
+          name="review"
+          conversation="[[currentConversation]]"></review-editor>
 
-      <vientos-intent-editor
-      name="edit-intent"
-      intent="[[currentIntent]]"></vientos-intent-editor>
+          <match-editor
+          name="select-match"
+          intent="[[currentIntent]]"></match-editor>
 
-      <vientos-intent-editor
-      name="new-intent"
-      project="[[currentProject]]"></vientos-intent-editor>
-
-      <vientos-me name="me"></vientos-me>
-      <personal-profile-editor name="edit-my-profile"></personal-profile-editor>
-
-      <start-conversation
-      name="new-conversation"
-      intent="[[currentIntent]]"></start-conversation>
-
-      <conversation-page
-      name="conversation"
-      conversation="[[currentConversation]]"></conversation-page>
-
-      <place-page
-      name="place"
-      place="[[currentPlace]]"></place-page>
-
-      <my-view404 name="view404"></my-view404>
-
-      <!-- </main> -->
-    </iron-pages>
-    <template is="dom-if" if="[[mapButtonVisible]]">
-      <paper-fab on-tap="_showMap" icon="vientos:map">
-      </paper-fab>
-    </template>
-
-    <template is="dom-if" if="[[_hasFooter(page)]]">
-      <vientos-footer page="[[page]]" visible-projects-count="[[visibleProjects.length]]" visible-intents-count="[[visibleIntents.length]]"></vientos-footer>
-    </template>
-
+          <vientos-guide
+          name="guide"
+          section="[[guideSection]]"
+          ></vientos-guide>
+        </iron-pages>
+        <vientos-map
+          view="[[mapView]]"
+          locations="[[visiblePlaces]]"
+          projects="[[visibleProjects]]"
+          intents="[[visibleIntents]]"
+          current-place="[[currentPlace._id]]"
+          on-bbox="_updateBoundingBox"
+          ></vientos-map>
+        <paper-toast id="toast">[[localize(toast.label)]]</paper-toast>
+      </div>
   </app-header-layout>
-</app-drawer-layout>
-
-
+</div>
 
 </template>
 

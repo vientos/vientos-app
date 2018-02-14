@@ -1,0 +1,38 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="vientos-inbox-styles.html">
+
+<dom-module id="vientos-inbox">
+  <template>
+
+    <style include="vientos-inbox-styles"></style>
+
+    <header>
+      <paper-icon-button icon="vientos:cancel" on-tap="_close"></paper-icon-button>
+    </header>
+    <template is="dom-if" if="[[person]]">
+      <!-- TODO: message that already logged in -->
+    </template>
+    <template is="dom-if" if="[[!person]]">
+      <ul id="login-buttons">
+        <template is="dom-if" if="[[loginProviders.vientos]]">
+          <li><a href="[[loginProviders.vientos]]" class="loginBtn loginBtn--vientos">[[localize('button:login-with')]] Vientos</a></li>
+        </template>
+        <template is="dom-if" if="[[loginProviders.google]]">
+          <li><a href="[[loginProviders.google]]" class="loginBtn loginBtn--google">[[localize('button:login-with')]] Google</a></li>
+        </template>
+        <template is="dom-if" if="[[loginProviders.facebook]]">
+          <li><a href="[[loginProviders.facebook]]" class="loginBtn loginBtn--facebook">[[localize('button:login-with')]] Facebook</a></li>
+        </template>
+      </ul>
+    </template>
+  </template>
+
+  <script src="vientos-inbox.js"></script>
+
+</dom-module>

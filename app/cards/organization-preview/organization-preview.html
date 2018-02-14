@@ -1,0 +1,53 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="organization-preview-styles.html">
+
+<dom-module id="organization-preview">
+  <template>
+
+    <style include="organization-preview-styles"></style>
+
+    <div class="card" on-tap="_showFullProfile">
+        <h4>
+          [[organization.name]]
+        </h4>
+        <div id="logo">
+          <template is="dom-if" if="[[following]]">
+            <iron-icon icon="vientos:follow"></iron-icon>
+          </template>
+          <iron-image
+             class="org-logo"
+             src="[[_getThumbnailUrl(organization, 200)]]"
+             sizing="cover"
+          ></iron-image>
+
+        </div>
+        <div id="description">
+          [[organization.description]]
+        </div>
+        <template is="dom-if" if="[[organization.locations.length]]">
+            <ul id="addresses">
+              <template is="dom-repeat" items="[[organization.locations]]" as="place">
+                <li class="ellipsis">[[_trimAddress(place, places)]]</li>
+              </template>
+            </ul>
+        </template>
+        <ul id="categories">
+          <template is="dom-repeat" items="[[organization.categories]]">
+            <li>
+              <iron-icon icon="vientos:[[item]]"></iron-icon>
+            </li>
+          </template>
+        </ul>
+
+    </div>
+
+  </template>
+</dom-module>
+
+<script src="organization-preview.js"></script>

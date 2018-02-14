@@ -1,0 +1,47 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="intent-preview-styles.html">
+
+<dom-module id="intent-preview">
+  <template>
+
+    <style include="intent-preview-styles"></style>
+
+    <div class="card" on-tap="_handleTapCard">
+      <div id="main">
+        <div id="info">
+          <div id="direction">
+            [[localize(intent.direction)]]
+            <iron-icon icon="vientos:[[intent.direction]]"></iron-icon>
+          </div>
+          <h2 id="title">[[intent.title]]</h2>
+        </div>
+        <div id="image">
+          <template is="dom-if" if="[[intent.logo]]">
+            <iron-image src="[[_getThumbnailUrl(intent, 100)]]" sizing="cover"></iron-image>
+          </template>
+          <template is="dom-if" if="[[!intent.logo]]">
+            <div><iron-icon icon="vientos:[[intent.collaborationType]]"></iron-icon></div>
+          </template>
+        </div>
+      </div>
+      <template is="dom-if" if="[[showProjects]]">
+        <div id="projects">
+          <ul>
+            <template is="dom-repeat" items="[[intentProjects]]" as="project">
+              <li>
+                <iron-image src="[[_getThumbnailUrl(project, 24)]]" sizing="cover"></iron-image>
+                <div>[[project.name]]</div>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </template>
+    </div>
+  </template>
+  <script src="intent-preview.js"></script>
+</dom-module>

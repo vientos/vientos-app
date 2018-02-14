@@ -1,0 +1,138 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="../../cards/review-card/review-card.html">
+<link rel="import" href="../../cards/intent-preview/intent-preview.html">
+<link rel="import" href="../../widgets/back-clue/back-clue.html">
+
+<link rel="import" href="vientos-conversation-styles.html">
+
+<dom-module id="vientos-conversation">
+  <template>
+    <style include="vientos-conversation-styles"></style>
+    <app-toolbar class="action-toolbar sticky">
+      <paper-button on-tap="_back">
+        <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+        <back-clue history="[[history]]"></back-clue>
+      </paper-button>
+      <div>
+        <!-- <paper-icon-button
+          class="round"
+          on-tap="_toggleStar"
+          icon="vientos:star"
+          disabled="[[canToggleStar]]"
+          ></paper-icon-button> -->
+      </div>
+        <paper-button
+          class="labeled-button primary-action"
+          on-tap="_goToReview"
+          disabled="[[!canReview]]">
+          <div class="icons">
+            <iron-icon icon="vientos:satisfied"></iron-icon>
+          </div>
+          <div class="text">[[localize('button:review')]]</div>
+          </paper-button>
+    </app-toolbar>
+    <section>
+      <intent-preview
+        intent="[[causingIntent]]"
+          on-tap-card="_goToIntentDetails"
+          class="clickable"
+        show-projects></intent-preview>
+      <template is="dom-if" if="[[matchingIntent]]">
+        <intent-preview
+          intent="[[matchingIntent]]"
+          on-tap-card="_goToIntentDetails"
+          class="clickable"
+          show-projects></intent-preview>
+      </template>
+    </section>
+      <template is="dom-if" if="[[ableToMatch]]">
+        <template is="dom-if" if="[[!selectingMatch]]">
+          <paper-button
+            id="select-match"
+            raised
+            on-tap="_toggleSelectingMatch"
+            disabled="[[!availableMatchedIntents.length]]">[[localize('button:i-can-match')]]</paper-button>
+        </template>
+        <template is="dom-if" if="[[availableMatchedIntents.length]]">
+          <template is="dom-if" if="[[selectingMatch]]" restamp>
+            <h3>[[localize('label:select-matching-for-conversation')]]</h3>
+            <iron-selector selected="{{newMatchingIntentId}}" attr-for-selected="name">
+              <template is="dom-repeat" items="[[availableMatchedIntents]]">
+                <div name="[[item._id]]">
+                  <intent-preview
+                    intent="[[item]]"
+                    show-projects></intent-preview>
+                </div>
+              </template>
+            </iron-selector>
+          <app-toolbar>
+              <paper-icon-button
+                on-tap="_cancelSelectingMatch"
+                icon="vientos:cancel"
+                ></paper-icon-button>
+              <paper-icon-button
+                on-tap="_saveSelectedMatch"
+                icon="vientos:ok"
+                disabled="[[!newMatchingIntentId]]"
+                ></paper-icon-button>
+          </app-toolbar>
+          </template>
+        </template>
+        TODO: how to create new match (hint)
+      </template>
+    <section>
+      <template is="dom-if" if="[[conversationReviews.length]]">
+        <template is="dom-if" if="[[success]]">
+          <h3><iron-icon icon="vientos:success"></iron-icon>[[localize('label:successful-collaboration')]]</h3>
+        </template>
+        <template is="dom-if" if="[[!success]]">
+          <h3><iron-icon icon="vientos:aborted"></iron-icon>[[localize('label:aborted-conversation')]]</h3>
+        </template>
+        <h4>[[localize('label:reviews')]]</h4>
+        <template is="dom-repeat" items="[[conversationReviews]]" as="review">
+          <review-card review="[[review]]" skip-link></review-card>
+        </template>
+      </template>
+    </section>
+    <section id="messages">
+      <ul>
+        <li>
+          <p>[[localize('label:questions')]]</p>
+          <p>[[causingIntent.question]]</p>
+        </li>
+        <template is="dom-repeat" items="[[conversation.messages]]" as="message">
+          <li class$="[[_classForSameTeam(person, message.creator, conversation, intents)]]">
+            <div class="name">
+              <iron-image src="[[_getImage(message.creator, people, 26)]]" sizing="cover"></iron-image>
+              [[_getName(message.creator, people)]]
+            </div>
+            <div class="message" inner-h-t-m-l="[[_addHyperLinks(message.body)]]"></div>
+          </li>
+        </template>
+      </ul>
+    </section>
+    <template is="dom-if" if="[[showNewMessage]]">
+  <div id="message-controls">
+    <paper-textarea value="{{newMessage}}" placeholder="[[localize('type-message')]]"></paper-textarea>
+    <paper-icon-button
+    icon="vientos:send"
+    on-tap="_sendMessage"
+    disabled="[[!newMessage]]"></paper-icon-button>
+  </div>
+</template>
+  </template>
+
+  <script src="vientos-conversation.js"></script>
+
+</dom-module>

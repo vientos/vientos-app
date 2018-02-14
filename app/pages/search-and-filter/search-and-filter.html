@@ -1,0 +1,71 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+<link rel="import" href="../../widgets/categories-selector/categories-selector.html">
+
+<link rel="import" href="search-and-filter-styles.html">
+
+<dom-module id="search-and-filter">
+  <template>
+
+    <style include="search-and-filter-styles"></style>
+
+      <section id="collaboration-types">
+        <h3>
+          <div>[[localize('label:collaboration-types')]]</div>
+          <paper-button
+            id="clear-collaboration-types"
+            on-tap="_clearCollaborationTypesFilter"
+            class="fancy-button"
+            disabled="[[!filteredCollaborationTypes.length]]">
+            [[localize('button:clear')]]
+          </paper-button>
+        </h3>
+        <div>
+          <div class="select-buttons">
+            <iron-selector
+              attr-for-selected="name"
+              selected-values="[[filteredCollaborationTypes]]"
+              on-selected-items-changed="_collaborationTypeSelectionChanged"
+              multi>
+              <template is="dom-repeat" items="[[collaborationTypes]]">
+                <paper-button
+                name="[[item]]">
+                <iron-icon icon="vientos:[[item]]"></iron-icon>
+                <div>[[localize(item)]]</div>
+                </paper-button>
+              </template>
+            </iron-selector>
+        </div>
+      </div>
+    </section>
+    <section id="categories">
+      <h3>
+        <div>[[localize('label:categories')]]</div>
+        <paper-button
+          id="clear-categories"
+          on-tap="_clearCategoriesFilter"
+          class="fancy-button"
+          disabled="[[!filteredCategories.length]]">
+          [[localize('button:clear')]]
+        </paper-button>
+      </h3>
+      <div>
+        <categories-selector
+        categories="[[categories]]"
+        selection="[[filteredCategories]]"
+        on-selection-changed="_selectionChanged"></categories-selector>
+      </div>
+    </section>
+  </template>
+
+  <script src="search-and-filter.js"></script>
+
+</dom-module>

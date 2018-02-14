@@ -1,0 +1,74 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="organization-profile-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      app-header h2 {
+        color: var(--vientos-tertiary-3);
+      }
+
+      h3 {
+        color: var(--vientos-tertiary-2);
+      }
+
+      #logo {
+        text-align: center;
+      }
+
+      #project-description {
+        line-height: 1.5;
+      }
+
+      .primary-action iron-icon {
+        border-color: var(--vientos-complementary-3);
+        color: var(--vientos-complementary-3);
+      }
+
+      #categories {
+        margin-bottom: 20px;
+      }
+
+      #categories ul {
+        opacity: 0.7;
+        text-align: center;
+      }
+
+      #categories li {
+        display: inline-block;
+        padding: 8px 0 12px;
+        vertical-align: top;
+        width: 96px;
+      }
+
+        #categories li iron-icon {
+          display: block;
+          opacity: 0.5;
+          width: 28px;
+          height: 28px;
+          margin: 0 auto;
+        }
+
+        #categories li div {
+          font-size: 0.75em;
+          line-height: 1.2em;
+          height: 2.4em;
+          padding-top: 0.2em;
+        }
+
+    #active-intents div,
+    #expired-intents div,
+    #inactive-intents div {
+      margin: 0 calc(-3 * var(--spacing))
+    }
+
+
+
+    </style>
+
+  </template>
+
+</dom-module>

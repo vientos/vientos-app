@@ -1,0 +1,169 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
+
+<link rel="import" href="../../widgets/categories-selector/categories-selector.html">
+<link rel="import" href="../../widgets/image-picker/image-picker.html">
+<link rel="import" href="../../widgets/place-picker/place-picker.html">
+
+<link rel="import" href="organization-editor-styles.html">
+
+<dom-module id="organization-editor">
+  <template>
+
+    <style include="organization-editor-styles">
+    </style>
+
+    <app-toolbar class="action-toolbar sticky">
+      <template is="dom-if" if="[[hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:cancel"
+        ></paper-icon-button>
+      </template>
+      <template is="dom-if" if="[[!hasChanges]]">
+        <paper-icon-button
+          class="round"
+          on-tap="_cancel"
+          icon="vientos:arrow-back"
+        ></paper-icon-button>
+      </template>
+      <div></div>
+      <paper-icon-button
+        on-tap="_save"
+        class="round"
+        icon="vientos:ok"
+        disabled="[[!readyToSave]]"
+      ></paper-icon-button>
+    </app-toolbar>
+
+    <section class="notice">
+      [[localize('notice:public-data')]]
+    </section>
+    <section id="logo">
+      <image-picker
+        image-url="[[updated.logo]]"
+        label="[[localize('label:select-image')]]"
+        on-picked="_imagePicked"
+        ></image-picker>
+    </section>
+    <section id="general-info">
+      <paper-input
+        value="{{updated.name}}"
+        label="[[localize('label:org-name')]] *"
+        placeholder="[[localize('placeholder:org-name')]]"
+        required>
+      </paper-input>
+      <div>
+        <paper-textarea
+         rows="3"
+         label="[[localize('label:org-description')]] *"
+         placeholder="[[localize('placeholder:org-description')]]"
+         value="{{updated.description}}"
+         required>
+       </paper-textarea>
+      </div>
+    </section>
+    <section id="admins">
+      <h3>[[localize('label:admins')]]</h3>
+      <ul class="admin-list selection-list">
+        <template is="dom-repeat" items="[[admins]]">
+          <li>
+            <template is="dom-if" if="[[_mySelf(person, item)]]">
+              <paper-icon-button icon="vientos:delete" raised on-tap="_removeMySelfAsAdmin" disabled="[[_singleAdmin(admins)]]"></paper-icon-button>
+            </template>
+            <iron-image src="[[_getThumbnailUrl(item, 26)]]" sizing="cover"></iron-image>
+            [[item.name]]
+          </li>
+        </template>
+      </ul>
+      <template is="dom-if" if="[[addingNewAdmin]]">
+        <div>
+          <paper-dropdown-menu label="[[localize('label:select-new-admin')]]">
+            <paper-listbox
+              class="dropdown-content"
+              attr-for-selected="name"
+              slot="dropdown-content"
+              on-iron-select="_setNewAdmin">
+              <template is="dom-repeat" items="[[potentialAdmins]]">
+                <paper-item name="[[item._id]]">[[item.name]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+          <paper-button class="fancy-button" raised on-tap="_cancelAddingAdmin">[[localize('button:cancel')]]</paper-button>
+          <paper-button class="fancy-button" raised on-tap="_addNewAdmin" disabled="[[!newAdmin]]">[[localize('button:save')]]</paper-button>
+        </div>
+      </template>
+      <template is="dom-if" if="[[!addingNewAdmin]]">
+        <paper-button
+          class="fancy-button"
+          raised
+          on-tap="_startAddingAdmin">
+          [[localize('button:add-admin')]]
+        </paper-button>
+      </template>
+    </section>
+    <section id="categories">
+      <h3>[[localize('label:categories')]]</h3>
+      <p class="hint">[[localize('hint:org-categories')]]</p>
+      <categories-selector
+        categories="[[categories]]"
+        selection="[[updated.categories]]"
+        on-selection-changed="_categoriesSelectionChanged"></categories-selector>
+    </section>
+    <section id="locations">
+      <h3>[[localize('label:address')]]</h3>
+      <p class="hint">[[localize('hint:org-address')]]</p>
+      <ul class="selection-list">
+        <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
+          <li>
+            <paper-icon-button icon="vientos:delete" raised on-tap="_removeLocation"></paper-icon-button>
+            <div class="ellipsis">[[_getPlaceAddress(placeId, places)]]</div>
+          </li>
+        </template>
+      </ul>
+      <place-picker
+        on-picked="_placePicked"
+      ></place-picker>
+    </section>
+    <section id="contact-data">
+      <h3>[[localize('label:contacts')]]</h3>
+      <ul class="selection-list">
+        <template is="dom-repeat" items="[[updated.contacts]]">
+          <li>
+            <paper-icon-button icon="vientos:delete" on-tap="_removeContact"></paper-icon-button>
+            <div>[[item]]</div>
+          </li>
+        </template>
+      </ul>
+      <paper-input value="{{newContact}}" placeholder="[[localize('placeholder:contacts')]]"></paper-input>
+      <paper-button class="fancy-button" raised on-tap="_addContact" disabled="[[!newContact]]">[[localize('button:add-contact')]]</paper-button>
+    </section>
+    <section id="web-social-media">
+      <h3>[[localize('label:links')]]</h3>
+      <ul class="selection-list">
+        <template is="dom-repeat" items="[[updated.links]]">
+          <li>
+            <paper-icon-button icon="vientos:delete" on-tap="_removeLink"></paper-icon-button>
+            <div>[[item]]</div>
+          </li>
+        </template>
+      </ul>
+      <paper-input value="{{newLink}}" placeholder="[[localize('placeholder:links')]]"></paper-input>
+      <paper-button class="fancy-button" raised on-tap="_addLink" disabled="[[!newLink]]">[[localize('button:add-link')]]</paper-button>
+    </section>
+  </template>
+
+  <script src="organization-editor.js"></script>
+
+</dom-module>

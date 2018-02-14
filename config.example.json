@@ -1,8 +1,8 @@
 {
   "language": "es",
   "service": "http://localhost:3000",
-  "pwa": "http://localhost:8080",
   "map": {
+    "name": "CDMX",
     "latitude": 19.43,
     "longitude": -99.13,
     "zoom": 11,

@@ -1,0 +1,172 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="../../cards/intent-preview/intent-preview.html">
+<link rel="import" href="../../widgets/back-clue/back-clue.html">
+
+<link rel="import" href="organization-profile-styles.html">
+
+<dom-module id="organization-profile">
+  <template>
+
+    <style include="organization-profile-styles"></style>
+
+    <app-header-layout>
+      <app-header class="page-header" fixed condenses slot="header" effects="resize-snapped-title">
+        <div sticky>
+          <app-toolbar class="action-toolbar">
+            <paper-button on-tap="_back">
+              <iron-icon class="round" icon="vientos:arrow-back"></iron-icon>
+              <back-clue history="[[history]]"></back-clue>
+            </paper-button>
+            <template is="dom-if" if="[[canFollow]]">
+              <paper-button
+                class="labeled-button"
+                set$="[[following]]"
+                on-tap="_toggleFollow"
+                disabled="[[!online]]">
+                <div class="icons">
+                  <iron-icon class="round" icon="vientos:follow"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:follow')]]</div>
+              </paper-button>
+              <iron-icon></iron-icon>
+            </template>
+            <template is="dom-if" if="[[admin]]">
+              <paper-button
+                class="labeled-button secondary-action"
+                on-tap="_editDetails"
+                disabled="[[!online]]">
+                <div class="icons">
+                  <iron-icon icon="vientos:settings"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:configure')]]</div>
+              </paper-button>
+            </template>
+            <template is="dom-if" if="[[admin]]">
+              <paper-button
+                class="labeled-button primary-action"
+                disabled="[[!online]]"
+                on-tap="_newIntent">
+                <div class="icons">
+                  <iron-icon icon="vientos:add-intent"></iron-icon>
+                </div>
+                <div class="text">[[localize('button:propose')]]</div>
+              </paper-button>
+            </template>
+          </app-toolbar>
+          <h2 condensed-title class="ellipsis">[[project.name]]</h2>
+        </div>
+        <h2 main-title>[[project.name]]</h2>
+      </app-header>
+
+
+
+
+      <section id="logo">
+        <template is="dom-if" if="[[project.logo]]">
+          <iron-image
+            class="org-logo"
+            src="[[_getThumbnailUrl(project, 150)]]"
+            sizing="cover"></iron-image>
+        </template>
+      </section>
+      <template is="dom-if" if="[[project.description]]">
+        <section id="project-description">
+          [[project.description]]
+        </section>
+      </template>
+      <template is="dom-if" if="[[project.locations.length]]">
+        <section id="project-location">
+            <h3>[[localize('label:address')]]</h3>
+            <ul class="place-buttons">
+              <template is="dom-repeat" items="[[project.locations]]" as="placeId">
+                <li>
+                  <paper-button
+                    raised
+                    on-tap="_showLocationOnMap">
+                    <iron-icon icon="vientos:place"></iron-icon>
+                    <span class="ellipsis">[[_getPlaceAddress(placeId, places)]]</span>
+                  </paper-button>
+                </li>
+              </template>
+            </ul>
+        </section>
+      </template>
+      <template is="dom-if" if="[[project.categories]]">
+        <section id="categories">
+          <h3>[[localize('label:categories')]]</h3>
+          <ul>
+            <template is="dom-repeat" items="[[project.categories]]" as="category">
+              <li>
+                <iron-icon icon="vientos:[[category]]"></iron-icon>
+                <div>[[localize(category)]]</div>
+              </li>
+            </template>
+          </ul>
+        </section>
+      </template>
+      <template is="dom-if" if="[[_showLinksAndContacts(project)]]">
+        <section>
+          <h3>[[localize('label:contacts-links')]]</h3>
+          <ul>
+          <template is="dom-repeat" items="[[project.links]]">
+            <li><a href="[[item]]" target="_blank">[[item]]</a></li>
+          </template>
+          </ul>
+          <ul>
+          <template is="dom-repeat" items="[[project.contacts]]">
+            <li>[[item]]</li>
+          </template>
+          </ul>
+        </section>
+      </template>
+      <section id="active-intents">
+        <h3>
+          [[localize('intents')]]
+        </h3>
+        <div>
+          <template is="dom-repeat" items="[[activeIntents]]">
+            <intent-preview intent="[[item]]" on-tap-card="_goToIntentDetails" class="clickable"></intent-preview>
+          </template>
+        </div>
+      </section>
+      <template is="dom-if" if="[[admin]]">
+        <section id="expired-intents">
+          <h3>
+            [[localize('label:expired-intents')]]
+          </h3>
+          <div>
+            <template is="dom-repeat" items="[[expiredIntents]]">
+              <intent-preview intent="[[item]]" on-tap-card="_goToIntentDetails" class="clickable"></intent-preview>
+            </template>
+          </div>
+        </section>
+        <section id="inactive-intents">
+          <h3>
+            [[localize('label:inactive-intents')]]
+          </h3>
+          <div>
+            <template is="dom-repeat" items="[[inactiveIntents]]">
+              <intent-preview intent="[[item]]" on-tap-card="_goToIntentDetails" class="clickable"></intent-preview>
+            </template>
+          </div>
+        </section>
+      </template>
+    </app-header-layout>
+
+  </template>
+
+  <script src="organization-profile.js"></script>
+
+</dom-module>

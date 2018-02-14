@@ -1,0 +1,40 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+<dom-module id="start-conversation-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      paper-button#select-match {
+        margin:10px 0 15px;
+        font-size: 15px;
+      }
+
+      #response {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: #eee;
+        padding: 8px;
+      }
+
+      #response paper-textarea {
+        flex: 4;
+      }
+
+      #response paper-button {
+        flex: 1;
+        margin: 10px;
+      }
+
+    </style>
+
+  </template>
+
+</dom-module>

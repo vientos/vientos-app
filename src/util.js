@@ -1,85 +1,70 @@
-/* global CustomEvent */
-
-import { mintUrl } from './vientos'
 import { escape } from 'escape-goat'
+import shave from 'shave'
 import deepEqual from 'deep-equal'
-const service = require('../config.json').service
+import cloneDeep from 'lodash.clonedeep'
 
-export { mintUrl }
-export { deepEqual }
+export { deepEqual, shave, cloneDeep }
 
-export function locationsInBoundingBox (entity, places, boundingBox) {
+export function inBoundingBox (place, boundingBox) {
+  return place.latitude <= boundingBox.ne.lat &&
+    place.latitude >= boundingBox.sw.lat &&
+    place.longitude <= boundingBox.ne.lng &&
+    place.longitude >= boundingBox.sw.lng
+}
+
+export function hasLocationsInBoundingBox (entity, places, boundingBox) {
   return places.filter(place => {
     return entity.locations.some(placeId => placeId === place._id) &&
-           place.latitude <= boundingBox.ne.lat &&
-           place.latitude >= boundingBox.sw.lat &&
-           place.longitude <= boundingBox.ne.lng &&
-           place.longitude >= boundingBox.sw.lng
+      inBoundingBox(place, boundingBox)
   })
 }
 
-export function filterPlaces (entities, places, boundingBox) {
-  return entities.reduce((acc, entity) => {
-    return acc.concat(locationsInBoundingBox(entity, places, boundingBox))
-  }, [])
+export function filterPlaces (places, boundingBox, projects, intents) {
+  if (Array.from(arguments).includes(undefined)) return []
+  let boundedPlaces = places.filter(place => inBoundingBox(place, boundingBox))
+  return boundedPlaces.filter(place => {
+    return projects.some(project => project.locations.includes(place._id)) ||
+           intents.some(intent => intent.locations.includes(place._id))
+  })
 }
 
-export function filterProjects (person, projects, places, intents, filteredCategories, filteredFollowings, filteredFavorings, filteredCollaborationTypes, locationFilter, boundingBoxFilter, boundingBox) {
-  let filtered
-  // filter on categories
-  if (filteredCategories.length === 0) {
-    filtered = projects.slice()
-  } else {
-    filtered = projects.filter(project => {
-      return project.categories.some(category => {
-        return filteredCategories.includes(category)
-      })
-    })
-  }
-  // filter following projects
-  if (filteredFollowings) {
-    filtered = filtered.filter(project => {
+function appearsInSearchResults (entity, searchTerm, searchIndex) {
+  return searchIndex.search(searchTerm).find(result => result.ref === entity._id)
+}
+
+export function filterProjects (person, projects, places, intents, personalFilter, filteredCategories, currentPlace, boundingBox, searchTerm, projectsIndex) {
+  if (Array.from(arguments).includes(undefined)) return []
+  let filtered = projects.slice()
+  if (personalFilter) {
+    let followed = filtered.filter(project => {
       return person.followings.some(following => {
         return following.project === project._id
       })
     })
+    filtered = filtered.filter(project => project.admins.includes(person._id)).concat(followed)
+  } else {
+    // filter on categories
+    if (filteredCategories.length) {
+      filtered = projects.filter(project => {
+        return project.categories.some(category => {
+          return filteredCategories.includes(category)
+        })
+      })
+    }
   }
 
-  if (filteredFavorings) {
-    filtered = filtered.filter(project => {
-      // return the projects which has at least one intent which person favored
-      return intents.some(intent => intent.projects.includes(project._id) && person.favorings.some(favoring => favoring.intent === intent._id))
-    })
-  }
-
-  // filter on collaboration types
-  if (filteredCollaborationTypes.length > 0) {
-    filtered = filtered.filter(project => {
-      // return the projects which has at least one intent which its collaborationType is among filteredCollaborationTypes
-      return intents.some(intent => intent.projects.includes(project._id) && filteredCollaborationTypes.includes(intent.collaborationType))
-    })
-  }
-  if (locationFilter === 'specific' && boundingBoxFilter) {
-    // filter with location inside bounding box
-    filtered = filtered.filter(project => {
-      return locationsInBoundingBox(project, places, boundingBox).length > 0
-    })
-  } else if (locationFilter === 'specific' && !boundingBoxFilter) {
-    // filter projects with some location
-    filtered = filtered.filter(project => {
-      return project.locations.length !== 0
-    })
-  } else if (locationFilter === 'all' && boundingBoxFilter) {
+  if (currentPlace) {
+    filtered = filtered.filter(project => project.locations.includes(currentPlace._id))
+  } else {
     // show all projects without location and the ones with location inside bounding box
+    // TODO add default loaction to projects without location
     filtered = filtered.filter(project => {
-      return project.locations.length === 0 || locationsInBoundingBox(project, places, boundingBox).length > 0
-    })
-  } else if (locationFilter === 'city') {
-    filtered = filtered.filter(project => {
-      return project.locations.length === 0
+      return hasLocationsInBoundingBox(project, places, boundingBox).length > 0
     })
   }
-
+  if (searchTerm && projectsIndex) {
+    filtered = filtered.filter(project => appearsInSearchResults(project, searchTerm, projectsIndex))
+  }
   return filtered
 }
 
@@ -87,48 +72,78 @@ export function checkIfExpired (intent) {
   if (intent) return Date.now() - new Date(intent.expiryDate) > 0
 }
 
-export function filterIntents (person, intents, visibleProjects, filteredCollaborationTypes, filteredFavorings) {
-  let filtered = intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
-  filtered = intents.filter(intent => visibleProjects.some(project => intent.projects.includes(project._id)))
-  if (filteredCollaborationTypes.length > 0) {
-    filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
-  }
-  // filter favoring intents
-  if (filteredFavorings) {
-    filtered = filtered.filter(intent => {
+export function availableIntents (intents) {
+  if (!intents) return []
+  return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
+}
+
+export function filterIntents (person, intents, projects, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, intentsIndex) {
+  if (Array.from(arguments).includes(undefined)) return []
+  let filtered = intents.slice()
+  if (personalFilter) {
+    let activeIntents = filterActiveIntents(person, intents, myConversations, notifications, reviews)
+    let admined = intents.filter(intent => intent.admins.includes(person._id))
+    let favored = filtered.filter(intent => {
       return person.favorings.some(favoring => {
         return favoring.intent === intent._id
       })
     })
+    filtered = [...new Set(activeIntents.concat(admined).concat(favored))]
+  } else {
+    filtered = availableIntents(filtered)
+    if (filteredCollaborationTypes.length > 0) {
+      filtered = filtered.filter(intent => filteredCollaborationTypes.includes(intent.collaborationType))
+    }
+  }
+  if (currentPlace) {
+    filtered = filtered.filter(intent => intent.locations.includes(currentPlace._id))
+  } else {
+    // show all intents without location and the ones with location inside bounding box
+    // TODO add default loaction to intents without location
+    filtered = filtered.filter(intent => {
+      return hasLocationsInBoundingBox(intent, places, boundingBox).length ||
+        intent.projects.some(projectId => {
+          let project = getRef(projectId, projects)
+          return hasLocationsInBoundingBox(project, places, boundingBox).length ||
+            project.locations.length === 0 // TODO remove when default location
+        })
+    })
+  }
+  if (searchTerm && intentsIndex) {
+    filtered = filtered.filter(intent => appearsInSearchResults(intent, searchTerm, intentsIndex))
   }
   return filtered
 }
 
-export function filterActiveProjectIntents (person, project, intents, myConversations, notifications) {
+export function filterActiveProjectIntents (person, project, intents, myConversations, notifications, reviews) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'active' && !checkIfExpired(intent))
-  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications, reviews) : filtered
 }
 
-export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications) {
+export function filterInactiveProjectIntents (person, project, intents, myConversations, notifications, reviews) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && intent.status === 'inactive' && !checkIfExpired(intent))
-  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications, reviews) : filtered
 }
 
-export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications) {
+export function filterExpiredProjectIntents (person, project, intents, myConversations, notifications, reviews) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (!project) return []
   let filtered = intents.filter(intent => intent.projects.includes(project._id) && checkIfExpired(intent))
-  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications) : filtered
+  return (person && myConversations.length && notifications.length) ? orderIntents(filtered, person, myConversations, notifications, reviews) : filtered
 }
 
 export function getIntentProjects (intent, projects) {
-  if (!intent || !projects.length) return []
+  if (!intent || !projects) return []
   return projects.filter(project => intent.projects.includes(project._id))
 }
 
 export function checkIfAdmin (person, entities) {
-  if (!entities) return false
+  if (Array.from(arguments).includes(undefined)) return false
+  if (entities === null) return false
   if (!Array.isArray(entities)) entities = [ entities ]
   return person && entities.some(entity => entity.admins && entity.admins.includes(person._id))
 }
@@ -155,21 +170,32 @@ export function pathFor (entity, type) {
   return `/${type}/${url.split('/').pop()}`
 }
 
-export function urlFromId (id, collection) {
-  return service + '/' + collection + '/' + id
+function compareIdentifiers (fuzzy, cannonical) {
+  if (fuzzy.includes(':')) {
+    // IRI identifier
+    return fuzzy === cannonical
+  } else {
+    // CUID identifier
+    return fuzzy === cannonical.split('/').pop()
+  }
 }
-
-export function iconFor (item) {
-  return 'vientos:' + item.id
-}
-
+/**
+ * accepts string identifier (IRI or CUID) or array of them
+ * and an array of entities
+ * returns a reference to entity or array of references
+ * where entity _id matches the string
+ */
 export function getRef (entityIds, collection) {
   if (!Array.isArray(entityIds)) {
-    let entity = collection.find(element => entityIds === element._id)
+    // single identifier
+    let entity = collection.find(element => compareIdentifiers(entityIds, element._id))
     if (entity) return entity
     else throw new Error('entity not found in the collection: ' + entityIds)
   } else {
-    let entities = collection.filter(entity => entityIds.includes(entity._id))
+    // array of identifiers
+    let entities = collection.filter(entity => {
+      return entityIds.find(id => compareIdentifiers(id, entity._id))
+    })
     if (entityIds.length === entities.length) return entities
     else throw new Error('entities not found in the collection: ' + JSON.stringify(entityIds))
   }
@@ -182,16 +208,30 @@ export function getPlaceAddress (placeId, places) {
   }
 }
 
-export function findPotentialMatches (person, projects, intents, matchedIntent) {
+export function findPotentialMatches (matchedIntent, person, projects, intents, matchings) {
+  if (Array.from(arguments).includes(undefined)) return
   if (matchedIntent && person) {
     return intents.filter(intent => {
-      return matchedIntent.direction !== intent.direction && intent.projects.some(projectId => {
+      return !matchings.some(matching => matching.intents.includes(matchedIntent._id) && matching.intents.includes(intent._id))
+    }).filter(intent => {
+      return matchedIntent.direction !== intent.direction &&
+      matchedIntent.collaborationType === intent.collaborationType &&
+      intent.projects.some(projectId => {
         return projects.filter(project => {
           return project.admins.includes(person._id)
         }).some(project => project._id === projectId)
       })
     })
   }
+}
+
+export function filterMatchedIntents (theIntent, matchings, intents) {
+  if (Array.from(arguments).includes(undefined) || !theIntent) return []
+  return intents.filter(anIntent => matchings.some(matching => {
+    return theIntent._id !== anIntent._id &&
+    matching.intents.includes(theIntent._id) &&
+    matching.intents.includes(anIntent._id)
+  }))
 }
 
 function onThisIntent (conversation, intent) {
@@ -204,11 +244,7 @@ function onThisIntentConversation (intent, notification, conversations) {
   return onThisIntent(conversation, intent)
 }
 
-function onThisIntentAndOurTurn (person, conversation, intent) {
-  return onThisIntent(conversation, intent) && ourTurn(person, conversation, [intent])
-}
-
-function orderIntents (intents, person, myConversations, notifications) {
+function orderIntents (intents, person, myConversations, notifications, reviews) {
   return intents.sort((a, b) => {
     let aNotifications = notifications.filter(notification => {
       return onThisIntentConversation(a, notification, myConversations)
@@ -223,55 +259,39 @@ function orderIntents (intents, person, myConversations, notifications) {
     } else if (bNotifications.length) {
       return 1
     } else {
-      let aOurTurnConversations = myConversations.filter(conversation => {
-        return onThisIntentAndOurTurn(person, conversation, a)
+      let aConversations = myConversations.filter(conversation => {
+        return onThisIntent(conversation, a)
       })
-      let bOurTurnConversations = myConversations.filter(conversation => {
-        return onThisIntentAndOurTurn(person, conversation, b)
+      let bConversations = myConversations.filter(conversation => {
+        return onThisIntent(conversation, b)
       })
-      if (aOurTurnConversations.length && bOurTurnConversations.length) {
-        let aLastConversationCreatedAt = new Date(aOurTurnConversations.pop().createdAt)
-        let bLastConversationCreatedAt = new Date(bOurTurnConversations.pop().createdAt)
-        return bLastConversationCreatedAt - aLastConversationCreatedAt
-      } else if (aOurTurnConversations.length) {
+      if (aConversations.length && bConversations.length) {
+        return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
+      } else if (aConversations.length) {
         return -1
-      } else if (bOurTurnConversations.length) {
+      } else if (bConversations.length) {
         return 1
-      } else {
-        let aConversations = myConversations.filter(conversation => {
-          return onThisIntent(conversation, a)
-        })
-        let bConversations = myConversations.filter(conversation => {
-          return onThisIntent(conversation, b)
-        })
-        if (aConversations.length && bConversations.length) {
-          return new Date(bConversations.pop().createdAt) - new Date(aConversations.pop().createdAt)
-        } else if (aConversations.length) {
-          return -1
-        } else if (bConversations.length) {
-          return 1
-        }
       }
     }
   })
 }
 
 // TODO reuse for notifications
-export function filterActiveIntents (person, intents, myConversations, notifications) {
+export function filterActiveIntents (person, intents, myConversations, notifications, reviews) {
+  if (Array.from(arguments).includes(undefined)) return []
   if (person) {
     // conversations which I created
     // and conversation on intens (causing or matching) which I admin
     let activeIntents = intents.filter(intent => {
       return myConversations.some(conversation => {
-        return intentPrimaryForMyConversation(person, conversation, intent, notifications, intents)
+        return intentPrimaryForMyConversation(person, conversation, intent, notifications, intents, reviews)
       })
     })
-    return orderIntents(activeIntents, person, myConversations, notifications)
+    return orderIntents(activeIntents, person, myConversations, notifications, reviews)
   }
 }
 
-// TODO fix name foo
-export function intentPrimaryForMyConversation (person, conversation, intent, notifications, intents) {
+export function intentPrimaryForMyConversation (person, conversation, intent, notifications, intents, reviews) {
   if (!intent) return false
   return (
           // show causing intent unless im admin of matching intent
@@ -279,28 +299,34 @@ export function intentPrimaryForMyConversation (person, conversation, intent, no
           (conversation.matchingIntent && conversation.causingIntent === intent._id && intent.admins.includes(person._id)) ||
           (conversation.matchingIntent === intent._id && intent.admins.includes(person._id))
          ) &&
-         conversationNeedsAttention(person, conversation, notifications, intents)
+         conversationNeedsAttention(person, conversation, notifications, intents, reviews)
 }
 
-export function conversationNeedsAttention (person, conversation, notifications, intents) {
+export function filterConversationReviews (conversation, reviews) {
+  if (!conversation || !reviews) return []
+  return reviews.filter(review => review.conversation === conversation._id)
+}
+
+export function conversationNeedsAttention (person, conversation, notifications, intents, reviews) {
   return notifications.some(notification => notification.object === conversation._id) ||
-    // don't show when both sides reviewed
-    conversation.reviews.length === 0 ||
-    // don't show when I've reviewed
-    ourTurn(person, conversation, intents)
+    filterConversationReviews(conversation, reviews).length === 0
+    // TODO stars
 }
 
 export function filterIntentConversations (intent, myConversations) {
-  if (intent) {
+  if (Array.from(arguments).includes(undefined)) return []
+  if (intent && myConversations) {
     return myConversations.filter(conversation => {
       return conversation.causingIntent === intent._id ||
       conversation.matchingIntent === intent._id
     })
+  } else {
+    return []
   }
 }
 
 export function canAdminIntent (person, intent) {
-  if (!person) return false
+  if (!person || !intent) return false
   let personId = person
   if (typeof person === 'object') personId = person._id
   return !!intent && intent.admins.includes(personId)
@@ -316,14 +342,6 @@ export function sameTeam (myId, otherPersonId, conversation, intents) {
         (otherPersonId === conversation.creator || canAdminIntent(otherPersonId, matchingIntent)))
 }
 
-export function ourTurn (person, conversation, intents) {
-  if (!person || !conversation || intents.length === 0) return false
-  if (conversation.reviews.length === 2) return false
-  if (conversation.reviews.length === 1) return !sameTeam(person._id, conversation.reviews[0].creator, conversation, intents)
-  let lastMessage = conversation.messages[conversation.messages.length - 1]
-  return sameTeam(person._id, lastMessage.creator, conversation, intents) === lastMessage.ourTurn
-}
-
 export function getThumbnailUrl (entity, width) {
   if (entity && entity.logo) {
     let urlArray = entity.logo.split('/')
@@ -332,22 +350,13 @@ export function getThumbnailUrl (entity, width) {
   }
 }
 
-export function back (fallbackPath) {
-  let referrer = document.referrer.split('/')[2]
-  if (referrer === document.location.host) window.history.back()
-  else {
-    window.history.pushState({}, '', fallbackPath)
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-}
-
 export function getName (entity, collection) {
-  if (!collection.length) return undefined
+  if (!collection || !collection.length) return undefined
   return getRef(entity, collection).name
 }
 
 export function getImage (entity, collection, size) {
-  if (!collection.length) return undefined
+  if (!collection || !collection.length) return undefined
   return getThumbnailUrl(getRef(entity, collection), size)
 }
 
@@ -361,4 +370,12 @@ export function addHyperLinks (text) {
     })
   }
   return text
+}
+
+export function pairReviews (reviews) {
+  return Object.values(reviews.reduce((acc, review) => {
+    if (!acc[review.conversation]) acc[review.conversation] = []
+    acc[review.conversation].push(review)
+    return acc
+  }, {}))
 }

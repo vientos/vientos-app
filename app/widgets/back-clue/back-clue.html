@@ -1,0 +1,28 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="../../../bower_components/vientos-iconset/vientos-iconset.html">
+
+<link rel="import" href="back-clue-styles.html">
+
+<dom-module id="back-clue">
+  <template>
+    <style include="back-clue-styles"></style>
+    <template is="dom-if" if="[[list]]">
+      <iron-icon icon$="vientos:[[list]]"></iron-icon>
+    </template>
+    <template is="dom-if" if="[[organization]]">
+      <iron-image class="organization" src="[[_getThumbnailUrl(organization, 26)]]" sizing="cover" ></iron-image>
+    </template>
+    <template is="dom-if" if="[[proposal]]">
+      <template is="dom-if" if="[[proposal.logo]]">
+        <iron-image class="proposal" src="[[_getThumbnailUrl(proposal, 26)]]" sizing="cover" ></iron-image>
+      </template>
+      <template is="dom-if" if="[[!proposal.logo]]">
+        <iron-icon icon="vientos:[[proposal.collaborationType]]"></iron-icon>
+      </template>
+    </template>
+  </template>
+  <script src="back-clue.js"></script>
+</dom-module>

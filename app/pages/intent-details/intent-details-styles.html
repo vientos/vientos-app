@@ -1,0 +1,136 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="intent-details-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+    app-header h2 {
+      color: var(--vientos-complementary-3);
+    }
+
+    h3 {
+      color: var(--vientos-complementary-2);
+    }
+
+      #logo iron-image {
+        width: 280px;
+        height: 280px;
+      }
+
+      .review iron-image {
+        width: 26px;
+        height: 26px;
+      }
+
+      #projects li {
+        padding: 8px;
+        color: var(--vientos-tertiary-3);
+        border: 3px solid var(--vientos-tertiary-3);
+        display: flex;
+        font-weight: 600;
+        border-radius: 1em;
+      }
+
+      #projects iron-image {
+        width: 26px;
+        height: calc(26px * var(--hex-width-ratio));
+        clip-path: var(--hex-clip-path);
+        vertical-align: sub;
+      }
+
+      #projects div {
+        flex: 1;
+        margin-left: 8px;
+      }
+
+
+      .primary-action iron-icon{
+        color: var(--vientos-primary-dark);
+      }
+
+      .primary-action[disabled] iron-icon {
+        color: grey;
+        opacity: 0.5;
+      }
+
+      #logo {
+        text-align: center;
+      }
+
+      .banner {
+        background-color: var(--vientos-complementary-3);
+        text-align: center;
+        padding: 20px;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+      }
+
+      .hint {
+        text-align: center;
+        margin-bottom: 10px;
+        color: var(--vientos-complementary-3);
+      }
+
+      .reviews li {
+        border: 1px solid #999;
+        margin-bottom: 15px;
+      }
+
+      review-card {
+        margin-bottom: 10px;
+      }
+
+    #direction {
+      padding: 6px 12px;
+      width: calc(280px - 2 * 12px);
+      margin: 0 auto;
+      background-color: #555;
+      color: #eee;
+    }
+      #direction iron-icon {
+        padding-right: 5px;
+        opacity: 0.7;
+        width: 24px;
+        vertical-align: sub;
+      }
+
+    #info {
+      display: flex;
+      align-items: flex-end;
+      margin-top: 20px;
+    }
+
+    #info > div {
+      text-align: center;
+      display: inline-block;
+      width: 96px;
+      flex: 1;
+    }
+      #info span {
+        display: block;
+        opacity: 0.7;
+        height: 28px;
+        font-size: 24px;
+      }
+
+      #info iron-icon {
+        opacity: 0.5;
+        width: 28px;
+        height: 28px;
+      }
+
+      #info > div > div {
+        font-size: 0.75em;
+        line-height: 1.2em;
+        height: 2.4em;
+        padding-top: 0.2em;
+      }
+
+    </style>
+
+  </template>
+
+</dom-module>

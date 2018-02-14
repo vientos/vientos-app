@@ -1,0 +1,107 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="vientos-map-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+
+      #btn-my-location, #full-zoom {
+        position: absolute;
+        top: calc(2 * var(--toolbar-height) + 27px + 10px);
+        z-index: 10000;
+        background: white;
+        border-radius: 50%;
+        padding-left: 11px;
+        color: #444;
+        box-shadow: 1px 2px 10px #333;
+      }
+
+      #btn-my-location {
+        right: 20px;
+      }
+
+      #full-zoom {
+        right: 70px;
+      }
+
+
+      #map .leaflet-marker-icon {
+        background-color: transparent;
+        border: none;
+
+      }
+
+      #map .leaflet-marker-icon #my-location {
+        width: 10px;
+        height: 10px;
+        border: 2px solid white;
+        background-color: #004eff;
+        box-shadow: 0px 0px 20px 5px #004eff;
+        padding: 0;
+      }
+
+      #map .leaflet-marker-icon > div {
+        position: relative;
+        border-radius: 50%;
+        height: 24px;
+        width: 24px;
+        text-align: center;
+        line-height: 24px;
+        color: white;
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.7);
+        font-weight: 900;
+        box-shadow: 1px 1px 1px #aaa;
+      }
+
+      #map .leaflet-marker-icon > div.selected {
+        height: 32px;
+        width: 32px;
+        line-height: 32px;
+        font-size: 18px;
+      }
+
+      #map .leaflet-marker-icon > div.projects {
+        background-color: var(--vientos-tertiary-2);
+      }
+      #map .leaflet-marker-icon > div.intents {
+        border: 5px solid var(--vientos-complementary-2);
+      }
+
+      #map .leaflet-marker-icon > div.intents > div {
+        position: absolute;
+        line-height: 18px;
+        border-radius: 50%;
+        font-size: 10px;
+        width: 18px;
+        height: 18px;
+        top: -10px;
+        right: -10px;
+        background-color: var(--vientos-complementary-2);
+      }
+
+      #map .leaflet-marker-icon > div.intents.selected > div {
+        line-height: 24px;
+        font-size: 12px;
+        width: 24px;
+        height: 24px;
+        top: -13px;
+        right: -13px;
+      }
+
+
+
+
+    </style>
+
+  </template>
+
+</dom-module>

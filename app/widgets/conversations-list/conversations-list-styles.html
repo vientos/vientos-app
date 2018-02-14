@@ -1,0 +1,64 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="conversations-list-styles">
+  <template>
+    <style include="vientos-styles">
+
+      ul {
+        width: 90%;
+        margin-left: 5%;
+      }
+
+      li {
+        display: flex;
+        padding: 10px;
+        border: 1px solid rgba(0,0,0,0.2);
+        background-color: white;
+        position: relative;
+      }
+
+      li iron-icon {
+        width: 16px;
+        height: 16px;
+        color: gold;
+      }
+
+      li #us {
+        padding-left: 12px;
+        border-left: 1px solid #aaa;
+      }
+
+      li #others {
+        flex: 1;
+        padding-right: 4px;
+      }
+
+      li .last-message-time {
+        position: absolute;
+        bottom: 2px;
+        font-size: 0.5em;
+        opacity: .6;
+      }
+
+      li .right {
+        right: 10px;
+      }
+
+      li .left {
+        left: 10px;
+      }
+
+
+
+      iron-image {
+        height: 26px;
+        width: 26px;
+        border-radius: 50%;
+      }
+
+
+
+    </style>
+  </template>
+</dom-module>

@@ -1,106 +1,202 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="vientos-layout.html">
-<link rel="import" href="vientos-typography.html">
 <link rel="import" href="vientos-colors.html">
-<link rel="import" href="vientos-spacing.html">
-<link rel="import" href="vientos-reset.html">
 
 <dom-module id="vientos-styles">
 
   <template>
-  <style include="vientos-layout vientos-typography vientos-colors vientos-spacing vientos-reset">
+  <style include="vientos-colors">
 
+  :host {
+    --spacing: 4px;
+    --hex-width-ratio: 1.155;
+    --hex-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
 
+  .secondary-action {
+    opacity: 0.7;
+  }
 
+  .primary-action iron-icon {
+    color: var(--vientos-primary);
+    padding: 2px;
+    width: 20px;
+    height: 20px;
+  }
 
-  :root {
+  .primary-action[disabled] {
+    opacity: 0.5;
+  }
 
+  .select-buttons {
+    text-align: center;
+  }
 
-    --fixed: {
-      position: fixed;
-    };
+  .select-buttons paper-button {
+    flex-direction: column;
+    max-width: 96px;
+    text-align: center;
+    padding: 0;
+    margin-top: 12px;
+  }
 
-    --fixed-bottom: {
-      @apply (--fixed);
-      bottom: 0;
-    };
+  .select-buttons iron-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: var(--button-inactive-bg);
+    padding: 12px;
+    color: var(--button-color);
+  }
 
-    --toolbar-height: 48px;
+  .select-buttons div {
+    font-size: 0.75em;
+    line-height: 1.2em;
+    height: 2.4em;
+    padding-top: 0.2em;
+  }
 
+  .select-buttons paper-button[active] iron-icon {
+    background-color: var(--vientos-secondary-1);
+  }
 
+  .select-buttons paper-button[active] div {
+    color: var(--vientos-secondary-1);
+  }
 
-    /* icons */
+  .selection-list {
+    margin-bottom: 20px;
+  }
 
-    --icon-layout: {
-      @apply --layout-horizontal;
-      @apply --layout-center-justified;
-    };
+  .selection-list li {
+    display: flex;
+  }
 
-    --vientos-toolbar: {
-      /*padding: 1.5em;*/
-      height: var(--toolbar-height);
-      @apply --vientos-typography-menu;
-      color: var(--vientos-color-icon);
-    };
+  .selection-list li div {
+    flex: 1;
+    font-size: 0.8em;
+    line-height: 28px;
+    padding-left: 4px;
+  }
 
-    /*--vientos-button: {
-      color: var(--vientos-color-button);
-    };*/
+  .selection-list paper-icon-button {
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    background-color: #fff;
+    color: var(--vientos-grey);
+    border-radius: 50%;
+  }
 
-    --vientos-card: {
-      @apply --layout-vertical;
-      background-color: var(--vientos-color-card-bg);
-      margin: var(--spacing-1) !important;
-      padding: 0 var(--spacing-1);
-      box-sizing: border-box;
-      -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-      box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-    };
+  .place-buttons li {
+    padding: 6px 0;
+    opacity: 0.8;
+  }
 
-    --small-icon: {
+  .place-buttons paper-button {
+    width: 95%;
+    display: flex;
+    padding: 8px;
+  }
 
-      @apply --icon-layout;
+  .place-buttons span {
+    font-size: 0.8em;
+    flex: 1;
 
-      --iron-icon-height: 10px;
-      --iron-icon-width: 10px;
+  }
+  .place-buttons iron-icon {
+    height: 20px;
+    width: 20px;
+  }
 
-      padding: 0 !important;
-      margin: 0 !important;
-
-    };
-
-    --vientos-filter-button: {
-        width: 100px;
-        height: 70px;
-        margin: 5px;
-        text-align: center;
-        border: 1px solid grey;
-        border-radius: 5px;
-    };
-
-    --back-button: {
-      width: 35px;
-      height: 35px;
-      background-color: #ccc;
-      border-radius: 50%;
-      margin-right: 20px;
-    };
-
-    --vientos-nav-button-selected: {
-      border-bottom: 4px solid var(--vientos-primary-light);
+  paper-button.labeled-button {
+    flex-direction: column;
+  }
+    paper-button.labeled-button div.text{
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.5;
+      line-height: 12px;
+    }
+    paper-button.labeled-button div.icons {
+      line-height: 20px;
     }
 
+  .admin-list iron-image {
+    vertical-align: sub;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+  .fancy-button {
+    border: 1px solid var(--vientos-grey);
+    border-radius: 8px;
+    background: white;
+    font-size: 0.8em;
+    padding: 4px 6px;
+  }
+
+  app-header.page-header {
+    background-color: white;
+  }
+
+  app-header.page-header h2 {
+    padding: 0 8px;
+    background-color: white;
+  }
+
+  app-header.page-header h2[main-title] {
+    margin-top: -33px;
+    padding-bottom: 10px;
+  }
+
+  app-header.page-header h2[condensed-title] {
+    box-shadow: 0 0 8px #888;
+  }
+
+
+
+  .action-toolbar {
+    z-index: 100;
+    background-color: #eee;
+    height: var(--toolbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .action-toolbar paper-button {
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .action-toolbar paper-button[set] iron-icon {
+    background-color: var(--vientos-secondary-1);
+  }
+
+  .action-toolbar back-clue {
+    margin-left: 5px;
+  }
+
+  .round {
+    background-color: #ccc;
+    border-radius: 50%;
+    color: white;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 8px #888;
+  }
+
+  section {
+    padding: 0 calc(3 * var(--spacing));
   }
 
 
@@ -112,6 +208,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   a {
     color: var(--vientos-tertiary-2);
+  }
+
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
   }
 
   h1 {
@@ -129,27 +234,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   h2, h4 {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   h3 {
-    font-size: 0.85em;
-    font-weight: 400;
+    font-size: 0.8em;
+    font-weight: 600;
     margin-bottom: 15px;
-    opacity: 0.9;
+    text-transform: uppercase;
+  }
+
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .clickable,
-  vientos-card,
   review-card[links-to-conversation] {
     cursor: pointer;
   }
 
-  .clickable:hover,
-  vientos-card:hover { 
+  .clickable:hover {
     box-shadow: 3px 3px 3px var(--vientos-primary-light);
   }
 
+  .card {
+    background-color: var(--vientos-card-bg);
+    margin: calc(3 * var(--spacing));
+    padding: 0 calc(4 * var(--spacing));
+    box-sizing: border-box;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  };
 
   paper-textarea {
     width: 100%;
@@ -159,82 +275,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     width: 100%;
   }
 
-
-  paper-textarea[required],
-  paper-input[required] {
-    --paper-input-container-color: var(--vientos-complementary-3);
-  }
-
   paper-textarea[value],
   paper-input[value] {
     --paper-input-container-color: var(--primary-color);
-  }
-
-  app-toolbar {
-    padding: 0 !important;
-    @apply --layout-horizontal;
-  }
-
-  app-toolbar iron-selector {
-    /*margin: 0 !important;
-    padding: 0 !important;*/
-    @apply --layout-fit;
-  }
-
-
-  app-header .button-holder {
-    @apply --layout-horizontal;
-  }
-
-  app-header #menu-button-holder-left {
-    @apply --layout-fixed-left;
-    @apply --layout-start-justified;
-  }
-
-
-  app-header .button-holder paper-button div,
-  app-header .button-holder paper-button iron-icon {
-    @apply --layout-horizontal;
-    @apply --layout-center-justified;
-    width: auto !important;
-    text-align: center !important;
-  }
-
-  paper-button span {
-
-    /*@apply --padding-2;*/
-    /*margin: 8px;*/
-  }
-
-  vientos-icon-button[small] {
-    --vientos-icon-button-font-size: 12px;
-  }
-
-  vientos-icon-button[large] {
-    --vientos-icon-button-font-size: 20px;
-  }
-
-  vientos-icon-button[ellipsis] {
-    --vientos-icon-button-text: {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    };
-  }
-
-  paper-button.primary-action {
-    position: fixed;
-    right: 0;
-    bottom: var(--toolbar-height);
-    left: 0;
-    z-index: 1000000;
-  }
-
-  paper-fab {
-    position: fixed;
-    right: 2em;
-    bottom: 5em;
-    z-index: 1000000;
   }
 
   icon-icon[mini] {
@@ -253,74 +296,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     margin-bottom: 35px;
   }
 
-  #admin-list iron-image {
-    width: 26px;
-    height: 26px;
-    margin-right: 5px;
-  }
-
   .support-feature {
     text-align: center;
     opacity: 0.7;
   }
 
-  .action-buttons {
-    display: flex;
-  }
-
-  .action-buttons vientos-icon-button {
-    flex: 1;
-    margin: 0 5px;
-  }
-
   header {
-    display: flex;
     margin-bottom: 20px;
   }
 
-  header div {
-    display: flex;
-    align-items: center;
+  header h2 {
+    padding: 0 16px;
+    text-align: center;
+    line-height: 1.25;
   }
 
-  header paper-icon-button {
-    @apply --back-button
+  .org-logo {
+    width: 150px;
+    height: calc(150px * var(--hex-width-ratio));
+    clip-path: var(--hex-clip-path);
   }
 
-  footer {
-    @apply --vientos-toolbar;
-    @apply --layout-horizontal;
-    @apply --spaced-x;
-    position: fixed;
-    bottom: 0;
-    left: 32px;
-    right: 32px;
+  iron-icon[icon="vientos:organization"] {
+    color: var(--vientos-tertiary-3);
   }
 
-  footer.simple paper-button {
-    font-weight: bold;
+  iron-icon[icon="vientos:intent"] {
+    color: var(--vientos-complementary-3);
   }
 
-  footer.simple paper-button[disabled]{
-    opacity: 0.4;
+  iron-icon[icon="vientos:person"] {
+    color: var(--vientos-primary-dark);
   }
 
-  footer.simple paper-button#button-save {
-    background-color: var(--vientos-primary-dark);
-    color: white
-    --paper-button: {
-      flex: 1;
-    }
+
+  paper-icon-button[icon="vientos:ok"]:not([disabled]) {
+    color: green;
   }
 
-  footer.simple paper-button#button-cancel {
-    background-color: var(--vientos-complementary-3);
-    color: white;
-    --paper-button: {
-      flex: 1;
-    }
-  }
 
+  paper-icon-button[icon="vientos:cancel"] {
+    color: red;
+  }
 
 
 

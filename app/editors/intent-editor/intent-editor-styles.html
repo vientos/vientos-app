@@ -1,0 +1,65 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../vientos-styles/vientos-styles.html">
+
+<dom-module id="intent-editor-styles">
+
+  <template>
+
+    <style include="vientos-styles">
+
+      #status,
+      #admin {
+        display: flex;
+        margin: 8px 0;
+      }
+
+      #status div,
+      #admin div {
+        flex: 1;
+      }
+
+      #logo {
+        color: var(--vientos-complementary-2);
+      }
+
+      h3 {
+        color: var(--vientos-complementary-2);
+      }
+
+      paper-textarea,
+      paper-input {
+        --paper-input-container-color: var(--vientos-complementary-2);
+      }
+
+      .select-buttons paper-button[disabled] {
+        background: none;
+      }
+
+      .select-buttons paper-button[active] iron-icon,
+      .select-buttons paper-button.iron-selected iron-icon,
+      .select-buttons paper-button[name=gift] iron-icon {
+        background-color: var(--vientos-complementary-1);
+      }
+
+      .select-buttons paper-button[active] div,
+      .select-buttons paper-button.iron-selected div,
+      .select-buttons paper-button[name=gift] div {
+        color: var(--vientos-complementary-1);
+      }
+
+      input {
+        width: 100%;
+      }
+
+      vaadin-date-picker {
+        line-height: 0.7em;
+        font-size: 0.9em;
+      }
+
+
+
+    </style>
+
+  </template>
+
+</dom-module>
