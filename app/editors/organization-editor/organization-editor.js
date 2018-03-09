@@ -9,9 +9,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
 
   static get actions () {
     return {
-      saveProject: ActionCreators.saveProject,
-      savePlace: ActionCreators.savePlace,
-      uploadImage: ActionCreators.uploadImage
+      saveProject: ActionCreators.saveProject
     }
   }
 
@@ -46,6 +44,10 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
         value: null
       },
       addingNewAdmin: {
+        type: Boolean,
+        value: false
+      },
+      addingLocation: {
         type: Boolean,
         value: false
       },
@@ -154,7 +156,8 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     this.set('newImage', null)
     this.set('newContact', '')
     this.set('newLink', '')
-    this.$$('place-picker').reset()
+    let placePicker = this.$$('place-picker')
+    if (placePicker) placePicker.reset()
     this.$$('image-picker').reset()
     this.set('updated', null)
     if (this.project) {
@@ -184,8 +187,16 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     this.set('addingNewAdmin', true)
   }
 
+  _startAddingLocation () {
+    this.set('addingLocation', true)
+  }
+
   _cancelAddingAdmin () {
     this.set('addingNewAdmin', false)
+  }
+
+  _cancelAddingLocation () {
+    this.set('addingLocation', false)
   }
 
   _setNewAdmin (e, detail) {
@@ -242,24 +253,14 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     }
   }
 
-  _addLocation (place) {
-    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-    if (existingPlace) {
-      place = existingPlace
-    } else {
-      place._id = mintUrl({ type: 'Place' })
-      this.dispatch('savePlace', place)
-    }
-    this._addToCollection(place._id, 'updated.locations')
-  }
-
   _removeLocation (e) {
     this.set('updated.locations', this.updated.locations.filter(placeId => placeId !== e.model.placeId))
     this.notifyPath('updated.locations')
   }
 
   _placePicked (e) {
-    this._addLocation(e.detail)
+    this._addToCollection(e.detail, 'updated.locations')
+    this.set('addingLocation', false)
   }
 
   _imagePicked (e) {

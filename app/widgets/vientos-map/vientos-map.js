@@ -1,4 +1,4 @@
-import { config } from '../../../src/engine.js'
+import { config, util } from '../../../src/engine.js'
 
 class VientosMap extends Polymer.Element {
   static get is () { return 'vientos-map' }
@@ -20,9 +20,9 @@ class VientosMap extends Polymer.Element {
         type: Number,
         value: config.map.zoom
       },
-      view: {
-        type: Object,
-        observer: '_viewChanged'
+      currentPlace: {
+        type: String,
+        observer: '_showPlace'
       },
       boundingBox: {
         type: Object,
@@ -56,7 +56,11 @@ class VientosMap extends Polymer.Element {
     this.meIcon = divIcon({
       html: '<div id="my-location"></div>'
     })
-    this.map.setView([this.latitude, this.longitude], this.zoom)
+    if (this.currentPlace) {
+      this._showPlace(this.currentPlace)
+    } else {
+      this.map.setView([this.latitude, this.longitude], this.zoom)
+    }
 
     tileLayer(this.tilelayer).addTo(this.map)
     this.markers = layerGroup().addTo(this.map)
@@ -83,8 +87,12 @@ class VientosMap extends Polymer.Element {
       let iconSize = toPoint(24, 24)
       this.markers.clearLayers()
       locations.forEach(place => {
-        let projectCount = projects.filter(project => project.locations.includes(place._id)).length
-        let intentCount = intents.filter(intent => intent.locations.includes(place._id)).length
+        let zoom = this.map.getZoom()
+        if (zoom < 9 && place.level !== 'state') return
+        if (zoom >= 9 && zoom < 12 && place.level !== 'municipality') return
+        if (zoom >= 12 && place.level !== 'other') return
+        let projectCount = projects.filter(project => util.locatedIn(project, place, this.places)).length
+        let intentCount = intents.filter(intent => util.locatedIn(intent, place, this.places)).length
         if (!projectCount && !intentCount) return
         let classes = ''
         if (place._id === currentPlace) {
@@ -134,8 +142,8 @@ class VientosMap extends Polymer.Element {
     let marker = Object.values(this.markers._layers).find(m => m.options.placeId === placeId)
     let icon
     if (marker) icon = marker._icon.querySelector('iron-icon')
-    let hasIntents = this.intents.filter(intent => intent.locations.includes(placeId)).length > 0
-    let hasProjects = this.projects.filter(project => project.locations.includes(placeId)).length > 0
+    let hasIntents = this.intents.filter(intent => util.locatedIn(intent, placeId, this.places)).length > 0
+    let hasProjects = this.projects.filter(project => util.locatedIn(project, placeId, this.places)).length > 0
     let route = window.location.pathname
     if (hasIntents && !hasProjects) route = '/intents'
     if (!hasIntents && hasProjects) route = '/projects'
@@ -157,6 +165,15 @@ class VientosMap extends Polymer.Element {
     }
   }
 
+  _showPlace (currentPlace) {
+    if (!currentPlace || !this.places.length || !this.map) return
+    let bbox = util.getRef(currentPlace, this.places).bbox
+    this.map.fitBounds([
+      [bbox.south, bbox.west],
+      [bbox.north, bbox.east]
+    ])
+  }
+
   _showMyLocation () {
     if (this.myLatitude && this.myLongitude) {
       this.set('view', {
@@ -170,11 +187,7 @@ class VientosMap extends Polymer.Element {
   }
 
   _showFullZoom () {
-    this.set('view', {
-      latitude: config.map.latitude,
-      longitude: config.map.longitude,
-      zoom: config.map.zoom
-    })
+    this.map.setZoom(this.map.getZoom() - 2)
     window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }

@@ -31,6 +31,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       fetchPerson: ActionCreators.fetchPerson,
       fetchPeople: ActionCreators.fetchPeople,
       fetchPlaces: ActionCreators.fetchPlaces,
+      fetchStates: ActionCreators.fetchStates,
       fetchCategories: ActionCreators.fetchCategories,
       fetchProjects: ActionCreators.fetchProjects,
       fetchIntents: ActionCreators.fetchIntents,
@@ -114,9 +115,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       boundingBoxFilter: {
         type: Boolean,
         statePath: 'boundingBoxFilter'
-      },
-      mapView: {
-        type: Object
       },
       geoTag: {
         type: String,
@@ -294,13 +292,6 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else {
       // TODO: this._showPage404();
     }
-    if (['intents', 'projects'].includes(page)) {
-      if (this.wideScreen && window.location.hash) {
-        window.history.replaceState({}, '', window.location.pathname)
-        window.dispatchEvent(new CustomEvent('location-changed'))
-      }
-      this.set('tab', window.location.hash ? 'map' : page)
-    }
     // clear subrouteData.id
     if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review', 'select-match', 'guide'].includes(page)) {
       delete this.subrouteData.id
@@ -457,21 +448,9 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (Array.from(arguments).includes(undefined) || !places.length) return null
     if (!['intents', 'projects'].includes(this.page)) return null
     try {
-      let place = util.getRef(placeId, places)
-      this._setMapView(place)
-      return place
+      return util.getRef(placeId, places)
     } catch (e) {
       return null
-    }
-  }
-
-  _setMapView (place) {
-    if (place) {
-      this.set('mapView', {
-        latitude: place.latitude,
-        longitude: place.longitude,
-        zoom: 14 // FIXME remove magic number
-      })
     }
   }
 
@@ -599,8 +578,13 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else {
       this.set('showingMap', false)
     }
-    // workaround for iron-list rendering issues
-    if (this.page === 'projects' || this.page === 'intents') {
+    if (['intents', 'projects'].includes(this.page)) {
+      if (this.wideScreen && window.location.hash) {
+        window.history.replaceState({}, '', window.location.pathname)
+        window.dispatchEvent(new CustomEvent('location-changed'))
+      }
+      this.set('tab', window.location.hash ? 'map' : this.page)
+      // workaround for iron-list rendering issues
       setTimeout(() => {
         let ironList = this.$$(`div[name=${this.page}] iron-list`)
         if (ironList) {
@@ -650,6 +634,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _fetchPublicData () {
     this.dispatch('fetchProjects')
     this.dispatch('fetchPlaces')
+    this.dispatch('fetchStates')
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
     this.dispatch('fetchReviews')
