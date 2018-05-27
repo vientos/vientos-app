@@ -263,7 +263,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   static get observers () {
     return [
       '_routePageChanged(routeData.page)',
-      '_updateGeoTag(currentPlace, boundingBox)',
+      '_updateGeoTag(currentPlace)',
       '_handleMapVisibility(page, wideScreen, showingMap)',
       '_indexProjects(lunr, projects)',
       '_indexIntents(lunr, intents)',
@@ -554,21 +554,12 @@ class VientosShell extends Polymer.mixinBehaviors(
     this._goToList(this.page)
   }
 
-  _updateGeoTag (place, boundingBox) {
+  _updateGeoTag (place) {
     let map = this.$$('vientos-map')
-    if (!map.latitude || // map still loading
-        (Math.abs(map.latitude - config.map.latitude) <= 0.002 &&
-        Math.abs(map.longitude - config.map.longitude) <= 0.002 &&
-        Math.abs(map.zoom - config.map.zoom) <= 0.002)) {
-      if (place) this.set('geoTag', place.address)
-      else this.set('geoTag', config.map.name)
+    if (place) {
+      this.set('geoTag', place.address)
     } else {
-      // TODO: check if on my current position
-      if (place) {
-        this.set('geoTag', place.address)
-      } else {
-        this.set('geoTag', this.localize('label:custom-map-boundries'))
-      }
+      this.set('geoTag', this.localize('label:custom-map-boundries'))
     }
   }
 
@@ -697,6 +688,11 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _goToIntentDetails (e, detail) {
     window.history.pushState({}, '', util.pathFor(detail, 'intent'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
+
+  _unselectPlace () {
+    window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 

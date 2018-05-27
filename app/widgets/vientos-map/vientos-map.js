@@ -186,12 +186,6 @@ class VientosMap extends Polymer.Element {
     }
   }
 
-  _showFullZoom () {
-    this.map.setZoom(this.map.getZoom() - 2)
-    window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash}`)
-    window.dispatchEvent(new CustomEvent('location-changed'))
-  }
-
   _viewChanged (view) {
     if (this.map) this.map.setView([view.latitude, view.longitude], view.zoom)
   }

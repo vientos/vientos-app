@@ -3,7 +3,6 @@
   "country": "mx",
   "service": "http://localhost:3000",
   "map": {
-    "name": "CDMX",
     "latitude": 19.43,
     "longitude": -99.13,
     "zoom": 9,
