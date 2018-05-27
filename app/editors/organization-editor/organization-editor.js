@@ -81,7 +81,7 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
       },
       readyToSave: {
         type: Boolean,
-        computed: '_readyToSave(hasChanges, updated.name, updated.description)',
+        computed: '_readyToSave(hasChanges, updated.name, updated.description, updated.locations)',
         value: false
       },
       hasChanges: {
@@ -208,8 +208,8 @@ class OrganizationEditor extends Polymer.mixinBehaviors(
     this.set('addingNewAdmin', false)
   }
 
-  _readyToSave (hasChanges, name, description) {
-    return !!name && !!description && hasChanges
+  _readyToSave (hasChanges, name, description, locations) {
+    return !!name && !!description && hasChanges && locations.length
   }
 
   _hasChanges (project, updated, newImage, newLink, newContact, cats) {
