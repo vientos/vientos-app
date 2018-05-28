@@ -32,7 +32,7 @@
     "vaadin-date-picker": "vaadin/vaadin-date-picker#^2.0.7",
     "paper-toast": "PolymerElements/paper-toast#^2.0.0",
     "paper-input-place": "vientos/paper-input-place#bbox",
-    "paper-autocomplete": "^3.7.0"
+    "paper-autocomplete": "vientos/paper-autocomplete#results-on-focus"
   },
   "resolutions": {
     "polymer": "^2.0.0"
