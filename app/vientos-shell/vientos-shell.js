@@ -361,8 +361,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _togglePersonalFilter (e) {
-    let vientosMapElement = this.$$('vientos-map')
-    if (vientosMapElement) vientosMapElement._showFullZoom()
     if (this.personalFilter) this.dispatch('disablePersonalFilter')
     else {
       this.dispatch('enablePersonalFilter')
