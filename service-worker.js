@@ -1,7 +1,7 @@
 /* eslint-env serviceworker */
 /* global WorkboxSW */
 
-importScripts('./node_modules/workbox-sw/build/importScripts/workbox-sw.dev.v2.0.1.js')
+importScripts('./node_modules/workbox-sw/build/importScripts/workbox-sw.prod.v2.1.3.js')
 
 const workbox = new WorkboxSW({clientsClaim: true})
 workbox.precache([])

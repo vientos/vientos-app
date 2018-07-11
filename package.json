@@ -19,7 +19,7 @@
     "shave": "^2.1.3",
     "vientos-client": "https://github.com/vientos/vientos-client.git#0.7.0",
     "vientos-data": "https://github.com/vientos/vientos-data.git#0.2.9",
-    "workbox-sw": "^2.0.1"
+    "workbox-sw": "^2.1.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
