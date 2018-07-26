@@ -122,7 +122,7 @@
         on-selection-changed="_categoriesSelectionChanged"></categories-selector>
     </section>
     <section id="locations">
-      <h3>[[localize('label:address')]]</h3>
+      <h3>[[localize('label:address')]] *</h3>
       <p class="hint">[[localize('hint:org-address')]]</p>
       <ul class="selection-list">
         <template is="dom-repeat" items="[[updated.locations]]" as="placeId">
@@ -132,9 +132,19 @@
           </li>
         </template>
       </ul>
-      <place-picker
-        on-picked="_placePicked"
-      ></place-picker>
+      <template is="dom-if" if="[[!addingLocation]]">
+        <paper-button
+          class="fancy-button"
+          on-tap="_startAddingLocation">
+          [[localize('button:add-location')]]
+        </paper-button>
+      </template>
+      <template is="dom-if" if="[[addingLocation]]" restamp>
+        <place-picker
+          on-picked="_placePicked"
+          on-canceled="_cancelAddingLocation"
+        ></place-picker>
+      </template>
     </section>
     <section id="contact-data">
       <h3>[[localize('label:contacts')]]</h3>

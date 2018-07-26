@@ -77,6 +77,13 @@
           </app-toolbar>
           <div id="geo" >
             <div class="ellipsis">[[geoTag]]</div>
+            <template is="dom-if" if="[[currentPlace]]">
+              <paper-icon-button
+                id="unselect-place" 
+                on-tap="_unselectPlace"
+                icon="vientos:cancel">
+              </paper-icon-button>
+            </template>
           </div>
           <iron-selector attr-for-selected="name" selected="[[tab]]" id="nav-toolbar">
             <paper-button class="labeled-button" name="intents" on-tap="_showIntentList">
@@ -228,8 +235,8 @@
           ></vientos-guide>
         </iron-pages>
         <vientos-map
-          view="[[mapView]]"
           locations="[[visiblePlaces]]"
+          places="[[places]]"
           projects="[[visibleProjects]]"
           intents="[[visibleIntents]]"
           current-place="[[currentPlace._id]]"

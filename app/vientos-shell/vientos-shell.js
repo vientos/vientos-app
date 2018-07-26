@@ -31,6 +31,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       fetchPerson: ActionCreators.fetchPerson,
       fetchPeople: ActionCreators.fetchPeople,
       fetchPlaces: ActionCreators.fetchPlaces,
+      fetchStates: ActionCreators.fetchStates,
       fetchCategories: ActionCreators.fetchCategories,
       fetchProjects: ActionCreators.fetchProjects,
       fetchIntents: ActionCreators.fetchIntents,
@@ -114,9 +115,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       boundingBoxFilter: {
         type: Boolean,
         statePath: 'boundingBoxFilter'
-      },
-      mapView: {
-        type: Object
       },
       geoTag: {
         type: String,
@@ -265,7 +263,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   static get observers () {
     return [
       '_routePageChanged(routeData.page)',
-      '_updateGeoTag(currentPlace, boundingBox)',
+      '_updateGeoTag(currentPlace)',
       '_handleMapVisibility(page, wideScreen, showingMap)',
       '_indexProjects(lunr, projects)',
       '_indexIntents(lunr, intents)',
@@ -293,13 +291,6 @@ class VientosShell extends Polymer.mixinBehaviors(
       this.lazyPages[page]()
     } else {
       // TODO: this._showPage404();
-    }
-    if (['intents', 'projects'].includes(page)) {
-      if (this.wideScreen && window.location.hash) {
-        window.history.replaceState({}, '', window.location.pathname)
-        window.dispatchEvent(new CustomEvent('location-changed'))
-      }
-      this.set('tab', window.location.hash ? 'map' : page)
     }
     // clear subrouteData.id
     if (!['project', 'new-project', 'edit-project-details', 'intent', 'new-intent', 'edit-intent', 'conversation', 'new-conversation', 'review', 'select-match', 'guide'].includes(page)) {
@@ -370,8 +361,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _togglePersonalFilter (e) {
-    let vientosMapElement = this.$$('vientos-map')
-    if (vientosMapElement) vientosMapElement._showFullZoom()
     if (this.personalFilter) this.dispatch('disablePersonalFilter')
     else {
       this.dispatch('enablePersonalFilter')
@@ -457,21 +446,9 @@ class VientosShell extends Polymer.mixinBehaviors(
     if (Array.from(arguments).includes(undefined) || !places.length) return null
     if (!['intents', 'projects'].includes(this.page)) return null
     try {
-      let place = util.getRef(placeId, places)
-      this._setMapView(place)
-      return place
+      return util.getRef(placeId, places)
     } catch (e) {
       return null
-    }
-  }
-
-  _setMapView (place) {
-    if (place) {
-      this.set('mapView', {
-        latitude: place.latitude,
-        longitude: place.longitude,
-        zoom: 14 // FIXME remove magic number
-      })
     }
   }
 
@@ -575,21 +552,12 @@ class VientosShell extends Polymer.mixinBehaviors(
     this._goToList(this.page)
   }
 
-  _updateGeoTag (place, boundingBox) {
+  _updateGeoTag (place) {
     let map = this.$$('vientos-map')
-    if (!map.latitude || // map still loading
-        (Math.abs(map.latitude - config.map.latitude) <= 0.002 &&
-        Math.abs(map.longitude - config.map.longitude) <= 0.002 &&
-        Math.abs(map.zoom - config.map.zoom) <= 0.002)) {
-      if (place) this.set('geoTag', place.address)
-      else this.set('geoTag', config.map.name)
+    if (place) {
+      this.set('geoTag', place.address)
     } else {
-      // TODO: check if on my current position
-      if (place) {
-        this.set('geoTag', place.address)
-      } else {
-        this.set('geoTag', this.localize('label:custom-map-boundries'))
-      }
+      this.set('geoTag', this.localize('label:custom-map-boundries'))
     }
   }
 
@@ -599,8 +567,13 @@ class VientosShell extends Polymer.mixinBehaviors(
     } else {
       this.set('showingMap', false)
     }
-    // workaround for iron-list rendering issues
-    if (this.page === 'projects' || this.page === 'intents') {
+    if (['intents', 'projects'].includes(this.page)) {
+      if (this.wideScreen && window.location.hash) {
+        window.history.replaceState({}, '', window.location.pathname)
+        window.dispatchEvent(new CustomEvent('location-changed'))
+      }
+      this.set('tab', window.location.hash ? 'map' : this.page)
+      // workaround for iron-list rendering issues
       setTimeout(() => {
         let ironList = this.$$(`div[name=${this.page}] iron-list`)
         if (ironList) {
@@ -650,6 +623,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   _fetchPublicData () {
     this.dispatch('fetchProjects')
     this.dispatch('fetchPlaces')
+    this.dispatch('fetchStates')
     this.dispatch('fetchPeople')
     this.dispatch('fetchIntents')
     this.dispatch('fetchReviews')
@@ -712,6 +686,11 @@ class VientosShell extends Polymer.mixinBehaviors(
 
   _goToIntentDetails (e, detail) {
     window.history.pushState({}, '', util.pathFor(detail, 'intent'))
+    window.dispatchEvent(new CustomEvent('location-changed'))
+  }
+
+  _unselectPlace () {
+    window.history.replaceState({}, '', `${window.location.pathname}${window.location.hash}`)
     window.dispatchEvent(new CustomEvent('location-changed'))
   }
 

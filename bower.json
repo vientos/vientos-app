@@ -29,9 +29,10 @@
     "leaflet": "^1.2.0",
     "vientos-iconset": "vientos/vientos-iconset#^0.3.3",
     "web-animations-js": "web-animations/web-animations-js#^2.3.1",
-    "google-apis": "GoogleWebComponents/google-apis#^2.0.0",
     "vaadin-date-picker": "vaadin/vaadin-date-picker#^2.0.7",
-    "paper-toast": "PolymerElements/paper-toast#^2.0.0"
+    "paper-toast": "PolymerElements/paper-toast#^2.0.0",
+    "paper-input-place": "vientos/paper-input-place#bbox",
+    "paper-autocomplete": "vientos/paper-autocomplete#results-on-focus"
   },
   "resolutions": {
     "polymer": "^2.0.0"

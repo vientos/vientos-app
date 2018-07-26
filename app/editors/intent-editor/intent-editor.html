@@ -175,9 +175,19 @@
             </li>
           </template>
         </ul>
-        <place-picker
-        on-picked="_placePicked"
-        ></place-picker>
+        <template is="dom-if" if="[[!addingLocation]]">
+          <paper-button
+            class="fancy-button"
+            on-tap="_startAddingLocation">
+            [[localize('button:add-location')]]
+          </paper-button>
+        </template>
+        <template is="dom-if" if="[[addingLocation]]" restamp>
+          <place-picker
+            on-picked="_placePicked"
+            on-canceled="_cancelAddingLocation"
+          ></place-picker>
+        </template>
       </section>
     </template>
   </template>

@@ -14,7 +14,7 @@ export function inBoundingBox (place, boundingBox) {
 
 export function hasLocationsInBoundingBox (entity, places, boundingBox) {
   return places.filter(place => {
-    return entity.locations.some(placeId => placeId === place._id) &&
+    return locatedIn(entity, place, places) &&
       inBoundingBox(place, boundingBox)
   })
 }
@@ -23,9 +23,22 @@ export function filterPlaces (places, boundingBox, projects, intents) {
   if (Array.from(arguments).includes(undefined)) return []
   let boundedPlaces = places.filter(place => inBoundingBox(place, boundingBox))
   return boundedPlaces.filter(place => {
-    return projects.some(project => project.locations.includes(place._id)) ||
-           intents.some(intent => intent.locations.includes(place._id))
+    return projects.some((project, index, array) => locatedIn(project, place, places)) ||
+           intents.some(intent => locatedIn(intent, place, places))
   })
+}
+
+export function locatedIn (entity, place, places) {
+  if (typeof place === 'string') place = getRef(place, places)
+  return entity.locations.includes(place._id) ||
+    entity.locations.map(placeId => {
+      let p = getRef(placeId, places)
+      return p.municipality
+    }).includes(place._id) ||
+    entity.locations.map(placeId => {
+      let p = getRef(placeId, places)
+      return p.state
+    }).includes(place._id)
 }
 
 function appearsInSearchResults (entity, searchTerm, searchIndex) {
@@ -54,7 +67,7 @@ export function filterProjects (person, projects, places, intents, personalFilte
   }
 
   if (currentPlace) {
-    filtered = filtered.filter(project => project.locations.includes(currentPlace._id))
+    filtered = filtered.filter(project => locatedIn(project, currentPlace, places))
   } else {
     // show all projects without location and the ones with location inside bounding box
     // TODO add default loaction to projects without location
@@ -96,7 +109,7 @@ export function filterIntents (person, intents, projects, places, myConversation
     }
   }
   if (currentPlace) {
-    filtered = filtered.filter(intent => intent.locations.includes(currentPlace._id))
+    filtered = filtered.filter(intent => locatedIn(intent, currentPlace, places))
   } else {
     // show all intents without location and the ones with location inside bounding box
     // TODO add default loaction to intents without location

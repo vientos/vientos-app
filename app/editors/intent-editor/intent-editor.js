@@ -40,6 +40,10 @@ class IntentEditor extends Polymer.mixinBehaviors(
         computed: '_checkIfAdmin(person, updated, updated.admins)',
         observer: '_setDatePicker'
       },
+      addingLocation: {
+        type: Boolean,
+        value: false
+      },
       places: {
         type: Object,
         statePath: 'places'
@@ -201,15 +205,12 @@ class IntentEditor extends Polymer.mixinBehaviors(
     }
   }
 
-  _addLocation (place) {
-    let existingPlace = this.places.find(p => p.googlePlaceId === place.googlePlaceId)
-    if (existingPlace) {
-      place = existingPlace
-    } else {
-      place._id = mintUrl({ type: 'Place' })
-      this.dispatch('savePlace', place)
-    }
-    this._addToCollection(place._id, 'updated.locations')
+  _startAddingLocation () {
+    this.set('addingLocation', true)
+  }
+
+  _cancelAddingLocation () {
+    this.set('addingLocation', false)
   }
 
   _removeLocation (e) {
@@ -217,7 +218,8 @@ class IntentEditor extends Polymer.mixinBehaviors(
   }
 
   _placePicked (e) {
-    this._addLocation(e.detail)
+    this._addToCollection(e.detail, 'updated.locations')
+    this.set('addingLocation', false)
   }
 
   _imagePicked (e) {

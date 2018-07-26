@@ -34,6 +34,8 @@ const reducer = persistCombineReducers(persistConfig, {
   categories: DataReducers.categories,
   people: DataReducers.people,
   places: DataReducers.places,
+  states: DataReducers.states,
+  municipalities: DataReducers.municipalities,
   person: DataReducers.person,
   myConversations: DataReducers.myConversations,
   notifications: DataReducers.notifications,
@@ -65,6 +67,8 @@ persistStore(store)
 const handleLatest = [
   ActionTypes.FETCH_PROJECTS_REQUESTED,
   ActionTypes.FETCH_PLACES_REQUESTED,
+  ActionTypes.FETCH_STATES_REQUESTED,
+  ActionTypes.FETCH_MUNICIPALITIES_REQUESTED,
   ActionTypes.FETCH_CATEGORIES_REQUESTED,
   ActionTypes.FETCH_REVIEWS_REQUESTED,
   ActionTypes.FETCH_MATCHINGS_REQUESTED,
