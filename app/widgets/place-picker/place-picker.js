@@ -94,7 +94,7 @@ class PlacePicker extends Polymer.mixinBehaviors(
 
   _googlePlaceChanged (googlePlace) {
     if (googlePlace && googlePlace.place_id) {
-      this.set('place', Object.assign(this.place, {
+      this.set('place', {
         type: 'Place',
         level: 'other',
         address: googlePlace.formatted_address,
@@ -102,7 +102,7 @@ class PlacePicker extends Polymer.mixinBehaviors(
         longitude: googlePlace.latLng.lng,
         googlePlaceId: googlePlace.place_id,
         bbox: googlePlace.bbox
-      }))
+      })
     }
   }
 
@@ -130,7 +130,8 @@ class PlacePicker extends Polymer.mixinBehaviors(
       this.dispatch('savePlace', placeToSave)
       // TODO catch if savePlace fail
     })
-    this.dispatchEvent(new CustomEvent('picked', { detail: relevantPlaces.pop()._id }))
+    let placePicked = relevantPlaces.pop()
+    this.dispatchEvent(new CustomEvent('picked', { detail: placePicked._id }))
     this.reset()
   }
 
