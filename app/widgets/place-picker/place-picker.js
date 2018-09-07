@@ -94,15 +94,19 @@ class PlacePicker extends Polymer.mixinBehaviors(
 
   _googlePlaceChanged (googlePlace) {
     if (googlePlace && googlePlace.place_id) {
-      this.set('place', {
-        type: 'Place',
-        level: 'other',
-        address: googlePlace.formatted_address,
-        latitude: googlePlace.latLng.lat,
-        longitude: googlePlace.latLng.lng,
-        googlePlaceId: googlePlace.place_id,
-        bbox: googlePlace.bbox
-      })
+      let exactPlace = this.places.find(place => place.googlePlaceId === googlePlace.place_id)
+      if (!exactPlace) {
+        exactPlace = {
+          type: 'Place',
+          level: 'other',
+          address: googlePlace.formatted_address,
+          latitude: googlePlace.latLng.lat,
+          longitude: googlePlace.latLng.lng,
+          googlePlaceId: googlePlace.place_id,
+          bbox: googlePlace.bbox
+        }
+      }
+      this.set('place', exactPlace)
     }
   }
 
