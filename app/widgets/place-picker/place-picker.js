@@ -119,11 +119,10 @@ class PlacePicker extends Polymer.mixinBehaviors(
     if (this.place.googlePlaceId) {
       relevantPlaces.push(this.place)
     }
+    // State or municipality which already has _id but is not yet inlcuded in places
+    // New google places 
     let placesToSave = relevantPlaces.filter(placeToSave =>
-      !this.places.find(pl =>
-        pl._id === placeToSave._id ||
-        (placeToSave.googlePlaceId && pl.googlePlaceId === placeToSave.googlePlaceId)
-      )
+      !this.places.find(pl => pl._id === placeToSave._id)
     )
     placesToSave.forEach(placeToSave => {
       if (placeToSave.googlePlaceId) {
