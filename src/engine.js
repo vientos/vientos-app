@@ -47,7 +47,7 @@ const reducer = persistCombineReducers(persistConfig, {
   filteredCollaborationTypes: AppReducers.filteredCollaborationTypes,
   searchTerm: AppReducers.searchTerm,
   personalFilter: AppReducers.personalFilter,
-  boundingBox: AppReducers.boundingBox,
+  mapView: AppReducers.mapView,
   language: AppReducers.language,
   labels: AppReducers.labels,
   online: AppReducers.online,

@@ -68,15 +68,18 @@ export function labels (state = {}, action) {
   }
 }
 
-const DEFUALT_BOUNDINGBOX = {
-  sw: { lat: -90, lng: -180 },
-  ne: { lat: 90, lng: 180 }
+const DEFAULT_MAP_VIEW = {
+  bbox: {
+    sw: { lat: -90, lng: -180 },
+    ne: { lat: 90, lng: 180 }
+  },
+  zoom: config.map.zoom
 }
 
-export function boundingBox (state = DEFUALT_BOUNDINGBOX, action) {
+export function mapView (state = DEFAULT_MAP_VIEW, action) {
   switch (action.type) {
-    case ActionTypes.SET_BOUNDING_BOX:
-      return action.boundingBox
+    case ActionTypes.SET_MAP_VIEW:
+      return action.mapView
     default:
       return state
   }
