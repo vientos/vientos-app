@@ -22,16 +22,17 @@
     "workbox-sw": "^2.1.3"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.2",
     "babel-eslint": "^7.2.3",
     "bower": "^1.8.4",
-    "chai": "^3.5.0",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
-    "dirty-chai": "^1.2.2",
     "html-webpack-plugin": "^2.30.1",
-    "mocha": "^3.2.0",
+    "jest": "^23.6.0",
     "polymer-webpack-loader": "^2.0.0",
     "standard": "^10.0.3",
+    "ts-jest": "^23.1.4",
+    "typescript": "^3.0.3",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "webpack": "^3.5.3",
     "webpack-dev-server": "^2.7.1",
@@ -39,7 +40,7 @@
     "workbox-webpack-plugin": "^2.0.1"
   },
   "scripts": {
-    "test": "standard",
+    "test": "jest",
     "start": "webpack-dev-server --hot --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
@@ -49,7 +50,10 @@
     "parser": "babel-eslint",
     "globals": [
       "Polymer",
-      "CustomEvent"
+      "CustomEvent",
+      "describe",
+      "test",
+      "expect"
     ]
   },
   "eslintConfig": {
@@ -60,5 +64,20 @@
         "experimentalObjectRestSpread": true
       }
     }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/test/unit/*"
+    ],
+    "watchPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/bower_components/"
+    ],
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverage": true,
+    "coverageDirectory": ".coverage"
   }
 }

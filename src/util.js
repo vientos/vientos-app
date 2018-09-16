@@ -184,7 +184,7 @@ export function pathFor (entity, type) {
   return `/${type}/${url.split('/').pop()}`
 }
 
-function compareIdentifiers (fuzzy, cannonical) {
+export function compareIdentifiers (fuzzy, cannonical) {
   if (fuzzy.includes(':')) {
     // IRI identifier
     return fuzzy === cannonical

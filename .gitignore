@@ -7,3 +7,4 @@ config.json
 npm-debug.log
 package-lock.json
 dist
+.coverage
