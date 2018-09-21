@@ -454,7 +454,7 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _updateMapView (e, detail) {
-    if (this.showingMap) {
+    if (this.showingMap || this.wideScreen) {
       this.dispatch('setMapView', detail)
     }
   }
