@@ -87,10 +87,6 @@ class VientosMap extends Polymer.Element {
       let iconSize = toPoint(24, 24)
       this.markers.clearLayers()
       locations.forEach(place => {
-        let zoom = this.map.getZoom()
-        if (zoom < 9 && place.level !== 'state') return
-        if (zoom >= 9 && zoom < 12 && place.level !== 'municipality') return
-        if (zoom >= 12 && place.level !== 'other') return
         let projectCount = projects.filter(project => util.locatedIn(project, place, this.places)).length
         let intentCount = intents.filter(intent => util.locatedIn(intent, place, this.places)).length
         if (!projectCount && !intentCount) return
@@ -122,6 +118,10 @@ class VientosMap extends Polymer.Element {
     setInterval(() => {
       this.map.invalidateSize()
     }, 200)
+    setTimeout(() => {
+      // hack to get boundingBox set and trigger map View changed
+      this.set('latitude', this.latitude - 0.0001)
+    }, 500)
   }
 
   _redrawMarkers (locations, projects, intents, currentPlace) {
@@ -161,7 +161,10 @@ class VientosMap extends Polymer.Element {
   _updatedBoundingBox () {
     // FIXME gets called 3 times for lat, lon and zoom
     if (this.boundingBox) {
-      this.dispatchEvent(new CustomEvent('bbox', { detail: this.boundingBox }))
+      this.dispatchEvent(new CustomEvent('view-changed', { detail: {
+        bbox: this.boundingBox,
+        zoom: this.map.getZoom()
+      } }))
     }
   }
 

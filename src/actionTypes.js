@@ -7,6 +7,6 @@ export const SET_HISTORY = 'SET_HISTORY'
 
 export const SET_LANGUAGE = 'SET_LANGUAGE'
 export const SET_LABELS = 'SET_LABELS'
-export const SET_BOUNDING_BOX = 'SET_BOUNDING_BOX'
+export const SET_MAP_VIEW = 'SET_MAP_VIEW'
 export const SET_ONLINE = 'SET_ONLINE'
 export const SET_RESUME = 'SET_RESUME'

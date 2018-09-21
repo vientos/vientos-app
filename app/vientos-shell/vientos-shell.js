@@ -18,7 +18,7 @@ class VientosShell extends Polymer.mixinBehaviors(
       setLanguage: ActionCreators.setLanguage,
       setLabels: ActionCreators.setLabels,
       setOnline: ActionCreators.setOnline,
-      setBoundingBox: ActionCreators.setBoundingBox,
+      setMapView: ActionCreators.setMapView,
       setHistory: ActionCreators.setHistory,
       updateSearchTerm: ActionCreators.updateSearchTerm,
       enablePersonalFilter: ActionCreators.enablePersonalFilter,
@@ -108,13 +108,9 @@ class VientosShell extends Polymer.mixinBehaviors(
         type: String,
         statePath: 'locationFilter'
       },
-      boundingBox: {
+      mapView: {
         type: Object,
-        statePath: 'boundingBox'
-      },
-      boundingBoxFilter: {
-        type: Boolean,
-        statePath: 'boundingBoxFilter'
+        statePath: 'mapView'
       },
       geoTag: {
         type: String,
@@ -155,17 +151,17 @@ class VientosShell extends Polymer.mixinBehaviors(
       visibleProjects: {
         type: Array,
         value: [],
-        computed: '_filterProjects(person, projects, places, intents, personalFilter, filteredCategories, currentPlace, boundingBox, searchTerm, projectsIndex)'
+        computed: '_filterProjects(person, projects, intents, visiblePlaces, places, personalFilter, filteredCategories, currentPlace, searchTerm, projectsIndex)'
       },
       visibleIntents: {
         type: Array,
         value: [],
-        computed: '_filterIntents(person, intents, projects, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, intentsIndex)'
+        computed: '_filterIntents(person, intents, projects, visiblePlaces, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, searchTerm, intentsIndex)'
       },
       visiblePlaces: {
         type: Array,
         value: [],
-        computed: '_setVisiblePlaces(places, boundingBox, visibleProjects, visibleIntents)'
+        computed: '_setVisiblePlaces(places, mapView, projects, intents)'
       },
       reviews: {
         type: Array,
@@ -452,14 +448,14 @@ class VientosShell extends Polymer.mixinBehaviors(
     }
   }
 
-  _setVisiblePlaces (places, boundingBox, visibleProjects, visibleIntents) {
+  _setVisiblePlaces (places, mapView, projects, intents) {
     if (Array.from(arguments).includes(undefined)) return []
-    return util.filterPlaces(places, boundingBox, visibleProjects, visibleIntents)
+    return util.filterPlaces(places, mapView, projects, intents)
   }
 
-  _updateBoundingBox (e, detail) {
-    if (this.showingMap) {
-      this.dispatch('setBoundingBox', detail)
+  _updateMapView (e, detail) {
+    if (this.showingMap || this.wideScreen) {
+      this.dispatch('setMapView', detail)
     }
   }
 
@@ -553,7 +549,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _updateGeoTag (place) {
-    let map = this.$$('vientos-map')
     if (place) {
       this.set('geoTag', place.address)
     } else {

@@ -21,10 +21,10 @@ export function setOnline (online) {
   }
 }
 
-export function setBoundingBox (boundingBox) {
+export function setMapView (mapView) {
   return {
-    type: ActionTypes.SET_BOUNDING_BOX,
-    boundingBox
+    type: ActionTypes.SET_MAP_VIEW,
+    mapView
   }
 }
 

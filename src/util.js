@@ -2,6 +2,7 @@ import { escape } from 'escape-goat'
 import shave from 'shave'
 import deepEqual from 'deep-equal'
 import cloneDeep from 'lodash.clonedeep'
+import config from '../config.json'
 
 export { deepEqual, shave, cloneDeep }
 
@@ -12,19 +13,23 @@ export function inBoundingBox (place, boundingBox) {
     place.longitude >= boundingBox.sw.lng
 }
 
-export function hasLocationsInBoundingBox (entity, places, boundingBox) {
-  return places.filter(place => {
-    return locatedIn(entity, place, places) &&
-      inBoundingBox(place, boundingBox)
-  })
+export function visibleForZoomLevel (zoom, place) {
+  return (zoom < config.map.zoomTresholds.state && place.level === 'state') ||
+        (zoom >= config.map.zoomTresholds.state && zoom < config.map.zoomTresholds.municipality && place.level === 'municipality') ||
+        (zoom >= config.map.zoomTresholds.municipality && place.level === 'other')
 }
 
-export function filterPlaces (places, boundingBox, projects, intents) {
+export function placeInMapView (place, mapView) {
+  return inBoundingBox(place, mapView.bbox) &&
+    visibleForZoomLevel(mapView.zoom, place)
+}
+
+export function filterPlaces (places, mapView, projects, intents) {
   if (Array.from(arguments).includes(undefined)) return []
-  let boundedPlaces = places.filter(place => inBoundingBox(place, boundingBox))
-  return boundedPlaces.filter(place => {
-    return projects.some((project, index, array) => locatedIn(project, place, places)) ||
-           intents.some(intent => locatedIn(intent, place, places))
+  return places.filter(place => {
+    return placeInMapView(place, mapView) &&
+      (projects.some(project => locatedIn(project, place, places)) ||
+      intents.some(intent => locatedIn(intent, place, places)))
   })
 }
 
@@ -45,7 +50,7 @@ function appearsInSearchResults (entity, searchTerm, searchIndex) {
   return searchIndex.search(searchTerm).find(result => result.ref === entity._id)
 }
 
-export function filterProjects (person, projects, places, intents, personalFilter, filteredCategories, currentPlace, boundingBox, searchTerm, projectsIndex) {
+export function filterProjects (person, projects, intents, visiblePlaces, places, personalFilter, filteredCategories, currentPlace, searchTerm, projectsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
   let filtered = projects.slice()
   if (personalFilter) {
@@ -69,10 +74,9 @@ export function filterProjects (person, projects, places, intents, personalFilte
   if (currentPlace) {
     filtered = filtered.filter(project => locatedIn(project, currentPlace, places))
   } else {
-    // show all projects without location and the ones with location inside bounding box
-    // TODO add default loaction to projects without location
+    // show all projects with location inside bounding box
     filtered = filtered.filter(project => {
-      return hasLocationsInBoundingBox(project, places, boundingBox).length > 0
+      return visiblePlaces.some(place => locatedIn(project, place, places))
     })
   }
   if (searchTerm && projectsIndex) {
@@ -90,7 +94,7 @@ export function availableIntents (intents) {
   return intents.filter(intent => intent.status === 'active' && !checkIfExpired(intent))
 }
 
-export function filterIntents (person, intents, projects, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, boundingBox, searchTerm, intentsIndex) {
+export function filterIntents (person, intents, projects, visiblePlaces, places, myConversations, notifications, reviews, personalFilter, filteredCollaborationTypes, currentPlace, searchTerm, intentsIndex) {
   if (Array.from(arguments).includes(undefined)) return []
   let filtered = intents.slice()
   if (personalFilter) {
@@ -111,14 +115,11 @@ export function filterIntents (person, intents, projects, places, myConversation
   if (currentPlace) {
     filtered = filtered.filter(intent => locatedIn(intent, currentPlace, places))
   } else {
-    // show all intents without location and the ones with location inside bounding box
-    // TODO add default loaction to intents without location
     filtered = filtered.filter(intent => {
-      return hasLocationsInBoundingBox(intent, places, boundingBox).length ||
+      return visiblePlaces.some(place => locatedIn(intent, place, places)) ||
         intent.projects.some(projectId => {
           let project = getRef(projectId, projects)
-          return hasLocationsInBoundingBox(project, places, boundingBox).length ||
-            project.locations.length === 0 // TODO remove when default location
+          return visiblePlaces.some(place => locatedIn(project, place, places))
         })
     })
   }
