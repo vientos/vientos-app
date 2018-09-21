@@ -118,6 +118,10 @@ class VientosMap extends Polymer.Element {
     setInterval(() => {
       this.map.invalidateSize()
     }, 200)
+    setTimeout(() => {
+      // hack to get boundingBox set and trigger map View changed
+      this.set('latitude', this.latitude - 0.0001)
+    }, 500)
   }
 
   _redrawMarkers (locations, projects, intents, currentPlace) {
