@@ -13,14 +13,14 @@ export function inBoundingBox (place, boundingBox) {
     place.longitude >= boundingBox.sw.lng
 }
 
-export function visibleForZoomLevel(zoom, place) {
+export function visibleForZoomLevel (zoom, place) {
   return (zoom < config.map.zoomTresholds.state && place.level === 'state') ||
         (zoom >= config.map.zoomTresholds.state && zoom < config.map.zoomTresholds.municipality && place.level === 'municipality') ||
         (zoom >= config.map.zoomTresholds.municipality && place.level === 'other')
 }
 
-export function placeInMapView ( place, mapView) {
-  return inBoundingBox(place, mapView.bbox) && 
+export function placeInMapView (place, mapView) {
+  return inBoundingBox(place, mapView.bbox) &&
     visibleForZoomLevel(mapView.zoom, place)
 }
 

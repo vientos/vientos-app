@@ -549,7 +549,6 @@ class VientosShell extends Polymer.mixinBehaviors(
   }
 
   _updateGeoTag (place) {
-    let map = this.$$('vientos-map')
     if (place) {
       this.set('geoTag', place.address)
     } else {
